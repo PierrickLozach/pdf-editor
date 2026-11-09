@@ -157,7 +157,61 @@
   "The page changed: select the text again": "La page a changé : sélectionnez à nouveau le texte",
   "This text is tilted and cannot be edited": "Ce texte est incliné et ne peut pas être modifié",
   "Tilted text cannot be moved": "Un texte incliné ne peut pas être déplacé",
-  "Language": "Langue"
+  "Language": "Langue",
+  "Sign in": "Se connecter",
+  "Sign out": "Se déconnecter",
+  "My PDFs": "Mes PDF",
+  "Add PDFs": "Ajouter des PDF",
+  "Change my name": "Changer mon nom",
+  "Delete my account": "Supprimer mon compte",
+  "Passkey account · files kept on this device": "Compte à clé d'accès · fichiers gardés sur cet appareil",
+  "This name is only shown on this device.": "Ce nom n'est affiché que sur cet appareil.",
+  "Name saved": "Nom enregistré",
+  "Sign out?": "Se déconnecter ?",
+  "Signed out. Your PDFs stay encrypted on this device.": "Déconnecté. Vos PDF restent chiffrés sur cet appareil.",
+  "Delete my account?": "Supprimer mon compte ?",
+  "Your account and every PDF saved in it are deleted from this device for good. Your passkey will be asked to confirm.": "Votre compte et tous les PDF qu'il contient sont supprimés définitivement de cet appareil. Votre clé d'accès vous sera demandée pour confirmer.",
+  "Account deleted": "Compte supprimé",
+  "Encrypted with your passkey and kept on this device only.": "Chiffrés avec votre clé d'accès et gardés sur cet appareil uniquement.",
+  "No PDF yet. Add one, or open a PDF and save it.": "Aucun PDF pour l'instant. Ajoutez-en un, ou ouvrez un PDF et enregistrez-le.",
+  "More": "Plus",
+  "versions": "versions",
+  "Rename": "Renommer",
+  "Previous versions": "Versions précédentes",
+  "Delete this PDF?": "Supprimer ce PDF ?",
+  "Deleted": "Supprimé",
+  "current": "actuelle",
+  "Added to My PDFs": "Ajouté à Mes PDF",
+  "Older version opened: saving makes it the current version.": "Ancienne version ouverte : l'enregistrer en fait la version actuelle.",
+  "Not saved": "Non enregistré",
+  "Saved in My PDFs": "Enregistré dans Mes PDF",
+  "Create a free account": "Créez un compte gratuit",
+  "to keep your PDFs here and save your changes to them. No password: a passkey.": "pour garder vos PDF ici et y enregistrer vos modifications. Pas de mot de passe : une clé d'accès.",
+  "Create your account": "Créer votre compte",
+  "Create my account": "Créer mon compte",
+  "Your name": "Votre nom",
+  "No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted with it and kept on this device only.": "Aucun mot de passe à retenir : votre appareil crée une clé d'accès (empreinte, visage, code ou téléphone). Vos PDF sont chiffrés avec elle et gardés sur cet appareil uniquement.",
+  "Already have an account on this device?": "Déjà un compte sur cet appareil ?",
+  "Use the passkey you created for this site.": "Utilisez la clé d'accès créée pour ce site.",
+  "Sign in with a passkey": "Se connecter avec une clé d'accès",
+  "No account yet?": "Pas encore de compte ?",
+  "Create one": "En créer un",
+  "Keep this PDF in My PDFs?": "Garder ce PDF dans Mes PDF ?",
+  "The last 5 saved versions are kept.": "Les 5 dernières versions enregistrées sont conservées.",
+  "Something went wrong. Please try again.": "Une erreur est survenue. Réessayez.",
+  "Cancelled.": "Annulé.",
+  "This device already has a passkey for this site. Sign in instead.": "Cet appareil a déjà une clé d'accès pour ce site. Connectez-vous plutôt.",
+  "Passkeys need a secure address (https).": "Les clés d'accès demandent une adresse sécurisée (https).",
+  "This browser or device cannot create passkeys.": "Ce navigateur ou cet appareil ne peut pas créer de clé d'accès.",
+  "Please enter your name.": "Indiquez votre nom.",
+  "This browser cannot keep your files encrypted with a passkey. Use an up-to-date Chrome, Edge, Safari or Firefox.": "Ce navigateur ne peut pas chiffrer vos fichiers avec une clé d'accès. Utilisez un Chrome, Edge, Safari ou Firefox à jour.",
+  "This passkey cannot encrypt files (it lacks the needed feature). Try another device or password manager.": "Cette clé d'accès ne peut pas chiffrer de fichiers (il lui manque la fonction nécessaire). Essayez un autre appareil ou gestionnaire de mots de passe.",
+  "This browser cannot use passkeys.": "Ce navigateur ne peut pas utiliser de clé d'accès.",
+  "This passkey's account is not on this browser. Your files are kept in the browser where you created the account.": "Le compte de cette clé d'accès n'est pas dans ce navigateur. Vos fichiers sont gardés dans le navigateur où vous avez créé le compte.",
+  "This passkey cannot unlock your files on this device.": "Cette clé d'accès ne peut pas déverrouiller vos fichiers sur cet appareil.",
+  "Please sign in first.": "Connectez-vous d'abord.",
+  "This file is no longer in your account.": "Ce fichier n'est plus dans votre compte.",
+  "No account on this browser yet. Create one: it takes a few seconds.": "Aucun compte dans ce navigateur pour l'instant. Créez-en un : cela prend quelques secondes."
  },
  "patterns": [
   [
@@ -291,6 +345,22 @@
   [
    "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
    "Le moteur PDF n'a pas pu démarrer. Rechargez la page ou essayez un Chrome, Edge, Firefox ou Safari à jour."
+  ],
+  [
+   "{n} PDFs added",
+   "{n} PDF ajoutés"
+  ],
+  [
+   "Welcome, {name}! Your account is ready.",
+   "Bienvenue, {name} ! Votre compte est prêt."
+  ],
+  [
+   "Signed in as {name}",
+   "Connecté en tant que {name}"
+  ],
+  [
+   "Account deleted ({n} PDF)",
+   "Compte supprimé ({n} PDF)"
   ]
  ]
 }

@@ -26,7 +26,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=5d5494c947", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=6c0fe39b1c", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -138,6 +138,7 @@ async function openFile(file, password) {
     const info = await call("open", bytes, file.name, password);
     $("#resume").hidden = true;
     loadDoc(info, true);
+    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();          // a file from the computer, not from My PDFs
   } catch (e) {
     if (e.message === "PASSWORD_REQUIRED" || e.message === "WRONG_PASSWORD") {
       document.body.classList.remove("busy");
@@ -168,6 +169,7 @@ function loadDoc(info, fresh) {
 
 async function saveFile() {
   if (!S.doc) return;
+  if (window.ACCOUNT && ACCOUNT.save && await ACCOUNT.save()) return;      // signed in: saved in My PDFs
   await closeEditor(true);
   await busy(async () => {
     const bytes = await call("export");
@@ -211,6 +213,7 @@ function applyInfo(info) {
   const old = S.doc;
   S.doc = info;
   S.dirty = true;
+  if (window.ACCOUNT && ACCOUNT.afterChange) ACCOUNT.afterChange();
   const sameLayout = old && old.pages.length === info.pages.length &&
     old.pages.every((p, i) => p.w === info.pages[i].w && p.h === info.pages[i].h);
   if (!sameLayout) {
@@ -1362,6 +1365,7 @@ function bindWebExtras() {
     $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
     closeFind();
     updateButtons();
+    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();
   };
   $("#btnSidebar").onclick = () => document.body.classList.toggle("show-sidebar");
 }

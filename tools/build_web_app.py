@@ -705,6 +705,34 @@ R('''function bindWebExtras() {''', '''function bindWebExtras() {
     lp.onchange = () => I18N.set(lp.value);
   }''')
 
+# ---------------------------------------------------------------- account: My PDFs (vault.js, account.js)
+R('''async function saveFile() {
+  if (!S.doc) return;''', '''async function saveFile() {
+  if (!S.doc) return;
+  if (window.ACCOUNT && ACCOUNT.save && await ACCOUNT.save()) return;      // signed in: saved in My PDFs''')
+R('''function applyInfo(info) {
+  const old = S.doc;
+  S.doc = info;
+  S.dirty = true;''', '''function applyInfo(info) {
+  const old = S.doc;
+  S.doc = info;
+  S.dirty = true;
+  if (window.ACCOUNT && ACCOUNT.afterChange) ACCOUNT.afterChange();''')
+R('''    const info = await call("open", bytes, file.name, password);
+    $("#resume").hidden = true;
+    loadDoc(info, true);''', '''    const info = await call("open", bytes, file.name, password);
+    $("#resume").hidden = true;
+    loadDoc(info, true);
+    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();          // a file from the computer, not from My PDFs''')
+R('''    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
+    closeFind();
+    updateButtons();
+  };''', '''    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
+    closeFind();
+    updateButtons();
+    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();
+  };''')
+
 # focus the editing box at once: the font preview loads afterwards, keystrokes are never lost
 R('''  syncBar();
   await previewFont();

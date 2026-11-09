@@ -10,8 +10,11 @@
 !/.gitignore
 /tests/*
 !/tests/pw/
+!/tests/fixtures/
 /tests/pw/*
 !/tests/pw/site.pw.mjs
+!/tests/pw/account.pw.mjs
+!/tests/pw/i18n.pw.mjs
 !/tests/pw/shots.mjs
 !/tests/pw/package.json
 site/node_modules/
