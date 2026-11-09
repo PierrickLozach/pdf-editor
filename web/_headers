@@ -1,0 +1,13 @@
+# Read by Cloudflare Pages and Netlify (ignored by other hosts; index.html carries the same CSP).
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), local-fonts=(self)
+  X-Frame-Options: DENY
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+/*.wasm
+  Content-Type: application/wasm

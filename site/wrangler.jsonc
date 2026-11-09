@@ -1,0 +1,12 @@
+{
+  // PDF Editor - Cloudflare Workers static assets (free, unlimited requests). No server code,
+  // no database: the site is only files. Deploy: npm run deploy (see DEPLOY.md).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pdf-editor",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

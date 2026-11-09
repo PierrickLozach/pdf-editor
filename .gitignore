@@ -1,0 +1,25 @@
+# Public repository: only the editor, the website and the tools.
+/*
+!/web/
+!/site/
+!/tools/
+!/static/
+!/tests/
+!/README.md
+!/LICENSE
+!/.gitignore
+/tests/*
+!/tests/pw/
+/tests/pw/*
+!/tests/pw/site.pw.mjs
+!/tests/pw/shots.mjs
+!/tests/pw/package.json
+site/node_modules/
+site/public/
+site/.wrangler/
+site/.dev.vars
+__pycache__/
+.DS_Store
+
+# local only
+README-mac.md

@@ -1,0 +1,296 @@
+{
+ "language": "Français",
+ "strings": {
+  "PDF Editor": "Éditeur PDF",
+  "Open": "Ouvrir",
+  "Save": "Enregistrer",
+  "Download": "Télécharger",
+  "Edit text": "Modifier le texte",
+  "Add text": "Ajouter du texte",
+  "Whiteout": "Masquer",
+  "Image": "Image",
+  "Find & replace": "Rechercher et remplacer",
+  "Fonts": "Polices",
+  "+ Add pages from a PDF…": "+ Ajouter les pages d'un PDF…",
+  "Drop a PDF here": "Déposez un PDF ici",
+  "or": "ou",
+  "choose a file": "choisissez un fichier",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– cliquez sur un texte et tapez ; l'original est vraiment supprimé et le nouveau texte reprend la même police, la même taille et la même couleur.",
+  "across the whole document.": "dans tout le document.",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "Ajoutez du texte, masquez des zones, ajoutez des images ou des signatures, faites pivoter, réorganisez, supprimez et fusionnez des pages.",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "Tout se passe dans votre navigateur : vos fichiers sont traités sur cet appareil et ne sont jamais envoyés.",
+  "Loading the PDF engine…": "Chargement du moteur PDF…",
+  "Resume editing": "Reprendre",
+  "Discard": "Abandonner",
+  "Free software (AGPL) based on": "Logiciel libre (AGPL) basé sur",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· polices : Liberation, Carlito, Caladea, DejaVu (licences libres) ·",
+  "licence & source": "licence et code source",
+  "Find": "Rechercher",
+  "Replace with": "Remplacer par",
+  "Match case": "Respecter la casse",
+  "Whole words": "Mots entiers",
+  "Type to search": "Tapez pour rechercher",
+  "No match": "Aucun résultat",
+  "Replace": "Remplacer",
+  "Replace all": "Tout remplacer",
+  "Fit width": "Ajuster la largeur",
+  "Cancel": "Annuler",
+  "Apply": "Appliquer",
+  "OK": "OK",
+  "Use your computer's fonts?": "Utiliser les polices de votre ordinateur ?",
+  "Some letters you typed are not in this PDF's copy of": "Certaines lettres que vous avez tapées ne sont pas dans la copie de la police",
+  ", so they were drawn with a look-alike font.": " incluse dans ce PDF : elles ont été dessinées avec une police ressemblante.",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "Autorisez l'éditeur à utiliser les polices installées sur votre ordinateur et il les redessine avec la vraie police. Les polices ne servent qu'ici, sur cet appareil :",
+  "nothing is uploaded": "rien n'est envoyé",
+  "Not now": "Plus tard",
+  "Add fonts…": "Ajouter des polices…",
+  "Allow": "Autoriser",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "Les modifications utilisent les polices du PDF dès que possible. Ces options couvrent les lettres qu'un PDF ne contient pas.",
+  "Free fonts": "Polices gratuites",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "(Google Fonts…) : téléchargées automatiquement quand un PDF en utilise une – seul le nom de la police est envoyé",
+  "Allow my fonts": "Autoriser mes polices",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "Polices que les navigateurs ne voient pas (Calibri, Cambria, Aptos… de Microsoft Office) :",
+  "Add Office fonts": "Ajouter les polices Office",
+  "Add Mac fonts": "Ajouter les polices du Mac",
+  "Other files…": "Autres fichiers…",
+  "Remove all": "Tout supprimer",
+  "Remove": "Supprimer",
+  "Drop the PDF to open it (or font files to add them)": "Déposez le PDF pour l'ouvrir (ou des polices pour les ajouter)",
+  "Pages": "Pages",
+  "Open a PDF (⌘O)": "Ouvrir un PDF (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "Enregistrer le PDF modifié (⌘S / Ctrl+S)",
+  "Download the edited PDF": "Télécharger le PDF modifié",
+  "Close this PDF": "Fermer ce PDF",
+  "Undo (⌘Z)": "Annuler (⌘Z)",
+  "Redo (⇧⌘Z)": "Rétablir (⇧⌘Z)",
+  "Tool": "Outil",
+  "Edit text: click a text to change it, drag it to move it (E)": "Modifier le texte : cliquez sur un texte pour le changer, faites-le glisser pour le déplacer (E)",
+  "Add text: click where to type (T)": "Ajouter du texte : cliquez là où écrire (T)",
+  "Whiteout: drag over an area to erase it (W)": "Masquer : faites glisser sur une zone pour l'effacer (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "Image / signature : choisissez une image, puis cliquez ou faites glisser sur la page (I)",
+  "Find & replace (⌘F)": "Rechercher et remplacer (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "Polices de cet ordinateur : modifiez avec les mêmes polices que l'original",
+  "Zoom out (⌘−)": "Zoom arrière (⌘−)",
+  "Fit to width": "Ajuster à la largeur",
+  "Zoom in (⌘+)": "Zoom avant (⌘+)",
+  "Append the pages of another PDF at the end": "Ajouter à la fin les pages d'un autre PDF",
+  "Close (Esc)": "Fermer (Échap)",
+  "Text to find": "Texte à rechercher",
+  "New text (leave empty to delete)": "Nouveau texte (vide pour supprimer)",
+  "Previous (⇧Enter)": "Précédent (⇧Entrée)",
+  "Next (Enter)": "Suivant (Entrée)",
+  "Font": "Police",
+  "Font size (pt)": "Taille (pt)",
+  "Text colour": "Couleur du texte",
+  "Bold": "Gras",
+  "Italic": "Italique",
+  "Align left (text grows to the right)": "Aligner à gauche (le texte s'allonge vers la droite)",
+  "Centre (text grows on both sides)": "Centrer (le texte s'allonge des deux côtés)",
+  "Align right (text grows to the left: amounts, totals)": "Aligner à droite (le texte s'allonge vers la gauche : montants, totaux)",
+  "Shrink the new text so it is never wider than the original": "Réduire le nouveau texte pour qu'il ne dépasse jamais la largeur de l'original",
+  "Cancel (Esc)": "Annuler (Échap)",
+  "Apply (Enter · Shift+Enter for a new line)": "Appliquer (Entrée · Maj+Entrée pour une nouvelle ligne)",
+  "This browser cannot run the editor (no module workers). Please update it.": "Ce navigateur ne peut pas faire fonctionner l'éditeur. Merci de le mettre à jour.",
+  "Please choose a PDF file": "Choisissez un fichier PDF",
+  "Open another PDF?": "Ouvrir un autre PDF ?",
+  "Open anyway": "Ouvrir quand même",
+  "Password-protected PDF": "PDF protégé par mot de passe",
+  "Wrong password, try again:": "Mot de passe incorrect, réessayez :",
+  "Save as": "Enregistrer sous",
+  "PDF document": "Document PDF",
+  "Loading…": "Chargement…",
+  "Click to edit · drag to move": "Cliquer pour modifier · glisser pour déplacer",
+  "Tilted text cannot be edited": "Un texte incliné ne peut pas être modifié",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Ce texte est incliné : il ne peut pas être modifié sur place. Utilisez Masquer puis Ajouter du texte.",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Aucun texte modifiable sur cette page (image scannée ?) – utilisez Masquer puis Ajouter du texte.",
+  "You can undo this with ⌘Z.": "Vous pouvez l'annuler avec ⌘Z.",
+  "Delete": "Supprimer",
+  "Close": "Fermer",
+  "Included fonts": "Polices incluses",
+  "Fonts on this computer": "Polices de cet ordinateur",
+  "＋ Fonts from this computer…": "＋ Polices de cet ordinateur…",
+  "Use my fonts": "Utiliser mes polices",
+  "Add font…": "Ajouter la police…",
+  "(look-alike font)": "(police ressemblante)",
+  "check the text: this PDF hides its real characters": "vérifiez le texte : ce PDF masque ses vrais caractères",
+  "this PDF hides its real characters; check the text before applying": "ce PDF masque ses vrais caractères ; vérifiez le texte avant d'appliquer",
+  "↵ apply": "↵ appliquer",
+  "⇧↵ new line": "⇧↵ nouvelle ligne",
+  "Esc cancel": "Échap annuler",
+  "Drag over the area to white out – text under it is really removed": "Faites glisser sur la zone à masquer – le texte dessous est vraiment supprimé",
+  "Click where the new text should start": "Cliquez là où le nouveau texte doit commencer",
+  "Drag to draw the area to white out": "Faites glisser pour tracer la zone à masquer",
+  "This image could not be read": "Cette image n'a pas pu être lue",
+  "This match spans text with two different styles: click it with Edit text to change it": "Ce résultat couvre deux styles de texte différents : cliquez dessus avec Modifier le texte pour le changer",
+  "Replacement drawn with the original font.": "Remplacement dessiné avec la police d'origine.",
+  "Drop a PDF file (or font files)": "Déposez un fichier PDF (ou des polices)",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "Le navigateur n'a partagé aucune police. Autorisez « Polices » pour ce site (icône à gauche de la barre d'adresse), puis réessayez.",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "L'accès aux polices de cet ordinateur n'a pas été autorisé. Pour l'autoriser plus tard : icône à gauche de la barre d'adresse → Paramètres du site → Polices → Autoriser.",
+  "No font files there (.ttf, .otf or .ttc)": "Aucun fichier de police ici (.ttf, .otf ou .ttc)",
+  "No file chosen": "Aucun fichier choisi",
+  "These fonts were already added": "Ces polices étaient déjà ajoutées",
+  "✓ The fonts installed on this computer are used.": "✓ Les polices installées sur cet ordinateur sont utilisées.",
+  "Use the fonts installed on this computer (the browser asks you once).": "Utiliser les polices installées sur cet ordinateur (le navigateur vous le demande une fois).",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "Dans la fenêtre : appuyez sur ⌘⇧G, puis ⌘V, puis Entrée, puis cliquez sur Importer (les fichiers restent sur votre Mac).",
+  "this PDF's font": "la police de ce PDF",
+  "Remove all added fonts?": "Supprimer toutes les polices ajoutées ?",
+  "They are removed from this browser only; the files on your computer are not touched.": "Elles sont supprimées de ce navigateur uniquement ; les fichiers de votre ordinateur ne sont pas touchés.",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "Non autorisé – la police ressemblante est conservée. Vous pourrez l'autoriser plus tard avec le bouton Polices.",
+  "Close this PDF?": "Fermer ce PDF ?",
+  "Your edits have not been saved and will be lost.": "Vos modifications n'ont pas été enregistrées et seront perdues.",
+  "Drag to move this text": "Faites glisser pour déplacer ce texte",
+  "aligned left": "aligné à gauche",
+  "aligned right": "aligné à droite",
+  "centred": "centré",
+  "A PDF needs at least one page": "Un PDF doit avoir au moins une page",
+  "Empty area": "Zone vide",
+  "Empty text": "Texte vide",
+  "No document is open": "Aucun document ouvert",
+  "No such page": "Cette page n'existe pas",
+  "Not a PDF file": "Ce n'est pas un fichier PDF",
+  "Nothing selected": "Rien n'est sélectionné",
+  "Nothing to search for": "Rien à rechercher",
+  "That PDF is password-protected": "Ce PDF est protégé par mot de passe",
+  "That file could not be read as a PDF": "Ce fichier n'a pas pu être lu comme un PDF",
+  "This file could not be read as a PDF": "Ce fichier n'a pas pu être lu comme un PDF",
+  "The page changed: click the text again": "La page a changé : cliquez à nouveau sur le texte",
+  "The page changed: select the text again": "La page a changé : sélectionnez à nouveau le texte",
+  "This text is tilted and cannot be edited": "Ce texte est incliné et ne peut pas être modifié",
+  "Tilted text cannot be moved": "Un texte incliné ne peut pas être déplacé",
+  "Language": "Langue"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "Vos modifications de « {name} » n'ont pas été enregistrées. Elles seront perdues."
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "« {name} » demande un mot de passe :"
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – Éditeur PDF"
+  ],
+  [
+   "Saved: {name}",
+   "Enregistré : {name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "Téléchargé : {name}"
+  ],
+  [
+   "Delete page {n}?",
+   "Supprimer la page {n} ?"
+  ],
+  [
+   "{orig} not available",
+   "{orig} indisponible"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "Texte réduit à {n} pt pour tenir"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "Cliquez sur une page pour placer « {name} », ou faites glisser pour choisir sa taille"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "{n} n'ont pas pu être remplacés automatiquement (styles mélangés) : modifiez-les en cliquant dessus"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "Remarque : la police d'origine n'est pas disponible pour une partie du texte ; dessiné avec {f}."
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "Remplacement dessiné avec {f} (mêmes largeurs de caractères que l'original)."
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "{n} page(s) de « {name} » ajoutée(s) à la fin"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "{n} familles de polices de cet ordinateur sont maintenant utilisables"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "Lecture d'un fichier de police ({size})…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "Lecture de {n} fichiers de police ({size})…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "1 famille de polices ajoutée : {list}"
+  ],
+  [
+   "Added 1 font family",
+   "1 famille de polices ajoutée"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "{n} familles de polices ajoutées : {list}"
+  ],
+  [
+   "Added {n} font families",
+   "{n} familles de polices ajoutées"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "1 fichier n'a pas pu être lu ({name} : {why})"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "{n} fichiers n'ont pas pu être lus ({name} : {why})"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "1 fichier de plus de 8 Mo ignoré ({names}) – ajoutez-le avec « Autres fichiers… » si besoin"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "{n} fichiers de plus de 8 Mo ignorés ({names}) – ajoutez-les avec « Autres fichiers… » si besoin"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "1 famille de polices conservée dans ce navigateur ({size})"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "{n} familles de polices conservées dans ce navigateur ({size})"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "Pas encore disponibles pour ce PDF : {list}. Pour les polices Office, utilisez « Ajouter les polices Office »."
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "Pas encore disponibles pour ce PDF : {list}."
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "Dans la fenêtre : appuyez sur ⌘⇧G, tapez {path}, puis Entrée, puis Importer."
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "« {name} » (modifié le {when}) est encore dans ce navigateur."
+  ],
+  [
+   "{a} of {b}",
+   "{a} sur {b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "Le moteur PDF n'a pas pu démarrer : {why}. Rechargez la page ou essayez un Chrome, Edge, Firefox ou Safari à jour."
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "Le moteur PDF n'a pas pu démarrer. Rechargez la page ou essayez un Chrome, Edge, Firefox ou Safari à jour."
+  ]
+ ]
+}

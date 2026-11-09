@@ -1,0 +1,19 @@
+{
+  "name": "PDF Editor",
+  "tagline": "Edit PDFs in your browser, for free",
+  "description": "Free PDF editor that runs in your browser: change text in its original font, move text, find and replace, white-out, add images and signatures, rearrange pages. Your PDFs never leave your device.",
+  "url": "https://pdf-editor.example.com",
+  "lang": "en",
+  "publisher": {
+    "name": "Pierrick Lozach",
+    "address": "[postal address of the publisher]",
+    "email": "[contact email]"
+  },
+  "host": "Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA – +1 (650) 319-8930 – www.cloudflare.com",
+  "source": "https://github.com/PierrickLozach/pdf-editor",
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "default_language": "en"
+}

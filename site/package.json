@@ -1,0 +1,14 @@
+{
+  "name": "pdf-editor-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 ../tools/build_site.py",
+    "dev": "npm run build && wrangler dev --local --port 8787 --ip 127.0.0.1",
+    "deploy": "npm run build && wrangler deploy",
+    "test": "sh tests/run.sh"
+  },
+  "dependencies": {
+    "wrangler": "^4.159.0"
+  }
+}

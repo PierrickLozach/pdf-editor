@@ -1,0 +1,11 @@
+{
+  "name": "English", "dir": "ltr", "locale": "en_US",
+  "site_name": "PDF Editor",
+  "skip": "Skip to content",
+  "nav_editor": "Editor", "nav_features": "Features", "nav_privacy": "Privacy", "nav_faq": "FAQ",
+  "open_editor": "Open the editor",
+  "language": "Language",
+  "footer_privacy": "Privacy", "footer_cookies": "Cookies", "footer_terms": "Terms", "footer_legal": "Legal notice", "footer_source": "Source code",
+  "footer_free": "Free software (AGPL)",
+  "date_format": "%B %-d, %Y"
+}

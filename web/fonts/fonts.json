@@ -1,0 +1,244 @@
+{
+ "fonts": [
+  {
+   "file": "Caladea-Bold.ttf",
+   "family": "Caladea",
+   "key": "caladea",
+   "ps": "Caladea-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "Caladea (Cambria)",
+   "size": 84492
+  },
+  {
+   "file": "Caladea-BoldItalic.ttf",
+   "family": "Caladea",
+   "key": "caladea",
+   "ps": "Caladea-BoldItalic",
+   "bold": true,
+   "italic": true,
+   "label": "Caladea (Cambria)",
+   "size": 83356
+  },
+  {
+   "file": "Caladea-Italic.ttf",
+   "family": "Caladea",
+   "key": "caladea",
+   "ps": "Caladea-Italic",
+   "bold": false,
+   "italic": true,
+   "label": "Caladea (Cambria)",
+   "size": 83780
+  },
+  {
+   "file": "Caladea-Regular.ttf",
+   "family": "Caladea",
+   "key": "caladea",
+   "ps": "Caladea-Regular",
+   "bold": false,
+   "italic": false,
+   "label": "Caladea (Cambria)",
+   "size": 81600
+  },
+  {
+   "file": "Carlito-Bold.ttf",
+   "family": "Carlito",
+   "key": "carlito",
+   "ps": "Carlito-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "Carlito (Calibri)",
+   "size": 682468
+  },
+  {
+   "file": "Carlito-BoldItalic.ttf",
+   "family": "Carlito",
+   "key": "carlito",
+   "ps": "Carlito-BoldItalic",
+   "bold": true,
+   "italic": true,
+   "label": "Carlito (Calibri)",
+   "size": 808508
+  },
+  {
+   "file": "Carlito-Italic.ttf",
+   "family": "Carlito",
+   "key": "carlito",
+   "ps": "Carlito-Italic",
+   "bold": false,
+   "italic": true,
+   "label": "Carlito (Calibri)",
+   "size": 615236
+  },
+  {
+   "file": "Carlito-Regular.ttf",
+   "family": "Carlito",
+   "key": "carlito",
+   "ps": "Carlito-Regular",
+   "bold": false,
+   "italic": false,
+   "label": "Carlito (Calibri)",
+   "size": 628032
+  },
+  {
+   "file": "DejaVuSans-Bold.ttf",
+   "family": "DejaVu Sans",
+   "key": "dejavusans",
+   "ps": "DejaVuSans-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "DejaVu Sans (all languages)",
+   "size": 705684
+  },
+  {
+   "file": "DejaVuSans-BoldOblique.ttf",
+   "family": "DejaVu Sans",
+   "key": "dejavusans",
+   "ps": "DejaVuSans-BoldOblique",
+   "bold": true,
+   "italic": true,
+   "label": "DejaVu Sans (all languages)",
+   "size": 643292
+  },
+  {
+   "file": "DejaVuSans-Oblique.ttf",
+   "family": "DejaVu Sans",
+   "key": "dejavusans",
+   "ps": "DejaVuSans-Oblique",
+   "bold": false,
+   "italic": true,
+   "label": "DejaVu Sans (all languages)",
+   "size": 635416
+  },
+  {
+   "file": "DejaVuSans.ttf",
+   "family": "DejaVu Sans",
+   "key": "dejavusans",
+   "ps": "DejaVuSans",
+   "bold": false,
+   "italic": false,
+   "label": "DejaVu Sans (all languages)",
+   "size": 757076
+  },
+  {
+   "file": "LiberationMono-Bold.ttf",
+   "family": "Liberation Mono",
+   "key": "liberationmono",
+   "ps": "LiberationMono-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "Liberation Mono (Courier New)",
+   "size": 307996
+  },
+  {
+   "file": "LiberationMono-BoldItalic.ttf",
+   "family": "Liberation Mono",
+   "key": "liberationmono",
+   "ps": "LiberationMono-BoldItalic",
+   "bold": true,
+   "italic": true,
+   "label": "Liberation Mono (Courier New)",
+   "size": 284068
+  },
+  {
+   "file": "LiberationMono-Italic.ttf",
+   "family": "Liberation Mono",
+   "key": "liberationmono",
+   "ps": "LiberationMono-Italic",
+   "bold": false,
+   "italic": true,
+   "label": "Liberation Mono (Courier New)",
+   "size": 281536
+  },
+  {
+   "file": "LiberationMono-Regular.ttf",
+   "family": "Liberation Mono",
+   "key": "liberationmono",
+   "ps": "LiberationMono",
+   "bold": false,
+   "italic": false,
+   "label": "Liberation Mono (Courier New)",
+   "size": 319508
+  },
+  {
+   "file": "LiberationSans-Bold.ttf",
+   "family": "Liberation Sans",
+   "key": "liberationsans",
+   "ps": "LiberationSans-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "Liberation Sans (Arial / Helvetica)",
+   "size": 414456
+  },
+  {
+   "file": "LiberationSans-BoldItalic.ttf",
+   "family": "Liberation Sans",
+   "key": "liberationsans",
+   "ps": "LiberationSans-BoldItalic",
+   "bold": true,
+   "italic": true,
+   "label": "Liberation Sans (Arial / Helvetica)",
+   "size": 408996
+  },
+  {
+   "file": "LiberationSans-Italic.ttf",
+   "family": "Liberation Sans",
+   "key": "liberationsans",
+   "ps": "LiberationSans-Italic",
+   "bold": false,
+   "italic": true,
+   "label": "Liberation Sans (Arial / Helvetica)",
+   "size": 415816
+  },
+  {
+   "file": "LiberationSans-Regular.ttf",
+   "family": "Liberation Sans",
+   "key": "liberationsans",
+   "ps": "LiberationSans",
+   "bold": false,
+   "italic": false,
+   "label": "Liberation Sans (Arial / Helvetica)",
+   "size": 410712
+  },
+  {
+   "file": "LiberationSerif-Bold.ttf",
+   "family": "Liberation Serif",
+   "key": "liberationserif",
+   "ps": "LiberationSerif-Bold",
+   "bold": true,
+   "italic": false,
+   "label": "Liberation Serif (Times New Roman)",
+   "size": 370096
+  },
+  {
+   "file": "LiberationSerif-BoldItalic.ttf",
+   "family": "Liberation Serif",
+   "key": "liberationserif",
+   "ps": "LiberationSerif-BoldItalic",
+   "bold": true,
+   "italic": true,
+   "label": "Liberation Serif (Times New Roman)",
+   "size": 376772
+  },
+  {
+   "file": "LiberationSerif-Italic.ttf",
+   "family": "Liberation Serif",
+   "key": "liberationserif",
+   "ps": "LiberationSerif-Italic",
+   "bold": false,
+   "italic": true,
+   "label": "Liberation Serif (Times New Roman)",
+   "size": 375632
+  },
+  {
+   "file": "LiberationSerif-Regular.ttf",
+   "family": "Liberation Serif",
+   "key": "liberationserif",
+   "ps": "LiberationSerif",
+   "bold": false,
+   "italic": false,
+   "label": "Liberation Serif (Times New Roman)",
+   "size": 393576
+  }
+ ]
+}
