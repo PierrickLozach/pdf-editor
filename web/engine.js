@@ -705,9 +705,13 @@ export class Engine {
 
   _schedulePersist() {
     clearTimeout(this._pt);
-    this._pt = setTimeout(() => {
-      try { this.persist(this.s.name, this.s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice()); } catch (e) { /* best effort */ }
-    }, 800);
+    this._pt = setTimeout(() => this.flushPersist(), 800);
+  }
+  /** Write the recovery copy now (before the PDF is marked as saved, so a late copy cannot undo that). */
+  flushPersist() {
+    if (!this._pt || !this.persist || !this.s) return;
+    clearTimeout(this._pt); this._pt = null;
+    try { return this.persist(this.s.name, this.s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice()); } catch (e) { /* best effort */ }
   }
 
   undo() {

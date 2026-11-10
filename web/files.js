@@ -8,7 +8,8 @@
   "use strict";
   const t = (s) => (window.I18N ? I18N.t(s) : s);
   const MAX = 250 * 1024 * 1024;            // largest PDF tested to open, edit and save in every browser
-  const KEEP = 10;
+  const KEEP = 10, SHOW = 5;
+  const CUR = "pdfe.currentRecent";          // which recent file is open (to match the unsaved copy with it)
   const F = (window.FILES = { handle: null, maxBytes: MAX, supported: typeof window.showOpenFilePicker === "function" });
   const el = (html) => { const d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstElementChild; };
   const lang = () => document.documentElement.lang || "en";
@@ -46,32 +47,76 @@
       let same = null;
       for (const x of list) { try { if (await x.handle.isSameEntry(handle)) { same = x; break; } } catch (e) {} }
       const id = same ? same.id : crypto.randomUUID();
+      try { localStorage.setItem(CUR, id); } catch (e) {}
       await store("readwrite", (st) => {
         st.put({ id, name, handle, time: Date.now() });
         list.filter((x) => x.id !== id).sort((a, b) => b.time - a.time).slice(KEEP - 1).forEach((x) => st.delete(x.id));
       });
     } catch (e) { /* storage unavailable (private mode): no recent list */ }
   }
+  /* The start screen lists the recent files, at most 5. When an unsaved copy of the last PDF is still in
+   * the browser (the tab was closed or the browser quit), it is shown on that file's line — "Unsaved
+   * changes" with Resume — instead of in a box of its own; a PDF without a recent entry (Firefox,
+   * Safari, a PDF made from pictures) gets one line for it. */
+  let resumeRec = null;
+  F.setResume = (rec) => { resumeRec = rec && rec.unsaved ? rec : null; renderRecent(); };
+  const short = (ms) => {
+    const d = new Date(ms), now = new Date();
+    if (d.toDateString() === now.toDateString()) return d.toLocaleTimeString(lang(), { hour: "numeric", minute: "2-digit" });
+    return d.toLocaleDateString(lang(), d.getFullYear() === now.getFullYear() ? { day: "numeric", month: "short" } : { dateStyle: "medium" });
+  };
+  const ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
   async function renderRecent() {
     let box = document.getElementById("recentFiles");
-    if (!F.supported) { if (box) box.hidden = true; return; }
     if (!box) {
       box = el(`<section id="recentFiles" aria-labelledby="recentTitle" hidden>
         <h2 id="recentTitle">${t("Recent files")}</h2><ul></ul></section>`);
       document.querySelector("#empty .drop").prepend(box);
     }
-    const list = (await store("readonly", all).catch(() => [])).sort((a, b) => b.time - a.time);
+    let list = F.supported ? (await store("readonly", all).catch(() => [])).sort((a, b) => b.time - a.time) : [];
+    let cur = null; try { cur = localStorage.getItem(CUR); } catch (e) {}
+    const rec = resumeRec && !(window.S && S.doc) ? resumeRec : null;
+    // the unsaved copy belongs to the recent file that was open, if it is still in the list
+    let host = rec ? list.find((x) => x.id === cur && x.name === rec.name) : null;
     const ul = box.querySelector("ul");
     ul.textContent = "";
-    for (const x of list) {
-      const li = el(`<li><button class="rf-open"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg><span class="rf-name"></span><span class="rf-when"></span></button><button class="rf-del icon" title="${t("Remove from this list")}">✕</button></li>`);
-      li.querySelector(".rf-name").textContent = x.name;
-      li.querySelector(".rf-when").textContent = when(x.time);
+    const row = (name, time, unsaved) => {
+      const li = el(`<li${unsaved ? ' class="rf-unsaved"' : ""}><button class="rf-open">${ICON}<span class="rf-name"></span>${unsaved ? `<span class="rf-badge">${t("Unsaved changes")}</span>` : ""}<span class="rf-when"></span></button><button class="rf-del icon">✕</button></li>`);
+      li.querySelector(".rf-name").textContent = name;
+      li.querySelector(".rf-name").title = name;
+      li.querySelector(".rf-when").textContent = short(time);
+      ul.appendChild(li);
+      return li;
+    };
+    if (rec) {
+      const li = row(rec.name, Math.max(rec.time || 0, host ? host.time : 0), true);
+      li.querySelector(".rf-open").title = t("Resume editing");
+      li.querySelector(".rf-del").title = t("Discard the unsaved changes");
+      li.querySelector(".rf-open").onclick = () => resume(host);
+      li.querySelector(".rf-del").onclick = async () => {
+        if (!(await modal({ title: t("Discard the unsaved changes?"), text: t("The changes to “{name}” that were not saved are deleted. The file itself is not changed.").replace("{name}", rec.name), ok: t("Discard"), danger: true }))) return;
+        await call("discard"); resumeRec = null; renderRecent();
+      };
+    }
+    for (const x of list.filter((x) => x !== host).slice(0, rec ? SHOW - 1 : SHOW)) {
+      const li = row(x.name, x.time, false);
+      li.querySelector(".rf-del").title = t("Remove from this list");
       li.querySelector(".rf-open").onclick = () => openRecent(x);
       li.querySelector(".rf-del").onclick = async () => { await store("readwrite", (st) => st.delete(x.id)); renderRecent(); };
-      ul.appendChild(li);
     }
-    box.hidden = !list.length;
+    box.hidden = !ul.children.length;
+    const old = document.getElementById("resume"); if (old) old.hidden = true;     // the separate box is not used any more
+  }
+  /** Reopen the unsaved copy; when it belongs to a recent file, Save goes back into that file. */
+  async function resume(host) {
+    await busy(async () => {
+      const info = await call("restore");
+      resumeRec = null;
+      loadDoc(info, true);
+      S.dirty = true;
+      F.handle = host ? host.handle : null;
+      mark();
+    });
   }
   async function openRecent(x) {
     try {
@@ -119,10 +164,11 @@
   F.opened = (file) => {
     F.handle = (file && file.__handle) || null;
     askedFor = null;
+    if (!F.handle) try { localStorage.removeItem(CUR); } catch (e) {}
     if (F.handle) remember(F.handle, file.name);
     mark();
   };
-  F.closed = () => { F.handle = null; askedFor = null; mark(); renderRecent(); };
+  F.closed = () => { F.handle = null; askedFor = null; try { localStorage.removeItem(CUR); } catch (e) {} mark(); renderRecent(); };
   F.afterChange = () => mark();
 
   /* ---------------------------------------------------------------- save */
@@ -165,6 +211,7 @@
       try { await w.write(bytes); await w.close(); }
       catch (e) { try { await w.abort(); } catch (x) {} throw new Error(t("The file could not be saved: {why}").replace("{why}", e.message)); }
       S.dirty = false;
+      call("markSaved").catch(() => {});
       ok = true;
       mark();
       toast(t("Saved in “{name}”").replace("{name}", h.name));

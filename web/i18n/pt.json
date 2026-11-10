@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "arraste sobre o que deve sumir ou marque uma palavra em todo o PDF",
   "one picture per page": "uma imagem por página",
   "smaller files": "arquivos menores",
-  "the text, to edit it in Word; the layout is not kept": "o texto, para editar no Word; o layout não é mantido"
+  "the text, to edit it in Word; the layout is not kept": "o texto, para editar no Word; o layout não é mantido",
+  "Unsaved changes": "Alterações não salvas",
+  "Discard the unsaved changes": "Descartar as alterações não salvas",
+  "Discard the unsaved changes?": "Descartar as alterações não salvas?"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "“{name}” não é uma imagem que este editor consiga ler"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "As alterações em “{name}” que não foram salvas serão apagadas. O arquivo em si não muda."
   ]
  ]
 }

@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "arrastra sobre lo que debe desaparecer o marca una palabra en todo",
   "one picture per page": "una imagen por página",
   "smaller files": "archivos más pequeños",
-  "the text, to edit it in Word; the layout is not kept": "el texto, para editarlo en Word; no se conserva el diseño"
+  "the text, to edit it in Word; the layout is not kept": "el texto, para editarlo en Word; no se conserva el diseño",
+  "Unsaved changes": "Cambios sin guardar",
+  "Discard the unsaved changes": "Descartar los cambios sin guardar",
+  "Discard the unsaved changes?": "¿Descartar los cambios sin guardar?"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "«{name}» no es una imagen que este editor pueda leer"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "Se eliminan los cambios de «{name}» que no se guardaron. El archivo en sí no cambia."
   ]
  ]
 }

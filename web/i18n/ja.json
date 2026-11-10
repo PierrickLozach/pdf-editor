@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "消す部分をドラッグ、または語句をすべてマーク",
   "one picture per page": "1 ページにつき 1 枚の画像",
   "smaller files": "ファイルが小さい",
-  "the text, to edit it in Word; the layout is not kept": "テキストのみ。Word で編集できます。レイアウトは保持されません"
+  "the text, to edit it in Word; the layout is not kept": "テキストのみ。Word で編集できます。レイアウトは保持されません",
+  "Unsaved changes": "未保存の変更あり",
+  "Discard the unsaved changes": "未保存の変更を破棄",
+  "Discard the unsaved changes?": "未保存の変更を破棄しますか？"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "「{name}」はこのエディタで読み込める画像ではありません"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "「{name}」の保存されていない変更は削除されます。ファイル自体は変更されません。"
   ]
  ]
 }

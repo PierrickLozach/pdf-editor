@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "اسحب فوق ما يجب أن يختفي، أو حدّد كلمة في كل مكان",
   "one picture per page": "صورة لكل صفحة",
   "smaller files": "ملفات أصغر",
-  "the text, to edit it in Word; the layout is not kept": "النص، لتعديله في Word؛ لا يُحتفظ بالتنسيق"
+  "the text, to edit it in Word; the layout is not kept": "النص، لتعديله في Word؛ لا يُحتفظ بالتنسيق",
+  "Unsaved changes": "تغييرات غير محفوظة",
+  "Discard the unsaved changes": "تجاهل التغييرات غير المحفوظة",
+  "Discard the unsaved changes?": "تجاهل التغييرات غير المحفوظة؟"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "«{name}» ليست صورة يمكن لهذا المحرر قراءتها"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "تُحذف التغييرات غير المحفوظة على «{name}». ولا يتغير الملف نفسه."
   ]
  ]
 }

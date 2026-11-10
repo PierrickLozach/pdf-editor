@@ -362,3 +362,10 @@ a.logo:hover, a.logo:focus-visible { filter: brightness(1.12); outline: none; bo
 .rubber.redact { border-color: #dc2626; background: rgba(17,24,39,.35); }
 body.tool-redact .page .layer { cursor: crosshair; touch-action: none; }
 body.tool-redact .page .spans { pointer-events: none; }
+
+/* recent files: compact, one line per file; a file with unsaved changes is marked on its own line */
+#recentFiles li.rf-unsaved .rf-name { color: var(--fg); }
+.rf-badge { flex: none; font-size: 11px; font-weight: 600; color: #b45309; background: rgba(245,158,11,.14); border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
+.rf-when { flex: none; }
+.rf-name { min-width: 0; }
+@media (max-width: 760px) { .rf-badge { padding: 2px 6px; } }

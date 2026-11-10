@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "sleep over wat moet verdwijnen, of markeer een woord overal",
   "one picture per page": "één afbeelding per pagina",
   "smaller files": "kleinere bestanden",
-  "the text, to edit it in Word; the layout is not kept": "de tekst, om in Word te bewerken; de opmaak blijft niet behouden"
+  "the text, to edit it in Word; the layout is not kept": "de tekst, om in Word te bewerken; de opmaak blijft niet behouden",
+  "Unsaved changes": "Niet opgeslagen",
+  "Discard the unsaved changes": "Niet-opgeslagen wijzigingen verwijderen",
+  "Discard the unsaved changes?": "Niet-opgeslagen wijzigingen verwijderen?"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "‘{name}’ is geen afbeelding die deze editor kan lezen"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "De niet-opgeslagen wijzigingen in ‘{name}’ worden verwijderd. Het bestand zelf verandert niet."
   ]
  ]
 }

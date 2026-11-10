@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "גרירה מעל מה שצריך להיעלם, או סימון מילה בכל מקום",
   "one picture per page": "תמונה אחת לכל עמוד",
   "smaller files": "קבצים קטנים יותר",
-  "the text, to edit it in Word; the layout is not kept": "הטקסט, לעריכה ב-Word; הפריסה לא נשמרת"
+  "the text, to edit it in Word; the layout is not kept": "הטקסט, לעריכה ב-Word; הפריסה לא נשמרת",
+  "Unsaved changes": "שינויים שלא נשמרו",
+  "Discard the unsaved changes": "ביטול השינויים שלא נשמרו",
+  "Discard the unsaved changes?": "לבטל את השינויים שלא נשמרו?"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "\"{name}\" אינו תמונה שהעורך הזה יכול לקרוא"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "השינויים ב-\"{name}\" שלא נשמרו יימחקו. הקובץ עצמו לא משתנה."
   ]
  ]
 }

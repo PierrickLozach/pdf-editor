@@ -20,6 +20,7 @@
 /tests/pw/*
 !/tests/pw/site.pw.mjs
 !/tests/pw/files.pw.mjs
+!/tests/pw/recent.pw.mjs
 !/tests/pw/image.pw.mjs
 !/tests/pw/undo.pw.mjs
 !/tests/pw/tools.pw.mjs

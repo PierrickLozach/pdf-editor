@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=8571149a05", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=799bbf27d9", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -186,6 +186,7 @@ async function saveFile() {
         await w.write(bytes);
         await w.close();
         S.dirty = false;
+        call("markSaved").catch(() => {});
         if (window.FILES) FILES.adopt(h);
         toast(`Saved: ${h.name}`);
         return;
@@ -193,6 +194,7 @@ async function saveFile() {
     }
     triggerDownload(bytes, name);
     S.dirty = false;
+    call("markSaved").catch(() => {});
     toast(`Downloaded: ${name}`);
   });
 }
@@ -204,6 +206,7 @@ async function download() {
     const bytes = await call("export");
     triggerDownload(bytes, outName(S.doc.name));
     S.dirty = false;
+    call("markSaved").catch(() => {});
   }));
 }
 
@@ -1393,6 +1396,7 @@ function bindFonts() {
 }
 
 function showResume(rec) {
+  if (window.FILES && FILES.setResume) return FILES.setResume(rec);      // shown in the Recent files list
   const box = $("#resume");
   const when = new Date(rec.time).toLocaleString();
   $("#resumeText").textContent = `“${rec.name}” (last edited ${when}) is still in this browser.`;

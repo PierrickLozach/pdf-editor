@@ -366,7 +366,10 @@
   "drag over what must disappear, or mark a word everywhere": "框选要删除的内容，或标记所有出现的某个词",
   "one picture per page": "每页一张图片",
   "smaller files": "文件更小",
-  "the text, to edit it in Word; the layout is not kept": "仅文本，可在 Word 中编辑；不保留版式"
+  "the text, to edit it in Word; the layout is not kept": "仅文本，可在 Word 中编辑；不保留版式",
+  "Unsaved changes": "有未保存的更改",
+  "Discard the unsaved changes": "放弃未保存的更改",
+  "Discard the unsaved changes?": "放弃未保存的更改？"
  },
  "patterns": [
   [
@@ -600,6 +603,10 @@
   [
    "“{name}” is not a picture this editor can read",
    "“{name}”不是此编辑器可以读取的图片"
+  ],
+  [
+   "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
+   "“{name}”中未保存的更改将被删除。文件本身不会改变。"
   ]
  ]
 }
