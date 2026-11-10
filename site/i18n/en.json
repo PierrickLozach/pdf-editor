@@ -17,5 +17,6 @@
   "footer_source": "Source code",
   "footer_free": "Free software (AGPL)",
   "date_format": "%B %-d, %Y",
-  "language_auto": "Browser language"
+  "language_auto": "Browser language",
+  "footer_developers": "Developers"
 }

@@ -31,5 +31,6 @@
     "November",
     "Dezember"
   ],
-  "language_auto": "Browsersprache"
+  "language_auto": "Browsersprache",
+  "footer_developers": "Entwickler"
 }

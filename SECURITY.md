@@ -43,6 +43,12 @@ mention of itself and the engine's "Written by MuPDF" comment is blanked (`tests
 - **Protect** encrypts a copy with AES-256 (the owner password is random and never shown); the PDF open in the editor is not changed.
 - **OCR** runs in the browser: the pages are never uploaded. The recognised text is invisible and only added on top.
 
+## Developer library
+
+`/lib/v1/` serves the library (code, WebAssembly engine, fonts) to other websites: it is the only part of the site
+with `Access-Control-Allow-Origin: *` and `Cross-Origin-Resource-Policy: cross-origin`. These files are public and read-only;
+they process documents in the calling page, which never sends them here.
+
 ## Limits (known and accepted)
 
 - Anyone with access to the person's unlocked computer can open the files they can open; the browser's crash-recovery copy of the PDF

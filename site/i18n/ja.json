@@ -17,5 +17,6 @@
   "footer_source": "ソースコード",
   "footer_free": "フリーソフトウェア（AGPL）",
   "date_format": "%Y年%-m月%-d日",
-  "language_auto": "ブラウザの言語"
+  "language_auto": "ブラウザの言語",
+  "footer_developers": "開発者向け"
 }

@@ -40,6 +40,17 @@ subprocess.run([sys.executable, str(ROOT / "tools" / "stamp.py")], check=True, s
 if PUB.exists(): shutil.rmtree(PUB)
 shutil.copytree(WEB, PUB / "app", ignore=shutil.ignore_patterns("package.json", "_headers", ".nojekyll", "README.md", ".DS_Store"))
 shutil.copytree(PAGES / "assets", PUB / "assets", ignore=shutil.ignore_patterns(".DS_Store"))
+# ---------------------------------------------------------------- developer library: /lib/v1/ (stable address for major version 1)
+LIB = PUB / "lib" / "v1"
+LIB.mkdir(parents=True)
+for f in ("lib.js", "engine.js", "fontfile.js"): shutil.copy(WEB / f, LIB / f)
+shutil.move(str(LIB / "lib.js"), str(LIB / "pdf-editor.js"))
+shutil.copytree(WEB / "fonts", LIB / "fonts", ignore=shutil.ignore_patterns(".DS_Store"))
+shutil.copytree(WEB / "vendor" / "mupdf", LIB / "vendor" / "mupdf", ignore=shutil.ignore_patterns(".DS_Store"))
+(LIB / "LICENSE.txt").write_text((ROOT / "LICENSE").read_text())
+(LIB / "README.txt").write_text(f"PDF Editor library {json.loads((WEB / 'package.json').read_text()).get('version', '')} — AGPL-3.0.\n"
+    f"Documentation: {cfg['url']}/developers   Source: {cfg['source']}\n"
+    "Text recognition (ocr) in a browser needs the recogniser served from your own site: see the documentation.\n")
 shutil.copy(WEB / "icon.png", PUB / "icon.png")
 subprocess.run(["sips", "-s", "format", "png", "-z", "48", "48", str(WEB / "icon.png"), "--out", str(PUB / "favicon.ico")], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -87,7 +98,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a><a href="{root}legal">{t_footer_legal}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a><a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>
@@ -95,12 +106,14 @@ LAYOUT = """<!doctype html>
 </html>
 """
 
+ENGLISH_ONLY = {"developers"}                     # pages for developers: in English, at one address
 slugs = sorted(p.stem for p in (PAGES / DEFAULT).glob("*.html"))
 sitemap = []
 for l in LANGS:
     out = PUB if l == DEFAULT else PUB / l
     out.mkdir(parents=True, exist_ok=True)
     for slug in slugs:
+        if slug in ENGLISH_ONLY and l != DEFAULT: continue
         src = PAGES / l / f"{slug}.html"
         if not src.exists(): src = PAGES / DEFAULT / f"{slug}.html"      # not translated yet: default language
         raw = src.read_text()
@@ -108,10 +121,11 @@ for l in LANGS:
         meta = dict(re.findall(r"^\s*([a-z]+):\s*(.*?)\s*$", m.group(1), re.M)) if m else {}
         body = raw[m.end():] if m else raw
         path = url_of(l, slug)
-        alternates = "\n".join(f'<link rel="alternate" hreflang="{x}" href="{cfg["url"]}{url_of(x, slug)}">' for x in LANGS)
+        alts = [DEFAULT] if slug in ENGLISH_ONLY else LANGS
+        alternates = "\n".join(f'<link rel="alternate" hreflang="{x}" href="{cfg["url"]}{url_of(x, slug)}">' for x in alts)
         alternates += f'\n<link rel="alternate" hreflang="x-default" href="{cfg["url"]}{url_of(DEFAULT, slug)}">'
         options = f'<option value="auto">{html.escape(T[l].get("language_auto", "Browser language"))}</option>' + \
-                  "".join(f'<option value="{x}" data-href="{url_of(x, slug)}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
+                  "".join(f'<option value="{x}" data-href="{url_of(x, "index" if slug in ENGLISH_ONLY and x != DEFAULT else slug)}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
         words = {f"t_{k}": html.escape(v) for k, v in T[l].items() if isinstance(v, str)}
         page = LAYOUT.format(lang=l, dir=T[l].get("dir", "ltr"), title=fill(meta.get("title", T[l]["site_name"]), l),
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",
@@ -150,6 +164,11 @@ rules.append("/app/vendor/*\n  Cache-Control: public, max-age=31536000, immutabl
 rules.append("/app/fonts/*.ttf\n  Cache-Control: public, max-age=31536000, immutable\n")
 rules.append("/assets/*\n  Cache-Control: public, max-age=86400\n")
 rules.append("/.well-known/*\n  Content-Type: text/plain; charset=utf-8\n")
+# the library can be used from other websites: its files only (code, WebAssembly engine, fonts), read-only
+rules.append("/lib/*\n  ! Cross-Origin-Resource-Policy\n  Cross-Origin-Resource-Policy: cross-origin\n  Access-Control-Allow-Origin: *\n"
+             "  Cache-Control: public, max-age=3600\n")
+rules.append("/lib/v1/vendor/*\n  Cache-Control: public, max-age=31536000, immutable\n")
+rules.append("/lib/v1/fonts/*.ttf\n  Cache-Control: public, max-age=31536000, immutable\n")
 # how to report a security problem (RFC 9116)
 wk = PUB / ".well-known"; wk.mkdir(exist_ok=True)
 expires = (datetime.date.today() + datetime.timedelta(days=330)).isoformat() + "T00:00:00Z"

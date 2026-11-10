@@ -1,0 +1,48 @@
+{
+  "name": "pdf-editor",
+  "version": "1.0.0",
+  "description": "Edit PDFs in JavaScript (browser and Node.js): edit text in its original font, redact, OCR, split, merge, convert, compress, protect. Files never leave the machine.",
+  "type": "module",
+  "main": "web/lib.js",
+  "exports": {
+    ".": "./web/lib.js"
+  },
+  "files": [
+    "web/lib.js",
+    "web/engine.js",
+    "web/fontfile.js",
+    "web/fonts/",
+    "web/vendor/mupdf/",
+    "LICENSE",
+    "README.md",
+    "web/vendor/tessdata/"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PierrickLozach/pdf-editor.git"
+  },
+  "homepage": "https://pdf-editor.pierrick35.workers.dev/developers",
+  "keywords": [
+    "pdf",
+    "pdf-editor",
+    "redact",
+    "ocr",
+    "merge",
+    "split",
+    "compress",
+    "wasm",
+    "mupdf"
+  ],
+  "peerDependencies": {
+    "tesseract.js": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tesseract.js": {
+      "optional": true
+    }
+  }
+}

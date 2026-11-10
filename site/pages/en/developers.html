@@ -1,0 +1,113 @@
+<!--
+title: {{name}} for developers – a free JavaScript PDF library
+description: Edit, redact, OCR, split, merge, convert, compress and protect PDFs from your own JavaScript, in the browser or Node.js. Free and open source; documents never leave the machine running the code.
+-->
+<main id="main" class="doc wrap">
+  <h1>PDF Editor for developers</h1>
+  <p class="lead">The engine behind this editor, as a JavaScript library: edit text in its original font, redact, recognise text in scans, split, merge, convert, compress and protect PDFs from your own code.</p>
+  <ul class="doc-points">
+    <li><b>Runs where your code runs</b> – in a web page or in Node.js. Documents are never sent to a server, ours or anyone's.</li>
+    <li><b>Free, no key, no quota</b> – nothing to sign up for. Free software under the <a href="{{source}}/blob/main/LICENSE">AGPL-3.0</a> (like MuPDF, which it is built on).</li>
+    <li><b>Same results as the editor</b> – the saved PDF keeps the original's properties and carries no trace of the editing.</li>
+  </ul>
+
+  <h2 id="start">Get started</h2>
+  <h3>In a web page</h3>
+  <pre><code>&lt;script type="module"&gt;
+import { PDF } from "{{url}}/lib/v1/pdf-editor.js";
+
+const input = document.querySelector("input[type=file]");
+input.onchange = async () =&gt; {
+  const pdf = await PDF.open(input.files[0]);        // a File, Blob, ArrayBuffer or Uint8Array
+  await pdf.replaceAll("2025", "2026");
+  const bytes = await pdf.save();                     // Uint8Array
+  const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+  window.open(url);
+};
+&lt;/script&gt;</code></pre>
+  <p>The address <code>/lib/v1/</code> stays compatible for all 1.x versions. The first load downloads the engine (about 10&nbsp;MB, then cached).</p>
+
+  <h3>In Node.js (20 or later)</h3>
+  <pre><code>npm install github:PierrickLozach/pdf-editor</code></pre>
+  <pre><code>import { PDF } from "pdf-editor";
+import { writeFile } from "node:fs/promises";
+
+const pdf = await PDF.open("invoice.pdf");            // a path, a Buffer or a Uint8Array
+await pdf.redact({ text: "Jane Doe" });               // removed for good, not just covered
+await writeFile("invoice-redacted.pdf", await pdf.save());</code></pre>
+
+  <h2 id="examples">Examples</h2>
+  <h3>Merge, split, reorder</h3>
+  <pre><code>const book = await PDF.merge([cover, chapter1, chapter2]);   // one PDF, in this order
+const [intro, rest] = await book.split("1-2, 3-");           // 1-based ranges, one PDF each
+await book.movePage(4, 0);                                   // 0-based page numbers
+await book.rotatePage(1, 90);
+await book.deletePage(2);</code></pre>
+
+  <h3>Edit text in its original font</h3>
+  <pre><code>const { replaced } = await pdf.replaceAll("Old Company Ltd", "New Company Ltd");
+
+const line = (await pdf.lines(0)).find((l) =&gt; l.text.startsWith("Due:"));
+await pdf.editLine(0, line.id, "Due: 15 January 2027");
+await pdf.addText(0, 72, 700, "Paid", { size: 14, color: "#15803d", bold: true });</code></pre>
+
+  <h3>Redact for good</h3>
+  <pre><code>await pdf.redact({ text: "1 85 07 75 123 456" });           // every place it appears
+await pdf.redact([{ page: 0, box: [72, 100, 300, 140] }]);   // an area, in points from the top-left corner</code></pre>
+  <p>What is under each box is removed from the file – text, the pixels of pictures, drawings – and a black box is drawn. <code>whiteout()</code> only removes the text and paints over the rest.</p>
+
+  <h3>Make a scan searchable (OCR)</h3>
+  <pre><code>const scan = await PDF.open(scannedBytes);
+const { pages } = await scan.ocr({ languages: ["eng", "fra"] });   // pages that had no text
+console.log(await scan.text());</code></pre>
+  <p>In Node.js, install the recogniser too: <code>npm install tesseract.js</code>. In a browser, the recogniser must be served from your own site (browsers do not let a page start a worker from another site): copy <code>web/vendor/tesseract</code> and <code>web/vendor/tessdata</code> from the <a href="{{source}}">repository</a> next to the library and import it from there. Languages: <code>eng fra spa por deu nld ita pol ara heb chi_sim jpn</code>.</p>
+
+  <h3>Convert, compress, protect</h3>
+  <pre><code>const fromPhotos = await PDF.fromImages([photo1, photo2]);       // JPEG, PNG… one page each
+const word = await pdf.toWord();                                  // .docx with the text
+const jpegs = await pdf.toImages({ format: "jpg", dpi: 150 });    // [{page, bytes}]
+const { before, after } = await pdf.compress("smaller");          // re-encodes heavy photos and scans
+const locked = await pdf.protect("a long password");              // AES-256 copy</code></pre>
+
+  <h2 id="reference">Reference</h2>
+  <p>Pages are numbered from 0. Positions and sizes are in points (1/72 inch) from the top-left corner of the page. Every method that changes the document can be undone with <code>undo()</code>. Errors are <code>PDFError</code> with a message you can show to people.</p>
+  <table class="ref">
+    <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>PDF.open(input, {password})</code></td><td>Open a PDF: <code>Uint8Array</code>, <code>ArrayBuffer</code>, <code>Blob</code>/<code>File</code>; in Node.js also a <code>Buffer</code> or a file path.</td></tr>
+      <tr><td><code>PDF.merge([inputs])</code></td><td>Several PDFs joined into one.</td></tr>
+      <tr><td><code>PDF.fromImages([images], {pageSize})</code></td><td>A PDF with one page per picture; <code>pageSize</code>: <code>"a4"</code> (default) or <code>"fit"</code>.</td></tr>
+      <tr><td><code>pageCount</code>, <code>pages</code></td><td>Number of pages; <code>[{width, height, rotation}]</code>.</td></tr>
+      <tr><td><code>text(page?)</code></td><td>The text of the document or of one page.</td></tr>
+      <tr><td><code>find(text, {matchCase, wholeWord})</code></td><td>Every place it appears: <code>[{page, box}]</code>.</td></tr>
+      <tr><td><code>lines(page)</code></td><td>The lines of a page: <code>[{id, text, box, font, size, color, editable}]</code>.</td></tr>
+      <tr><td><code>replaceAll(find, replacement, options)</code></td><td>Replace everywhere in the same font, size and colour → <code>{replaced, skipped}</code>.</td></tr>
+      <tr><td><code>editLine(page, id, text, options)</code></td><td>Change one line; options <code>size</code>, <code>color</code>, <code>bold</code>, <code>italic</code>.</td></tr>
+      <tr><td><code>moveLines(page, ids, dx, dy)</code></td><td>Move lines, keeping their exact spacing.</td></tr>
+      <tr><td><code>addText(page, x, y, text, options)</code></td><td>New text; <code>x, y</code> is the start of the baseline.</td></tr>
+      <tr><td><code>addImage(page, box, image)</code></td><td>A picture (or a signature with a transparent background) in a box.</td></tr>
+      <tr><td><code>whiteout(page, box, color)</code></td><td>Remove the text under a box and paint over it.</td></tr>
+      <tr><td><code>redact(areas | {text})</code></td><td>Remove for good and draw black boxes → <code>{redacted}</code>.</td></tr>
+      <tr><td><code>activeContent()</code>, <code>removeActiveContent()</code></td><td>Scripts, launch actions, unsafe links, attachments, XFA: list them, remove them.</td></tr>
+      <tr><td><code>rotatePage</code>, <code>deletePage</code>, <code>movePage</code>, <code>duplicatePage</code>, <code>insertBlankPage</code>, <code>append(input)</code></td><td>Organise pages.</td></tr>
+      <tr><td><code>split("1-3, 5" | [[0, 1, 2], [4]])</code></td><td>New PDFs from some pages → <code>[Uint8Array]</code>; the document is not changed.</td></tr>
+      <tr><td><code>pageNumbers({format, position, start, skipFirst})</code></td><td>Number the pages; format like <code>"Page {n} of {total}"</code>.</td></tr>
+      <tr><td><code>watermark(text, {opacity, color})</code></td><td>Semi-transparent text across every page.</td></tr>
+      <tr><td><code>compress("smaller" | "smallest")</code></td><td>Smaller file → <code>{before, after}</code> in bytes.</td></tr>
+      <tr><td><code>ocr({languages, pages, dpi})</code></td><td>Make scanned pages searchable → <code>{pages}</code>.</td></tr>
+      <tr><td><code>undo()</code>, <code>redo()</code>, <code>canUndo</code>, <code>canRedo</code></td><td>History of changes.</td></tr>
+      <tr><td><code>save()</code></td><td>The PDF → <code>Uint8Array</code>.</td></tr>
+      <tr><td><code>protect(password, {allowPrint, allowCopy})</code></td><td>An encrypted copy (AES-256).</td></tr>
+      <tr><td><code>toImages({format, dpi, pages})</code>, <code>toWord()</code>, <code>render(page, scale)</code></td><td>Pictures, a .docx, or RGBA pixels for display.</td></tr>
+      <tr><td><code>zip([{name, bytes}])</code></td><td>A .zip of several files (e.g. the result of <code>split</code>).</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="licence">Licence and limits</h2>
+  <ul>
+    <li><b>AGPL-3.0.</b> You can use it for free, also in commercial work. If people use your modified version over a network, you must offer them its source code.</li>
+    <li>It runs on the machine running your code, so large PDFs need memory there: up to about 250&nbsp;MB per PDF in a browser.</li>
+    <li>Word, Excel or PowerPoint to PDF is not part of it: export to PDF from those programs.</li>
+    <li>Questions and problems: <a href="{{source}}/issues">GitHub issues</a>.</li>
+  </ul>
+</main>

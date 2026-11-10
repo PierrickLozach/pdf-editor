@@ -78,7 +78,7 @@ for lang in want:
         dirs = {x["code"]: x["dir"] for x in json.loads((ROOT / "web/i18n/languages.json").read_text())}
         if d.get("dir") != dirs.get(lang): P(f"site words: \"dir\" must be {dirs.get(lang)!r}")
     # ------------------------------------------------------------ site pages
-    for src in sorted((ROOT / "site/pages/en").glob("*.html")):
+    for src in sorted(p for p in (ROOT / "site/pages/en").glob("*.html") if p.stem != "developers"):   # developers: English only
         f = ROOT / "site/pages" / lang / src.name
         if not f.exists(): P(f"missing page {f.relative_to(ROOT)}"); continue
         em, eb = page_meta(src.read_text()); lm, lb = page_meta(f.read_text())

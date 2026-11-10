@@ -6,12 +6,14 @@
 !/tests/
 !/README.md
 !/LICENSE
+!/package.json
 !/.gitignore
 !/SECURITY.md
 !/.github/
 /tests/*
 !/tests/untraced.test.mjs
 !/tests/tools.test.mjs
+!/tests/lib.test.mjs
 !/tests/pw/
 !/tests/fixtures/
 /tests/pw/*
@@ -20,6 +22,7 @@
 !/tests/pw/image.pw.mjs
 !/tests/pw/undo.pw.mjs
 !/tests/pw/tools.pw.mjs
+!/tests/pw/lib.pw.mjs
 !/tests/pw/i18n.pw.mjs
 !/tests/pw/security.pw.mjs
 !/tests/pw/shots.mjs

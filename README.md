@@ -18,3 +18,14 @@ GNU Affero General Public License v3 (see `LICENSE`), because the editor is buil
 
 Third-party code shipped with the site: MuPDF.js (AGPL), tesseract.js and its language models (Apache-2.0),
 fonts under open licences (Liberation, Carlito, Caladea, DejaVu, Dancing Script — see `web/vendor/` and `web/fonts/`).
+
+## For developers
+
+The engine is also a JavaScript library, for web pages and Node.js — documentation: https://pdf-editor.pierrick35.workers.dev/developers
+
+```js
+import { PDF } from "https://pdf-editor.pierrick35.workers.dev/lib/v1/pdf-editor.js";   // or: npm install github:PierrickLozach/pdf-editor
+const pdf = await PDF.open(bytes);
+await pdf.redact({ text: "Jane Doe" });
+const out = await pdf.save();
+```

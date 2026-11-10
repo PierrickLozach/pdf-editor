@@ -227,3 +227,18 @@ details.change .form { max-width: 420px; }
   #userArea .btn.primary { padding: 0 10px; font-size: 14px; }
 }
 @media (max-width: 380px) { .brand .logo + * { display: none; } }
+
+/* ---------- developer documentation ---------- */
+.doc { max-width: 920px; padding-top: 32px; padding-bottom: 48px; }
+.doc h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 10px; }
+.doc h2 { margin: 40px 0 10px; font-size: 24px; }
+.doc h3 { margin: 22px 0 8px; font-size: 17px; }
+.doc .doc-points { padding-inline-start: 20px; }
+.doc .doc-points li { margin: 6px 0; }
+.doc pre { direction: ltr; text-align: left; background: #0f172a; color: #e2e8f0; padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: 13.5px; line-height: 1.55; }
+.doc code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em; }
+.doc :not(pre) > code { background: var(--bg2); border: 1px solid var(--border); border-radius: 5px; padding: 1px 5px; direction: ltr; unicode-bidi: isolate; }
+.doc table.ref { width: 100%; border-collapse: collapse; font-size: 14px; }
+.doc table.ref th, .doc table.ref td { text-align: start; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.doc table.ref td:first-child { white-space: nowrap; }
+@media (max-width: 700px) { .doc table.ref td:first-child { white-space: normal; } }
