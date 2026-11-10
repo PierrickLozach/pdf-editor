@@ -1,10 +1,9 @@
 /* PDF Editor - "Reduce file size" and the size limit of My PDFs (uses the globals of app.js).
  *  - a button in the page panel opens a small window: current size, two levels, Reduce
- *  - window.REDUCE.tooLarge(size, ctx) explains the limit and how to get under it */
+ */
 (function () {
   "use strict";
   const t = (s) => (window.I18N ? I18N.t(s) : s);
-  const LIMIT = () => (window.Vault && Vault.maxFileBytes) || 200 * 1024 * 1024;
   const lang = () => document.documentElement.lang || "en";
   const mb = (b) => {           // sizes in the person's language: "4.6 MB", "4,6 Mo"
     const big = b >= 1048576, v = big ? b / 1048576 : Math.max(1, Math.round(b / 1024));
@@ -50,9 +49,7 @@
     d.hidden = false;
     d.querySelector(".rd-go").focus();
     const size = opts.size || (await call("export")).length;
-    d.querySelector(".rd-now").textContent = window.Vault && Vault.account
-      ? t("Current size: {a} · My PDFs accept up to {b}").replace("{a}", mb(size)).replace("{b}", mb(LIMIT()))
-      : t("Current size: {a}").replace("{a}", mb(size));
+    d.querySelector(".rd-now").textContent = t("Current size: {a}").replace("{a}", mb(size));
     return new Promise((res) => {
       d.querySelector(".rd-go").onclick = async () => {
         const level = d.querySelector('input[name="rdLevel"]:checked').value;
@@ -70,20 +67,6 @@
       };
       d.querySelector(".rd-cancel").addEventListener("click", () => res(null), { once: true });
     });
-  };
-
-  /** A PDF over the My PDFs limit: say so, and offer to reduce it (it is opened in the editor). */
-  R.tooLarge = async (size, name, bytes) => {
-    const text = `${t("“{name}” is {size}; a PDF in My PDFs can be up to {limit}.").replace("{name}", name).replace("{size}", mb(size)).replace("{limit}", mb(LIMIT()))}`;
-    if (bytes) {                                   // a file being added: open it to reduce it
-      if (!(await modal({ title: t("This PDF is too large for My PDFs"), text: text + " " + t("Reduce its size? It opens in the editor first."), ok: t("Reduce its size") }))) return false;
-      await busy(async () => { const info = await call("open", bytes, name); loadDoc(info, true); if (window.ACCOUNT) ACCOUNT.closed(); });
-    }
-    const r = await R.open({ limitText: text, size });
-    if (!r) return false;
-    if (r.after > LIMIT()) { toast(t("Still too large. Try “Smallest”, or delete pages and save the PDF in two parts."), true, 10000); return false; }
-    if (window.ACCOUNT && Vault.account && (await modal({ title: t("Save it in My PDFs?"), text: `${name} · ${mb(r.after)}`, ok: t("Save") }))) await ACCOUNT.save();
-    return true;
   };
 
   function button() {

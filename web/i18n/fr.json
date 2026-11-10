@@ -158,20 +158,12 @@
   "This text is tilted and cannot be edited": "Ce texte est incliné et ne peut pas être modifié",
   "Tilted text cannot be moved": "Un texte incliné ne peut pas être déplacé",
   "Language": "Langue",
-  "Sign in": "Se connecter",
-  "Sign out": "Se déconnecter",
   "My PDFs": "Mes PDF",
   "Add PDFs": "Ajouter des PDF",
   "Change my name": "Changer mon nom",
-  "Delete my account": "Supprimer mon compte",
-  "Passkey account · files kept on this device": "Compte à clé d'accès · fichiers gardés sur cet appareil",
   "This name is only shown on this device.": "Ce nom n'est affiché que sur cet appareil.",
   "Name saved": "Nom enregistré",
-  "Sign out?": "Se déconnecter ?",
   "Signed out. Your PDFs stay encrypted on this device.": "Déconnecté. Vos PDF restent chiffrés sur cet appareil.",
-  "Delete my account?": "Supprimer mon compte ?",
-  "Your account and every PDF saved in it are deleted from this device for good. Your passkey will be asked to confirm.": "Votre compte et tous les PDF qu'il contient sont supprimés définitivement de cet appareil. Votre clé d'accès vous sera demandée pour confirmer.",
-  "Account deleted": "Compte supprimé",
   "No PDF yet. Add one, or open a PDF and save it.": "Aucun PDF pour l'instant. Ajoutez-en un, ou ouvrez un PDF et enregistrez-le.",
   "More": "Plus",
   "versions": "versions",
@@ -180,42 +172,17 @@
   "Delete this PDF?": "Supprimer ce PDF ?",
   "Deleted": "Supprimé",
   "current": "actuelle",
-  "Added to My PDFs": "Ajouté à Mes PDF",
   "Older version opened: saving makes it the current version.": "Ancienne version ouverte : l'enregistrer en fait la version actuelle.",
   "Not saved": "Non enregistré",
-  "Saved in My PDFs": "Enregistré dans Mes PDF",
-  "Create a free account": "Créez un compte gratuit",
-  "to keep your PDFs here and save your changes to them. No password: a passkey.": "pour garder vos PDF ici et y enregistrer vos modifications. Pas de mot de passe : une clé d'accès.",
-  "Create your account": "Créer votre compte",
-  "Create my account": "Créer mon compte",
   "Your name": "Votre nom",
-  "Already have an account on this device?": "Déjà un compte sur cet appareil ?",
-  "Use the passkey you created for this site.": "Utilisez la clé d'accès créée pour ce site.",
-  "Sign in with a passkey": "Se connecter avec une clé d'accès",
-  "No account yet?": "Pas encore de compte ?",
   "Create one": "En créer un",
-  "Keep this PDF in My PDFs?": "Garder ce PDF dans Mes PDF ?",
   "The last 5 saved versions are kept.": "Les 5 dernières versions enregistrées sont conservées.",
   "Something went wrong. Please try again.": "Une erreur est survenue. Réessayez.",
   "Cancelled.": "Annulé.",
-  "This device already has a passkey for this site. Sign in instead.": "Cet appareil a déjà une clé d'accès pour ce site. Connectez-vous plutôt.",
-  "Passkeys need a secure address (https).": "Les clés d'accès demandent une adresse sécurisée (https).",
-  "This browser or device cannot create passkeys.": "Ce navigateur ou cet appareil ne peut pas créer de clé d'accès.",
   "Please enter your name.": "Indiquez votre nom.",
-  "This browser cannot use passkeys.": "Ce navigateur ne peut pas utiliser de clé d'accès.",
-  "This passkey's account is not on this browser. Your files are kept in the browser where you created the account.": "Le compte de cette clé d'accès n'est pas dans ce navigateur. Vos fichiers sont gardés dans le navigateur où vous avez créé le compte.",
-  "This passkey cannot unlock your files on this device.": "Cette clé d'accès ne peut pas déverrouiller vos fichiers sur cet appareil.",
-  "Please sign in first.": "Connectez-vous d'abord.",
-  "This file is no longer in your account.": "Ce fichier n'est plus dans votre compte.",
-  "No account on this browser yet. Create one: it takes a few seconds.": "Aucun compte dans ce navigateur pour l'instant. Créez-en un : cela prend quelques secondes.",
   "Encrypted and kept on this device only.": "Chiffrés et gardés sur cet appareil uniquement.",
-  "No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted and kept on this device only.": "Aucun mot de passe à retenir : votre appareil crée une clé d'accès (empreinte, visage, code ou téléphone). Vos PDF sont chiffrés et gardés sur cet appareil uniquement.",
-  "This passkey could not be verified.": "Cette clé d'accès n'a pas pu être vérifiée.",
   "This file could not be decrypted: it was changed or damaged.": "Ce fichier n'a pas pu être déchiffré : il a été modifié ou endommagé.",
   "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "Plus assez d'espace de stockage dans ce navigateur. Supprimez les PDF dont vous n'avez plus besoin, ou téléchargez-les.",
-  "This PDF is too large for My PDFs (200 MB at most).": "Ce PDF est trop volumineux pour Mes PDF (200 Mo au maximum).",
-  "Signed out after 30 minutes without activity. Sign in again to open your PDFs.": "Déconnecté après 30 minutes d'inactivité. Reconnectez-vous pour ouvrir vos PDF.",
-  "Previous sign-in": "Connexion précédente",
   "Reduce file size": "Réduire la taille du fichier",
   "Reduce file size…": "Réduire la taille du fichier…",
   "Compress photos and scans to make the PDF smaller": "Compresser les photos et les scans pour alléger le PDF",
@@ -231,22 +198,49 @@
   "Reduce": "Réduire",
   "Calculating the size…": "Calcul de la taille…",
   "Current size": "Taille actuelle",
-  "My PDFs accept up to": "Mes PDF acceptent jusqu'à",
   "Reducing the size…": "Réduction de la taille…",
   "Size reduced": "Taille réduite",
   "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "Ce PDF ne contient pas de grandes photos ou de scans à compresser : il est déjà presque aussi léger que possible.",
-  "This PDF is too large for My PDFs": "Ce PDF est trop volumineux pour Mes PDF",
   "Reduce its size? It opens in the editor first.": "Réduire sa taille ? Il s'ouvre d'abord dans l'éditeur.",
   "Reduce its size": "Réduire sa taille",
   "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "Encore trop volumineux. Essayez « Le plus léger », ou supprimez des pages et enregistrez le PDF en deux parties.",
-  "Save it in My PDFs?": "L'enregistrer dans Mes PDF ?",
   "Up to 200 MB per PDF.": "Jusqu'à 200 Mo par PDF.",
   "Too large?": "Trop volumineux ?",
   "Size limit": "Taille maximale",
-  "A PDF in My PDFs can be up to 200 MB. Larger PDFs are almost always scans or photos: open the PDF, then use “Reduce file size…” in the page panel (it compresses the images and keeps the text sharp). You can also delete pages you do not need, or save a long PDF in two parts.": "Un PDF de Mes PDF peut faire jusqu'à 200 Mo. Les PDF plus lourds sont presque toujours des scans ou des photos : ouvrez le PDF, puis utilisez « Réduire la taille du fichier… » dans le panneau des pages (les images sont compressées, le texte reste net). Vous pouvez aussi supprimer les pages inutiles, ou enregistrer un long PDF en deux parties.",
   "Open it and use “Reduce file size…”.": "Ouvrez-le et utilisez « Réduire la taille du fichier… ».",
   "MB": "Mo",
-  "KB": "Ko"
+  "KB": "Ko",
+  "Recent files": "Fichiers récents",
+  "Remove from this list": "Retirer de la liste",
+  "Access to the file was not allowed.": "L'accès au fichier n'a pas été autorisé.",
+  "This file was moved or deleted. It was removed from the list.": "Ce fichier a été déplacé ou supprimé. Il a été retiré de la liste.",
+  "This PDF is too large to edit in the browser": "Ce PDF est trop volumineux pour être modifié dans le navigateur",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "Pour l'alléger : sur Mac, ouvrez-le dans Aperçu, puis Fichier › Exporter… › Filtre Quartz : Réduire la taille du fichier ; ou découpez-le en plusieurs parties (dans Aperçu, faites glisser des pages hors de la barre latérale). Les PDF très lourds sont presque toujours des scans ou des photos : 150 à 200 dpi suffisent pour des documents.",
+  "Saving into the file was not allowed: a copy is saved instead.": "L'enregistrement dans le fichier n'a pas été autorisé : une copie est enregistrée à la place.",
+  "Saved": "Enregistré",
+  "Save writes your changes back into the same file.": "Enregistrer écrit vos modifications dans le même fichier.",
+  "Save downloads the edited PDF.": "Enregistrer télécharge le PDF modifié.",
+  "Accounts have been removed.": "Les comptes ont été supprimés.",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "Téléchargez-les maintenant : ils seront ensuite supprimés de ce navigateur. Votre clé d'accès est demandée une fois pour les déverrouiller.",
+  "Download my PDFs": "Télécharger mes PDF",
+  "Delete them": "Les supprimer",
+  "Delete them?": "Les supprimer ?",
+  "1 PDF saved in “My PDFs” is still in this browser.": "1 PDF enregistré dans « Mes PDF » est encore dans ce navigateur.",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "Les PDF enregistrés dans « Mes PDF » sont supprimés définitivement de ce navigateur.",
+  "Remove it": "Le retirer",
+  "Keep it": "Le garder",
+  "Kept: the saved PDF will still contain it.": "Conservé : le PDF enregistré le contiendra toujours.",
+  "Active content removed. You can undo it.": "Contenu actif retiré. Vous pouvez annuler.",
+  "scripts": "scripts",
+  "program launch": "lancement de programme",
+  "form sending": "envoi de formulaire",
+  "data import": "import de données",
+  "unsafe links": "liens dangereux",
+  "automatic actions": "actions automatiques",
+  "attached files": "fichiers joints",
+  "XFA form": "formulaire XFA",
+  "media": "médias",
+  "embedded document": "document intégré"
  },
  "patterns": [
   [
@@ -386,32 +380,40 @@
    "{n} PDF ajoutés"
   ],
   [
-   "Welcome, {name}! Your account is ready.",
-   "Bienvenue, {name} ! Votre compte est prêt."
-  ],
-  [
-   "Signed in as {name}",
-   "Connecté en tant que {name}"
-  ],
-  [
-   "Account deleted ({n} PDF)",
-   "Compte supprimé ({n} PDF)"
-  ],
-  [
-   "“{name}” is {size}; a PDF in My PDFs can be up to {limit}.",
-   "« {name} » fait {size} ; un PDF de Mes PDF peut faire jusqu'à {limit}."
-  ],
-  [
-   "Current size: {a} · My PDFs accept up to {b}",
-   "Taille actuelle : {a} · Mes PDF acceptent jusqu'à {b}"
-  ],
-  [
    "Current size: {a}",
    "Taille actuelle : {a}"
   ],
   [
    "Size reduced: {a} → {b}",
    "Taille réduite : {a} → {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "« {name} » fait {size} ; l'éditeur accepte les PDF jusqu'à {max}."
+  ],
+  [
+   "PDFs up to {max}.",
+   "PDF jusqu'à {max}."
+  ],
+  [
+   "Saved in “{name}”",
+   "Enregistré dans « {name} »"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "Le fichier n'a pas pu être enregistré : {why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "{n} PDF enregistrés dans « Mes PDF » sont encore dans ce navigateur."
+  ],
+  [
+   "{n} PDF downloaded.",
+   "{n} PDF téléchargé(s)."
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "Ce PDF contient du contenu actif ({kinds}). L'éditeur ne l'exécute jamais, mais d'autres lecteurs PDF le peuvent. Il est retiré à l'enregistrement, sauf si vous le gardez."
   ]
  ]
 }

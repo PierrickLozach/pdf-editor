@@ -1,0 +1,181 @@
+/* PDF Editor - working with files on the computer (uses the globals of app.js).
+ *  - Chrome and Edge (File System Access API): a PDF opened with Open, dropped on the page or
+ *    picked from "Recent files" is saved straight back into the same file by Save (⌘S).
+ *    "Recent files" remembers the files themselves (handles), never copies of them.
+ *  - Other browsers: Save downloads the edited copy, as before.
+ *  - The size limit of a PDF, shown on the start screen and explained when a file is larger. */
+(function () {
+  "use strict";
+  const t = (s) => (window.I18N ? I18N.t(s) : s);
+  const MAX = 250 * 1024 * 1024;            // largest PDF tested to open, edit and save in every browser
+  const KEEP = 10;
+  const F = (window.FILES = { handle: null, maxBytes: MAX, supported: typeof window.showOpenFilePicker === "function" });
+  const el = (html) => { const d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstElementChild; };
+  const lang = () => document.documentElement.lang || "en";
+  F.size = (b) => {
+    const big = b >= 1048576, v = big ? b / 1048576 : Math.max(1, Math.round(b / 1024));
+    return `${v.toLocaleString(lang(), { maximumFractionDigits: big && v < 10 ? 1 : 0 })} ${t(big ? "MB" : "KB")}`;
+  };
+  const when = (ms) => new Date(ms).toLocaleString(lang(), { dateStyle: "medium", timeStyle: "short" });
+
+  /* ---------------------------------------------------------------- recent files (handles) */
+  let dbp = null;
+  function db() {
+    return (dbp = dbp || new Promise((res, rej) => {
+      const r = indexedDB.open("pdf-editor-files", 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("recent", { keyPath: "id" });
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    }));
+  }
+  async function store(mode, fn) {
+    const d = await db();
+    return new Promise((res, rej) => {
+      const x = d.transaction("recent", mode), st = x.objectStore("recent");
+      let out;
+      Promise.resolve(fn(st)).then((v) => (out = v), rej);
+      x.oncomplete = () => res(out);
+      x.onerror = () => rej(x.error);
+    });
+  }
+  const all = (st) => new Promise((r) => { const q = st.getAll(); q.onsuccess = () => r(q.result || []); q.onerror = () => r([]); });
+  async function remember(handle, name) {
+    if (!handle || !F.supported) return;
+    try {
+      const list = await store("readonly", all);
+      let same = null;
+      for (const x of list) { try { if (await x.handle.isSameEntry(handle)) { same = x; break; } } catch (e) {} }
+      const id = same ? same.id : crypto.randomUUID();
+      await store("readwrite", (st) => {
+        st.put({ id, name, handle, time: Date.now() });
+        list.filter((x) => x.id !== id).sort((a, b) => b.time - a.time).slice(KEEP - 1).forEach((x) => st.delete(x.id));
+      });
+    } catch (e) { /* storage unavailable (private mode): no recent list */ }
+  }
+  async function renderRecent() {
+    let box = document.getElementById("recentFiles");
+    if (!F.supported) { if (box) box.hidden = true; return; }
+    if (!box) {
+      box = el(`<section id="recentFiles" aria-labelledby="recentTitle" hidden>
+        <h2 id="recentTitle">${t("Recent files")}</h2><ul></ul></section>`);
+      document.querySelector("#empty .drop").prepend(box);
+    }
+    const list = (await store("readonly", all).catch(() => [])).sort((a, b) => b.time - a.time);
+    const ul = box.querySelector("ul");
+    ul.textContent = "";
+    for (const x of list) {
+      const li = el(`<li><button class="rf-open"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg><span class="rf-name"></span><span class="rf-when"></span></button><button class="rf-del icon" title="${t("Remove from this list")}">✕</button></li>`);
+      li.querySelector(".rf-name").textContent = x.name;
+      li.querySelector(".rf-when").textContent = when(x.time);
+      li.querySelector(".rf-open").onclick = () => openRecent(x);
+      li.querySelector(".rf-del").onclick = async () => { await store("readwrite", (st) => st.delete(x.id)); renderRecent(); };
+      ul.appendChild(li);
+    }
+    box.hidden = !list.length;
+  }
+  async function openRecent(x) {
+    try {
+      // a click is needed for the browser to ask; it asks only the first time after a restart
+      if ((await x.handle.queryPermission({ mode: "readwrite" })) !== "granted" &&
+          (await x.handle.requestPermission({ mode: "readwrite" })) !== "granted") return toast(t("Access to the file was not allowed."), true);
+      const f = await x.handle.getFile();
+      f.__handle = x.handle;
+      openFile(f);
+    } catch (e) {
+      if (e.name === "NotFoundError") {
+        toast(t("This file was moved or deleted. It was removed from the list."), true, 7000);
+        await store("readwrite", (st) => st.delete(x.id)); renderRecent();
+      } else toast(e.message, true);
+    }
+  }
+
+  /* ---------------------------------------------------------------- open */
+  F.pick = async () => {
+    if (!F.supported) return $("#fileInput").click();
+    let h;
+    try { [h] = await window.showOpenFilePicker({ types: [{ description: t("PDF document"), accept: { "application/pdf": [".pdf"] } }] }); }
+    catch (e) { if (e.name !== "AbortError") $("#fileInput").click(); return; }
+    const f = await h.getFile();
+    f.__handle = h;
+    openFile(f);
+  };
+  /** Must be called during the drop event: the handle is only available then. */
+  F.handleFromDrop = (dt) => {
+    if (!F.supported) return null;
+    const it = [...(dt.items || [])].find((i) => i.kind === "file" && i.getAsFileSystemHandle);
+    return it ? it.getAsFileSystemHandle().catch(() => null) : null;
+  };
+  /** Called before a file is opened: false when it is too large (with an explanation). */
+  F.check = async (file) => {
+    if (file.size <= F.maxBytes) return true;
+    await modal({ title: t("This PDF is too large to edit in the browser"),
+      text: t("“{name}” is {size}; the editor works with PDFs up to {max}.").replace("{name}", file.name).replace("{size}", F.size(file.size)).replace("{max}", F.size(F.maxBytes)) + " " +
+            t("To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents."),
+      ok: t("OK") });
+    return false;
+  };
+  /** Called once a file is open in the editor. */
+  F.opened = (file) => {
+    F.handle = (file && file.__handle) || null;
+    if (F.handle) remember(F.handle, file.name);
+    mark();
+  };
+  F.closed = () => { F.handle = null; mark(); renderRecent(); };
+  F.afterChange = () => mark();
+
+  /* ---------------------------------------------------------------- save */
+  /** Save into the file that was opened. Returns false when that is not possible (the caller
+   *  then saves a copy as before). */
+  F.save = async () => {
+    if (!F.handle || !S.doc) return false;
+    await closeEditor(true);
+    const h = F.handle;
+    try {
+      if ((await h.queryPermission({ mode: "readwrite" })) !== "granted" &&
+          (await h.requestPermission({ mode: "readwrite" })) !== "granted") { toast(t("Saving into the file was not allowed: a copy is saved instead."), false, 6000); return false; }
+    } catch (e) { return false; }
+    let ok = false;
+    await busy(async () => {
+      const bytes = await call("export");
+      const w = await h.createWritable();           // written to a temporary file, swapped in on close
+      try { await w.write(bytes); await w.close(); }
+      catch (e) { try { await w.abort(); } catch (x) {} throw new Error(t("The file could not be saved: {why}").replace("{why}", e.message)); }
+      S.dirty = false;
+      ok = true;
+      mark();
+      toast(t("Saved in “{name}”").replace("{name}", h.name));
+      remember(h, h.name);
+    });
+    return ok;
+  };
+  /** A "Save as" chose a new file: later saves go there. */
+  F.adopt = (h) => { if (h && h.kind === "file") { F.handle = h; remember(h, h.name); mark(); } };
+
+  function mark() {
+    const s = document.getElementById("saveState");
+    if (!s) return;
+    const show = typeof S !== "undefined" && !!S.doc;
+    s.hidden = !show;
+    s.textContent = !show ? "" : S.dirty ? t("Not saved") : F.handle ? t("Saved") : "";
+    s.classList.toggle("dirty", show && !!S.dirty);
+  }
+
+  /* ---------------------------------------------------------------- start */
+  function start() {
+    const name = document.getElementById("docName");
+    if (name && !document.getElementById("saveState")) name.after(el(`<span id="saveState" class="save-state" hidden></span>`));
+    const drop = document.querySelector("#empty .drop");
+    if (drop && !document.getElementById("sizeNote")) {
+      const note = el(`<p id="sizeNote" class="small muted"></p>`);
+      // written once the translations are loaded (the page watcher does not split sentences)
+      const fill = () => { note.textContent = t("PDFs up to {max}.").replace("{max}", F.size(F.maxBytes)) + " " +
+        (F.supported ? t("Save writes your changes back into the same file.") : t("Save downloads the edited PDF.")); };
+      fill();
+      if (window.I18N && I18N.ready) I18N.ready.then(fill);
+      const lic = drop.querySelector("p.muted.small");
+      (lic ? lic.parentNode : drop).insertBefore(note, lic || null);
+    }
+    renderRecent();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();

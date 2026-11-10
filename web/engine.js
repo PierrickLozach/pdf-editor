@@ -355,6 +355,58 @@ function readPdfFont(f, nm) {
   return null;
 }
 
+
+/* ------------------------------------------------------------------ active content */
+const DANGEROUS_ACTIONS = new Set(["JavaScript", "Launch", "SubmitForm", "ImportData", "Rendition", "Sound", "Movie", "RichMediaExecute", "GoToE"]);
+// links are fine (web, mail, phone, or written without a scheme like "www.example.com");
+// a link that runs code or opens local files is not
+const BAD_URI = /^\s*(javascript|vbscript|data|file|blob|about|chrome|ms-[a-z-]+|jar|smb|\\\\)/i;
+/** Find (and with fix, remove) active content. Walks every object once. */
+function scanActive(doc, fix) {
+  const kinds = {};
+  const hit = (k) => (kinds[k] = (kinds[k] || 0) + 1);
+  const nm = (o) => { try { return o && o.isName() ? o.asName() : null; } catch (e) { return null; } };
+  const str = (o) => { try { return o && o.isString() ? o.asString() : ""; } catch (e) { return ""; } };
+  // an action dictionary: dangerous types, and URI actions that are not plain web or mail links
+  const badAction = (a) => {
+    if (!a || !a.isDictionary || !a.isDictionary()) return null;
+    const t = nm(a.get("S"));
+    if (DANGEROUS_ACTIONS.has(t)) return t;
+    if (t === "URI" && BAD_URI.test(str(a.get("URI")).replace(/[\u0000-\u0020]+/g, ""))) return "URI";
+    return null;
+  };
+  const n = doc.countObjects();
+  for (let i = 1; i < n; i++) {
+    let o;
+    try { o = doc.newIndirect(i); if (!o.isDictionary()) continue; } catch (e) { continue; }
+    try {
+      // the object is itself a dangerous action (referenced from somewhere)
+      const self = badAction(o);       // (the action objects themselves; their uses are counted once)
+      if (self) { hit(self); if (fix) { o.put("S", doc.newName("GoTo")); o.put("D", doc.newArray()); for (const k of ["JS", "F", "Win", "Mac", "Unix", "URI", "Fields", "R", "Sound", "Movie", "Next"]) o.delete(k); } }
+      // actions attached to it: /A, /OpenAction, additional actions /AA, chained /Next
+      for (const key of ["A", "OpenAction"]) {
+        const a = o.get(key);
+        if (a && a.isDictionary && a.isDictionary() && !a.isIndirect()) { const b = badAction(a); if (b) { hit(b); if (fix) o.delete(key); } }
+        else if (a && a.isIndirect && a.isIndirect()) { const b = badAction(a.resolve ? a.resolve() : a); if (b && fix && key === "OpenAction") o.delete(key); }
+      }
+      const aa = o.get("AA");
+      if (aa && aa.isDictionary && aa.isDictionary()) { hit("automatic"); if (fix) o.delete("AA"); }
+      // document-level scripts and attached files (Names tree), XFA forms, attachments on pages
+      const names = o.get("Names");
+      if (names && names.isDictionary && names.isDictionary()) {
+        for (const k of ["JavaScript", "EmbeddedFiles"]) if (names.get(k) && !names.get(k).isNull()) { hit(k === "JavaScript" ? "JavaScript" : "attachment"); if (fix) names.delete(k); }
+      }
+      if (nm(o.get("Type")) === "Catalog" || o.get("AcroForm")) {
+        const af = o.get("AcroForm");
+        if (af && af.isDictionary && af.isDictionary() && af.get("XFA") && !af.get("XFA").isNull()) { hit("XFA"); if (fix) af.delete("XFA"); }
+      }
+      if (nm(o.get("Subtype")) === "FileAttachment") { hit("attachment"); if (fix) { o.delete("FS"); o.put("Subtype", doc.newName("Text")); } }
+    } catch (e) { /* unusual object: skipped */ }
+  }
+  const total = Object.values(kinds).reduce((a, v) => a + v, 0);
+  return { total, kinds };
+}
+
 /* ------------------------------------------------------------------ geometry helpers */
 
 const M = mupdf.Matrix;
@@ -518,10 +570,23 @@ export class Engine {
     }
     const pdf = doc.asPDF();
     if (!pdf) throw new EditError("Not a PDF file");
-    this.s = { name: name || "document.pdf", doc: pdf, tokens: [], undo: [], redo: [], fontRefs: new Map(),
-               embCache: new Map(), textCache: new Map() };
-    for (let i = 0; i < pdf.countPages(); i++) this.s.tokens.push(this._tok());
-    return this.info();
+    // check the new document fully before it replaces the open one (a broken PDF must not
+    // leave the editor half-switched: OWASP A10)
+    const next = { name: name || "document.pdf", doc: pdf, tokens: [], undo: [], redo: [], fontRefs: new Map(),
+                   embCache: new Map(), textCache: new Map() };
+    let n;
+    try {
+      n = pdf.countPages();
+      if (!n) throw new Error("no page");
+      for (let i = 0; i < n; i++) next.tokens.push(this._tok());
+      const prev = this.s;
+      this.s = next;
+      try { return this.info(); }
+      catch (e) { this.s = prev; throw e; }
+    } catch (e) {
+      if (e instanceof EditError) throw e;
+      throw new EditError(/cycle|page tree/i.test(e.message) ? "This PDF is damaged (its page list is broken) and cannot be opened" : "This file could not be read as a PDF");
+    }
   }
 
   _tok() { return Math.random().toString(36).slice(2, 10); }
@@ -1750,6 +1815,22 @@ export class Engine {
     if (changed) await this._changed([...Array(doc.countPages()).keys()]);
     const after = this.export().length;
     return { ...this.info(), before, after, images: changed, changed: changed ? [...Array(doc.countPages()).keys()] : [] };
+  }
+
+  /** Active content in the PDF: scripts, actions that open programs or web pages on their own,
+   *  attached files, XFA forms. -> { total, kinds: { javascript, launch, ... } } */
+  activeContent() {
+    const s = this._need();
+    return scanActive(s.doc, false);
+  }
+  /** Remove it (OWASP: a saved PDF must not carry a hidden attack). Text, images, links and forms
+   *  stay; only what runs or opens something by itself goes. One undo step. */
+  async removeActiveContent() {
+    const s = this._need();
+    this._checkpoint();
+    const r = scanActive(s.doc, true);
+    await this._changed([...Array(s.doc.countPages()).keys()]);
+    return { ...this.info(), removed: r, changed: [...Array(s.doc.countPages()).keys()] };
   }
 
   export() {

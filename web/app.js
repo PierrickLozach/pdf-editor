@@ -26,7 +26,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=e33fa13824", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=77b6fa78d7", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -129,6 +129,7 @@ function renderScale() {
 async function openFile(file, password) {
   if (!file) return;
   if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF file", true);
+  if (window.FILES && !password && !(await FILES.check(file))) return;
   closeEditor(false);
   if (S.dirty && S.doc && !(await modal({ title: "Open another PDF?", text: `Your edits to “${S.doc.name}” have not been saved. They will be lost.`, ok: "Open anyway" }))) return;
   document.body.classList.add("busy");
@@ -138,7 +139,8 @@ async function openFile(file, password) {
     const info = await call("open", bytes, file.name, password);
     $("#resume").hidden = true;
     loadDoc(info, true);
-    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();          // a file from the computer, not from My PDFs
+    if (window.FILES) FILES.opened(file);
+    if (window.ACTIVE) ACTIVE.check();
   } catch (e) {
     if (e.message === "PASSWORD_REQUIRED" || e.message === "WRONG_PASSWORD") {
       document.body.classList.remove("busy");
@@ -169,7 +171,8 @@ function loadDoc(info, fresh) {
 
 async function saveFile() {
   if (!S.doc) return;
-  if (window.ACCOUNT && ACCOUNT.save && await ACCOUNT.save()) return;      // signed in: saved in My PDFs
+  if (window.ACTIVE) await ACTIVE.remove(false);                         // never pass on scripts, launch actions...
+  if (window.FILES && await FILES.save()) return;                          // saved into the file that was opened
   await closeEditor(true);
   await busy(async () => {
     const bytes = await call("export");
@@ -181,6 +184,7 @@ async function saveFile() {
         await w.write(bytes);
         await w.close();
         S.dirty = false;
+        if (window.FILES) FILES.adopt(h);
         toast(`Saved: ${h.name}`);
         return;
       } catch (e) { if (e.name === "AbortError") return; }
@@ -191,8 +195,9 @@ async function saveFile() {
   });
 }
 
-function download() {
+async function download() {
   if (!S.doc) return;
+  if (window.ACTIVE) await ACTIVE.remove(false);
   closeEditor(true).then(() => busy(async () => {
     const bytes = await call("export");
     triggerDownload(bytes, outName(S.doc.name));
@@ -213,7 +218,7 @@ function applyInfo(info) {
   const old = S.doc;
   S.doc = info;
   S.dirty = true;
-  if (window.ACCOUNT && ACCOUNT.afterChange) ACCOUNT.afterChange();
+  if (window.FILES) FILES.afterChange();
   const sameLayout = old && old.pages.length === info.pages.length &&
     old.pages.every((p, i) => p.w === info.pages[i].w && p.h === info.pages[i].h);
   if (!sameLayout) {
@@ -1024,7 +1029,7 @@ function isTyping(e) {
 }
 
 function init() {
-  $("#btnOpen").onclick = $("#btnOpen2").onclick = () => $("#fileInput").click();
+  $("#btnOpen").onclick = $("#btnOpen2").onclick = () => (window.FILES ? FILES.pick() : $("#fileInput").click());
   $("#fileInput").onchange = e => { openFile(e.target.files[0]); e.target.value = ""; };
   $("#mergeInput").onchange = e => { mergeFile(e.target.files[0]); e.target.value = ""; };
   $("#imageInput").onchange = e => { pickImage(e.target.files[0]); e.target.value = ""; };
@@ -1072,7 +1077,7 @@ function init() {
 
   document.addEventListener("keydown", e => {
     const mod = e.metaKey || e.ctrlKey;
-    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); $("#fileInput").click(); return; }
+    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); window.FILES ? FILES.pick() : $("#fileInput").click(); return; }
     if (!S.doc) return;
     if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); saveFile(); return; }
     if (mod && e.key.toLowerCase() === "f") { e.preventDefault(); openFind(); return; }
@@ -1105,7 +1110,9 @@ function init() {
     if (!hasFiles(e)) return;
     e.preventDefault();
     dragDepth = 0; $("#dropOverlay").hidden = true;
+    const hp = window.FILES ? FILES.handleFromDrop(e.dataTransfer) : null;     // only available during the drop
     const f = [...e.dataTransfer.files].find(f => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
+    if (f && hp) return hp.then((h) => { if (h && h.kind === "file") f.__handle = h; openFile(f); });
     if (f) return openFile(f);
     filesFromDrop(e.dataTransfer).then(({ files, folder }) => {
       if (files.some((x) => FONT_RX.test(x.name))) addFonts(files, folder);
@@ -1366,7 +1373,8 @@ function bindWebExtras() {
     $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
     closeFind();
     updateButtons();
-    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();
+    if (window.FILES) FILES.closed();
+    if (window.ACTIVE) ACTIVE.closed();
   };
   $("#btnSidebar").onclick = () => document.body.classList.toggle("show-sidebar");
 }

@@ -429,6 +429,8 @@
     await tx("accounts", "readwrite", (st) => req(st.put(a)));
     current.account = a; emit();
   };
+  /** Close the storage connection (so the storage can be deleted). */
+  Vault.close = async () => { if (dbp) { try { (await dbp).close(); } catch (e) {} dbp = null; } };
   Vault.maxFileBytes = MAX_FILE;
   Vault.locked = false;
   window.Vault = Vault;

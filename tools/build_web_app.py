@@ -9,8 +9,9 @@ def R(old, new, count=1):
     reps.append((old, new, count))
 
 # ---------------------------------------------------------------- engine client
-R('''async function api(method, path, body, isForm) {
-  const opt = { method, headers: {} };
+R('''const PAGE_TOKEN = (document.querySelector('meta[name="pdfe-token"]') || {}).content || "";
+async function api(method, path, body, isForm) {
+  const opt = { method, headers: { "X-PDF-Editor": PAGE_TOKEN } };
   if (body !== undefined) {
     if (isForm) opt.body = body;
     else { opt.body = JSON.stringify(body); opt.headers["Content-Type"] = "application/json"; }
@@ -709,7 +710,7 @@ R('''function bindWebExtras() {''', '''function bindWebExtras() {
 R('''async function saveFile() {
   if (!S.doc) return;''', '''async function saveFile() {
   if (!S.doc) return;
-  if (window.ACCOUNT && ACCOUNT.save && await ACCOUNT.save()) return;      // signed in: saved in My PDFs''')
+  if (window.FILES && await FILES.save()) return;                          // saved into the file that was opened''')
 R('''function applyInfo(info) {
   const old = S.doc;
   S.doc = info;
@@ -717,20 +718,20 @@ R('''function applyInfo(info) {
   const old = S.doc;
   S.doc = info;
   S.dirty = true;
-  if (window.ACCOUNT && ACCOUNT.afterChange) ACCOUNT.afterChange();''')
+  if (window.FILES) FILES.afterChange();''')
 R('''    const info = await call("open", bytes, file.name, password);
     $("#resume").hidden = true;
     loadDoc(info, true);''', '''    const info = await call("open", bytes, file.name, password);
     $("#resume").hidden = true;
     loadDoc(info, true);
-    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();          // a file from the computer, not from My PDFs''')
+    if (window.FILES) FILES.opened(file);''')
 R('''    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
     closeFind();
     updateButtons();
   };''', '''    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor";
     closeFind();
     updateButtons();
-    if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();
+    if (window.FILES) FILES.closed();
   };''')
 
 # ---------------------------------------------------------------- security (OWASP A05, A02)
@@ -742,6 +743,41 @@ R('''    bindThumbDrag(t);
     box.appendChild(t);''', '''    t.querySelector(".tframe").style.height = h + "px";     // set from code: no inline style in HTML (CSP)
     bindThumbDrag(t);
     box.appendChild(t);''')
+
+# ---------------------------------------------------------------- files: open with a handle, size limit, save as
+R('''async function openFile(file, password) {
+  if (!file) return;
+  if (!/\\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF file", true);''', '''async function openFile(file, password) {
+  if (!file) return;
+  if (!/\\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF file", true);
+  if (window.FILES && !password && !(await FILES.check(file))) return;''')
+R('''  $("#btnOpen").onclick = $("#btnOpen2").onclick = () => $("#fileInput").click();''', '''  $("#btnOpen").onclick = $("#btnOpen2").onclick = () => (window.FILES ? FILES.pick() : $("#fileInput").click());''')
+R('''    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); $("#fileInput").click(); return; }''', '''    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); window.FILES ? FILES.pick() : $("#fileInput").click(); return; }''')
+R('''    const f = [...e.dataTransfer.files].find(f => /\\.pdf$/i.test(f.name) || f.type === "application/pdf");
+    if (f) return openFile(f);''', '''    const hp = window.FILES ? FILES.handleFromDrop(e.dataTransfer) : null;     // only available during the drop
+    const f = [...e.dataTransfer.files].find(f => /\\.pdf$/i.test(f.name) || f.type === "application/pdf");
+    if (f && hp) return hp.then((h) => { if (h && h.kind === "file") f.__handle = h; openFile(f); });
+    if (f) return openFile(f);''')
+R('''        S.dirty = false;
+        toast(`Saved: ${h.name}`);''', '''        S.dirty = false;
+        if (window.FILES) FILES.adopt(h);
+        toast(`Saved: ${h.name}`);''')
+
+# ---------------------------------------------------------------- active content: checked on open, removed before export
+R('''    if (window.FILES) FILES.opened(file);''', '''    if (window.FILES) FILES.opened(file);
+    if (window.ACTIVE) ACTIVE.check();''')
+R('''    if (window.FILES) FILES.closed();
+  };''', '''    if (window.FILES) FILES.closed();
+    if (window.ACTIVE) ACTIVE.closed();
+  };''')
+R('''async function saveFile() {
+  if (!S.doc) return;''', '''async function saveFile() {
+  if (!S.doc) return;
+  if (window.ACTIVE) await ACTIVE.remove(false);                         // never pass on scripts, launch actions...''')
+R('''function download() {
+  if (!S.doc) return;''', '''async function download() {
+  if (!S.doc) return;
+  if (window.ACTIVE) await ACTIVE.remove(false);''')
 
 # focus the editing box at once: the font preview loads afterwards, keystrokes are never lost
 R('''  syncBar();

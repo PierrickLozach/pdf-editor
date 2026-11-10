@@ -244,47 +244,25 @@ html.i18n-wait body { visibility: hidden; }
 [dir="rtl"] .drop ul { padding-right: 20px; padding-left: 0; }
 [dir="rtl"] #toast { direction: rtl; }
 
-/* ---------- account and My PDFs ---------- */
-#acctArea { margin-inline-start: auto; position: relative; display: flex; align-items: center; padding-inline-start: 6px; }
-.acct-signin { font: inherit; font-size: 13px; font-weight: 600; color: var(--fg); background: var(--panel); padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); white-space: nowrap; cursor: pointer; }
-.acct-signin:hover { background: var(--hover); }
-.acct-btn { border: 0; background: none; padding: 2px; border-radius: 50%; cursor: pointer; }
-.acct-avatar { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #f97316, var(--accent)); color: #fff; font-weight: 700; font-size: 12px; }
-.acct-menu { position: absolute; inset-inline-end: 0; top: 42px; z-index: 40; min-width: 240px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 6px; display: grid; }
-.acct-menu[hidden] { display: none; }
-.acct-menu .who { padding: 8px 10px 10px; border-bottom: 1px solid var(--border); margin-bottom: 4px; display: grid; font-size: 13px; gap: 2px; }
-.acct-menu .who span { color: var(--muted); font-size: 12px; }
-.acct-menu .who .prev:empty { display: none; }
-.acct-menu button, .mp-menu button { text-align: start; padding: 8px 10px; border-radius: 8px; color: var(--fg); background: none; border: 0; font: inherit; font-size: 14px; cursor: pointer; height: auto; }
-.acct-menu button:hover, .mp-menu button:hover { background: var(--hover); }
-.acct-menu .danger, .mp-menu .danger { color: #dc2626; }
+/* ---------- saved / not saved, recent files, size note ---------- */
 .save-state { font-size: 12px; color: var(--muted); white-space: nowrap; flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .save-state.dirty { color: #b45309; }
 .save-state[hidden] { display: none; }
-#myPdfs { text-align: start; margin: 0 0 22px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); }
-#myPdfs[hidden] { display: none; }
-.mp-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.mp-head h2 { margin: 0; font-size: 17px; }
-.mp-head button { height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
-.mp-note { margin: 6px 0 10px; }
-#mpList { list-style: none; margin: 0; padding: 0; max-height: 300px; overflow: auto; }
-.mp-item { position: relative; display: flex; align-items: center; gap: 10px; padding: 6px 4px; border-top: 1px solid var(--border); }
-.mp-open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; border: 0; background: none; color: var(--fg); font: inherit; font-weight: 600; text-align: start; cursor: pointer; padding: 6px; border-radius: 8px; }
-.mp-open:hover { background: var(--hover); }
-.mp-open svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--accent); stroke-width: 1.8; }
-.mp-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.mp-meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
-.mp-more { border: 0; background: none; color: var(--muted); font-size: 18px; width: 30px; height: 30px; border-radius: 6px; cursor: pointer; }
-.mp-more:hover { background: var(--hover); color: var(--fg); }
-.mp-menu { position: absolute; inset-inline-end: 4px; top: 40px; z-index: 30; min-width: 190px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); padding: 5px; display: grid; }
-#acctHint { margin: 0 0 18px; }
-#authDlg .field { display: grid; gap: 6px; font-size: 14px; font-weight: 600; margin: 10px 0 0; }
-#authDlg .field input { height: 40px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); font: inherit; font-weight: 400; }
-#authDlg.working .box { opacity: .7; pointer-events: none; }
-.versions { list-style: none; margin: 8px 0 0; padding: 0; }
-.versions li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--border); font-size: 14px; }
-@media (max-width: 760px) { .mp-meta { display: none; } .save-state { display: none; } }
-
+#recentFiles { text-align: start; margin: 0 0 22px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); }
+#recentFiles[hidden] { display: none; }
+#recentFiles h2 { margin: 0 0 6px; font-size: 16px; }
+#recentFiles ul { list-style: none; margin: 0; padding: 0; max-height: 260px; overflow: auto; }
+#recentFiles li { display: flex; align-items: center; gap: 6px; border-top: 1px solid var(--border); }
+.rf-open { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; border: 0; background: none; color: var(--fg); font: inherit; text-align: start; cursor: pointer; padding: 8px 6px; border-radius: 8px; }
+.rf-open:hover { background: var(--hover); }
+.rf-open svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--accent); stroke-width: 1.8; }
+.rf-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rf-when { margin-inline-start: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.rf-del { border: 0; background: none; color: var(--muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; }
+.rf-del:hover { background: var(--hover); color: var(--fg); }
+#legacyBox { text-align: start; margin: 0 0 18px; }
+#legacyBox .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 760px) { .rf-when { display: none; } .save-state { display: none; } }
 /* toolbar labels: hidden step by step (fit.js) until everything fits, in any language */
 #toolbar.fit1 .group:not(.tools) button:not(#btnFind) span { display: none; }
 #toolbar.fit2 button span { display: none; }
@@ -299,3 +277,10 @@ html.i18n-wait body { visibility: hidden; }
 .rd-tips { margin-top: 12px; }
 .rd-tips ul { margin: 6px 0 0; padding-inline-start: 18px; color: var(--muted); }
 .rd-tips li { margin: 4px 0; }
+
+/* ---------- active content notice ---------- */
+#activeBar { margin: 0; border-radius: 0; border-width: 0 0 1px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; padding: 8px 14px; }
+#activeBar[hidden] { display: none; }
+#activeBar .ab-text { flex: 1 1 320px; }
+#activeBar button { height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); font: inherit; cursor: pointer; }
+#activeBar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }

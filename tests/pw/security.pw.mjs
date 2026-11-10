@@ -1,5 +1,5 @@
 // Security checks, organised by OWASP Top 10:2025, against the local site or the live one.
-// Chromium with a virtual passkey authenticator (NOPRF=1: a passkey without the PRF feature).
+// Chromium.
 // Run: node security.pw.mjs [base-url]      (default http://localhost:8787)
 import fs from "node:fs";
 import { chromium } from "playwright";
@@ -45,11 +45,8 @@ await ctx.addInitScript(() => {
   document.addEventListener("securitypolicyviolation", (e) => window.__cspViolation(`${e.violatedDirective} ${e.blockedURI}`));
   localStorage.setItem("pdfe.fontIntroSeen", "1");
 });
-const cdp = await ctx.newCDPSession(page);
-await cdp.send("WebAuthn.enable");
-await cdp.send("WebAuthn.addVirtualAuthenticator", { options: { protocol: "ctap2", ctap2Version: "ctap2_1", transport: "internal", hasResidentKey: true, hasUserVerification: true, isUserVerified: true, hasPrf: !process.env.NOPRF, automaticPresenceSimulation: true } });
 const waitFn = async (expr, timeout = 30000) => { const t0 = Date.now(); while (Date.now() - t0 < timeout) { try { if (await page.evaluate(`!!(${expr})`)) return true; } catch (e) {} await sleep(100); } return false; };
-const ready = () => waitFn(`document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait') && document.querySelector('#acctArea')`, 60000);
+const ready = () => waitFn(`document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait') && document.querySelector('#sizeNote')`, 60000);
 const docReady = () => waitFn(`S.doc && S.spans[S.doc.pages[0].v] && pageEl(0).dataset.rkey && !S.pending`);
 const idb = (db, store, op = "getAll", key) => page.evaluate(async ([db, store, op, key]) => {
   const d = await new Promise((r, j) => { const q = indexedDB.open(db); q.onsuccess = () => r(q.result); q.onerror = () => j(q.error); });
@@ -75,124 +72,57 @@ try {
   ok(await page.evaluate(() => window.__xss === undefined && !document.querySelector("img[src='x']")), "no injected element anywhere on the page");
 
   /* -------------------------------------------------------------- A07 authentication, A01 access */
-  section("A07 Authentication / A01 Access control – passkey accounts");
+  /* -------------------------------------------------------------- A05: file names */
+  await page.evaluate(() => { S.dirty = false; });
+  await page.setInputFiles("#fileInput", { name: "<svg onload=window.__xss=3>.pdf", mimeType: "application/pdf", buffer: fs.readFileSync(fx("demo-invoice.pdf")) });
+  await waitFn(`S.doc && /svg/.test(S.doc.name) && pageEl(0).dataset.rkey`);
+  ok(await page.evaluate(() => window.__xss === undefined && !document.querySelector("svg[onload]") && /<svg/.test(document.querySelector("#docName").textContent) && /<svg/.test(document.title)), "a file name containing HTML is shown as text (toolbar, window title)");
+
+  /* -------------------------------------------------------------- A01 / A04: no account, no stored documents */
+  section("A01 Access control / A04 Cryptography – nothing to steal on the server, little in the browser");
+  ok(await page.evaluate(() => !window.Vault && !document.querySelector("#btnSignIn, #acctArea, #myPdfs")), "no accounts: no sign-in to attack, no stored document collections");
+  const dbs = await page.evaluate(async () => (indexedDB.databases ? (await indexedDB.databases()).map((d) => d.name) : []));
+  ok(!dbs.includes("pdf-editor-vault"), "no old account storage left in a fresh browser: " + dbs.join(", "));
+  await sleep(1500);
+  const cur = await idb("pdf-editor", "docs", "get", "current");
+  ok(!cur || (cur.name && cur.bytes), "the only document kept is the crash-recovery copy of the open PDF (removed by “Close”)");
   await page.click("#btnClose");
   await waitFn(`!S.doc`);
-  await page.click("#hintCreate");
-  await page.fill("#authName", "<img src=x onerror=window.__xss=2>");
-  await page.click("#authCreateForm button[type=submit]");
-  ok(await waitFn(`Vault.account`, 20000), "account created (mode: " + (await page.evaluate(() => Vault.account && Vault.account.mode)) + ")");
-  await page.click("#acctBtn");
-  ok(await page.evaluate(() => !document.querySelector("#acctMenu img") && window.__xss === undefined && /<img/.test(document.querySelector("#acctMenu .who b").textContent)), "a name containing HTML is shown as text");
-  await page.keyboard.press("Escape"); await page.mouse.click(5, 500);
-  await page.setInputFiles("#mpInput", { name: "<svg onload=window.__xss=3>.pdf", mimeType: "application/pdf", buffer: fs.readFileSync(fx("demo-invoice.pdf")) });
-  ok(await waitFn(`document.querySelectorAll('#mpList .mp-item').length === 1`), "a PDF whose name contains HTML is added");
-  ok(await page.evaluate(() => !document.querySelector("#mpList svg[onload], #mpList svg:not(.mp-open svg)") && window.__xss === undefined), "its name is shown as text");
+  ok(!(await idb("pdf-editor", "docs", "get", "current")), "“Close” erases it");
 
-  /* -------------------------------------------------------------- A04 cryptography */
-  section("A04 Cryptographic failures – keys and stored data");
-  const sid = await page.evaluate(() => sessionStorage.getItem("pdfe.vaultSession"));
-  ok(/^[A-Za-z0-9_-]{20,24}$/.test(sid || ""), "the tab keeps only a random sign-in id, no key material");
-  const keyInfo = await page.evaluate(async (sid) => {
-    const d = await new Promise((r) => { const q = indexedDB.open("pdf-editor-vault"); q.onsuccess = () => r(q.result); });
-    const s = await new Promise((r) => { const q = d.transaction("sessions").objectStore("sessions").get(sid); q.onsuccess = () => r(q.result); });
-    let exported = "refused";
-    try { await crypto.subtle.exportKey("raw", s.key); exported = "EXPORTED"; } catch (e) {}
-    const accts = await new Promise((r) => { const q = d.transaction("accounts").objectStore("accounts").getAll(); q.onsuccess = () => r(q.result); });
-    const devKeys = accts.filter((a) => a.deviceKey).map((a) => a.deviceKey.extractable);
-    return { algo: s.key.algorithm.name + "-" + s.key.algorithm.length, extractable: s.key.extractable, exported, devKeys };
-  }, sid);
-  ok(keyInfo.algo === "AES-GCM-256" && keyInfo.extractable === false && keyInfo.exported === "refused" && keyInfo.devKeys.every((x) => x === false), `encryption key AES-GCM-256, not extractable: even a script on the page cannot read it (${JSON.stringify(keyInfo)})`);
-  await page.click("#mpList .mp-open");
-  await docReady();
-  const line = await page.evaluate(() => { const s = S.spans[S.doc.pages[0].v].find((x) => x.text.trim() === "14 Harbour Street"); const r = pageEl(0).getBoundingClientRect(); return { x: r.left + (s.tbox[0] + 4) * S.zoom, y: r.top + (s.tbox[1] + s.tbox[3]) / 2 * S.zoom }; });
-  await page.mouse.click(line.x, line.y);
-  await waitFn(`S.ed && document.activeElement === S.ed.box`);
-  await page.evaluate(() => document.getSelection().selectAllChildren(S.ed.box));
-  await page.keyboard.insertText("Secret Road 1");
-  await page.keyboard.press("Enter");
-  await waitFn(`!S.ed && !S.pending`);
-  await sleep(1500);                                   // the crash-recovery copy is written ~1 s after a change
-  const current = await idb("pdf-editor", "docs", "get", "current");
-  ok(!current, "while signed in, no unencrypted copy of the open PDF is written to the browser");
-  await page.click("#btnSave");
-  await waitFn(`!S.dirty`);
-  const raw = await page.evaluate(async () => {
-    const d = await new Promise((r) => { const q = indexedDB.open("pdf-editor-vault"); q.onsuccess = () => r(q.result); });
-    const all = await new Promise((r) => { const q = d.transaction("blobs").objectStore("blobs").getAll(); q.onsuccess = () => r(q.result); });
-    const dec = new TextDecoder("latin1");
-    return all.map((b) => dec.decode(new Uint8Array(b))).join("");
-  });
-  ok(!raw.includes("%PDF") && !raw.includes("Secret Road") && !raw.includes("Harbour"), "stored PDFs contain no readable text");
-
-  /* -------------------------------------------------------------- A08 integrity */
-  section("A08 Integrity – tampered data is refused");
-  const tampered = await page.evaluate(async () => {
-    const d = await new Promise((r) => { const q = indexedDB.open("pdf-editor-vault"); q.onsuccess = () => r(q.result); });
-    const files = await new Promise((r) => { const q = d.transaction("files").objectStore("files").getAll(); q.onsuccess = () => r(q.result); });
-    const v = files[0].versions[0];
-    const blob = await new Promise((r) => { const q = d.transaction("blobs").objectStore("blobs").get(v.blob); q.onsuccess = () => r(q.result); });
-    const b = new Uint8Array(blob).slice(); b[100] ^= 1;                   // one bit changed
-    await new Promise((r) => { const x = d.transaction("blobs", "readwrite"); x.objectStore("blobs").put(b, v.blob); x.oncomplete = r; });
-    try { await Vault.load(files[0].id); return "OPENED"; } catch (e) { return e.message; }
-  });
-  ok(/changed or damaged/.test(tampered), "a changed bit in a stored PDF is detected: " + tampered);
-
-  /* -------------------------------------------------------------- A07 sessions */
-  section("A07 Authentication – sign-in lifetime");
-  await page.evaluate(() => { S.dirty = false; });
-  await page.evaluate(async (sid) => {
-    const d = await new Promise((r) => { const q = indexedDB.open("pdf-editor-vault"); q.onsuccess = () => r(q.result); });
-    const st = d.transaction("sessions", "readwrite").objectStore("sessions");
-    const s = await new Promise((r) => { const q = st.get(sid); q.onsuccess = () => r(q.result); });
-    await new Promise((r) => { const x = d.transaction("sessions", "readwrite"); x.objectStore("sessions").put({ ...s, lastActive: Date.now() - 31 * 60000 }); x.oncomplete = r; });
-    document.dispatchEvent(new Event("visibilitychange"));
-  }, sid);
-  ok(await waitFn(`!Vault.account && /30 minutes/.test(document.querySelector('#toast').textContent)`, 10000), "after 30 minutes without activity: signed out, with a message");
-  ok(!(await idb("pdf-editor-vault", "sessions", "get", sid)), "the expired sign-in is erased");
-  await page.reload(); await ready();
-  ok(await page.evaluate(() => !Vault.account), "a reload does not bring it back");
-  await page.click("#btnSignIn"); await page.click("#authGo");
-  ok(await waitFn(`Vault.account`, 20000), "signing in again with the passkey works");
-  ok(await page.evaluate(() => !!(Vault.account.previousSignIn)), "the account menu shows the previous sign-in (to spot one you did not make)");
-  const forged = await page.evaluate(async () => {
-    if (Vault.account.mode !== "device") return "prf";
-    Vault.signOut();
-    const real = navigator.credentials.get.bind(navigator.credentials);
-    navigator.credentials.get = async (o) => { const c = await real(o); const sig = new Uint8Array(c.response.signature); sig[sig.length - 3] ^= 0x55;
-      return { id: c.id, rawId: c.rawId, getClientExtensionResults: () => ({}), response: { userHandle: c.response.userHandle, clientDataJSON: c.response.clientDataJSON, authenticatorData: c.response.authenticatorData, signature: sig.buffer } }; };
-    try { await Vault.signIn(); return "SIGNED IN"; } catch (e) { return e.message; } finally { navigator.credentials.get = real; }
-  });
-  ok(forged === "prf" || /could not be verified/.test(forged), forged === "prf" ? "forged sign-in: impossible by design with PRF passkeys (the key comes from the passkey)" : "a forged passkey answer is refused");
-  if (!(await page.evaluate(() => !!Vault.account))) { await page.click("#btnSignIn"); await page.click("#authGo"); await waitFn(`Vault.account`, 20000); }
-
-  /* -------------------------------------------------------------- A06 design, A10 exceptional conditions */
+  /* -------------------------------------------------------------- A06 / A10: limits and errors */
   section("A06 Insecure design / A10 Exceptional conditions – limits and errors");
-  ok(/200 MB/.test(await page.textContent("#myPdfs .mp-note")), "My PDFs shows the limit: “Up to 200 MB per PDF”");
-  await page.click("#mpSizeHelp");
-  ok(/200 MB/.test(await page.textContent("#modalText")) && /Reduce file size/.test(await page.textContent("#modalText")), "“Too large?” explains the limit and how to reduce a PDF");
+  ok(/250 MB/.test(await page.textContent("#sizeNote")), "the start screen shows the size limit: " + (await page.textContent("#sizeNote")));
+  await page.evaluate(() => { FILES.maxBytes = 1024 * 1024; });
+  await page.setInputFiles("#fileInput", fx("photo.pdf"));
+  ok(await waitFn(`!document.querySelector('#modal').hidden && /too large/.test(document.querySelector('#modalTitle').textContent)`), "a PDF over the limit is refused before it is read, with an explanation");
   await page.click("#modalOk");
-  await page.evaluate(() => { Vault.maxFileBytes = 1024 * 1024; });                  // simulate a small limit: 1 MB
-  await page.setInputFiles("#mpInput", fx("photo.pdf"));                              // 4.6 MB of photo
-  ok(await waitFn(`!document.querySelector('#modal').hidden && /too large/i.test(document.querySelector('#modalTitle').textContent)`), "a PDF over the limit: clear explanation, with its size and the limit");
-  ok(/4\.\d MB/.test(await page.textContent("#modalText")) && /1 MB/.test(await page.textContent("#modalText")), "…" + (await page.textContent("#modalText")).slice(0, 90));
-  await page.click("#modalOk");                                                       // "Reduce its size"
-  await waitFn(`!document.querySelector('#reduceDlg').hidden && /Current size/.test(document.querySelector('.rd-now').textContent)`);
-  await page.check('input[name="rdLevel"][value="smallest"]');
-  await page.click("#reduceDlg .rd-go");
-  ok(await waitFn(`!document.querySelector('#modal').hidden && /Save it in My PDFs/.test(document.querySelector('#modalTitle').textContent)`, 60000), "reduced under the limit, then offered to save");
-  await page.click("#modalOk");
-  ok(await waitFn(`!S.dirty && ACCOUNT.fileId`), "saved in My PDFs");
-  await page.evaluate(() => { Vault.maxFileBytes = 200 * 1024 * 1024; });
-  const sizes = await page.evaluate(async () => (await Vault.list()).map((f) => f.size));
-  ok(sizes.some((s) => s < 1024 * 1024), "the stored copy is under the limit: " + sizes.map((s) => (s / 1048576).toFixed(2) + " MB").join(", "));
-  ok(await page.evaluate(() => call("find", "Holiday photo report").then((h) => h.length === 1)), "after reducing, the text is still real text");
-  await page.click("#btnReduce");
-  await waitFn(`!document.querySelector('#reduceDlg').hidden && /Current size: \\d/.test(document.querySelector('.rd-now').textContent)`);
-  ok(/Current size: .* · My PDFs accept up to 200 MB/.test(await page.textContent(".rd-now")), "“Reduce file size…” in the page panel shows the size and the limit");
-  await page.click("#reduceDlg .rd-cancel");
-  const tooBig = await page.evaluate(async () => { try { await Vault.save(new Uint8Array(Vault.maxFileBytes + 1), "x.pdf"); return "SAVED"; } catch (e) { return e.message; } });
-  ok(/too large/.test(tooBig), "the storage layer refuses oversized files itself: " + tooBig);
+  await page.evaluate(() => { FILES.maxBytes = 250 * 1024 * 1024; });
+  await page.setInputFiles("#fileInput", { name: "broken.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.7\n1 0 obj << /Type /Catalog /Pages 9 0 R >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF") });
+  ok(await waitFn(`document.querySelector('#toast').classList.contains('error') || (S.doc && S.doc.name === "broken.pdf")`, 15000), "a damaged PDF gives a message, not a crash: " + (await page.textContent("#toast")).slice(0, 80));
+  await page.setInputFiles("#fileInput", { name: "not-a-pdf.pdf", mimeType: "application/pdf", buffer: Buffer.from("<html><script>window.__xss=4</script></html>") });
+  ok(await waitFn(`document.querySelector('#toast').classList.contains('error')`, 15000) && await page.evaluate(() => window.__xss === undefined), "an HTML file renamed .pdf is refused and never run");
+
+
+  /* -------------------------------------------------------------- active content and hostile files */
+  section("A08 Integrity / A05 Injection – active content in PDFs");
+  await page.evaluate(() => { S.dirty = false; });
+  await page.setInputFiles("#fileInput", fx("hostile.pdf"));
+  await docReady();
+  ok(await waitFn(`!document.querySelector('#activeBar').hidden`), "a PDF with scripts, a launch action, a javascript: link, an attachment and XFA: a notice appears");
+  ok(/scripts/.test(await page.textContent("#activeBar")) && /program launch/.test(await page.textContent("#activeBar")), "…naming them: " + (await page.textContent("#activeBar .ab-text")).slice(0, 110));
+  ok(await page.evaluate(() => window.__xss === undefined && !document.querySelector("iframe, embed, object")), "nothing in it is run or embedded by the editor");
+  const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#btnDownload")]);
+  const saved = fs.readFileSync(await dl.path()).toString("latin1");
+  ok(!/\/JavaScript|\/JS\b|\/Launch|javascript:|\/XFA|EmbeddedFile|payload\.exe|\/OpenAction/.test(saved), "the saved PDF has none of it left");
+  ok(await page.evaluate(() => call("find", "Hostile test PDF").then((h) => h.length === 1)), "the text is still real text");
+  await page.evaluate(() => { S.dirty = false; });
+  await page.setInputFiles("#fileInput", fx("hostile.pdf"));
+  await docReady();
+  await waitFn(`!document.querySelector('#activeBar').hidden`);
+  await page.click("#activeBar .ab-keep");
+  const [dl2] = await Promise.all([page.waitForEvent("download"), page.click("#btnDownload")]);
+  ok(/\/Launch/.test(fs.readFileSync(await dl2.path()).toString("latin1")), "“Keep it”: the person can choose to keep it (their decision)");
 
   /* -------------------------------------------------------------- A03 supply chain */
   section("A03 Software supply chain – third-party content");

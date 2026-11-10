@@ -19,8 +19,9 @@ const S = {
 };
 
 /* ---------------------------------------------------------------- helpers */
+const PAGE_TOKEN = (document.querySelector('meta[name="pdfe-token"]') || {}).content || "";
 async function api(method, path, body, isForm) {
-  const opt = { method, headers: {} };
+  const opt = { method, headers: { "X-PDF-Editor": PAGE_TOKEN } };
   if (body !== undefined) {
     if (isForm) opt.body = body;
     else { opt.body = JSON.stringify(body); opt.headers["Content-Type"] = "application/json"; }
