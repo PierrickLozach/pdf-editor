@@ -1,0 +1,21 @@
+{
+  "name": "日本語",
+  "dir": "ltr",
+  "locale": "ja_JP",
+  "site_name": "PDF エディタ",
+  "skip": "本文へスキップ",
+  "nav_editor": "エディタ",
+  "nav_features": "機能",
+  "nav_privacy": "プライバシー",
+  "nav_faq": "よくある質問",
+  "open_editor": "エディタを開く",
+  "language": "言語",
+  "footer_privacy": "プライバシー",
+  "footer_cookies": "Cookie",
+  "footer_terms": "利用規約",
+  "footer_legal": "法的表示",
+  "footer_source": "ソースコード",
+  "footer_free": "フリーソフトウェア（AGPL）",
+  "date_format": "%Y年%-m月%-d日",
+  "language_auto": "ブラウザの言語"
+}

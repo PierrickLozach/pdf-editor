@@ -3,10 +3,9 @@
 A free PDF editor that runs entirely in the browser: change text in its original font, move it,
 find and replace, white-out, add images and signatures, rearrange pages. PDFs never leave the device.
 
-- `web/` — the editor (MuPDF compiled to WebAssembly, plain JavaScript, no build step needed to run it)
-- `site/` — the website around it (landing page, legal pages, English and French), deployed on Cloudflare
+- `web/` — the editor (MuPDF compiled to WebAssembly, plain JavaScript, no build step needed to run it; `web/app.js` is the interface)
+- `site/` — the website around it (landing page, legal pages, in 12 languages), deployed on Cloudflare
 - `tools/` — build scripts (`tools/build_site.py` assembles `site/public`)
-- `static/` — the interface the editor's `web/app.js` is generated from (`tools/build_web_app.py`)
 
 Run the editor locally: `python3 tools/serve.py 8766` then open http://127.0.0.1:8766.
 Website and deployment: see [site/DEPLOY.md](site/DEPLOY.md).

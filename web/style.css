@@ -2,7 +2,7 @@
   --bg: #eef0f3; --panel: #ffffff; --fg: #1d2129; --muted: #6b7280; --border: #dde1e7;
   --accent: #e5322d; --accent-soft: #fde8e7; --hover: #f2f4f7; --blue: #2563eb;
   --shadow: 0 1px 2px rgba(16,24,40,.06), 0 4px 16px rgba(16,24,40,.08);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Noto Sans", sans-serif;
   font-size: 13px; color: var(--fg);
 }
 @media (prefers-color-scheme: dark) {
@@ -284,3 +284,9 @@ html.i18n-wait body { visibility: hidden; }
 #activeBar .ab-text { flex: 1 1 320px; }
 #activeBar button { height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); font: inherit; cursor: pointer; }
 #activeBar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- interface fonts for other scripts ---------- */
+:lang(ar) body { font-family: -apple-system, "Geeza Pro", "Segoe UI", Tahoma, "Noto Sans Arabic", sans-serif; }
+:lang(he) body { font-family: -apple-system, "Arial Hebrew", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif; }
+:lang(zh) body { font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif; }
+:lang(ja) body { font-family: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif; }

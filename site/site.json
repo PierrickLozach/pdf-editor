@@ -13,7 +13,17 @@
   "source": "https://github.com/PierrickLozach/pdf-editor",
   "languages": [
     "en",
-    "fr"
+    "fr",
+    "es",
+    "pt",
+    "de",
+    "nl",
+    "it",
+    "pl",
+    "ar",
+    "he",
+    "zh",
+    "ja"
   ],
   "default_language": "en"
 }

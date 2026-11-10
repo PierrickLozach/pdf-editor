@@ -1,0 +1,420 @@
+{
+ "language": "العربية",
+ "strings": {
+  "PDF Editor": "محرر PDF",
+  "Open": "فتح",
+  "Save": "حفظ",
+  "Download": "تنزيل",
+  "Edit text": "تعديل النص",
+  "Add text": "إضافة نص",
+  "Whiteout": "تبييض",
+  "Image": "صورة",
+  "Find & replace": "بحث واستبدال",
+  "Fonts": "الخطوط",
+  "+ Add pages from a PDF…": "+ إضافة صفحات من ملف PDF…",
+  "Drop a PDF here": "أفلِت ملف PDF هنا",
+  "or": "أو",
+  "choose a file": "اختر ملفًا",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– انقر على أي نص واكتب؛ يُحذف النص الأصلي فعلًا ويستخدم النص الجديد الخط والحجم واللون نفسها.",
+  "across the whole document.": "في المستند بأكمله.",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "أضف نصًا، وبيّض مناطق، وأضف صورًا أو توقيعات، ودوّر الصفحات وأعد ترتيبها واحذفها وادمجها.",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "كل شيء يجري في متصفحك: تُعالَج ملفاتك على هذا الجهاز ولا تُرفع أبدًا.",
+  "Loading the PDF engine…": "جارٍ تحميل محرك PDF…",
+  "Resume editing": "متابعة التعديل",
+  "Discard": "تجاهل",
+  "Free software (AGPL) based on": "برنامج حر (AGPL) مبني على",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· الخطوط: Liberation وCarlito وCaladea وDejaVu (تراخيص مفتوحة) ·",
+  "licence & source": "الترخيص والشيفرة المصدرية",
+  "Find": "بحث",
+  "Replace with": "استبدال بـ",
+  "Match case": "مطابقة حالة الأحرف",
+  "Whole words": "كلمات كاملة",
+  "Type to search": "اكتب للبحث",
+  "No match": "لا توجد نتائج",
+  "Replace": "استبدال",
+  "Replace all": "استبدال الكل",
+  "Fit width": "ملاءمة العرض",
+  "Cancel": "إلغاء",
+  "Apply": "تطبيق",
+  "OK": "حسنًا",
+  "Use your computer's fonts?": "هل تريد استخدام خطوط جهاز الكمبيوتر؟",
+  "Some letters you typed are not in this PDF's copy of": "بعض الأحرف التي كتبتها غير موجودة في نسخة الخط",
+  ", so they were drawn with a look-alike font.": "المضمّنة في ملف PDF هذا، لذا رُسمت بخط مشابه.",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "اسمح للمحرر باستخدام الخطوط المثبّتة على جهاز الكمبيوتر، وسيعيد رسمها بالخط الحقيقي. تُستخدم الخطوط هنا فقط، على هذا الجهاز:",
+  "nothing is uploaded": "لا يُرفع أي شيء",
+  "Not now": "ليس الآن",
+  "Add fonts…": "إضافة خطوط…",
+  "Allow": "سماح",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "تستخدم التعديلات خطوط ملف PDF نفسه كلما أمكن. وتغطي هذه الخيارات الأحرف غير الموجودة في الملف.",
+  "Free fonts": "خطوط مجانية",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "(Google Fonts…): تُنزَّل تلقائيًا عندما يستخدم ملف PDF أحدها – ولا يُرسَل سوى اسم الخط",
+  "Allow my fonts": "السماح بخطوطي",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "خطوط لا تراها المتصفحات (Calibri وCambria وAptos… من Microsoft Office):",
+  "Add Office fonts": "إضافة خطوط Office",
+  "Add Mac fonts": "إضافة خطوط Mac",
+  "Other files…": "ملفات أخرى…",
+  "Remove all": "إزالة الكل",
+  "Remove": "إزالة",
+  "Drop the PDF to open it (or font files to add them)": "أفلِت ملف PDF لفتحه (أو ملفات الخطوط لإضافتها)",
+  "Pages": "الصفحات",
+  "Open a PDF (⌘O)": "فتح ملف PDF (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "حفظ ملف PDF المعدَّل (⌘S / Ctrl+S)",
+  "Download the edited PDF": "تنزيل ملف PDF المعدَّل",
+  "Close this PDF": "إغلاق ملف PDF هذا",
+  "Undo (⌘Z)": "تراجع (⌘Z)",
+  "Redo (⇧⌘Z)": "إعادة (⇧⌘Z)",
+  "Tool": "الأداة",
+  "Edit text: click a text to change it, drag it to move it (E)": "تعديل النص: انقر على نص لتغييره، واسحبه لنقله (E)",
+  "Add text: click where to type (T)": "إضافة نص: انقر حيث تريد الكتابة (T)",
+  "Whiteout: drag over an area to erase it (W)": "تبييض: اسحب فوق منطقة لمسحها (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "صورة / توقيع: اختر صورة، ثم انقر أو اسحب على الصفحة (I)",
+  "Find & replace (⌘F)": "بحث واستبدال (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "خطوط هذا الكمبيوتر: عدّل بالخطوط نفسها المستخدمة في الأصل",
+  "Zoom out (⌘−)": "تصغير (⌘−)",
+  "Fit to width": "ملاءمة العرض",
+  "Zoom in (⌘+)": "تكبير (⌘+)",
+  "Append the pages of another PDF at the end": "إلحاق صفحات ملف PDF آخر في النهاية",
+  "Close (Esc)": "إغلاق (Esc)",
+  "Text to find": "النص المطلوب البحث عنه",
+  "New text (leave empty to delete)": "النص الجديد (اتركه فارغًا للحذف)",
+  "Previous (⇧Enter)": "السابق (⇧Enter)",
+  "Next (Enter)": "التالي (Enter)",
+  "Font": "الخط",
+  "Font size (pt)": "حجم الخط (pt)",
+  "Text colour": "لون النص",
+  "Bold": "غامق",
+  "Italic": "مائل",
+  "Align left (text grows to the right)": "محاذاة لليسار (يمتد النص نحو اليمين)",
+  "Centre (text grows on both sides)": "توسيط (يمتد النص في الجهتين)",
+  "Align right (text grows to the left: amounts, totals)": "محاذاة لليمين (يمتد النص نحو اليسار: المبالغ، الإجماليات)",
+  "Shrink the new text so it is never wider than the original": "تصغير النص الجديد كي لا يتجاوز عرض النص الأصلي أبدًا",
+  "Cancel (Esc)": "إلغاء (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "تطبيق (Enter · Shift+Enter لسطر جديد)",
+  "This browser cannot run the editor (no module workers). Please update it.": "لا يستطيع هذا المتصفح تشغيل المحرر (لا يدعم module workers). يُرجى تحديثه.",
+  "Please choose a PDF file": "يُرجى اختيار ملف PDF",
+  "Open another PDF?": "هل تريد فتح ملف PDF آخر؟",
+  "Open anyway": "فتح على أي حال",
+  "Password-protected PDF": "ملف PDF محمي بكلمة مرور",
+  "Wrong password, try again:": "كلمة مرور خاطئة، حاول مرة أخرى:",
+  "Save as": "حفظ باسم",
+  "PDF document": "مستند PDF",
+  "Loading…": "جارٍ التحميل…",
+  "Click to edit · drag to move": "انقر للتعديل · اسحب للنقل",
+  "Tilted text cannot be edited": "لا يمكن تعديل النص المائل",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "هذا النص مائل: لا يمكن تعديله في مكانه. استخدم «تبييض» ثم «إضافة نص» بدلًا من ذلك.",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "لا يوجد نص قابل للتعديل في هذه الصفحة (صورة ممسوحة ضوئيًا؟) – استخدم «تبييض» ثم «إضافة نص».",
+  "You can undo this with ⌘Z.": "يمكنك التراجع عن ذلك باستخدام ⌘Z.",
+  "Delete": "حذف",
+  "Close": "إغلاق",
+  "Included fonts": "الخطوط المضمّنة",
+  "Fonts on this computer": "خطوط هذا الكمبيوتر",
+  "＋ Fonts from this computer…": "＋ خطوط من هذا الكمبيوتر…",
+  "Use my fonts": "استخدام خطوطي",
+  "Add font…": "إضافة خط…",
+  "(look-alike font)": "(خط مشابه)",
+  "check the text: this PDF hides its real characters": "تحقّق من النص: هذا الملف يخفي أحرفه الحقيقية",
+  "this PDF hides its real characters; check the text before applying": "هذا الملف يخفي أحرفه الحقيقية؛ تحقّق من النص قبل التطبيق",
+  "↵ apply": "↵ تطبيق",
+  "⇧↵ new line": "⇧↵ سطر جديد",
+  "Esc cancel": "Esc إلغاء",
+  "Drag over the area to white out – text under it is really removed": "اسحب فوق المنطقة المراد تبييضها – يُحذف النص الموجود تحتها فعلًا",
+  "Click where the new text should start": "انقر حيث يجب أن يبدأ النص الجديد",
+  "Drag to draw the area to white out": "اسحب لرسم المنطقة المراد تبييضها",
+  "This image could not be read": "تعذّرت قراءة هذه الصورة",
+  "This match spans text with two different styles: click it with Edit text to change it": "تمتد هذه النتيجة على نص بنمطين مختلفين: انقر عليها بأداة «تعديل النص» لتغييرها",
+  "Replacement drawn with the original font.": "رُسم الاستبدال بالخط الأصلي.",
+  "Drop a PDF file (or font files)": "أفلِت ملف PDF (أو ملفات خطوط)",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "لم يشارك المتصفح أي خط. اسمح بـ«الخطوط» لهذا الموقع (الرمز على يسار شريط العناوين)، ثم حاول مرة أخرى.",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "لم يُسمح بالوصول إلى خطوط هذا الكمبيوتر. للسماح به لاحقًا: الرمز على يسار شريط العناوين ← إعدادات الموقع ← الخطوط ← سماح.",
+  "No font files there (.ttf, .otf or .ttc)": "لا توجد ملفات خطوط هنا (.ttf أو .otf أو .ttc)",
+  "No file chosen": "لم يتم اختيار أي ملف",
+  "These fonts were already added": "سبقت إضافة هذه الخطوط",
+  "✓ The fonts installed on this computer are used.": "✓ تُستخدم الخطوط المثبّتة على هذا الكمبيوتر.",
+  "Use the fonts installed on this computer (the browser asks you once).": "استخدام الخطوط المثبّتة على هذا الكمبيوتر (يسألك المتصفح مرة واحدة).",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "في النافذة: اضغط ⌘⇧G، ثم ⌘V، ثم Return، ثم انقر على «رفع» (تبقى الملفات على جهاز Mac).",
+  "this PDF's font": "خط ملف PDF هذا",
+  "Remove all added fonts?": "هل تريد إزالة جميع الخطوط المضافة؟",
+  "They are removed from this browser only; the files on your computer are not touched.": "تُزال من هذا المتصفح فقط؛ ولا تُمسّ الملفات الموجودة على جهاز الكمبيوتر.",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "لم يُسمح – يبقى الخط المشابه. يمكنك السماح لاحقًا من زر «الخطوط».",
+  "Close this PDF?": "هل تريد إغلاق ملف PDF هذا؟",
+  "Your edits have not been saved and will be lost.": "لم تُحفظ تعديلاتك وستضيع.",
+  "Drag to move this text": "اسحب لنقل هذا النص",
+  "aligned left": "محاذاة لليسار",
+  "aligned right": "محاذاة لليمين",
+  "centred": "في الوسط",
+  "A PDF needs at least one page": "يجب أن يحتوي ملف PDF على صفحة واحدة على الأقل",
+  "Empty area": "منطقة فارغة",
+  "Empty text": "نص فارغ",
+  "No document is open": "لا يوجد مستند مفتوح",
+  "No such page": "هذه الصفحة غير موجودة",
+  "Not a PDF file": "ليس ملف PDF",
+  "Nothing selected": "لم يتم تحديد أي شيء",
+  "Nothing to search for": "لا يوجد ما يُبحث عنه",
+  "That PDF is password-protected": "ملف PDF هذا محمي بكلمة مرور",
+  "That file could not be read as a PDF": "تعذّرت قراءة هذا الملف كملف PDF",
+  "This file could not be read as a PDF": "تعذّرت قراءة هذا الملف كملف PDF",
+  "The page changed: click the text again": "تغيّرت الصفحة: انقر على النص مرة أخرى",
+  "The page changed: select the text again": "تغيّرت الصفحة: حدّد النص مرة أخرى",
+  "This text is tilted and cannot be edited": "هذا النص مائل ولا يمكن تعديله",
+  "Tilted text cannot be moved": "لا يمكن نقل النص المائل",
+  "Language": "اللغة",
+  "My PDFs": "ملفات PDF الخاصة بي",
+  "Add PDFs": "إضافة ملفات PDF",
+  "Change my name": "تغيير اسمي",
+  "This name is only shown on this device.": "يظهر هذا الاسم على هذا الجهاز فقط.",
+  "Name saved": "تم حفظ الاسم",
+  "Signed out. Your PDFs stay encrypted on this device.": "تم تسجيل الخروج. تبقى ملفات PDF مشفّرة على هذا الجهاز.",
+  "No PDF yet. Add one, or open a PDF and save it.": "لا توجد ملفات PDF بعد. أضف ملفًا، أو افتح ملف PDF واحفظه.",
+  "More": "المزيد",
+  "versions": "إصدارات",
+  "Rename": "إعادة تسمية",
+  "Previous versions": "الإصدارات السابقة",
+  "Delete this PDF?": "هل تريد حذف ملف PDF هذا؟",
+  "Deleted": "تم الحذف",
+  "current": "الحالي",
+  "Older version opened: saving makes it the current version.": "فُتح إصدار أقدم: حفظه يجعله الإصدار الحالي.",
+  "Not saved": "غير محفوظ",
+  "Your name": "اسمك",
+  "Create one": "إنشاء واحد",
+  "The last 5 saved versions are kept.": "يُحتفظ بآخر 5 إصدارات محفوظة.",
+  "Something went wrong. Please try again.": "حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
+  "Cancelled.": "تم الإلغاء.",
+  "Please enter your name.": "يُرجى إدخال اسمك.",
+  "Encrypted and kept on this device only.": "مشفّرة ومحفوظة على هذا الجهاز فقط.",
+  "This file could not be decrypted: it was changed or damaged.": "تعذّر فك تشفير هذا الملف: لقد تغيّر أو تلف.",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "لا تتوفر مساحة تخزين كافية في هذا المتصفح. احذف ملفات PDF التي لم تعد تحتاجها، أو نزّلها.",
+  "Reduce file size": "تقليل حجم الملف",
+  "Reduce file size…": "تقليل حجم الملف…",
+  "Compress photos and scans to make the PDF smaller": "ضغط الصور والمستندات الممسوحة لتصغير ملف PDF",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "تُضغط الصور والصفحات الممسوحة ضوئيًا؛ ويبقى النص والرسومات واضحة وقابلة للتعديل. يمكنك التراجع عن ذلك.",
+  "Smaller": "أصغر",
+  "good for printing (about 200 dpi)": "مناسب للطباعة (نحو 200 dpi)",
+  "Smallest": "الأصغر",
+  "for email and screens (about 120 dpi)": "للبريد الإلكتروني والشاشات (نحو 120 dpi)",
+  "Other ways to make a PDF smaller": "طرق أخرى لتصغير ملف PDF",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "احذف الصفحات التي لا تحتاجها، أو قسّم ملف PDF الطويل: احذف نصف الصفحات واحفظ، ثم كرّر ذلك مع النصف الآخر.",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "على Mac: افتح ملف PDF في «معاينة»، ثم ملف › تصدير…، ومرشّح Quartz: تقليل حجم الملف.",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "عند المسح الضوئي: تكفي دقة 150–200 dpi للمستندات (300 dpi بالأبيض والأسود للخطوط الصغيرة).",
+  "Reduce": "تقليل",
+  "Calculating the size…": "جارٍ حساب الحجم…",
+  "Current size": "الحجم الحالي",
+  "Reducing the size…": "جارٍ تقليل الحجم…",
+  "Size reduced": "تم تقليل الحجم",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "لا يحتوي ملف PDF هذا على صور كبيرة أو صفحات ممسوحة لضغطها: حجمه بالفعل أصغر ما يمكن تقريبًا.",
+  "Reduce its size? It opens in the editor first.": "هل تريد تقليل حجمه؟ سيُفتح في المحرر أولًا.",
+  "Reduce its size": "تقليل حجمه",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "لا يزال كبيرًا جدًا. جرّب «الأصغر»، أو احذف بعض الصفحات واحفظ ملف PDF في جزأين.",
+  "Up to 200 MB per PDF.": "حتى 200 ميغابايت لكل ملف PDF.",
+  "Too large?": "كبير جدًا؟",
+  "Size limit": "الحد الأقصى للحجم",
+  "Open it and use “Reduce file size…”.": "افتحه واستخدم «تقليل حجم الملف…».",
+  "MB": "ميغابايت",
+  "KB": "كيلوبايت",
+  "Recent files": "الملفات الأخيرة",
+  "Remove from this list": "إزالة من هذه القائمة",
+  "Access to the file was not allowed.": "لم يُسمح بالوصول إلى الملف.",
+  "This file was moved or deleted. It was removed from the list.": "نُقل هذا الملف أو حُذف. وقد أُزيل من القائمة.",
+  "This PDF is too large to edit in the browser": "ملف PDF هذا أكبر من أن يُعدَّل في المتصفح",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "لتصغيره: على Mac، افتحه في «معاينة»، ثم ملف › تصدير… › مرشّح Quartz: تقليل حجم الملف؛ أو قسّمه إلى أجزاء (في «معاينة»، اسحب الصفحات خارج الشريط الجانبي). ملفات PDF الكبيرة تكون غالبًا صورًا أو مستندات ممسوحة ضوئيًا: يكفي المسح بدقة 150–200 dpi للمستندات.",
+  "Saving into the file was not allowed: a copy is saved instead.": "لم يُسمح بالحفظ في الملف: حُفظت نسخة بدلًا من ذلك.",
+  "Saved": "تم الحفظ",
+  "Save writes your changes back into the same file.": "يكتب «حفظ» تغييراتك في الملف نفسه.",
+  "Save downloads the edited PDF.": "يُنزّل «حفظ» ملف PDF المعدَّل.",
+  "Accounts have been removed.": "أُزيلت الحسابات.",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "نزّلها الآن: ستُحذف بعد ذلك من هذا المتصفح. يُطلب مفتاح المرور مرة واحدة لفتح قفلها.",
+  "Download my PDFs": "تنزيل ملفات PDF الخاصة بي",
+  "Delete them": "حذفها",
+  "Delete them?": "هل تريد حذفها؟",
+  "1 PDF saved in “My PDFs” is still in this browser.": "لا يزال ملف PDF واحد محفوظ في «ملفات PDF الخاصة بي» موجودًا في هذا المتصفح.",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "تُحذف ملفات PDF المحفوظة في «ملفات PDF الخاصة بي» من هذا المتصفح نهائيًا.",
+  "Remove it": "إزالته",
+  "Keep it": "الاحتفاظ به",
+  "Kept: the saved PDF will still contain it.": "تم الاحتفاظ به: سيظل ملف PDF المحفوظ يحتوي عليه.",
+  "Active content removed. You can undo it.": "أُزيل المحتوى النشط. يمكنك التراجع عن ذلك.",
+  "scripts": "نصوص برمجية",
+  "program launch": "تشغيل برامج",
+  "form sending": "إرسال نماذج",
+  "data import": "استيراد بيانات",
+  "unsafe links": "روابط غير آمنة",
+  "automatic actions": "إجراءات تلقائية",
+  "attached files": "ملفات مرفقة",
+  "XFA form": "نموذج XFA",
+  "media": "وسائط",
+  "embedded document": "مستند مضمّن",
+  "Browser language": "لغة المتصفح"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "لم تُحفظ تعديلاتك على «{name}». وستضيع."
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "يتطلب «{name}» كلمة مرور لفتحه:"
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – محرر PDF"
+  ],
+  [
+   "Saved: {name}",
+   "تم الحفظ: {name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "تم التنزيل: {name}"
+  ],
+  [
+   "Delete page {n}?",
+   "هل تريد حذف الصفحة {n}؟"
+  ],
+  [
+   "{orig} not available",
+   "{orig} غير متوفر"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "صُغّر النص إلى {n} pt ليتسع"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "انقر على صفحة لوضع «{name}»، أو اسحب لاختيار حجمها"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "تعذّر استبدال {n} تلقائيًا (أنماط مختلطة): عدّلها بالنقر عليها"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "ملاحظة: الخط الأصلي غير متوفر لجزء من النص؛ رُسم بخط {f}."
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "رُسم الاستبدال بخط {f} (بعرض الأحرف نفسه في الأصل)."
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "أُضيفت {n} صفحة من «{name}» في النهاية"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "يمكن الآن استخدام {n} من عائلات الخطوط من هذا الكمبيوتر"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "جارٍ قراءة ملف خط واحد ({size})…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "جارٍ قراءة {n} من ملفات الخطوط ({size})…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "أُضيفت عائلة خطوط واحدة: {list}"
+  ],
+  [
+   "Added 1 font family",
+   "أُضيفت عائلة خطوط واحدة"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "أُضيفت {n} من عائلات الخطوط: {list}"
+  ],
+  [
+   "Added {n} font families",
+   "أُضيفت {n} من عائلات الخطوط"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "تعذّرت قراءة ملف واحد ({name}: {why})"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "تعذّرت قراءة {n} من الملفات ({name}: {why})"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "تم تخطي ملف واحد يزيد على 8 ميغابايت ({names}) – أضفه من «ملفات أخرى…» عند الحاجة"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "تم تخطي {n} من الملفات التي تزيد على 8 ميغابايت ({names}) – أضفها من «ملفات أخرى…» عند الحاجة"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "عائلة خطوط واحدة محفوظة في هذا المتصفح ({size})"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "{n} من عائلات الخطوط محفوظة في هذا المتصفح ({size})"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "غير متوفرة بعد لملف PDF هذا: {list}. لخطوط Office، استخدم «إضافة خطوط Office»."
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "غير متوفرة بعد لملف PDF هذا: {list}."
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "في النافذة: اضغط ⌘⇧G، واكتب {path}، ثم Return، ثم «رفع»."
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "لا يزال «{name}» (آخر تعديل {when}) موجودًا في هذا المتصفح."
+  ],
+  [
+   "{a} of {b}",
+   "{a} من {b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "تعذّر تشغيل محرك PDF: {why}. أعد تحميل الصفحة، أو جرّب إصدارًا حديثًا من Chrome أو Edge أو Firefox أو Safari."
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "تعذّر تشغيل محرك PDF. أعد تحميل الصفحة، أو جرّب إصدارًا حديثًا من Chrome أو Edge أو Firefox أو Safari."
+  ],
+  [
+   "{n} PDFs added",
+   "أُضيف {n} من ملفات PDF"
+  ],
+  [
+   "Current size: {a}",
+   "الحجم الحالي: {a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "تم تقليل الحجم: {a} ← {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "حجم «{name}» هو {size}؛ ويعمل المحرر مع ملفات PDF حتى {max}."
+  ],
+  [
+   "PDFs up to {max}.",
+   "ملفات PDF حتى {max}."
+  ],
+  [
+   "Saved in “{name}”",
+   "تم الحفظ في «{name}»"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "تعذّر حفظ الملف: {why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "لا يزال {n} من ملفات PDF المحفوظة في «ملفات PDF الخاصة بي» موجودًا في هذا المتصفح."
+  ],
+  [
+   "{n} PDF downloaded.",
+   "تم تنزيل {n} من ملفات PDF."
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "يحتوي ملف PDF هذا على محتوى نشط ({kinds}). لا يشغّله المحرر أبدًا، لكن قد تشغّله برامج قراءة PDF الأخرى. يُزال عند الحفظ، ما لم تختر الاحتفاظ به."
+  ]
+ ]
+}

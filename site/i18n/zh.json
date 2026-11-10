@@ -1,0 +1,21 @@
+{
+  "name": "简体中文",
+  "dir": "ltr",
+  "locale": "zh_CN",
+  "site_name": "PDF 编辑器",
+  "skip": "跳到主要内容",
+  "nav_editor": "编辑器",
+  "nav_features": "功能",
+  "nav_privacy": "隐私",
+  "nav_faq": "常见问题",
+  "open_editor": "打开编辑器",
+  "language": "语言",
+  "footer_privacy": "隐私",
+  "footer_cookies": "Cookie",
+  "footer_terms": "使用条款",
+  "footer_legal": "法律声明",
+  "footer_source": "源代码",
+  "footer_free": "自由软件（AGPL）",
+  "date_format": "%Y年%-m月%-d日",
+  "language_auto": "浏览器语言"
+}

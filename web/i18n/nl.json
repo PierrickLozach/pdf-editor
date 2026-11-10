@@ -1,0 +1,420 @@
+{
+ "language": "Nederlands",
+ "strings": {
+  "PDF Editor": "PDF-editor",
+  "Open": "Openen",
+  "Save": "Opslaan",
+  "Download": "Downloaden",
+  "Edit text": "Tekst bewerken",
+  "Add text": "Tekst toevoegen",
+  "Whiteout": "Afdekken",
+  "Image": "Afbeelding",
+  "Find & replace": "Zoeken en vervangen",
+  "Fonts": "Lettertypen",
+  "+ Add pages from a PDF…": "+ Pagina's uit een PDF toevoegen…",
+  "Drop a PDF here": "Zet hier een PDF neer",
+  "or": "of",
+  "choose a file": "kies een bestand",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– klik op een tekst en typ; het origineel wordt echt verwijderd en de nieuwe tekst krijgt hetzelfde lettertype, dezelfde grootte en kleur.",
+  "across the whole document.": "in het hele document.",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "Tekst toevoegen, gebieden afdekken, afbeeldingen of handtekeningen toevoegen, pagina's draaien, herschikken, verwijderen en samenvoegen.",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "Alles gebeurt in je browser: je bestanden worden op dit apparaat verwerkt en nooit geüpload.",
+  "Loading the PDF engine…": "PDF-engine laden…",
+  "Resume editing": "Verder bewerken",
+  "Discard": "Weggooien",
+  "Free software (AGPL) based on": "Vrije software (AGPL) gebaseerd op",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· lettertypen: Liberation, Carlito, Caladea, DejaVu (open licenties) ·",
+  "licence & source": "licentie en broncode",
+  "Find": "Zoeken",
+  "Replace with": "Vervangen door",
+  "Match case": "Hoofdlettergevoelig",
+  "Whole words": "Hele woorden",
+  "Type to search": "Typ om te zoeken",
+  "No match": "Geen resultaten",
+  "Replace": "Vervangen",
+  "Replace all": "Alles vervangen",
+  "Fit width": "Breedte passend",
+  "Cancel": "Annuleren",
+  "Apply": "Toepassen",
+  "OK": "OK",
+  "Use your computer's fonts?": "Lettertypen van je computer gebruiken?",
+  "Some letters you typed are not in this PDF's copy of": "Sommige letters die je hebt getypt, staan niet in de kopie van",
+  ", so they were drawn with a look-alike font.": " in deze PDF en zijn daarom met een vergelijkbaar lettertype weergegeven.",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "Geef de editor toegang tot de lettertypen op je computer, dan worden ze opnieuw weergegeven met het echte lettertype. De lettertypen worden alleen hier gebruikt, op dit apparaat:",
+  "nothing is uploaded": "er wordt niets geüpload",
+  "Not now": "Niet nu",
+  "Add fonts…": "Lettertypen toevoegen…",
+  "Allow": "Toestaan",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "Bewerkingen gebruiken waar mogelijk de lettertypen van de PDF zelf. Deze opties zorgen voor de letters die een PDF niet bevat.",
+  "Free fonts": "Gratis lettertypen",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "(Google Fonts…): automatisch gedownload als een PDF er een gebruikt – alleen de naam van het lettertype wordt verstuurd",
+  "Allow my fonts": "Mijn lettertypen toestaan",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "Lettertypen die browsers niet zien (Calibri, Cambria, Aptos… van Microsoft Office):",
+  "Add Office fonts": "Office-lettertypen toevoegen",
+  "Add Mac fonts": "Mac-lettertypen toevoegen",
+  "Other files…": "Andere bestanden…",
+  "Remove all": "Alles verwijderen",
+  "Remove": "Verwijderen",
+  "Drop the PDF to open it (or font files to add them)": "Zet de PDF neer om hem te openen (of lettertypebestanden om ze toe te voegen)",
+  "Pages": "Pagina's",
+  "Open a PDF (⌘O)": "Een PDF openen (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "Bewerkte PDF opslaan (⌘S / Ctrl+S)",
+  "Download the edited PDF": "Bewerkte PDF downloaden",
+  "Close this PDF": "Deze PDF sluiten",
+  "Undo (⌘Z)": "Ongedaan maken (⌘Z)",
+  "Redo (⇧⌘Z)": "Opnieuw (⇧⌘Z)",
+  "Tool": "Gereedschap",
+  "Edit text: click a text to change it, drag it to move it (E)": "Tekst bewerken: klik op een tekst om hem te wijzigen, sleep om hem te verplaatsen (E)",
+  "Add text: click where to type (T)": "Tekst toevoegen: klik waar je wilt typen (T)",
+  "Whiteout: drag over an area to erase it (W)": "Afdekken: sleep over een gebied om het te wissen (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "Afbeelding / handtekening: kies een afbeelding en klik of sleep dan op de pagina (I)",
+  "Find & replace (⌘F)": "Zoeken en vervangen (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "Lettertypen van deze computer: bewerk met dezelfde lettertypen als het origineel",
+  "Zoom out (⌘−)": "Uitzoomen (⌘−)",
+  "Fit to width": "Passend in breedte",
+  "Zoom in (⌘+)": "Inzoomen (⌘+)",
+  "Append the pages of another PDF at the end": "De pagina's van een andere PDF achteraan toevoegen",
+  "Close (Esc)": "Sluiten (Esc)",
+  "Text to find": "Te zoeken tekst",
+  "New text (leave empty to delete)": "Nieuwe tekst (leeg laten om te verwijderen)",
+  "Previous (⇧Enter)": "Vorige (⇧Enter)",
+  "Next (Enter)": "Volgende (Enter)",
+  "Font": "Lettertype",
+  "Font size (pt)": "Tekengrootte (pt)",
+  "Text colour": "Tekstkleur",
+  "Bold": "Vet",
+  "Italic": "Cursief",
+  "Align left (text grows to the right)": "Links uitlijnen (tekst groeit naar rechts)",
+  "Centre (text grows on both sides)": "Centreren (tekst groeit naar beide kanten)",
+  "Align right (text grows to the left: amounts, totals)": "Rechts uitlijnen (tekst groeit naar links: bedragen, totalen)",
+  "Shrink the new text so it is never wider than the original": "Nieuwe tekst verkleinen zodat hij nooit breder is dan het origineel",
+  "Cancel (Esc)": "Annuleren (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "Toepassen (Enter · Shift+Enter voor een nieuwe regel)",
+  "This browser cannot run the editor (no module workers). Please update it.": "Deze browser kan de editor niet uitvoeren (geen module workers). Werk hem bij.",
+  "Please choose a PDF file": "Kies een PDF-bestand",
+  "Open another PDF?": "Een andere PDF openen?",
+  "Open anyway": "Toch openen",
+  "Password-protected PDF": "Met wachtwoord beveiligde PDF",
+  "Wrong password, try again:": "Onjuist wachtwoord, probeer het opnieuw:",
+  "Save as": "Opslaan als",
+  "PDF document": "PDF-document",
+  "Loading…": "Laden…",
+  "Click to edit · drag to move": "Klik om te bewerken · sleep om te verplaatsen",
+  "Tilted text cannot be edited": "Schuine tekst kan niet worden bewerkt",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Deze tekst staat schuin en kan niet ter plekke worden bewerkt. Gebruik in plaats daarvan Afdekken + Tekst toevoegen.",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Geen bewerkbare tekst op deze pagina (gescande afbeelding?) – gebruik Afdekken + Tekst toevoegen.",
+  "You can undo this with ⌘Z.": "Je kunt dit ongedaan maken met ⌘Z.",
+  "Delete": "Verwijderen",
+  "Close": "Sluiten",
+  "Included fonts": "Meegeleverde lettertypen",
+  "Fonts on this computer": "Lettertypen op deze computer",
+  "＋ Fonts from this computer…": "＋ Lettertypen van deze computer…",
+  "Use my fonts": "Mijn lettertypen gebruiken",
+  "Add font…": "Lettertype toevoegen…",
+  "(look-alike font)": "(vergelijkbaar lettertype)",
+  "check the text: this PDF hides its real characters": "controleer de tekst: deze PDF verbergt zijn echte tekens",
+  "this PDF hides its real characters; check the text before applying": "deze PDF verbergt zijn echte tekens; controleer de tekst voordat je toepast",
+  "↵ apply": "↵ toepassen",
+  "⇧↵ new line": "⇧↵ nieuwe regel",
+  "Esc cancel": "Esc annuleren",
+  "Drag over the area to white out – text under it is really removed": "Sleep over het gebied dat je wilt afdekken – de tekst eronder wordt echt verwijderd",
+  "Click where the new text should start": "Klik waar de nieuwe tekst moet beginnen",
+  "Drag to draw the area to white out": "Sleep om het af te dekken gebied te tekenen",
+  "This image could not be read": "Deze afbeelding kon niet worden gelezen",
+  "This match spans text with two different styles: click it with Edit text to change it": "Dit resultaat omvat tekst met twee verschillende stijlen: klik erop met Tekst bewerken om het te wijzigen",
+  "Replacement drawn with the original font.": "Vervanging weergegeven met het oorspronkelijke lettertype.",
+  "Drop a PDF file (or font files)": "Zet een PDF-bestand (of lettertypebestanden) neer",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "De browser heeft geen lettertypen gedeeld. Sta ‘Lettertypen’ toe voor deze site (pictogram links van de adresbalk) en probeer het opnieuw.",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "Toegang tot de lettertypen van deze computer is niet toegestaan. Later toestaan: pictogram links van de adresbalk → Site-instellingen → Lettertypen → Toestaan.",
+  "No font files there (.ttf, .otf or .ttc)": "Geen lettertypebestanden gevonden (.ttf, .otf of .ttc)",
+  "No file chosen": "Geen bestand gekozen",
+  "These fonts were already added": "Deze lettertypen waren al toegevoegd",
+  "✓ The fonts installed on this computer are used.": "✓ De lettertypen op deze computer worden gebruikt.",
+  "Use the fonts installed on this computer (the browser asks you once).": "De lettertypen op deze computer gebruiken (de browser vraagt het je één keer).",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "In het venster: druk op ⌘⇧G, dan ⌘V, dan Return en klik dan op Uploaden (de bestanden blijven op je Mac).",
+  "this PDF's font": "het lettertype van deze PDF",
+  "Remove all added fonts?": "Alle toegevoegde lettertypen verwijderen?",
+  "They are removed from this browser only; the files on your computer are not touched.": "Ze worden alleen uit deze browser verwijderd; de bestanden op je computer blijven ongemoeid.",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "Niet toegestaan – het vergelijkbare lettertype blijft. Je kunt het later toestaan met de knop Lettertypen.",
+  "Close this PDF?": "Deze PDF sluiten?",
+  "Your edits have not been saved and will be lost.": "Je wijzigingen zijn niet opgeslagen en gaan verloren.",
+  "Drag to move this text": "Sleep om deze tekst te verplaatsen",
+  "aligned left": "links uitgelijnd",
+  "aligned right": "rechts uitgelijnd",
+  "centred": "gecentreerd",
+  "A PDF needs at least one page": "Een PDF heeft minstens één pagina nodig",
+  "Empty area": "Leeg gebied",
+  "Empty text": "Lege tekst",
+  "No document is open": "Er is geen document geopend",
+  "No such page": "Deze pagina bestaat niet",
+  "Not a PDF file": "Geen PDF-bestand",
+  "Nothing selected": "Niets geselecteerd",
+  "Nothing to search for": "Niets om naar te zoeken",
+  "That PDF is password-protected": "Die PDF is beveiligd met een wachtwoord",
+  "That file could not be read as a PDF": "Dat bestand kon niet als PDF worden gelezen",
+  "This file could not be read as a PDF": "Dit bestand kon niet als PDF worden gelezen",
+  "The page changed: click the text again": "De pagina is gewijzigd: klik opnieuw op de tekst",
+  "The page changed: select the text again": "De pagina is gewijzigd: selecteer de tekst opnieuw",
+  "This text is tilted and cannot be edited": "Deze tekst staat schuin en kan niet worden bewerkt",
+  "Tilted text cannot be moved": "Schuine tekst kan niet worden verplaatst",
+  "Language": "Taal",
+  "My PDFs": "Mijn PDF's",
+  "Add PDFs": "PDF's toevoegen",
+  "Change my name": "Mijn naam wijzigen",
+  "This name is only shown on this device.": "Deze naam wordt alleen op dit apparaat getoond.",
+  "Name saved": "Naam opgeslagen",
+  "Signed out. Your PDFs stay encrypted on this device.": "Afgemeld. Je PDF's blijven versleuteld op dit apparaat.",
+  "No PDF yet. Add one, or open a PDF and save it.": "Nog geen PDF. Voeg er een toe, of open een PDF en sla hem op.",
+  "More": "Meer",
+  "versions": "versies",
+  "Rename": "Naam wijzigen",
+  "Previous versions": "Eerdere versies",
+  "Delete this PDF?": "Deze PDF verwijderen?",
+  "Deleted": "Verwijderd",
+  "current": "huidig",
+  "Older version opened: saving makes it the current version.": "Oudere versie geopend: opslaan maakt er de huidige versie van.",
+  "Not saved": "Niet opgeslagen",
+  "Your name": "Je naam",
+  "Create one": "Maak er een",
+  "The last 5 saved versions are kept.": "De laatste 5 opgeslagen versies worden bewaard.",
+  "Something went wrong. Please try again.": "Er ging iets mis. Probeer het opnieuw.",
+  "Cancelled.": "Geannuleerd.",
+  "Please enter your name.": "Vul je naam in.",
+  "Encrypted and kept on this device only.": "Versleuteld en alleen op dit apparaat bewaard.",
+  "This file could not be decrypted: it was changed or damaged.": "Dit bestand kon niet worden ontsleuteld: het is gewijzigd of beschadigd.",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "Niet genoeg opslagruimte meer in deze browser. Verwijder PDF's die je niet meer nodig hebt, of download ze.",
+  "Reduce file size": "Bestandsgrootte verkleinen",
+  "Reduce file size…": "Bestandsgrootte verkleinen…",
+  "Compress photos and scans to make the PDF smaller": "Foto's en scans comprimeren om de PDF kleiner te maken",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "Foto's en gescande pagina's worden gecomprimeerd; tekst en tekeningen blijven scherp en bewerkbaar. Je kunt dit ongedaan maken.",
+  "Smaller": "Kleiner",
+  "good for printing (about 200 dpi)": "geschikt om af te drukken (ongeveer 200 dpi)",
+  "Smallest": "Kleinst",
+  "for email and screens (about 120 dpi)": "voor e-mail en schermen (ongeveer 120 dpi)",
+  "Other ways to make a PDF smaller": "Andere manieren om een PDF kleiner te maken",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "Verwijder pagina's die je niet nodig hebt, of splits een lange PDF: verwijder de helft van de pagina's, sla op en doe daarna hetzelfde met de andere helft.",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "Op een Mac: open de PDF in Voorvertoning, Archief › Exporteer…, Quartz-filter: Verklein bestandsgrootte.",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "Bij het scannen: 150–200 dpi is genoeg voor documenten (300 dpi in zwart-wit voor kleine letters).",
+  "Reduce": "Verkleinen",
+  "Calculating the size…": "Grootte berekenen…",
+  "Current size": "Huidige grootte",
+  "Reducing the size…": "Grootte verkleinen…",
+  "Size reduced": "Grootte verkleind",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "Deze PDF bevat geen grote foto's of scans om te comprimeren: hij is al ongeveer zo klein als mogelijk.",
+  "Reduce its size? It opens in the editor first.": "Grootte verkleinen? Hij wordt eerst in de editor geopend.",
+  "Reduce its size": "Grootte verkleinen",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "Nog steeds te groot. Probeer ‘Kleinst’, of verwijder pagina's en sla de PDF in twee delen op.",
+  "Up to 200 MB per PDF.": "Tot 200 MB per PDF.",
+  "Too large?": "Te groot?",
+  "Size limit": "Maximale grootte",
+  "Open it and use “Reduce file size…”.": "Open hem en gebruik ‘Bestandsgrootte verkleinen…’.",
+  "MB": "MB",
+  "KB": "KB",
+  "Recent files": "Recente bestanden",
+  "Remove from this list": "Uit deze lijst verwijderen",
+  "Access to the file was not allowed.": "Toegang tot het bestand is niet toegestaan.",
+  "This file was moved or deleted. It was removed from the list.": "Dit bestand is verplaatst of verwijderd. Het is uit de lijst gehaald.",
+  "This PDF is too large to edit in the browser": "Deze PDF is te groot om in de browser te bewerken",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "Kleiner maken: open hem op een Mac in Voorvertoning, kies Archief › Exporteer… › Quartz-filter: Verklein bestandsgrootte; of splits hem in delen (sleep in Voorvertoning pagina's uit de navigatiekolom). Grote PDF's zijn bijna altijd scans of foto's: scannen met 150–200 dpi is genoeg voor documenten.",
+  "Saving into the file was not allowed: a copy is saved instead.": "Opslaan in het bestand is niet toegestaan: er wordt in plaats daarvan een kopie opgeslagen.",
+  "Saved": "Opgeslagen",
+  "Save writes your changes back into the same file.": "Opslaan schrijft je wijzigingen terug in hetzelfde bestand.",
+  "Save downloads the edited PDF.": "Opslaan downloadt de bewerkte PDF.",
+  "Accounts have been removed.": "Accounts zijn verwijderd.",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "Download ze nu: daarna worden ze uit deze browser verwijderd. Je toegangssleutel wordt één keer gevraagd om ze te ontgrendelen.",
+  "Download my PDFs": "Mijn PDF's downloaden",
+  "Delete them": "Verwijderen",
+  "Delete them?": "Verwijderen?",
+  "1 PDF saved in “My PDFs” is still in this browser.": "1 PDF opgeslagen in ‘Mijn PDF's’ staat nog in deze browser.",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "De PDF's opgeslagen in ‘Mijn PDF's’ worden definitief uit deze browser verwijderd.",
+  "Remove it": "Verwijderen",
+  "Keep it": "Behouden",
+  "Kept: the saved PDF will still contain it.": "Behouden: de opgeslagen PDF bevat het nog steeds.",
+  "Active content removed. You can undo it.": "Actieve inhoud verwijderd. Je kunt dit ongedaan maken.",
+  "scripts": "scripts",
+  "program launch": "programma starten",
+  "form sending": "formulier versturen",
+  "data import": "gegevens importeren",
+  "unsafe links": "onveilige links",
+  "automatic actions": "automatische acties",
+  "attached files": "bijgevoegde bestanden",
+  "XFA form": "XFA-formulier",
+  "media": "media",
+  "embedded document": "ingesloten document",
+  "Browser language": "Browsertaal"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "Je wijzigingen in ‘{name}’ zijn niet opgeslagen. Ze gaan verloren."
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "‘{name}’ heeft een wachtwoord nodig om te openen:"
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – PDF-editor"
+  ],
+  [
+   "Saved: {name}",
+   "Opgeslagen: {name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "Gedownload: {name}"
+  ],
+  [
+   "Delete page {n}?",
+   "Pagina {n} verwijderen?"
+  ],
+  [
+   "{orig} not available",
+   "{orig} niet beschikbaar"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "Tekst verkleind tot {n} pt zodat hij past"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "Klik op een pagina om ‘{name}’ te plaatsen, of sleep om de grootte te kiezen"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "{n} konden niet automatisch worden vervangen (gemengde stijlen): bewerk ze door erop te klikken"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "Let op: het oorspronkelijke lettertype is niet beschikbaar voor een deel van de tekst; weergegeven met {f}."
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "Vervanging weergegeven met {f} (dezelfde tekenbreedtes als het origineel)."
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "{n} pagina('s) uit ‘{name}’ achteraan toegevoegd"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "{n} lettertypefamilies van deze computer kunnen nu worden gebruikt"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "1 lettertypebestand lezen ({size})…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "{n} lettertypebestanden lezen ({size})…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "1 lettertypefamilie toegevoegd: {list}"
+  ],
+  [
+   "Added 1 font family",
+   "1 lettertypefamilie toegevoegd"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "{n} lettertypefamilies toegevoegd: {list}"
+  ],
+  [
+   "Added {n} font families",
+   "{n} lettertypefamilies toegevoegd"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "1 bestand kon niet worden gelezen ({name}: {why})"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "{n} bestanden konden niet worden gelezen ({name}: {why})"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "1 bestand groter dan 8 MB overgeslagen ({names}) – voeg het zo nodig toe met ‘Andere bestanden…’"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "{n} bestanden groter dan 8 MB overgeslagen ({names}) – voeg ze zo nodig toe met ‘Andere bestanden…’"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "1 lettertypefamilie bewaard in deze browser ({size})"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "{n} lettertypefamilies bewaard in deze browser ({size})"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "Nog niet beschikbaar voor deze PDF: {list}. Gebruik voor Office-lettertypen ‘Office-lettertypen toevoegen’."
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "Nog niet beschikbaar voor deze PDF: {list}."
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "In het venster: druk op ⌘⇧G, typ {path}, druk op Return en klik dan op Uploaden."
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "‘{name}’ (laatst bewerkt {when}) staat nog in deze browser."
+  ],
+  [
+   "{a} of {b}",
+   "{a} van {b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "De PDF-engine kon niet starten: {why}. Laad de pagina opnieuw, of probeer een recente versie van Chrome, Edge, Firefox of Safari."
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "De PDF-engine kon niet starten. Laad de pagina opnieuw, of probeer een recente versie van Chrome, Edge, Firefox of Safari."
+  ],
+  [
+   "{n} PDFs added",
+   "{n} PDF's toegevoegd"
+  ],
+  [
+   "Current size: {a}",
+   "Huidige grootte: {a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "Grootte verkleind: {a} → {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "‘{name}’ is {size}; de editor werkt met PDF's tot {max}."
+  ],
+  [
+   "PDFs up to {max}.",
+   "PDF's tot {max}."
+  ],
+  [
+   "Saved in “{name}”",
+   "Opgeslagen in ‘{name}’"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "Het bestand kon niet worden opgeslagen: {why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "{n} PDF's opgeslagen in ‘Mijn PDF's’ staan nog in deze browser."
+  ],
+  [
+   "{n} PDF downloaded.",
+   "{n} PDF('s) gedownload."
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "Deze PDF bevat actieve inhoud ({kinds}). De editor voert die nooit uit, maar andere PDF-lezers misschien wel. Die wordt bij het opslaan verwijderd, tenzij je die behoudt."
+  ]
+ ]
+}

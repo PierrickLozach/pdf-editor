@@ -1,0 +1,420 @@
+{
+ "language": "עברית",
+ "strings": {
+  "PDF Editor": "עורך PDF",
+  "Open": "פתיחה",
+  "Save": "שמירה",
+  "Download": "הורדה",
+  "Edit text": "עריכת טקסט",
+  "Add text": "הוספת טקסט",
+  "Whiteout": "מחיקה בלבן",
+  "Image": "תמונה",
+  "Find & replace": "חיפוש והחלפה",
+  "Fonts": "גופנים",
+  "+ Add pages from a PDF…": "+ הוספת עמודים מקובץ PDF…",
+  "Drop a PDF here": "אפשר לגרור קובץ PDF לכאן",
+  "or": "או",
+  "choose a file": "לבחור קובץ",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– לוחצים על טקסט כלשהו ומקלידים; הטקסט המקורי נמחק באמת והטקסט החדש מקבל את אותו גופן, גודל וצבע.",
+  "across the whole document.": "בכל המסמך.",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "הוספת טקסט, מחיקת אזורים בלבן, הוספת תמונות או חתימות, וסיבוב, סידור מחדש, מחיקה ומיזוג של עמודים.",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "הכול קורה בדפדפן: הקבצים מעובדים במכשיר הזה ולעולם לא מועלים.",
+  "Loading the PDF engine…": "מנוע ה-PDF נטען…",
+  "Resume editing": "המשך עריכה",
+  "Discard": "ביטול השינויים",
+  "Free software (AGPL) based on": "תוכנה חופשית (AGPL) המבוססת על",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· גופנים: Liberation, Carlito, Caladea, DejaVu (רישיונות פתוחים) ·",
+  "licence & source": "רישיון וקוד מקור",
+  "Find": "חיפוש",
+  "Replace with": "החלפה ב-",
+  "Match case": "התאמת רישיות",
+  "Whole words": "מילים שלמות",
+  "Type to search": "יש להקליד כדי לחפש",
+  "No match": "אין תוצאות",
+  "Replace": "החלפה",
+  "Replace all": "החלפת הכול",
+  "Fit width": "התאמה לרוחב",
+  "Cancel": "ביטול",
+  "Apply": "החלה",
+  "OK": "אישור",
+  "Use your computer's fonts?": "להשתמש בגופנים של המחשב?",
+  "Some letters you typed are not in this PDF's copy of": "חלק מהאותיות שהוקלדו לא נמצאות בעותק של הגופן",
+  ", so they were drawn with a look-alike font.": "שבקובץ PDF זה, ולכן הן צוירו בגופן דומה.",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "אם תינתן לעורך הרשאה להשתמש בגופנים המותקנים במחשב, הוא יצייר אותן מחדש בגופן האמיתי. הגופנים משמשים רק כאן, במכשיר הזה:",
+  "nothing is uploaded": "שום דבר לא מועלה",
+  "Not now": "לא עכשיו",
+  "Add fonts…": "הוספת גופנים…",
+  "Allow": "אישור",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "העריכות משתמשות בגופנים של קובץ ה-PDF עצמו בכל פעם שאפשר. האפשרויות האלה מכסות את האותיות שאינן בקובץ.",
+  "Free fonts": "גופנים חינמיים",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "(Google Fonts…): מורדים אוטומטית כשקובץ PDF משתמש באחד מהם – נשלח רק שם הגופן",
+  "Allow my fonts": "אישור הגופנים שלי",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "גופנים שהדפדפנים לא רואים (Calibri, Cambria, Aptos… של Microsoft Office):",
+  "Add Office fonts": "הוספת גופני Office",
+  "Add Mac fonts": "הוספת גופני Mac",
+  "Other files…": "קבצים אחרים…",
+  "Remove all": "הסרת הכול",
+  "Remove": "הסרה",
+  "Drop the PDF to open it (or font files to add them)": "אפשר לשחרר כאן את קובץ ה-PDF כדי לפתוח אותו (או קובצי גופנים כדי להוסיף אותם)",
+  "Pages": "עמודים",
+  "Open a PDF (⌘O)": "פתיחת PDF (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "שמירת ה-PDF הערוך (⌘S / Ctrl+S)",
+  "Download the edited PDF": "הורדת ה-PDF הערוך",
+  "Close this PDF": "סגירת ה-PDF הזה",
+  "Undo (⌘Z)": "ביטול פעולה (⌘Z)",
+  "Redo (⇧⌘Z)": "ביצוע מחדש (⇧⌘Z)",
+  "Tool": "כלי",
+  "Edit text: click a text to change it, drag it to move it (E)": "עריכת טקסט: לוחצים על טקסט כדי לשנות אותו, גוררים כדי להזיז אותו (E)",
+  "Add text: click where to type (T)": "הוספת טקסט: לוחצים במקום שבו רוצים להקליד (T)",
+  "Whiteout: drag over an area to erase it (W)": "מחיקה בלבן: גוררים מעל אזור כדי למחוק אותו (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "תמונה / חתימה: בוחרים תמונה, ואז לוחצים או גוררים על העמוד (I)",
+  "Find & replace (⌘F)": "חיפוש והחלפה (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "גופנים מהמחשב הזה: עריכה באותם גופנים כמו במקור",
+  "Zoom out (⌘−)": "הקטנת התצוגה (⌘−)",
+  "Fit to width": "התאמה לרוחב",
+  "Zoom in (⌘+)": "הגדלת התצוגה (⌘+)",
+  "Append the pages of another PDF at the end": "הוספת העמודים של PDF אחר בסוף",
+  "Close (Esc)": "סגירה (Esc)",
+  "Text to find": "טקסט לחיפוש",
+  "New text (leave empty to delete)": "טקסט חדש (להשאיר ריק כדי למחוק)",
+  "Previous (⇧Enter)": "הקודם (⇧Enter)",
+  "Next (Enter)": "הבא (Enter)",
+  "Font": "גופן",
+  "Font size (pt)": "גודל גופן (pt)",
+  "Text colour": "צבע הטקסט",
+  "Bold": "מודגש",
+  "Italic": "נטוי",
+  "Align left (text grows to the right)": "יישור לשמאל (הטקסט מתארך ימינה)",
+  "Centre (text grows on both sides)": "מרכוז (הטקסט מתארך לשני הצדדים)",
+  "Align right (text grows to the left: amounts, totals)": "יישור לימין (הטקסט מתארך שמאלה: סכומים, סיכומים)",
+  "Shrink the new text so it is never wider than the original": "הקטנת הטקסט החדש כך שלעולם לא יהיה רחב מהמקור",
+  "Cancel (Esc)": "ביטול (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "החלה (Enter · Shift+Enter לשורה חדשה)",
+  "This browser cannot run the editor (no module workers). Please update it.": "הדפדפן הזה לא יכול להפעיל את העורך (אין תמיכה ב-module workers). יש לעדכן אותו.",
+  "Please choose a PDF file": "יש לבחור קובץ PDF",
+  "Open another PDF?": "לפתוח PDF אחר?",
+  "Open anyway": "לפתוח בכל זאת",
+  "Password-protected PDF": "PDF מוגן בסיסמה",
+  "Wrong password, try again:": "סיסמה שגויה, יש לנסות שוב:",
+  "Save as": "שמירה בשם",
+  "PDF document": "מסמך PDF",
+  "Loading…": "בטעינה…",
+  "Click to edit · drag to move": "לחיצה לעריכה · גרירה להזזה",
+  "Tilted text cannot be edited": "אי אפשר לערוך טקסט מוטה",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "הטקסט הזה מוטה: אי אפשר לערוך אותו במקום. במקום זאת אפשר להשתמש ב\"מחיקה בלבן\" ואז ב\"הוספת טקסט\".",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "אין בעמוד הזה טקסט שאפשר לערוך (תמונה סרוקה?) – אפשר להשתמש ב\"מחיקה בלבן\" ואז ב\"הוספת טקסט\".",
+  "You can undo this with ⌘Z.": "אפשר לבטל זאת עם ⌘Z.",
+  "Delete": "מחיקה",
+  "Close": "סגירה",
+  "Included fonts": "גופנים כלולים",
+  "Fonts on this computer": "גופנים במחשב הזה",
+  "＋ Fonts from this computer…": "＋ גופנים מהמחשב הזה…",
+  "Use my fonts": "שימוש בגופנים שלי",
+  "Add font…": "הוספת גופן…",
+  "(look-alike font)": "(גופן דומה)",
+  "check the text: this PDF hides its real characters": "כדאי לבדוק את הטקסט: ה-PDF הזה מסתיר את התווים האמיתיים שלו",
+  "this PDF hides its real characters; check the text before applying": "ה-PDF הזה מסתיר את התווים האמיתיים שלו; כדאי לבדוק את הטקסט לפני ההחלה",
+  "↵ apply": "↵ החלה",
+  "⇧↵ new line": "⇧↵ שורה חדשה",
+  "Esc cancel": "Esc ביטול",
+  "Drag over the area to white out – text under it is really removed": "גוררים מעל האזור למחיקה בלבן – הטקסט שמתחתיו נמחק באמת",
+  "Click where the new text should start": "לוחצים במקום שבו הטקסט החדש צריך להתחיל",
+  "Drag to draw the area to white out": "גוררים כדי לסמן את האזור למחיקה בלבן",
+  "This image could not be read": "לא ניתן לקרוא את התמונה הזו",
+  "This match spans text with two different styles: click it with Edit text to change it": "התוצאה הזו כוללת טקסט בשני סגנונות שונים: כדי לשנות אותה יש ללחוץ עליה עם \"עריכת טקסט\"",
+  "Replacement drawn with the original font.": "ההחלפה צוירה בגופן המקורי.",
+  "Drop a PDF file (or font files)": "אפשר לשחרר כאן קובץ PDF (או קובצי גופנים)",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "הדפדפן לא שיתף אף גופן. יש לאשר \"גופנים\" לאתר הזה (הסמל משמאל לשורת הכתובת) ולנסות שוב.",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "הגישה לגופנים של המחשב הזה לא אושרה. כדי לאשר אותה מאוחר יותר: הסמל משמאל לשורת הכתובת ← הגדרות אתר ← גופנים ← אישור.",
+  "No font files there (.ttf, .otf or .ttc)": "אין כאן קובצי גופנים (.ttf, .otf או .ttc)",
+  "No file chosen": "לא נבחר קובץ",
+  "These fonts were already added": "הגופנים האלה כבר נוספו",
+  "✓ The fonts installed on this computer are used.": "✓ נעשה שימוש בגופנים המותקנים במחשב הזה.",
+  "Use the fonts installed on this computer (the browser asks you once).": "שימוש בגופנים המותקנים במחשב הזה (הדפדפן ישאל פעם אחת).",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "בחלון: מקישים ⌘⇧G, ואז ⌘V, ואז Return, ולוחצים על \"העלאה\" (הקבצים נשארים ב-Mac).",
+  "this PDF's font": "הגופן של ה-PDF הזה",
+  "Remove all added fonts?": "להסיר את כל הגופנים שנוספו?",
+  "They are removed from this browser only; the files on your computer are not touched.": "הם יוסרו מהדפדפן הזה בלבד; הקבצים במחשב לא ישתנו.",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "לא אושר – הגופן הדומה נשאר. אפשר לאשר מאוחר יותר באמצעות הלחצן \"גופנים\".",
+  "Close this PDF?": "לסגור את ה-PDF הזה?",
+  "Your edits have not been saved and will be lost.": "העריכות לא נשמרו ויאבדו.",
+  "Drag to move this text": "גוררים כדי להזיז את הטקסט הזה",
+  "aligned left": "מיושר לשמאל",
+  "aligned right": "מיושר לימין",
+  "centred": "ממורכז",
+  "A PDF needs at least one page": "קובץ PDF חייב לכלול לפחות עמוד אחד",
+  "Empty area": "אזור ריק",
+  "Empty text": "טקסט ריק",
+  "No document is open": "אין מסמך פתוח",
+  "No such page": "העמוד הזה לא קיים",
+  "Not a PDF file": "זה לא קובץ PDF",
+  "Nothing selected": "לא נבחר דבר",
+  "Nothing to search for": "אין מה לחפש",
+  "That PDF is password-protected": "ה-PDF הזה מוגן בסיסמה",
+  "That file could not be read as a PDF": "לא ניתן לקרוא את הקובץ הזה כ-PDF",
+  "This file could not be read as a PDF": "לא ניתן לקרוא את הקובץ הזה כ-PDF",
+  "The page changed: click the text again": "העמוד השתנה: יש ללחוץ שוב על הטקסט",
+  "The page changed: select the text again": "העמוד השתנה: יש לבחור שוב את הטקסט",
+  "This text is tilted and cannot be edited": "הטקסט הזה מוטה ואי אפשר לערוך אותו",
+  "Tilted text cannot be moved": "אי אפשר להזיז טקסט מוטה",
+  "Language": "שפה",
+  "My PDFs": "קובצי ה-PDF שלי",
+  "Add PDFs": "הוספת קובצי PDF",
+  "Change my name": "שינוי השם שלי",
+  "This name is only shown on this device.": "השם הזה מוצג רק במכשיר הזה.",
+  "Name saved": "השם נשמר",
+  "Signed out. Your PDFs stay encrypted on this device.": "התנתקת. קובצי ה-PDF נשארים מוצפנים במכשיר הזה.",
+  "No PDF yet. Add one, or open a PDF and save it.": "אין עדיין קובצי PDF. אפשר להוסיף קובץ, או לפתוח PDF ולשמור אותו.",
+  "More": "עוד",
+  "versions": "גרסאות",
+  "Rename": "שינוי שם",
+  "Previous versions": "גרסאות קודמות",
+  "Delete this PDF?": "למחוק את ה-PDF הזה?",
+  "Deleted": "נמחק",
+  "current": "נוכחית",
+  "Older version opened: saving makes it the current version.": "נפתחה גרסה ישנה יותר: שמירה תהפוך אותה לגרסה הנוכחית.",
+  "Not saved": "לא נשמר",
+  "Your name": "השם שלך",
+  "Create one": "ליצור אחד",
+  "The last 5 saved versions are kept.": "5 הגרסאות השמורות האחרונות נשמרות.",
+  "Something went wrong. Please try again.": "משהו השתבש. יש לנסות שוב.",
+  "Cancelled.": "בוטל.",
+  "Please enter your name.": "יש להזין שם.",
+  "Encrypted and kept on this device only.": "מוצפנים ונשמרים במכשיר הזה בלבד.",
+  "This file could not be decrypted: it was changed or damaged.": "לא ניתן לפענח את הקובץ הזה: הוא שונה או נפגם.",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "אין מספיק מקום אחסון בדפדפן הזה. אפשר למחוק קובצי PDF שכבר לא נחוצים, או להוריד אותם.",
+  "Reduce file size": "הקטנת גודל הקובץ",
+  "Reduce file size…": "הקטנת גודל הקובץ…",
+  "Compress photos and scans to make the PDF smaller": "דחיסת תמונות וסריקות כדי להקטין את ה-PDF",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "התמונות והעמודים הסרוקים נדחסים; הטקסט והשרטוטים נשארים חדים וניתנים לעריכה. אפשר לבטל את הפעולה.",
+  "Smaller": "קטן יותר",
+  "good for printing (about 200 dpi)": "מתאים להדפסה (כ-200 dpi)",
+  "Smallest": "הקטן ביותר",
+  "for email and screens (about 120 dpi)": "לדוא\"ל ולמסכים (כ-120 dpi)",
+  "Other ways to make a PDF smaller": "דרכים נוספות להקטין PDF",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "אפשר למחוק עמודים לא נחוצים, או לפצל PDF ארוך: מוחקים חצי מהעמודים, שומרים, ואז עושים אותו דבר עם החצי השני.",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "ב-Mac: פותחים את ה-PDF ב\"תצוגה מקדימה\", קובץ › ייצוא…, מסנן Quartz: הקטנת גודל הקובץ.",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "בסריקה: 150–200 dpi מספיקים למסמכים (300 dpi בשחור-לבן לאותיות קטנות).",
+  "Reduce": "הקטנה",
+  "Calculating the size…": "הגודל מחושב…",
+  "Current size": "הגודל הנוכחי",
+  "Reducing the size…": "הגודל מוקטן…",
+  "Size reduced": "הגודל הוקטן",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "אין ב-PDF הזה תמונות או סריקות גדולות לדחיסה: הוא כבר קטן כמעט ככל האפשר.",
+  "Reduce its size? It opens in the editor first.": "להקטין את גודלו? הוא ייפתח קודם בעורך.",
+  "Reduce its size": "הקטנת הגודל",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "עדיין גדול מדי. אפשר לנסות \"הקטן ביותר\", או למחוק עמודים ולשמור את ה-PDF בשני חלקים.",
+  "Up to 200 MB per PDF.": "עד 200 MB לכל PDF.",
+  "Too large?": "גדול מדי?",
+  "Size limit": "מגבלת גודל",
+  "Open it and use “Reduce file size…”.": "יש לפתוח אותו ולהשתמש ב\"הקטנת גודל הקובץ…\".",
+  "MB": "MB",
+  "KB": "KB",
+  "Recent files": "קבצים אחרונים",
+  "Remove from this list": "הסרה מהרשימה",
+  "Access to the file was not allowed.": "הגישה לקובץ לא אושרה.",
+  "This file was moved or deleted. It was removed from the list.": "הקובץ הזה הועבר או נמחק. הוא הוסר מהרשימה.",
+  "This PDF is too large to edit in the browser": "ה-PDF הזה גדול מדי לעריכה בדפדפן",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "כדי להקטין אותו: ב-Mac, פותחים אותו ב\"תצוגה מקדימה\", ואז קובץ › ייצוא… › מסנן Quartz: הקטנת גודל הקובץ; או מפצלים אותו לחלקים (ב\"תצוגה מקדימה\", גוררים עמודים אל מחוץ לסרגל הצד). קובצי PDF גדולים הם כמעט תמיד סריקות או תמונות: סריקה ב-150–200 dpi מספיקה למסמכים.",
+  "Saving into the file was not allowed: a copy is saved instead.": "השמירה בקובץ לא אושרה: במקום זאת נשמר עותק.",
+  "Saved": "נשמר",
+  "Save writes your changes back into the same file.": "\"שמירה\" כותבת את השינויים לאותו קובץ.",
+  "Save downloads the edited PDF.": "\"שמירה\" מורידה את ה-PDF הערוך.",
+  "Accounts have been removed.": "החשבונות הוסרו.",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "כדאי להוריד אותם עכשיו: לאחר מכן הם יימחקו מהדפדפן הזה. מפתח הגישה יתבקש פעם אחת כדי לפתוח אותם.",
+  "Download my PDFs": "הורדת קובצי ה-PDF שלי",
+  "Delete them": "למחוק אותם",
+  "Delete them?": "למחוק אותם?",
+  "1 PDF saved in “My PDFs” is still in this browser.": "קובץ PDF אחד שנשמר ב\"קובצי ה-PDF שלי\" עדיין נמצא בדפדפן הזה.",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "קובצי ה-PDF שנשמרו ב\"קובצי ה-PDF שלי\" יימחקו מהדפדפן הזה לצמיתות.",
+  "Remove it": "להסיר",
+  "Keep it": "להשאיר",
+  "Kept: the saved PDF will still contain it.": "נשאר: ה-PDF השמור עדיין יכיל אותו.",
+  "Active content removed. You can undo it.": "התוכן הפעיל הוסר. אפשר לבטל את הפעולה.",
+  "scripts": "סקריפטים",
+  "program launch": "הפעלת תוכנות",
+  "form sending": "שליחת טפסים",
+  "data import": "ייבוא נתונים",
+  "unsafe links": "קישורים לא בטוחים",
+  "automatic actions": "פעולות אוטומטיות",
+  "attached files": "קבצים מצורפים",
+  "XFA form": "טופס XFA",
+  "media": "מדיה",
+  "embedded document": "מסמך מוטמע",
+  "Browser language": "שפת הדפדפן"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "העריכות ב-\"{name}\" לא נשמרו. הן יאבדו."
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "כדי לפתוח את \"{name}\" נדרשת סיסמה:"
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – עורך PDF"
+  ],
+  [
+   "Saved: {name}",
+   "נשמר: {name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "הורד: {name}"
+  ],
+  [
+   "Delete page {n}?",
+   "למחוק את עמוד {n}?"
+  ],
+  [
+   "{orig} not available",
+   "{orig} לא זמין"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "הטקסט הוקטן ל-{n} pt כדי להתאים"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "לוחצים על עמוד כדי למקם את \"{name}\", או גוררים כדי לבחור את גודלו"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "לא ניתן היה להחליף אוטומטית {n} (סגנונות מעורבים): אפשר לערוך אותם בלחיצה עליהם"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "הערה: הגופן המקורי לא זמין לחלק מהטקסט; צויר בגופן {f}."
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "ההחלפה צוירה בגופן {f} (אותם רוחבי תווים כמו במקור)."
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "נוספו {n} עמודים מ-\"{name}\" בסוף"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "עכשיו אפשר להשתמש ב-{n} משפחות גופנים מהמחשב הזה"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "קובץ גופן אחד נקרא ({size})…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "{n} קובצי גופנים נקראים ({size})…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "נוספה משפחת גופנים אחת: {list}"
+  ],
+  [
+   "Added 1 font family",
+   "נוספה משפחת גופנים אחת"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "נוספו {n} משפחות גופנים: {list}"
+  ],
+  [
+   "Added {n} font families",
+   "נוספו {n} משפחות גופנים"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "לא ניתן היה לקרוא קובץ אחד ({name}: {why})"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "לא ניתן היה לקרוא {n} קבצים ({name}: {why})"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "קובץ אחד שגדול מ-8 MB דולג ({names}) – אפשר להוסיף אותו דרך \"קבצים אחרים…\" במקרה הצורך"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "{n} קבצים שגדולים מ-8 MB דולגו ({names}) – אפשר להוסיף אותם דרך \"קבצים אחרים…\" במקרה הצורך"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "משפחת גופנים אחת שמורה בדפדפן הזה ({size})"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "{n} משפחות גופנים שמורות בדפדפן הזה ({size})"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "עדיין לא זמינים ל-PDF הזה: {list}. לגופני Office יש להשתמש ב\"הוספת גופני Office\"."
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "עדיין לא זמינים ל-PDF הזה: {list}."
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "בחלון: מקישים ⌘⇧G, מקלידים {path}, ואז Return, ואז \"העלאה\"."
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "\"{name}\" (נערך לאחרונה {when}) עדיין נמצא בדפדפן הזה."
+  ],
+  [
+   "{a} of {b}",
+   "{a} מתוך {b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "הפעלת מנוע ה-PDF נכשלה: {why}. יש לטעון מחדש את הדף, או לנסות גרסה עדכנית של Chrome, Edge, Firefox או Safari."
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "הפעלת מנוע ה-PDF נכשלה. יש לטעון מחדש את הדף, או לנסות גרסה עדכנית של Chrome, Edge, Firefox או Safari."
+  ],
+  [
+   "{n} PDFs added",
+   "נוספו {n} קובצי PDF"
+  ],
+  [
+   "Current size: {a}",
+   "הגודל הנוכחי: {a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "הגודל הוקטן: {a} ← {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "הגודל של \"{name}\" הוא {size}; העורך תומך בקובצי PDF עד {max}."
+  ],
+  [
+   "PDFs up to {max}.",
+   "קובצי PDF עד {max}."
+  ],
+  [
+   "Saved in “{name}”",
+   "נשמר ב-\"{name}\""
+  ],
+  [
+   "The file could not be saved: {why}",
+   "לא ניתן היה לשמור את הקובץ: {why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "{n} קובצי PDF שנשמרו ב\"קובצי ה-PDF שלי\" עדיין נמצאים בדפדפן הזה."
+  ],
+  [
+   "{n} PDF downloaded.",
+   "הורדו {n} קובצי PDF."
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "ה-PDF הזה מכיל תוכן פעיל ({kinds}). העורך אף פעם לא מפעיל אותו, אבל קוראי PDF אחרים עשויים להפעיל. הוא יוסר בשמירה, אלא אם בוחרים להשאיר אותו."
+  ]
+ ]
+}

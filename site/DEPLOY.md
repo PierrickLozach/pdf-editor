@@ -30,11 +30,18 @@ The first time on a computer: `npx wrangler login` (a browser window opens: clic
 
 ## Languages
 
-English is at `/`, French at `/fr/`. To add a language (right-to-left ones included):
-1. `site/pages/<code>/` — a translated copy of `site/pages/en/`
-2. `site/i18n/<code>.json` — the header and footer words (`"dir": "rtl"` for Arabic, Hebrew…)
-3. `web/i18n/<code>.json` — the editor's texts (same keys as `fr.json`), and one line in `web/i18n.js`
-4. add the code to `"languages"` in `site/site.json`
+The site and the editor are in English, French, Spanish, Portuguese (Brazil), German, Dutch, Italian,
+Polish, Arabic, Hebrew, Simplified Chinese and Japanese. Arabic and Hebrew are right to left.
+Visitors get their browser's language; a language they pick in the menu is remembered, and
+“Browser language” in that menu goes back to automatic. English is at `/`, the others at `/<code>/`.
+
+To add a language (right-to-left ones included):
+1. `web/i18n/languages.json` and the list at the top of `web/i18n.js`: code, native name, `ltr` or `rtl`
+2. `web/i18n/<code>.json` — the editor's texts (same keys as `fr.json`)
+3. `site/i18n/<code>.json` — the header and footer words (`"dir": "rtl"` for right-to-left)
+4. `site/pages/<code>/` — a translated copy of `site/pages/en/`
+5. add the code to `"languages"` in `site/site.json`
+6. `python3 tools/check_i18n.py <code>` checks that nothing is missing or broken
 
 ## Test locally
 

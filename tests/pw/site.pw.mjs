@@ -44,7 +44,8 @@ async function run(name) {
     ok(!(await p.$(".cookie-notice")) && (await en.cookies()).length === 0, "no cookie and no cookie banner");
     const csp = r.headers()["content-security-policy"] || "";
     ok(/script-src 'self'/.test(csp) && /frame-ancestors 'none'/.test(csp), "security headers on the pages");
-    ok(await p.evaluate(() => [...document.querySelectorAll('link[hreflang]')].map((l) => l.hreflang).join()) === "en,fr,x-default", "each page names its other languages (search engines)");
+    const hl = await p.evaluate(() => [...document.querySelectorAll('link[hreflang]')].map((l) => l.hreflang));
+    ok(hl.length === 13 && hl.includes("ar") && hl.includes("ja") && hl.at(-1) === "x-default", "each page names its 12 language versions (search engines): " + hl.join(","));
     ok(await p.evaluate(() => { const i = document.querySelector(".shot img"); return i.complete && i.naturalWidth > 0; }), "editor screenshot loads");
     await p.screenshot({ path: `${OUT}/${name}-en.png` });
     for (const [path, rx] of [["/privacy", /Privacy/], ["/cookies", /Cookies/], ["/terms", /Terms of use/], ["/legal", /Legal notice/]]) {
@@ -81,7 +82,26 @@ async function run(name) {
     ok(r.status() === 404 && /n'existe pas/.test(await p.textContent("h1")), "French 404");
     await p.goto(BASE + "/terms");
     ok(/\/fr\/terms$/.test(p.url()), "an English link opens the French page for a French visitor");
+    ok((await p.evaluate(() => localStorage.getItem("pdfe.lang"))) === null, "the detected language is not stored (the site keeps following the browser)");
+    ok((await p.evaluate(() => document.querySelector("#langSwitch").value)) === "auto", "the switcher shows “Browser language”");
     await fr.close();
+
+    // ---------------------------------------------------------------- Arabic and Japanese visitors
+    for (const [loc, code, rx] of [["ar-SA", "ar", /[\u0600-\u06FF]/], ["he-IL", "he", /[\u0590-\u05FF]/], ["ja-JP", "ja", /[\u3040-\u30FF\u4E00-\u9FFF]/]]) {
+      const c = await browser.newContext({ locale: loc, viewport: { width: 1360, height: 900 } });
+      const g = watch(await c.newPage());
+      await g.goto(BASE + "/");
+      await g.waitForURL(new RegExp(`/${code}/$`));
+      const rtl = code === "ar" || code === "he";
+      ok(rx.test(await g.textContent("h1")) && (await g.getAttribute("html", "dir")) === (rtl ? "rtl" : "ltr"), `${loc} visitor: /${code}/ in that language${rtl ? ", right to left" : ""}`);
+      if (rtl) {
+        const side = await g.evaluate(() => { const b = document.querySelector(".brand").getBoundingClientRect(), u = document.querySelector("#userArea").getBoundingClientRect(); return b.left > u.left; });
+        ok(side, `${code}: the header is mirrored (logo on the right)`);
+        ok(!(await g.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)), `${code}: no sideways scrolling`);
+        await g.screenshot({ path: `${OUT}/${name}-${code}.png` });
+      }
+      await c.close();
+    }
 
     // ---------------------------------------------------------------- phone
     const m = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: name !== "firefox", hasTouch: true, locale: "fr-FR" });

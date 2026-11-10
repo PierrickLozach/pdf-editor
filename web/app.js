@@ -1,3 +1,5 @@
+/* PDF Editor - the editor's interface (runs in the browser; the PDF engine runs in worker.js).
+ * This file is the source: edit it directly. */
 /* PDF Editor - front end (plain JavaScript, no dependencies). */
 "use strict";
 const $ = (s, el = document) => el.querySelector(s);
@@ -26,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=77b6fa78d7", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=cbe5c6ddb3", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -1358,7 +1360,9 @@ function showResume(rec) {
 function bindWebExtras() {
   const lp = $("#langPick");
   if (lp && window.I18N) {
-    for (const l of I18N.languages) lp.add(new Option(l.name, l.code, false, l.code === I18N.lang));
+    const bl = I18N.languages.find((l) => l.code === I18N.browser);
+    lp.add(new Option(`${I18N.t("Browser language")} (${bl ? bl.name : "English"})`, "auto", false, I18N.auto));
+    for (const l of I18N.languages) lp.add(new Option(l.name, l.code, false, !I18N.auto && l.code === I18N.lang));
     lp.onchange = () => I18N.set(lp.value);
   }
   bindFonts();

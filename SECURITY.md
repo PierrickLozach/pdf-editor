@@ -24,7 +24,7 @@ Please report it privately through **[GitHub → Security → Report a vulnerabi
 | A04 | Cryptographic failures | Nothing sensitive is stored: no accounts, no keys. The only document kept in the browser is the crash-recovery copy of the PDF being edited, removed by “Close”. All traffic is HTTPS (HSTS). | `security.pw.mjs` (A04) |
 | A05 | Injection | No `eval`, no inline scripts; PDF-derived text (font names) and file names are inserted as text or escaped; the CSP blocks any injected script anyway. Tested with a PDF whose font is named `<img src=x onerror=…>`, HTML in file names, and an HTML file renamed `.pdf`. | `security.pw.mjs` (A05) |
 | A06 | Insecure design | Least data by design (nothing on a server). Limits: 250 MB per PDF (largest size tested to open, edit and save in Chromium, Firefox and WebKit; explained before opening, with how to make a PDF smaller); 10 MB per downloaded font. | `security.pw.mjs` (A06), `files.pw.mjs` |
-| A07 | Authentication failures | No authentication to attack (no accounts, no passwords). The Mac app's local server requires a per-run secret token on every request that changes something. | `security.pw.mjs` |
+| A07 | Authentication failures | No authentication to attack (no accounts, no passwords). | `security.pw.mjs` |
 | A08 | Software or data integrity | **Active content** in PDFs (JavaScript, launch actions, `javascript:`/`file:` links, form submission, attached files, XFA) is never run by the editor, is announced when a PDF has some, and is removed when saving unless the person chooses to keep it. Third-party files checked by hash at build time. | `security.pw.mjs` (A08) |
 | A09 | Logging and alerting | By design nothing about users is logged (no server). Security reports: `security.txt` + GitHub private reporting. | – |
 | A10 | Mishandling of exceptional conditions | Fails closed: a damaged PDF (broken page tree, deep nesting) or a decompression bomb (2.5 MB → 2.7 GB) is refused or handled without crashing, and the PDF already open keeps working. Oversized files, failed saves (written to a temporary file and swapped in only when complete) and engine errors give plain-language messages. | `security.pw.mjs` (A10), `files.pw.mjs` |
@@ -35,11 +35,5 @@ Please report it privately through **[GitHub → Security → Report a vulnerabi
   being edited stays until “Close”.
 - The free-font CDN (jsDelivr) sees the IP address and the name of a font when one is downloaded (never the document); it can be switched off.
 - Static hosting cannot rate-limit or alert on its own; Cloudflare's network-level protections apply.
-
-## Mac app (local only)
-
-The desktop version (`app.py`, not published) serves the editor on `127.0.0.1:8765` only. It refuses other host names (DNS rebinding),
-other origins, requests a browser marks as cross-site, and any request that changes something without the per-run token that only
-its own page receives — so a web page you visit cannot make it open, edit or save files.
 
 Run every check locally: `sh tests/run-all.sh` (editor, files, security) and `cd site && npm test` (site).

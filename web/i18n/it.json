@@ -1,0 +1,420 @@
+{
+ "language": "Italiano",
+ "strings": {
+  "PDF Editor": "Editor PDF",
+  "Open": "Apri",
+  "Save": "Salva",
+  "Download": "Scarica",
+  "Edit text": "Modifica testo",
+  "Add text": "Aggiungi testo",
+  "Whiteout": "Bianchetto",
+  "Image": "Immagine",
+  "Find & replace": "Trova e sostituisci",
+  "Fonts": "Font",
+  "+ Add pages from a PDF…": "+ Aggiungi pagine da un PDF…",
+  "Drop a PDF here": "Trascina qui un PDF",
+  "or": "oppure",
+  "choose a file": "scegli un file",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– fai clic su un testo e scrivi; l'originale viene davvero rimosso e il nuovo testo usa lo stesso font, la stessa dimensione e lo stesso colore.",
+  "across the whole document.": "in tutto il documento.",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "Aggiungi testo, copri aree con il bianchetto, aggiungi immagini o firme, ruota, riordina, elimina e unisci pagine.",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "Tutto avviene nel tuo browser: i tuoi file vengono elaborati su questo dispositivo e non vengono mai caricati online.",
+  "Loading the PDF engine…": "Caricamento del motore PDF…",
+  "Resume editing": "Riprendi",
+  "Discard": "Scarta",
+  "Free software (AGPL) based on": "Software libero (AGPL) basato su",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· font: Liberation, Carlito, Caladea, DejaVu (licenze libere) ·",
+  "licence & source": "licenza e codice sorgente",
+  "Find": "Trova",
+  "Replace with": "Sostituisci con",
+  "Match case": "Maiuscole/minuscole",
+  "Whole words": "Parole intere",
+  "Type to search": "Scrivi per cercare",
+  "No match": "Nessun risultato",
+  "Replace": "Sostituisci",
+  "Replace all": "Sostituisci tutto",
+  "Fit width": "Adatta alla larghezza",
+  "Cancel": "Annulla",
+  "Apply": "Applica",
+  "OK": "OK",
+  "Use your computer's fonts?": "Usare i font del tuo computer?",
+  "Some letters you typed are not in this PDF's copy of": "Alcune lettere che hai digitato non sono presenti nella copia del font",
+  ", so they were drawn with a look-alike font.": " inclusa in questo PDF, quindi sono state disegnate con un font simile.",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "Consenti all'editor di usare i font installati sul tuo computer e le ridisegnerà con il font vero. I font vengono usati solo qui, su questo dispositivo:",
+  "nothing is uploaded": "non viene caricato nulla",
+  "Not now": "Non ora",
+  "Add fonts…": "Aggiungi font…",
+  "Allow": "Consenti",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "Le modifiche usano i font del PDF ogni volta che è possibile. Queste opzioni servono per le lettere che un PDF non contiene.",
+  "Free fonts": "Font gratuiti",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "(Google Fonts…): scaricati automaticamente quando un PDF ne usa uno – viene inviato solo il nome del font",
+  "Allow my fonts": "Consenti i miei font",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "Font che i browser non vedono (Calibri, Cambria, Aptos… di Microsoft Office):",
+  "Add Office fonts": "Aggiungi font di Office",
+  "Add Mac fonts": "Aggiungi font del Mac",
+  "Other files…": "Altri file…",
+  "Remove all": "Rimuovi tutti",
+  "Remove": "Rimuovi",
+  "Drop the PDF to open it (or font files to add them)": "Rilascia il PDF per aprirlo (o i file dei font per aggiungerli)",
+  "Pages": "Pagine",
+  "Open a PDF (⌘O)": "Apri un PDF (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "Salva il PDF modificato (⌘S / Ctrl+S)",
+  "Download the edited PDF": "Scarica il PDF modificato",
+  "Close this PDF": "Chiudi questo PDF",
+  "Undo (⌘Z)": "Annulla (⌘Z)",
+  "Redo (⇧⌘Z)": "Ripeti (⇧⌘Z)",
+  "Tool": "Strumento",
+  "Edit text: click a text to change it, drag it to move it (E)": "Modifica testo: fai clic su un testo per cambiarlo, trascinalo per spostarlo (E)",
+  "Add text: click where to type (T)": "Aggiungi testo: fai clic dove vuoi scrivere (T)",
+  "Whiteout: drag over an area to erase it (W)": "Bianchetto: trascina su un'area per cancellarla (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "Immagine / firma: scegli un'immagine, poi fai clic o trascina sulla pagina (I)",
+  "Find & replace (⌘F)": "Trova e sostituisci (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "Font di questo computer: modifica con gli stessi font dell'originale",
+  "Zoom out (⌘−)": "Riduci (⌘−)",
+  "Fit to width": "Adatta alla larghezza",
+  "Zoom in (⌘+)": "Ingrandisci (⌘+)",
+  "Append the pages of another PDF at the end": "Aggiungi in fondo le pagine di un altro PDF",
+  "Close (Esc)": "Chiudi (Esc)",
+  "Text to find": "Testo da cercare",
+  "New text (leave empty to delete)": "Nuovo testo (lascia vuoto per eliminare)",
+  "Previous (⇧Enter)": "Precedente (⇧Invio)",
+  "Next (Enter)": "Successivo (Invio)",
+  "Font": "Font",
+  "Font size (pt)": "Dimensione (pt)",
+  "Text colour": "Colore del testo",
+  "Bold": "Grassetto",
+  "Italic": "Corsivo",
+  "Align left (text grows to the right)": "Allinea a sinistra (il testo si allunga verso destra)",
+  "Centre (text grows on both sides)": "Centra (il testo si allunga da entrambi i lati)",
+  "Align right (text grows to the left: amounts, totals)": "Allinea a destra (il testo si allunga verso sinistra: importi, totali)",
+  "Shrink the new text so it is never wider than the original": "Riduci il nuovo testo perché non sia mai più largo dell'originale",
+  "Cancel (Esc)": "Annulla (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "Applica (Invio · Maiusc+Invio per andare a capo)",
+  "This browser cannot run the editor (no module workers). Please update it.": "Questo browser non può eseguire l'editor (nessun supporto ai module worker). Aggiornalo.",
+  "Please choose a PDF file": "Scegli un file PDF",
+  "Open another PDF?": "Aprire un altro PDF?",
+  "Open anyway": "Apri comunque",
+  "Password-protected PDF": "PDF protetto da password",
+  "Wrong password, try again:": "Password errata, riprova:",
+  "Save as": "Salva come",
+  "PDF document": "Documento PDF",
+  "Loading…": "Caricamento…",
+  "Click to edit · drag to move": "Clic per modificare · trascina per spostare",
+  "Tilted text cannot be edited": "Il testo inclinato non si può modificare",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Questo testo è inclinato: non si può modificare sul posto. Usa Bianchetto e poi Aggiungi testo.",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Nessun testo modificabile in questa pagina (immagine scansionata?) – usa Bianchetto e poi Aggiungi testo.",
+  "You can undo this with ⌘Z.": "Puoi annullare con ⌘Z.",
+  "Delete": "Elimina",
+  "Close": "Chiudi",
+  "Included fonts": "Font inclusi",
+  "Fonts on this computer": "Font di questo computer",
+  "＋ Fonts from this computer…": "＋ Font di questo computer…",
+  "Use my fonts": "Usa i miei font",
+  "Add font…": "Aggiungi font…",
+  "(look-alike font)": "(font simile)",
+  "check the text: this PDF hides its real characters": "controlla il testo: questo PDF nasconde i suoi veri caratteri",
+  "this PDF hides its real characters; check the text before applying": "questo PDF nasconde i suoi veri caratteri; controlla il testo prima di applicare",
+  "↵ apply": "↵ applica",
+  "⇧↵ new line": "⇧↵ a capo",
+  "Esc cancel": "Esc annulla",
+  "Drag over the area to white out – text under it is really removed": "Trascina sull'area da coprire – il testo sottostante viene davvero rimosso",
+  "Click where the new text should start": "Fai clic dove deve iniziare il nuovo testo",
+  "Drag to draw the area to white out": "Trascina per disegnare l'area da coprire",
+  "This image could not be read": "Impossibile leggere questa immagine",
+  "This match spans text with two different styles: click it with Edit text to change it": "Questo risultato comprende testo con due stili diversi: fai clic su di esso con Modifica testo per cambiarlo",
+  "Replacement drawn with the original font.": "Sostituzione disegnata con il font originale.",
+  "Drop a PDF file (or font files)": "Trascina un file PDF (o file di font)",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "Il browser non ha condiviso alcun font. Consenti “Caratteri” per questo sito (icona a sinistra della barra degli indirizzi), poi riprova.",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "L'accesso ai font di questo computer non è stato consentito. Per consentirlo in seguito: icona a sinistra della barra degli indirizzi → Impostazioni sito → Caratteri → Consenti.",
+  "No font files there (.ttf, .otf or .ttc)": "Nessun file di font qui (.ttf, .otf o .ttc)",
+  "No file chosen": "Nessun file scelto",
+  "These fonts were already added": "Questi font erano già stati aggiunti",
+  "✓ The fonts installed on this computer are used.": "✓ Vengono usati i font installati su questo computer.",
+  "Use the fonts installed on this computer (the browser asks you once).": "Usa i font installati su questo computer (il browser te lo chiede una volta).",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "Nella finestra: premi ⌘⇧G, poi ⌘V, poi Invio, poi fai clic su Carica (i file restano sul tuo Mac).",
+  "this PDF's font": "il font di questo PDF",
+  "Remove all added fonts?": "Rimuovere tutti i font aggiunti?",
+  "They are removed from this browser only; the files on your computer are not touched.": "Vengono rimossi solo da questo browser; i file sul tuo computer non vengono toccati.",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "Non consentito – resta il font simile. Puoi consentirlo in seguito con il pulsante Font.",
+  "Close this PDF?": "Chiudere questo PDF?",
+  "Your edits have not been saved and will be lost.": "Le modifiche non sono state salvate e andranno perse.",
+  "Drag to move this text": "Trascina per spostare questo testo",
+  "aligned left": "allineato a sinistra",
+  "aligned right": "allineato a destra",
+  "centred": "centrato",
+  "A PDF needs at least one page": "Un PDF deve avere almeno una pagina",
+  "Empty area": "Area vuota",
+  "Empty text": "Testo vuoto",
+  "No document is open": "Nessun documento aperto",
+  "No such page": "Questa pagina non esiste",
+  "Not a PDF file": "Non è un file PDF",
+  "Nothing selected": "Nessuna selezione",
+  "Nothing to search for": "Niente da cercare",
+  "That PDF is password-protected": "Quel PDF è protetto da password",
+  "That file could not be read as a PDF": "Impossibile leggere quel file come PDF",
+  "This file could not be read as a PDF": "Impossibile leggere questo file come PDF",
+  "The page changed: click the text again": "La pagina è cambiata: fai di nuovo clic sul testo",
+  "The page changed: select the text again": "La pagina è cambiata: seleziona di nuovo il testo",
+  "This text is tilted and cannot be edited": "Questo testo è inclinato e non si può modificare",
+  "Tilted text cannot be moved": "Il testo inclinato non si può spostare",
+  "Language": "Lingua",
+  "My PDFs": "I miei PDF",
+  "Add PDFs": "Aggiungi PDF",
+  "Change my name": "Cambia il mio nome",
+  "This name is only shown on this device.": "Questo nome viene mostrato solo su questo dispositivo.",
+  "Name saved": "Nome salvato",
+  "Signed out. Your PDFs stay encrypted on this device.": "Disconnesso. I tuoi PDF restano crittografati su questo dispositivo.",
+  "No PDF yet. Add one, or open a PDF and save it.": "Ancora nessun PDF. Aggiungine uno, oppure apri un PDF e salvalo.",
+  "More": "Altro",
+  "versions": "versioni",
+  "Rename": "Rinomina",
+  "Previous versions": "Versioni precedenti",
+  "Delete this PDF?": "Eliminare questo PDF?",
+  "Deleted": "Eliminato",
+  "current": "attuale",
+  "Older version opened: saving makes it the current version.": "Versione precedente aperta: salvandola diventa la versione attuale.",
+  "Not saved": "Non salvato",
+  "Your name": "Il tuo nome",
+  "Create one": "Creane uno",
+  "The last 5 saved versions are kept.": "Vengono conservate le ultime 5 versioni salvate.",
+  "Something went wrong. Please try again.": "Si è verificato un errore. Riprova.",
+  "Cancelled.": "Annullato.",
+  "Please enter your name.": "Inserisci il tuo nome.",
+  "Encrypted and kept on this device only.": "Crittografati e conservati solo su questo dispositivo.",
+  "This file could not be decrypted: it was changed or damaged.": "Impossibile decrittografare questo file: è stato modificato o danneggiato.",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "Spazio di archiviazione insufficiente in questo browser. Elimina i PDF che non ti servono più, oppure scaricali.",
+  "Reduce file size": "Riduci dimensioni file",
+  "Reduce file size…": "Riduci dimensioni file…",
+  "Compress photos and scans to make the PDF smaller": "Comprimi foto e scansioni per rendere il PDF più leggero",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "Foto e pagine scansionate vengono compresse; testo e disegni restano nitidi e modificabili. Puoi annullare.",
+  "Smaller": "Più leggero",
+  "good for printing (about 200 dpi)": "adatto alla stampa (circa 200 dpi)",
+  "Smallest": "Il più leggero",
+  "for email and screens (about 120 dpi)": "per e-mail e schermo (circa 120 dpi)",
+  "Other ways to make a PDF smaller": "Altri modi per alleggerire un PDF",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "Elimina le pagine che non ti servono, oppure dividi un PDF lungo: elimina metà delle pagine, salva, poi fai lo stesso con l'altra metà.",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "Su Mac: apri il PDF in Anteprima, File › Esporta, Filtro Quartz: Riduci dimensioni file.",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "Quando scansioni: 150–200 dpi bastano per i documenti (300 dpi in bianco e nero per i caratteri piccoli).",
+  "Reduce": "Riduci",
+  "Calculating the size…": "Calcolo delle dimensioni…",
+  "Current size": "Dimensioni attuali",
+  "Reducing the size…": "Riduzione delle dimensioni…",
+  "Size reduced": "Dimensioni ridotte",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "Questo PDF non contiene foto o scansioni grandi da comprimere: è già quasi il più leggero possibile.",
+  "Reduce its size? It opens in the editor first.": "Ridurne le dimensioni? Prima si apre nell'editor.",
+  "Reduce its size": "Riduci le dimensioni",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "Ancora troppo grande. Prova “Il più leggero”, oppure elimina delle pagine e salva il PDF in due parti.",
+  "Up to 200 MB per PDF.": "Fino a 200 MB per PDF.",
+  "Too large?": "Troppo grande?",
+  "Size limit": "Dimensione massima",
+  "Open it and use “Reduce file size…”.": "Aprilo e usa “Riduci dimensioni file…”.",
+  "MB": "MB",
+  "KB": "KB",
+  "Recent files": "File recenti",
+  "Remove from this list": "Rimuovi dall'elenco",
+  "Access to the file was not allowed.": "L'accesso al file non è stato consentito.",
+  "This file was moved or deleted. It was removed from the list.": "Questo file è stato spostato o eliminato. È stato rimosso dall'elenco.",
+  "This PDF is too large to edit in the browser": "Questo PDF è troppo grande per essere modificato nel browser",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "Per alleggerirlo: su Mac, aprilo in Anteprima, poi File › Esporta… › Filtro Quartz: Riduci dimensioni file; oppure dividilo in più parti (in Anteprima, trascina le pagine fuori dalla barra laterale). I PDF molto pesanti sono quasi sempre scansioni o foto: per i documenti bastano 150–200 dpi.",
+  "Saving into the file was not allowed: a copy is saved instead.": "Il salvataggio nel file non è stato consentito: viene salvata una copia.",
+  "Saved": "Salvato",
+  "Save writes your changes back into the same file.": "Salva scrive le modifiche nello stesso file.",
+  "Save downloads the edited PDF.": "Salva scarica il PDF modificato.",
+  "Accounts have been removed.": "Gli account sono stati rimossi.",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "Scaricali ora: poi verranno eliminati da questo browser. La passkey ti viene chiesta una volta per sbloccarli.",
+  "Download my PDFs": "Scarica i miei PDF",
+  "Delete them": "Eliminali",
+  "Delete them?": "Eliminarli?",
+  "1 PDF saved in “My PDFs” is still in this browser.": "1 PDF salvato in “I miei PDF” è ancora in questo browser.",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "I PDF salvati in “I miei PDF” vengono eliminati definitivamente da questo browser.",
+  "Remove it": "Rimuovilo",
+  "Keep it": "Mantienilo",
+  "Kept: the saved PDF will still contain it.": "Mantenuto: il PDF salvato lo conterrà ancora.",
+  "Active content removed. You can undo it.": "Contenuto attivo rimosso. Puoi annullare.",
+  "scripts": "script",
+  "program launch": "avvio di programmi",
+  "form sending": "invio di moduli",
+  "data import": "importazione di dati",
+  "unsafe links": "link non sicuri",
+  "automatic actions": "azioni automatiche",
+  "attached files": "file allegati",
+  "XFA form": "modulo XFA",
+  "media": "contenuti multimediali",
+  "embedded document": "documento incorporato",
+  "Browser language": "Lingua del browser"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "Le modifiche a “{name}” non sono state salvate. Andranno perse."
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "“{name}” richiede una password:"
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – Editor PDF"
+  ],
+  [
+   "Saved: {name}",
+   "Salvato: {name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "Scaricato: {name}"
+  ],
+  [
+   "Delete page {n}?",
+   "Eliminare la pagina {n}?"
+  ],
+  [
+   "{orig} not available",
+   "{orig} non disponibile"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "Testo ridotto a {n} pt per farlo entrare"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "Fai clic su una pagina per posizionare “{name}”, oppure trascina per sceglierne le dimensioni"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "Non sostituiti automaticamente (stili misti): {n} – modificali facendo clic"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "Nota: il font originale non è disponibile per una parte del testo; disegnato con {f}."
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "Sostituzione disegnata con {f} (stesse larghezze dei caratteri dell'originale)."
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "Pagine di “{name}” aggiunte in fondo: {n}"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "Famiglie di font di questo computer ora utilizzabili: {n}"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "Lettura di 1 file di font ({size})…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "Lettura di {n} file di font ({size})…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "Aggiunta 1 famiglia di font: {list}"
+  ],
+  [
+   "Added 1 font family",
+   "Aggiunta 1 famiglia di font"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "Aggiunte {n} famiglie di font: {list}"
+  ],
+  [
+   "Added {n} font families",
+   "Aggiunte {n} famiglie di font"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "Impossibile leggere 1 file ({name}: {why})"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "Impossibile leggere {n} file ({name}: {why})"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "1 file oltre 8 MB ignorato ({names}) – aggiungilo con “Altri file…” se serve"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "File oltre 8 MB ignorati: {n} ({names}) – aggiungili con “Altri file…” se serve"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "1 famiglia di font conservata in questo browser ({size})"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "Famiglie di font conservate in questo browser: {n} ({size})"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "Non ancora disponibili per questo PDF: {list}. Per i font di Office, usa “Aggiungi font di Office”."
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "Non ancora disponibili per questo PDF: {list}."
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "Nella finestra: premi ⌘⇧G, digita {path}, poi Invio, poi Carica."
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "“{name}” (ultima modifica: {when}) è ancora in questo browser."
+  ],
+  [
+   "{a} of {b}",
+   "{a} di {b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "Impossibile avviare il motore PDF: {why}. Ricarica la pagina o prova una versione aggiornata di Chrome, Edge, Firefox o Safari."
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "Impossibile avviare il motore PDF. Ricarica la pagina o prova una versione aggiornata di Chrome, Edge, Firefox o Safari."
+  ],
+  [
+   "{n} PDFs added",
+   "PDF aggiunti: {n}"
+  ],
+  [
+   "Current size: {a}",
+   "Dimensioni attuali: {a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "Dimensioni ridotte: {a} → {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "“{name}” pesa {size}; l'editor accetta PDF fino a {max}."
+  ],
+  [
+   "PDFs up to {max}.",
+   "PDF fino a {max}."
+  ],
+  [
+   "Saved in “{name}”",
+   "Salvato in “{name}”"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "Impossibile salvare il file: {why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "PDF salvati in “I miei PDF” ancora in questo browser: {n}."
+  ],
+  [
+   "{n} PDF downloaded.",
+   "PDF scaricati: {n}."
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "Questo PDF contiene contenuti attivi ({kinds}). L'editor non li esegue mai, ma altri lettori PDF potrebbero farlo. Vengono rimossi al salvataggio, a meno che tu non li mantenga."
+  ]
+ ]
+}

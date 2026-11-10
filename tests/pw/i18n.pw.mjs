@@ -73,15 +73,14 @@ async function run(name) {
     ok(/Déposez un fichier PDF/.test(await p.textContent("#toast")), "messages in French");
     await ctx.close();
 
-    // ---------------------------------------------------------------- right-to-left (test language)
-    const rtl = await browser.newContext({ locale: "en-US", viewport: { width: 1400, height: 900 } });
-    await rtl.addInitScript(() => { window.PDFE_EXTRA_LANGS = [["rtl", "RTL test", "rtl"]]; localStorage.setItem("pdfe.lang", "rtl"); localStorage.setItem("pdfe.fontIntroSeen", "1"); });
-    await rtl.route(/\/i18n\/rtl\.json/, (route) => route.fulfill({ contentType: "application/json", body: JSON.stringify({ strings: { "Open": "ופתח", "Edit text": "ערוך טקסט", "Drop a PDF here": "גרור לכאן קובץ PDF" } }) }));
+    // ---------------------------------------------------------------- right to left (Arabic)
+    const rtl = await browser.newContext({ locale: "ar-EG", viewport: { width: 1400, height: 900 } });   // an Arabic browser
+    await rtl.addInitScript(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); });
     const q = await rtl.newPage();
     q.on("pageerror", (e) => errs.push(e.message));
     await q.goto(URL0);
     await waitFn(q, `document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait')`, 60000);
-    ok((await q.getAttribute("html", "dir")) === "rtl" && /ופתח/.test(await q.textContent("#toolbar")), "right-to-left language: dir=rtl, texts replaced");
+    ok((await q.getAttribute("html", "dir")) === "rtl" && (await q.getAttribute("html", "lang")) === "ar" && /[\u0600-\u06FF]/.test(await q.textContent("#toolbar")), "Arabic browser: Arabic, right to left");
     const order = await q.evaluate(() => { const b = [...document.querySelectorAll("#toolbar .group")]; return b.map((g) => g.getBoundingClientRect().left); });
     ok(order.length > 2 && order[0] > order[order.length - 1], "toolbar mirrored (first group on the right)");
     await q.evaluate(() => call("discard"));
@@ -96,6 +95,58 @@ async function run(name) {
     await q.keyboard.press("Escape");
     await q.screenshot({ path: `/tmp/pdfe-site/${name}-rtl.png` });
     await rtl.close();
+    // ---------------------------------------------------------------- every language, from the browser's language
+    const LANGS = (await (await fetch(new URL("i18n/languages.json", URL0))).json()).filter((l) => l.code !== "en");
+    for (const L of LANGS) {
+      const c = await browser.newContext({ locale: L.code === "pt" ? "pt-BR" : L.code === "zh" ? "zh-CN" : L.code, viewport: { width: 1400, height: 900 } });
+      await c.addInitScript(() => localStorage.setItem("pdfe.fontIntroSeen", "1"));
+      const g = await c.newPage();
+      g.on("pageerror", (e) => errs.push(`${L.code}: ${e.message}`));
+      await g.goto(URL0);
+      await waitFn(g, `document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait')`, 60000);
+      const lang = await g.getAttribute("html", "lang"), dir = await g.getAttribute("html", "dir");
+      // untranslated = a visible text that is, word for word, an English source text whose translation differs
+      const dict = await (await fetch(new URL(`i18n/${L.code}.json`, URL0))).json();
+      const untranslated = (d) => {
+        const out = [];
+        const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        for (let n = w.nextNode(); n; n = w.nextNode()) {
+          const t = n.nodeValue.trim(), el = n.parentElement;
+          if (!t || el.closest("script,style,.editbox,#docName,#fontList,[data-noi18n],select,option") || el.closest("[hidden]") || !el.getClientRects().length) continue;
+          if (Object.prototype.hasOwnProperty.call(d.strings, t) && d.strings[t].trim() !== t) out.push(t);
+        }
+        for (const b of document.querySelectorAll("#toolbar [title]")) { const t = b.title; if (Object.prototype.hasOwnProperty.call(d.strings, t) && d.strings[t] !== t) out.push("title: " + t); }
+        return out;
+      };
+      let left = await g.evaluate(untranslated, dict);
+      await g.setInputFiles("#fileInput", pdf);
+      await waitFn(g, `S.doc && S.spans[S.doc.pages[0].v] && pageEl(0).dataset.rkey`);
+      left = left.concat(await g.evaluate(untranslated, dict));
+      const fits = await g.evaluate(() => { const tb = document.querySelector("#toolbar"); return tb.scrollWidth <= tb.clientWidth + 1; });
+      const picker = await g.evaluate(() => { const o = document.querySelector("#langPick option"); return o && o.value === "auto" && o.selected; });
+      ok(lang === L.code && dir === L.dir && !left.length && fits, `${L.name} (${L.code}, ${L.dir}): chosen from the browser, nothing left in English, toolbar fits` + (left.length ? " – " + left.slice(0, 3).join(" | ") : ""));
+      if (!picker) ok(false, `${L.code}: the language menu shows “browser language”`);
+      if (L.dir === "rtl" && name === "chromium") await g.screenshot({ path: `/tmp/pdfe-site/editor-${L.code}.png` });
+      await c.close();
+    }
+
+    // ---------------------------------------------------------------- browser language unless chosen
+    {
+      const c = await browser.newContext({ locale: "de-DE" });
+      const g = await c.newPage();
+      await g.goto(URL0);
+      await waitFn(g, `document.body.classList.contains('engine-ready')`, 60000);
+      ok((await g.getAttribute("html", "lang")) === "de" && (await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === null, "German browser: German, and nothing stored (it keeps following the browser)");
+      await g.selectOption("#langPick", "it");
+      await waitFn(g, `document.documentElement.lang === "it" && document.body.classList.contains('engine-ready')`, 60000);
+      ok((await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === "it", "choosing Italian: remembered");
+      await g.reload(); await waitFn(g, `document.body.classList.contains('engine-ready')`, 60000);
+      ok((await g.getAttribute("html", "lang")) === "it", "…and kept after a reload");
+      await g.selectOption("#langPick", "auto");
+      await waitFn(g, `document.documentElement.lang === "de" && document.body.classList.contains('engine-ready')`, 60000);
+      ok((await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === null, "“Browser language”: back to German, choice forgotten");
+      await c.close();
+    }
     ok(errs.length === 0, "no script errors " + errs.slice(0, 3).join(" | "));
   } catch (e) {
     fails++; console.log(`  FAIL [${name}] exception: ${e.message.split("\n")[0]}`);

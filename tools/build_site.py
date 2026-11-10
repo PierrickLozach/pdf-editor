@@ -3,8 +3,7 @@
   site/pages/<lang>/   one folder of pages per language    -> public/ (default language), public/<lang>/
   site/i18n/<lang>.json  the words of the header and footer
   site/site.json       name, address, publisher, languages
-Add a language: copy site/pages/en to site/pages/<code>, translate it, add site/i18n/<code>.json,
-add web/i18n/<code>.json (the editor) and its line in web/i18n.js, and list it in site.json.
+Add a language: see site/DEPLOY.md ("Languages"); python3 tools/check_i18n.py checks a translation.
 Usage: python3 tools/build_site.py [--url https://your-domain.com]"""
 import datetime, hashlib, html, json, pathlib, re, shutil, subprocess, sys
 
@@ -16,6 +15,9 @@ cfg = json.loads((SITE / "site.json").read_text())
 if "--url" in sys.argv: cfg["url"] = sys.argv[sys.argv.index("--url") + 1]
 cfg["url"] = cfg["url"].rstrip("/")
 LANGS = cfg.get("languages", ["en"])
+# the editor's list of languages must offer the same ones
+_ed = [x["code"] for x in json.loads((WEB / "i18n" / "languages.json").read_text())]
+assert set(LANGS) <= set(_ed), f"languages in site.json missing from web/i18n/languages.json: {set(LANGS) - set(_ed)}"
 DEFAULT = cfg.get("default_language", LANGS[0])
 T = {l: json.loads((I18N / f"{l}.json").read_text()) for l in LANGS}
 root_of = lambda l: "/" if l == DEFAULT else f"/{l}/"
@@ -34,7 +36,6 @@ def fill(text, l):
 
 # ---------------------------------------------------------------- editor
 subprocess.run([sys.executable, str(ROOT / "tools" / "vendor_lock.py")], check=True)        # stops on tampered files
-subprocess.run([sys.executable, str(ROOT / "tools" / "build_web_app.py")], check=True, stdout=subprocess.DEVNULL)
 subprocess.run([sys.executable, str(ROOT / "tools" / "stamp.py")], check=True, stdout=subprocess.DEVNULL)
 if PUB.exists(): shutil.rmtree(PUB)
 shutil.copytree(WEB, PUB / "app", ignore=shutil.ignore_patterns("package.json", "_headers", ".nojekyll", "README.md", ".DS_Store"))
@@ -109,7 +110,8 @@ for l in LANGS:
         path = url_of(l, slug)
         alternates = "\n".join(f'<link rel="alternate" hreflang="{x}" href="{cfg["url"]}{url_of(x, slug)}">' for x in LANGS)
         alternates += f'\n<link rel="alternate" hreflang="x-default" href="{cfg["url"]}{url_of(DEFAULT, slug)}">'
-        options = "".join(f'<option value="{x}" data-href="{url_of(x, slug)}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
+        options = f'<option value="auto">{html.escape(T[l].get("language_auto", "Browser language"))}</option>' + \
+                  "".join(f'<option value="{x}" data-href="{url_of(x, slug)}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
         words = {f"t_{k}": html.escape(v) for k, v in T[l].items() if isinstance(v, str)}
         page = LAYOUT.format(lang=l, dir=T[l].get("dir", "ltr"), title=fill(meta.get("title", T[l]["site_name"]), l),
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",

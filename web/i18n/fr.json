@@ -240,7 +240,8 @@
   "attached files": "fichiers joints",
   "XFA form": "formulaire XFA",
   "media": "médias",
-  "embedded document": "document intégré"
+  "embedded document": "document intégré",
+  "Browser language": "Langue du navigateur"
  },
  "patterns": [
   [

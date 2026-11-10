@@ -1,4 +1,4 @@
-/* PDF Editor - browser engine (MuPDF.js). Port of engine.py.
+/* PDF Editor - browser engine (MuPDF.js).
  *
  * Runs in a Web Worker in the browser, and in Node.js for tests.
  * Coordinates: everything the UI sees is in the *display* frame of a page

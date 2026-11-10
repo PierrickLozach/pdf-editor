@@ -1,0 +1,420 @@
+{
+ "language": "简体中文",
+ "strings": {
+  "PDF Editor": "PDF 编辑器",
+  "Open": "打开",
+  "Save": "保存",
+  "Download": "下载",
+  "Edit text": "编辑文本",
+  "Add text": "添加文本",
+  "Whiteout": "涂白",
+  "Image": "图像",
+  "Find & replace": "查找和替换",
+  "Fonts": "字体",
+  "+ Add pages from a PDF…": "+ 从 PDF 添加页面…",
+  "Drop a PDF here": "将 PDF 拖放到此处",
+  "or": "或",
+  "choose a file": "选择文件",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "：点击任意文本即可输入；原文本会被真正删除，新文本沿用相同的字体、字号和颜色。",
+  "across the whole document.": "：在整个文档中一次完成。",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "添加文本、涂白区域、添加图像或签名，旋转、重新排序、删除和合并页面。",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "一切都在浏览器中完成：文件只在本设备上处理，绝不会上传。",
+  "Loading the PDF engine…": "正在加载 PDF 引擎…",
+  "Resume editing": "继续编辑",
+  "Discard": "放弃",
+  "Free software (AGPL) based on": "自由软件（AGPL），基于",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· 字体：Liberation、Carlito、Caladea、DejaVu（开放许可）·",
+  "licence & source": "许可证和源代码",
+  "Find": "查找",
+  "Replace with": "替换为",
+  "Match case": "区分大小写",
+  "Whole words": "全字匹配",
+  "Type to search": "输入以搜索",
+  "No match": "无匹配结果",
+  "Replace": "替换",
+  "Replace all": "全部替换",
+  "Fit width": "适合宽度",
+  "Cancel": "取消",
+  "Apply": "应用",
+  "OK": "好",
+  "Use your computer's fonts?": "使用电脑上的字体？",
+  "Some letters you typed are not in this PDF's copy of": "您输入的部分字符不在此 PDF 所含的",
+  ", so they were drawn with a look-alike font.": "字体中，因此改用了相似字体显示。",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "允许编辑器使用电脑上安装的字体后，它会用真正的字体重新绘制这些字符。字体只在本设备上使用：",
+  "nothing is uploaded": "不会上传任何内容",
+  "Not now": "以后再说",
+  "Add fonts…": "添加字体…",
+  "Allow": "允许",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "编辑时会尽可能使用 PDF 自带的字体。以下选项用于补充 PDF 中缺少的字符。",
+  "Free fonts": "免费字体",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "（Google Fonts…）：当 PDF 使用此类字体时自动下载，只会发送字体名称",
+  "Allow my fonts": "允许使用我的字体",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "浏览器无法读取的字体（Microsoft Office 的 Calibri、Cambria、Aptos…）：",
+  "Add Office fonts": "添加 Office 字体",
+  "Add Mac fonts": "添加 Mac 字体",
+  "Other files…": "其他文件…",
+  "Remove all": "全部移除",
+  "Remove": "移除",
+  "Drop the PDF to open it (or font files to add them)": "拖放 PDF 即可打开（拖放字体文件即可添加）",
+  "Pages": "页面",
+  "Open a PDF (⌘O)": "打开 PDF (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "保存编辑后的 PDF (⌘S / Ctrl+S)",
+  "Download the edited PDF": "下载编辑后的 PDF",
+  "Close this PDF": "关闭此 PDF",
+  "Undo (⌘Z)": "撤销 (⌘Z)",
+  "Redo (⇧⌘Z)": "重做 (⇧⌘Z)",
+  "Tool": "工具",
+  "Edit text: click a text to change it, drag it to move it (E)": "编辑文本：点击文本进行修改，拖动文本进行移动 (E)",
+  "Add text: click where to type (T)": "添加文本：点击要输入的位置 (T)",
+  "Whiteout: drag over an area to erase it (W)": "涂白：在区域上拖动以将其擦除 (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "图像/签名：选择一张图片，然后在页面上点击或拖动 (I)",
+  "Find & replace (⌘F)": "查找和替换 (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "本机字体：使用与原文相同的字体进行编辑",
+  "Zoom out (⌘−)": "缩小 (⌘−)",
+  "Fit to width": "适合宽度",
+  "Zoom in (⌘+)": "放大 (⌘+)",
+  "Append the pages of another PDF at the end": "在末尾追加另一个 PDF 的页面",
+  "Close (Esc)": "关闭 (Esc)",
+  "Text to find": "要查找的文本",
+  "New text (leave empty to delete)": "新文本（留空则删除）",
+  "Previous (⇧Enter)": "上一个 (⇧Enter)",
+  "Next (Enter)": "下一个 (Enter)",
+  "Font": "字体",
+  "Font size (pt)": "字号 (pt)",
+  "Text colour": "文本颜色",
+  "Bold": "粗体",
+  "Italic": "斜体",
+  "Align left (text grows to the right)": "左对齐（文本向右延伸）",
+  "Centre (text grows on both sides)": "居中（文本向两侧延伸）",
+  "Align right (text grows to the left: amounts, totals)": "右对齐（文本向左延伸：适用于金额、合计）",
+  "Shrink the new text so it is never wider than the original": "缩小新文本，使其宽度不超过原文本",
+  "Cancel (Esc)": "取消 (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "应用 (Enter · Shift+Enter 换行)",
+  "This browser cannot run the editor (no module workers). Please update it.": "此浏览器无法运行编辑器（不支持模块 Worker）。请更新浏览器。",
+  "Please choose a PDF file": "请选择 PDF 文件",
+  "Open another PDF?": "打开另一个 PDF？",
+  "Open anyway": "仍然打开",
+  "Password-protected PDF": "受密码保护的 PDF",
+  "Wrong password, try again:": "密码错误，请重试：",
+  "Save as": "另存为",
+  "PDF document": "PDF 文档",
+  "Loading…": "正在加载…",
+  "Click to edit · drag to move": "点击编辑 · 拖动移动",
+  "Tilted text cannot be edited": "倾斜的文本无法编辑",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "此文本是倾斜的，无法直接编辑。请改用“涂白”+“添加文本”。",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "此页面没有可编辑的文本（可能是扫描图像？），请使用“涂白”+“添加文本”。",
+  "You can undo this with ⌘Z.": "可按 ⌘Z 撤销。",
+  "Delete": "删除",
+  "Close": "关闭",
+  "Included fonts": "内置字体",
+  "Fonts on this computer": "本机字体",
+  "＋ Fonts from this computer…": "＋ 本机字体…",
+  "Use my fonts": "使用我的字体",
+  "Add font…": "添加字体…",
+  "(look-alike font)": "（相似字体）",
+  "check the text: this PDF hides its real characters": "请检查文本：此 PDF 隐藏了真实字符",
+  "this PDF hides its real characters; check the text before applying": "此 PDF 隐藏了真实字符，应用前请检查文本",
+  "↵ apply": "↵ 应用",
+  "⇧↵ new line": "⇧↵ 换行",
+  "Esc cancel": "Esc 取消",
+  "Drag over the area to white out – text under it is really removed": "拖动选择要涂白的区域，其下方的文本会被真正删除",
+  "Click where the new text should start": "点击新文本的起始位置",
+  "Drag to draw the area to white out": "拖动绘制要涂白的区域",
+  "This image could not be read": "无法读取此图像",
+  "This match spans text with two different styles: click it with Edit text to change it": "此匹配项跨越两种不同样式的文本：请使用“编辑文本”点击它进行修改",
+  "Replacement drawn with the original font.": "已使用原字体绘制替换内容。",
+  "Drop a PDF file (or font files)": "拖放 PDF 文件（或字体文件）",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "浏览器未共享任何字体。请允许此网站使用“字体”（地址栏左侧的图标），然后重试。",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "未获准访问本机字体。如需稍后允许：地址栏左侧的图标 → 网站设置 → 字体 → 允许。",
+  "No font files there (.ttf, .otf or .ttc)": "此处没有字体文件（.ttf、.otf 或 .ttc）",
+  "No file chosen": "未选择文件",
+  "These fonts were already added": "这些字体已添加过",
+  "✓ The fonts installed on this computer are used.": "✓ 正在使用本机安装的字体。",
+  "Use the fonts installed on this computer (the browser asks you once).": "使用本机安装的字体（浏览器只会询问一次）。",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "在弹出的窗口中：按 ⌘⇧G，再按 ⌘V，然后按 Return 键，最后点击“上传”（文件仍保留在您的 Mac 上）。",
+  "this PDF's font": "原有",
+  "Remove all added fonts?": "移除所有已添加的字体？",
+  "They are removed from this browser only; the files on your computer are not touched.": "只会从此浏览器中移除，电脑上的文件不受影响。",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "未获允许，将继续使用相似字体。您可以稍后通过“字体”按钮允许。",
+  "Close this PDF?": "关闭此 PDF？",
+  "Your edits have not been saved and will be lost.": "您的修改尚未保存，将会丢失。",
+  "Drag to move this text": "拖动以移动此文本",
+  "aligned left": "左对齐",
+  "aligned right": "右对齐",
+  "centred": "居中",
+  "A PDF needs at least one page": "PDF 至少需要一页",
+  "Empty area": "区域为空",
+  "Empty text": "文本为空",
+  "No document is open": "未打开任何文档",
+  "No such page": "页面不存在",
+  "Not a PDF file": "不是 PDF 文件",
+  "Nothing selected": "未选择任何内容",
+  "Nothing to search for": "没有要搜索的内容",
+  "That PDF is password-protected": "该 PDF 受密码保护",
+  "That file could not be read as a PDF": "无法将该文件作为 PDF 读取",
+  "This file could not be read as a PDF": "无法将此文件作为 PDF 读取",
+  "The page changed: click the text again": "页面已更改：请再次点击文本",
+  "The page changed: select the text again": "页面已更改：请重新选择文本",
+  "This text is tilted and cannot be edited": "此文本是倾斜的，无法编辑",
+  "Tilted text cannot be moved": "倾斜的文本无法移动",
+  "Language": "语言",
+  "My PDFs": "我的 PDF",
+  "Add PDFs": "添加 PDF",
+  "Change my name": "更改我的名字",
+  "This name is only shown on this device.": "此名字只在本设备上显示。",
+  "Name saved": "名字已保存",
+  "Signed out. Your PDFs stay encrypted on this device.": "已退出登录。您的 PDF 仍加密保存在本设备上。",
+  "No PDF yet. Add one, or open a PDF and save it.": "还没有 PDF。请添加一个，或打开 PDF 后保存。",
+  "More": "更多",
+  "versions": "个版本",
+  "Rename": "重命名",
+  "Previous versions": "历史版本",
+  "Delete this PDF?": "删除此 PDF？",
+  "Deleted": "已删除",
+  "current": "当前",
+  "Older version opened: saving makes it the current version.": "已打开旧版本：保存后它将成为当前版本。",
+  "Not saved": "未保存",
+  "Your name": "您的名字",
+  "Create one": "创建",
+  "The last 5 saved versions are kept.": "会保留最近保存的 5 个版本。",
+  "Something went wrong. Please try again.": "出错了，请重试。",
+  "Cancelled.": "已取消。",
+  "Please enter your name.": "请输入您的名字。",
+  "Encrypted and kept on this device only.": "已加密，仅保存在本设备上。",
+  "This file could not be decrypted: it was changed or damaged.": "无法解密此文件：文件已被修改或损坏。",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "此浏览器的存储空间不足。请删除不再需要的 PDF，或将其下载。",
+  "Reduce file size": "减小文件大小",
+  "Reduce file size…": "减小文件大小…",
+  "Compress photos and scans to make the PDF smaller": "压缩照片和扫描页，减小 PDF 大小",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "照片和扫描页会被压缩；文本和图形保持清晰且可编辑。此操作可撤销。",
+  "Smaller": "较小",
+  "good for printing (about 200 dpi)": "适合打印（约 200 dpi）",
+  "Smallest": "最小",
+  "for email and screens (about 120 dpi)": "适合电子邮件和屏幕查看（约 120 dpi）",
+  "Other ways to make a PDF smaller": "减小 PDF 的其他方法",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "删除不需要的页面，或拆分较长的 PDF：删除一半页面并保存，然后对另一半执行同样操作。",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "在 Mac 上：用“预览”打开 PDF，选择“文件 › 导出”，Quartz 滤镜选“减小文件大小”。",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "扫描时：文档使用 150–200 dpi 即可（小字使用 300 dpi 黑白扫描）。",
+  "Reduce": "减小",
+  "Calculating the size…": "正在计算大小…",
+  "Current size": "当前大小",
+  "Reducing the size…": "正在减小大小…",
+  "Size reduced": "大小已减小",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "此 PDF 没有可压缩的大照片或扫描页，已几乎是最小了。",
+  "Reduce its size? It opens in the editor first.": "要减小它的大小吗？它会先在编辑器中打开。",
+  "Reduce its size": "减小大小",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "仍然太大。请尝试“最小”，或删除部分页面，将 PDF 分成两部分保存。",
+  "Up to 200 MB per PDF.": "每个 PDF 最大 200 MB。",
+  "Too large?": "文件太大？",
+  "Size limit": "大小上限",
+  "Open it and use “Reduce file size…”.": "打开它，然后使用“减小文件大小…”。",
+  "MB": "MB",
+  "KB": "KB",
+  "Recent files": "最近的文件",
+  "Remove from this list": "从列表中移除",
+  "Access to the file was not allowed.": "未获准访问该文件。",
+  "This file was moved or deleted. It was removed from the list.": "此文件已被移动或删除，已从列表中移除。",
+  "This PDF is too large to edit in the browser": "此 PDF 太大，无法在浏览器中编辑",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "减小方法：在 Mac 上用“预览”打开它，然后选择“文件 › 导出…”，Quartz 滤镜选“减小文件大小”；或将其拆分成几部分（在“预览”中，将页面从边栏拖出）。大型 PDF 几乎都是扫描件或照片：扫描文档时使用 150–200 dpi 即可。",
+  "Saving into the file was not allowed: a copy is saved instead.": "未获准保存到该文件，已改为保存副本。",
+  "Saved": "已保存",
+  "Save writes your changes back into the same file.": "“保存”会将修改写回原文件。",
+  "Save downloads the edited PDF.": "“保存”会下载编辑后的 PDF。",
+  "Accounts have been removed.": "账户功能已移除。",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "请立即下载，之后它们会从此浏览器中删除。解锁时需要验证一次您的通行密钥。",
+  "Download my PDFs": "下载我的 PDF",
+  "Delete them": "删除它们",
+  "Delete them?": "删除它们？",
+  "1 PDF saved in “My PDFs” is still in this browser.": "“我的 PDF”中保存的 1 个 PDF 仍在此浏览器中。",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "“我的 PDF”中保存的 PDF 将从此浏览器中永久删除。",
+  "Remove it": "移除",
+  "Keep it": "保留",
+  "Kept: the saved PDF will still contain it.": "已保留：保存的 PDF 仍将包含它。",
+  "Active content removed. You can undo it.": "已移除活动内容。此操作可撤销。",
+  "scripts": "脚本",
+  "program launch": "启动程序",
+  "form sending": "表单提交",
+  "data import": "数据导入",
+  "unsafe links": "不安全的链接",
+  "automatic actions": "自动操作",
+  "attached files": "附件",
+  "XFA form": "XFA 表单",
+  "media": "媒体",
+  "embedded document": "嵌入的文档",
+  "Browser language": "浏览器语言"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "您对“{name}”的修改尚未保存，将会丢失。"
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "打开“{name}”需要密码："
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – PDF 编辑器"
+  ],
+  [
+   "Saved: {name}",
+   "已保存：{name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "已下载：{name}"
+  ],
+  [
+   "Delete page {n}?",
+   "删除第 {n} 页？"
+  ],
+  [
+   "{orig} not available",
+   "{orig} 不可用"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "文本已缩小至 {n} pt 以适应宽度"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "在页面上点击以放置“{name}”，或拖动以选择其大小"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "有 {n} 处无法自动替换（样式混合）：请点击进行编辑"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "注意：部分文本无法使用原字体，已使用 {f} 绘制。"
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "已使用 {f} 绘制替换内容（字符宽度与原文相同）。"
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "已在末尾添加“{name}”中的 {n} 页"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "现在可以使用本机的 {n} 个字体系列"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "正在读取 1 个字体文件（{size}）…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "正在读取 {n} 个字体文件（{size}）…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "已添加 1 个字体系列：{list}"
+  ],
+  [
+   "Added 1 font family",
+   "已添加 1 个字体系列"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "已添加 {n} 个字体系列：{list}"
+  ],
+  [
+   "Added {n} font families",
+   "已添加 {n} 个字体系列"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "1 个文件无法读取（{name}：{why}）"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "{n} 个文件无法读取（{name}：{why}）"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "已跳过 1 个超过 8 MB 的文件（{names}），如有需要，请通过“其他文件…”添加"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "已跳过 {n} 个超过 8 MB 的文件（{names}），如有需要，请通过“其他文件…”添加"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "此浏览器中保存了 1 个字体系列（{size}）"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "此浏览器中保存了 {n} 个字体系列（{size}）"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "此 PDF 暂不可用：{list}。如需 Office 字体，请使用“添加 Office 字体”。"
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "此 PDF 暂不可用：{list}。"
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "在弹出的窗口中：按 ⌘⇧G，输入 {path}，然后按 Return 键，最后点击“上传”。"
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "“{name}”（上次编辑于 {when}）仍在此浏览器中。"
+  ],
+  [
+   "{a} of {b}",
+   "{a}/{b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "PDF 引擎启动失败：{why}。请重新加载页面，或使用最新版 Chrome、Edge、Firefox 或 Safari。"
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "PDF 引擎启动失败。请重新加载页面，或使用最新版 Chrome、Edge、Firefox 或 Safari。"
+  ],
+  [
+   "{n} PDFs added",
+   "已添加 {n} 个 PDF"
+  ],
+  [
+   "Current size: {a}",
+   "当前大小：{a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "大小已减小：{a} → {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "“{name}”的大小为 {size}；编辑器支持的 PDF 最大为 {max}。"
+  ],
+  [
+   "PDFs up to {max}.",
+   "PDF 最大 {max}。"
+  ],
+  [
+   "Saved in “{name}”",
+   "已保存到“{name}”"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "无法保存文件：{why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "“我的 PDF”中保存的 {n} 个 PDF 仍在此浏览器中。"
+  ],
+  [
+   "{n} PDF downloaded.",
+   "已下载 {n} 个 PDF。"
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "此 PDF 包含活动内容（{kinds}）。编辑器绝不会运行这些内容，但其他 PDF 阅读器可能会运行。保存时会将其移除，除非您选择保留。"
+  ]
+ ]
+}

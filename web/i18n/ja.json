@@ -1,0 +1,420 @@
+{
+ "language": "日本語",
+ "strings": {
+  "PDF Editor": "PDF エディタ",
+  "Open": "開く",
+  "Save": "保存",
+  "Download": "ダウンロード",
+  "Edit text": "テキスト編集",
+  "Add text": "テキスト追加",
+  "Whiteout": "白塗り",
+  "Image": "画像",
+  "Find & replace": "検索と置換",
+  "Fonts": "フォント",
+  "+ Add pages from a PDF…": "+ PDF からページを追加…",
+  "Drop a PDF here": "ここに PDF をドロップ",
+  "or": "または",
+  "choose a file": "ファイルを選択",
+  "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "：テキストをクリックして入力するだけです。元のテキストは実際に削除され、新しいテキストには同じフォント、サイズ、色が使われます。",
+  "across the whole document.": "：文書全体を一度に処理できます。",
+  "Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.": "テキストの追加、範囲の白塗り、画像や署名の追加、ページの回転・並べ替え・削除・結合ができます。",
+  "Everything happens in your browser: your files are processed on this device and are never uploaded.": "すべての処理はブラウザ内で行われます。ファイルはこのデバイス上で処理され、アップロードされることはありません。",
+  "Loading the PDF engine…": "PDF エンジンを読み込んでいます…",
+  "Resume editing": "編集を再開",
+  "Discard": "破棄",
+  "Free software (AGPL) based on": "フリーソフトウェア（AGPL）、エンジン：",
+  "· fonts: Liberation, Carlito, Caladea, DejaVu (open licences) ·": "· フォント：Liberation、Carlito、Caladea、DejaVu（オープンライセンス）·",
+  "licence & source": "ライセンスとソースコード",
+  "Find": "検索",
+  "Replace with": "置換後の文字列",
+  "Match case": "大文字と小文字を区別",
+  "Whole words": "単語単位",
+  "Type to search": "入力して検索",
+  "No match": "一致なし",
+  "Replace": "置換",
+  "Replace all": "すべて置換",
+  "Fit width": "幅に合わせる",
+  "Cancel": "キャンセル",
+  "Apply": "適用",
+  "OK": "OK",
+  "Use your computer's fonts?": "コンピュータのフォントを使用しますか？",
+  "Some letters you typed are not in this PDF's copy of": "入力した文字の一部が、この PDF に含まれる",
+  ", so they were drawn with a look-alike font.": "フォントにないため、似たフォントで表示しています。",
+  "Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device:": "コンピュータにインストールされているフォントの使用を許可すると、本来のフォントで描き直します。フォントはこのデバイス上でのみ使用され、",
+  "nothing is uploaded": "何もアップロードされません",
+  "Not now": "後で",
+  "Add fonts…": "フォントを追加…",
+  "Allow": "許可",
+  "Edits use the PDF's own fonts whenever they can. These options cover the letters a PDF does not contain.": "編集にはできる限り PDF 自体のフォントが使われます。以下のオプションは、PDF に含まれていない文字を補うためのものです。",
+  "Free fonts": "無料フォント",
+  "(Google Fonts…): downloaded automatically when a PDF uses one – only the font's name is sent": "（Google Fonts…）：PDF で使われている場合に自動でダウンロードします（送信されるのはフォント名のみです）",
+  "Allow my fonts": "自分のフォントを許可",
+  "Fonts that browsers cannot see (Microsoft Office's Calibri, Cambria, Aptos…):": "ブラウザから見えないフォント（Microsoft Office の Calibri、Cambria、Aptos…）：",
+  "Add Office fonts": "Office フォントを追加",
+  "Add Mac fonts": "Mac のフォントを追加",
+  "Other files…": "その他のファイル…",
+  "Remove all": "すべて削除",
+  "Remove": "削除",
+  "Drop the PDF to open it (or font files to add them)": "PDF をドロップして開く（フォントファイルをドロップすると追加）",
+  "Pages": "ページ",
+  "Open a PDF (⌘O)": "PDF を開く (⌘O)",
+  "Save the edited PDF (⌘S / Ctrl+S)": "編集した PDF を保存 (⌘S / Ctrl+S)",
+  "Download the edited PDF": "編集した PDF をダウンロード",
+  "Close this PDF": "この PDF を閉じる",
+  "Undo (⌘Z)": "取り消す (⌘Z)",
+  "Redo (⇧⌘Z)": "やり直す (⇧⌘Z)",
+  "Tool": "ツール",
+  "Edit text: click a text to change it, drag it to move it (E)": "テキスト編集：クリックで変更、ドラッグで移動 (E)",
+  "Add text: click where to type (T)": "テキスト追加：入力する位置をクリック (T)",
+  "Whiteout: drag over an area to erase it (W)": "白塗り：消したい範囲をドラッグ (W)",
+  "Image / signature: pick a picture, then click or drag on the page (I)": "画像／署名：画像を選び、ページ上でクリックまたはドラッグ (I)",
+  "Find & replace (⌘F)": "検索と置換 (⌘F)",
+  "Fonts from this computer: edit with the same fonts as the original": "このコンピュータのフォント：元と同じフォントで編集",
+  "Zoom out (⌘−)": "縮小 (⌘−)",
+  "Fit to width": "幅に合わせる",
+  "Zoom in (⌘+)": "拡大 (⌘+)",
+  "Append the pages of another PDF at the end": "別の PDF のページを末尾に追加",
+  "Close (Esc)": "閉じる (Esc)",
+  "Text to find": "検索するテキスト",
+  "New text (leave empty to delete)": "新しいテキスト（空欄にすると削除）",
+  "Previous (⇧Enter)": "前へ (⇧Enter)",
+  "Next (Enter)": "次へ (Enter)",
+  "Font": "フォント",
+  "Font size (pt)": "フォントサイズ (pt)",
+  "Text colour": "文字色",
+  "Bold": "太字",
+  "Italic": "斜体",
+  "Align left (text grows to the right)": "左揃え（テキストは右へ伸びます）",
+  "Centre (text grows on both sides)": "中央揃え（テキストは左右に伸びます）",
+  "Align right (text grows to the left: amounts, totals)": "右揃え（テキストは左へ伸びます：金額、合計など）",
+  "Shrink the new text so it is never wider than the original": "新しいテキストを縮小して、元の幅を超えないようにする",
+  "Cancel (Esc)": "キャンセル (Esc)",
+  "Apply (Enter · Shift+Enter for a new line)": "適用 (Enter · Shift+Enter で改行)",
+  "This browser cannot run the editor (no module workers). Please update it.": "このブラウザではエディタを実行できません（モジュール Worker 非対応）。ブラウザを更新してください。",
+  "Please choose a PDF file": "PDF ファイルを選択してください",
+  "Open another PDF?": "別の PDF を開きますか？",
+  "Open anyway": "このまま開く",
+  "Password-protected PDF": "パスワードで保護された PDF",
+  "Wrong password, try again:": "パスワードが違います。もう一度入力してください：",
+  "Save as": "名前を付けて保存",
+  "PDF document": "PDF 書類",
+  "Loading…": "読み込み中…",
+  "Click to edit · drag to move": "クリックで編集 · ドラッグで移動",
+  "Tilted text cannot be edited": "傾いたテキストは編集できません",
+  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "このテキストは傾いているため、その場で編集できません。代わりに「白塗り」と「テキスト追加」を使ってください。",
+  "No editable text on this page (scanned image?) – use Whiteout + Add text.": "このページには編集できるテキストがありません（スキャン画像かもしれません）。「白塗り」と「テキスト追加」を使ってください。",
+  "You can undo this with ⌘Z.": "⌘Z で取り消せます。",
+  "Delete": "削除",
+  "Close": "閉じる",
+  "Included fonts": "付属のフォント",
+  "Fonts on this computer": "このコンピュータのフォント",
+  "＋ Fonts from this computer…": "＋ このコンピュータのフォント…",
+  "Use my fonts": "自分のフォントを使用",
+  "Add font…": "フォントを追加…",
+  "(look-alike font)": "（類似フォント）",
+  "check the text: this PDF hides its real characters": "テキストを確認してください：この PDF は実際の文字を隠しています",
+  "this PDF hides its real characters; check the text before applying": "この PDF は実際の文字を隠しています。適用する前にテキストを確認してください",
+  "↵ apply": "↵ 適用",
+  "⇧↵ new line": "⇧↵ 改行",
+  "Esc cancel": "Esc キャンセル",
+  "Drag over the area to white out – text under it is really removed": "白塗りする範囲をドラッグしてください。下にあるテキストは実際に削除されます",
+  "Click where the new text should start": "新しいテキストを始める位置をクリックしてください",
+  "Drag to draw the area to white out": "ドラッグして白塗りする範囲を描いてください",
+  "This image could not be read": "この画像を読み込めませんでした",
+  "This match spans text with two different styles: click it with Edit text to change it": "この一致箇所は 2 つの異なるスタイルにまたがっています。「テキスト編集」でクリックして変更してください",
+  "Replacement drawn with the original font.": "元のフォントで置換しました。",
+  "Drop a PDF file (or font files)": "PDF ファイル（またはフォントファイル）をドロップしてください",
+  "The browser did not share any font. Allow “Fonts” for this site (icon left of the address bar), then try again.": "ブラウザからフォントが共有されませんでした。このサイトで「フォント」を許可してから（アドレスバー左のアイコン）、もう一度お試しください。",
+  "Access to this computer's fonts was not allowed. To allow it later: icon left of the address bar → Site settings → Fonts → Allow.": "このコンピュータのフォントへのアクセスが許可されませんでした。後で許可するには：アドレスバー左のアイコン → サイトの設定 → フォント → 許可。",
+  "No font files there (.ttf, .otf or .ttc)": "フォントファイル（.ttf、.otf、.ttc）がありません",
+  "No file chosen": "ファイルが選択されていません",
+  "These fonts were already added": "これらのフォントは追加済みです",
+  "✓ The fonts installed on this computer are used.": "✓ このコンピュータにインストールされているフォントを使用しています。",
+  "Use the fonts installed on this computer (the browser asks you once).": "このコンピュータにインストールされているフォントを使用します（ブラウザの確認は 1 回だけです）。",
+  "In the window: press ⌘⇧G, then ⌘V, then Return, then click Upload (the files stay on your Mac).": "表示されたウインドウで ⌘⇧G、⌘V、return キーの順に押し、「アップロード」をクリックしてください（ファイルは Mac に残ります）。",
+  "this PDF's font": "元の",
+  "Remove all added fonts?": "追加したフォントをすべて削除しますか？",
+  "They are removed from this browser only; the files on your computer are not touched.": "このブラウザからのみ削除されます。コンピュータ上のファイルには影響しません。",
+  "Not allowed – the look-alike font stays. You can allow it later with the Fonts button.": "許可されなかったため、類似フォントのままです。後で「フォント」ボタンから許可できます。",
+  "Close this PDF?": "この PDF を閉じますか？",
+  "Your edits have not been saved and will be lost.": "編集内容は保存されておらず、失われます。",
+  "Drag to move this text": "ドラッグしてこのテキストを移動",
+  "aligned left": "左揃え",
+  "aligned right": "右揃え",
+  "centred": "中央揃え",
+  "A PDF needs at least one page": "PDF には 1 ページ以上必要です",
+  "Empty area": "範囲が空です",
+  "Empty text": "テキストが空です",
+  "No document is open": "文書が開かれていません",
+  "No such page": "そのページはありません",
+  "Not a PDF file": "PDF ファイルではありません",
+  "Nothing selected": "何も選択されていません",
+  "Nothing to search for": "検索する文字列がありません",
+  "That PDF is password-protected": "その PDF はパスワードで保護されています",
+  "That file could not be read as a PDF": "そのファイルを PDF として読み込めませんでした",
+  "This file could not be read as a PDF": "このファイルを PDF として読み込めませんでした",
+  "The page changed: click the text again": "ページが変更されました。もう一度テキストをクリックしてください",
+  "The page changed: select the text again": "ページが変更されました。もう一度テキストを選択してください",
+  "This text is tilted and cannot be edited": "このテキストは傾いているため編集できません",
+  "Tilted text cannot be moved": "傾いたテキストは移動できません",
+  "Language": "言語",
+  "My PDFs": "マイ PDF",
+  "Add PDFs": "PDF を追加",
+  "Change my name": "名前を変更",
+  "This name is only shown on this device.": "この名前はこのデバイスにのみ表示されます。",
+  "Name saved": "名前を保存しました",
+  "Signed out. Your PDFs stay encrypted on this device.": "サインアウトしました。PDF はこのデバイスに暗号化されたまま保存されています。",
+  "No PDF yet. Add one, or open a PDF and save it.": "PDF はまだありません。PDF を追加するか、開いて保存してください。",
+  "More": "その他",
+  "versions": "個のバージョン",
+  "Rename": "名前を変更",
+  "Previous versions": "以前のバージョン",
+  "Delete this PDF?": "この PDF を削除しますか？",
+  "Deleted": "削除しました",
+  "current": "現在",
+  "Older version opened: saving makes it the current version.": "古いバージョンを開いています。保存すると現在のバージョンになります。",
+  "Not saved": "未保存",
+  "Your name": "名前",
+  "Create one": "作成する",
+  "The last 5 saved versions are kept.": "最近保存した 5 つのバージョンが保持されます。",
+  "Something went wrong. Please try again.": "問題が発生しました。もう一度お試しください。",
+  "Cancelled.": "キャンセルしました。",
+  "Please enter your name.": "名前を入力してください。",
+  "Encrypted and kept on this device only.": "暗号化され、このデバイスにのみ保存されます。",
+  "This file could not be decrypted: it was changed or damaged.": "このファイルを復号できませんでした。変更されたか破損しています。",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "このブラウザの空き容量が足りません。不要な PDF を削除するか、ダウンロードしてください。",
+  "Reduce file size": "ファイルサイズを縮小",
+  "Reduce file size…": "ファイルサイズを縮小…",
+  "Compress photos and scans to make the PDF smaller": "写真やスキャンを圧縮して PDF を小さくする",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "写真とスキャンしたページが圧縮されます。テキストと図形は鮮明で編集可能なままです。取り消すこともできます。",
+  "Smaller": "小",
+  "good for printing (about 200 dpi)": "印刷に適しています（約 200 dpi）",
+  "Smallest": "最小",
+  "for email and screens (about 120 dpi)": "メールや画面表示向け（約 120 dpi）",
+  "Other ways to make a PDF smaller": "PDF を小さくするその他の方法",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "不要なページを削除するか、長い PDF を分割してください：半分のページを削除して保存し、残りの半分でも同じようにします。",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "Mac の場合：PDF を「プレビュー」で開き、「ファイル › 書き出す…」で Quartz フィルタに「ファイルサイズを減らす」を選びます。",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "スキャンする場合：文書なら 150～200 dpi で十分です（小さな文字は白黒 300 dpi）。",
+  "Reduce": "縮小",
+  "Calculating the size…": "サイズを計算しています…",
+  "Current size": "現在のサイズ",
+  "Reducing the size…": "サイズを縮小しています…",
+  "Size reduced": "サイズを縮小しました",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "この PDF には圧縮できる大きな写真やスキャンがありません。すでにほぼ最小のサイズです。",
+  "Reduce its size? It opens in the editor first.": "サイズを縮小しますか？まずエディタで開きます。",
+  "Reduce its size": "サイズを縮小",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "まだ大きすぎます。「最小」を試すか、ページを削除して PDF を 2 つに分けて保存してください。",
+  "Up to 200 MB per PDF.": "PDF 1 つにつき最大 200 MB。",
+  "Too large?": "大きすぎる場合",
+  "Size limit": "サイズの上限",
+  "Open it and use “Reduce file size…”.": "開いてから「ファイルサイズを縮小…」を使ってください。",
+  "MB": "MB",
+  "KB": "KB",
+  "Recent files": "最近使ったファイル",
+  "Remove from this list": "リストから削除",
+  "Access to the file was not allowed.": "ファイルへのアクセスが許可されませんでした。",
+  "This file was moved or deleted. It was removed from the list.": "このファイルは移動または削除されたため、リストから削除しました。",
+  "This PDF is too large to edit in the browser": "この PDF は大きすぎるため、ブラウザで編集できません",
+  "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "小さくするには：Mac の場合は「プレビュー」で開き、「ファイル › 書き出す…」で Quartz フィルタに「ファイルサイズを減らす」を選びます。または複数に分割します（「プレビュー」でサイドバーからページをドラッグして取り出します）。大きな PDF のほとんどはスキャンや写真です。文書のスキャンは 150～200 dpi で十分です。",
+  "Saving into the file was not allowed: a copy is saved instead.": "ファイルへの保存が許可されなかったため、代わりにコピーを保存しました。",
+  "Saved": "保存済み",
+  "Save writes your changes back into the same file.": "「保存」すると、変更が同じファイルに書き込まれます。",
+  "Save downloads the edited PDF.": "「保存」すると、編集した PDF がダウンロードされます。",
+  "Accounts have been removed.": "アカウント機能は廃止されました。",
+  "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "今すぐダウンロードしてください。その後、このブラウザから削除されます。ロック解除のためにパスキーの確認が 1 回求められます。",
+  "Download my PDFs": "マイ PDF をダウンロード",
+  "Delete them": "削除する",
+  "Delete them?": "削除しますか？",
+  "1 PDF saved in “My PDFs” is still in this browser.": "「マイ PDF」に保存された PDF が 1 つ、まだこのブラウザに残っています。",
+  "The PDFs saved in “My PDFs” are deleted from this browser for good.": "「マイ PDF」に保存された PDF は、このブラウザから完全に削除されます。",
+  "Remove it": "削除する",
+  "Keep it": "残す",
+  "Kept: the saved PDF will still contain it.": "残しました。保存した PDF にも含まれます。",
+  "Active content removed. You can undo it.": "アクティブコンテンツを削除しました。取り消すこともできます。",
+  "scripts": "スクリプト",
+  "program launch": "プログラムの起動",
+  "form sending": "フォームの送信",
+  "data import": "データの読み込み",
+  "unsafe links": "安全でないリンク",
+  "automatic actions": "自動アクション",
+  "attached files": "添付ファイル",
+  "XFA form": "XFA フォーム",
+  "media": "メディア",
+  "embedded document": "埋め込み文書",
+  "Browser language": "ブラウザの言語"
+ },
+ "patterns": [
+  [
+   "Your edits to “{name}” have not been saved. They will be lost.",
+   "「{name}」の編集内容は保存されていません。失われます。"
+  ],
+  [
+   "“{name}” needs a password to open:",
+   "「{name}」を開くにはパスワードが必要です："
+  ],
+  [
+   "{name} – PDF Editor",
+   "{name} – PDF エディタ"
+  ],
+  [
+   "Saved: {name}",
+   "保存しました：{name}"
+  ],
+  [
+   "Downloaded: {name}",
+   "ダウンロードしました：{name}"
+  ],
+  [
+   "Delete page {n}?",
+   "{n} ページ目を削除しますか？"
+  ],
+  [
+   "{orig} not available",
+   "{orig} は使用できません"
+  ],
+  [
+   "Text shrunk to {n} pt to fit",
+   "収まるようにテキストを {n} pt に縮小しました"
+  ],
+  [
+   "Click on a page to place “{name}”, or drag to choose its size",
+   "ページをクリックして「{name}」を配置するか、ドラッグしてサイズを指定してください"
+  ],
+  [
+   "{n} could not be replaced automatically (mixed styles): edit them by clicking",
+   "{n} 件は自動で置換できませんでした（スタイルが混在）。クリックして編集してください"
+  ],
+  [
+   "Note: the original font is not available for part of the text; drawn with {f}.",
+   "注意：テキストの一部では元のフォントを使用できないため、{f} で表示しています。"
+  ],
+  [
+   "Replacement drawn with {f} (same character widths as the original).",
+   "{f} で置換しました（文字幅は元と同じです）。"
+  ],
+  [
+   "Added {n} page(s) from “{name}” at the end",
+   "「{name}」の {n} ページを末尾に追加しました"
+  ],
+  [
+   "{n} font families from this computer can now be used",
+   "このコンピュータの {n} 個のフォントファミリーが使用できるようになりました"
+  ],
+  [
+   "Reading 1 font file ({size})…",
+   "フォントファイルを 1 個読み込んでいます（{size}）…"
+  ],
+  [
+   "Reading {n} font files ({size})…",
+   "フォントファイルを {n} 個読み込んでいます（{size}）…"
+  ],
+  [
+   "Added 1 font family: {list}",
+   "フォントファミリーを 1 個追加しました：{list}"
+  ],
+  [
+   "Added 1 font family",
+   "フォントファミリーを 1 個追加しました"
+  ],
+  [
+   "Added {n} font families: {list}",
+   "フォントファミリーを {n} 個追加しました：{list}"
+  ],
+  [
+   "Added {n} font families",
+   "フォントファミリーを {n} 個追加しました"
+  ],
+  [
+   "1 file could not be read ({name}: {why})",
+   "1 個のファイルを読み込めませんでした（{name}：{why}）"
+  ],
+  [
+   "{n} files could not be read ({name}: {why})",
+   "{n} 個のファイルを読み込めませんでした（{name}：{why}）"
+  ],
+  [
+   "1 file over 8 MB skipped ({names}) – add it with “Add files…” if needed",
+   "8 MB を超えるファイル 1 個をスキップしました（{names}）。必要な場合は「その他のファイル…」で追加してください"
+  ],
+  [
+   "{n} files over 8 MB skipped ({names}) – add them with “Add files…” if needed",
+   "8 MB を超えるファイル {n} 個をスキップしました（{names}）。必要な場合は「その他のファイル…」で追加してください"
+  ],
+  [
+   "1 font family kept in this browser ({size})",
+   "このブラウザに 1 個のフォントファミリーを保存しています（{size}）"
+  ],
+  [
+   "{n} font families kept in this browser ({size})",
+   "このブラウザに {n} 個のフォントファミリーを保存しています（{size}）"
+  ],
+  [
+   "Not available yet for this PDF: {list}. For Office fonts, use “Add Office fonts”.",
+   "この PDF ではまだ使用できません：{list}。Office フォントは「Office フォントを追加」を使ってください。"
+  ],
+  [
+   "Not available yet for this PDF: {list}.",
+   "この PDF ではまだ使用できません：{list}。"
+  ],
+  [
+   "In the window: press ⌘⇧G, type {path}, then Return, then Upload.",
+   "表示されたウインドウで ⌘⇧G を押し、{path} と入力して return キーを押してから「アップロード」をクリックしてください。"
+  ],
+  [
+   "“{name}” (last edited {when}) is still in this browser.",
+   "「{name}」（最終編集：{when}）がまだこのブラウザに残っています。"
+  ],
+  [
+   "{a} of {b}",
+   "{a}/{b}"
+  ],
+  [
+   "The PDF engine failed to start: {why}. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "PDF エンジンを起動できませんでした：{why}。ページを再読み込みするか、最新の Chrome、Edge、Firefox、Safari をお試しください。"
+  ],
+  [
+   "The PDF engine failed to start. Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari.",
+   "PDF エンジンを起動できませんでした。ページを再読み込みするか、最新の Chrome、Edge、Firefox、Safari をお試しください。"
+  ],
+  [
+   "{n} PDFs added",
+   "{n} 個の PDF を追加しました"
+  ],
+  [
+   "Current size: {a}",
+   "現在のサイズ：{a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "サイズを縮小しました：{a} → {b}"
+  ],
+  [
+   "“{name}” is {size}; the editor works with PDFs up to {max}.",
+   "「{name}」は {size} です。このエディタで扱える PDF は {max} までです。"
+  ],
+  [
+   "PDFs up to {max}.",
+   "PDF は最大 {max}。"
+  ],
+  [
+   "Saved in “{name}”",
+   "「{name}」に保存しました"
+  ],
+  [
+   "The file could not be saved: {why}",
+   "ファイルを保存できませんでした：{why}"
+  ],
+  [
+   "{n} PDFs saved in “My PDFs” are still in this browser.",
+   "「マイ PDF」に保存された PDF が {n} 個、まだこのブラウザに残っています。"
+  ],
+  [
+   "{n} PDF downloaded.",
+   "{n} 個の PDF をダウンロードしました。"
+  ],
+  [
+   "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
+   "この PDF にはアクティブコンテンツ（{kinds}）が含まれています。このエディタが実行することはありませんが、ほかの PDF リーダーでは実行される可能性があります。残すことを選ばない限り、保存時に削除されます。"
+  ]
+ ]
+}

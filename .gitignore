@@ -3,7 +3,6 @@
 !/web/
 !/site/
 !/tools/
-!/static/
 !/tests/
 !/README.md
 !/LICENSE
@@ -27,5 +26,3 @@ site/.dev.vars
 __pycache__/
 .DS_Store
 
-# local only
-README-mac.md

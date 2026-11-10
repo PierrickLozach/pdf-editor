@@ -11,33 +11,58 @@
  * first in <head>, so the page is shown already translated. */
 (function () {
   "use strict";
+  // keep in sync with web/i18n/languages.json (the site build checks it)
   const LANGS = [
     ["en", "English", "ltr"],
     ["fr", "Français", "ltr"],
+    ["es", "Español", "ltr"],
+    ["pt", "Português", "ltr"],
+    ["de", "Deutsch", "ltr"],
+    ["nl", "Nederlands", "ltr"],
+    ["it", "Italiano", "ltr"],
+    ["pl", "Polski", "ltr"],
+    ["ar", "العربية", "rtl"],
+    ["he", "עברית", "rtl"],
+    ["zh", "简体中文", "ltr"],
+    ["ja", "日本語", "ltr"],
   ];
+  const ALIASES = { iw: "he", "zh-hans": "zh", "zh-cn": "zh", "zh-sg": "zh" };
   const KEY = "pdfe.lang";
   const extra = (window.PDFE_EXTRA_LANGS || []);          // tests can add languages (right-to-left checks)
   const all = LANGS.concat(extra);
   const known = (c) => all.find((l) => l[0] === c);
+  /** The browser's language among ours ("pt-BR" -> pt, "iw" -> he), else English. */
+  function browserLang() {
+    for (const l of navigator.languages || [navigator.language || "en"]) {
+      const full = String(l).toLowerCase();
+      const c = ALIASES[full] || ALIASES[full.split("-")[0]] || full.split("-")[0];
+      if (known(c)) return c;
+    }
+    return "en";
+  }
+  /* The browser's language, unless the person chose another one (then remembered). Nothing is
+   * stored when the language is only detected, so it follows the browser's settings. */
   function pick() {
     const q = new URLSearchParams(location.search).get("lang");
     if (q && known(q)) { try { localStorage.setItem(KEY, q); } catch (e) {} return q; }
     try { const s = localStorage.getItem(KEY); if (s && known(s)) return s; } catch (e) {}
-    const site = document.documentElement.getAttribute("data-site-lang");
-    if (site && known(site)) return site;
-    for (const l of navigator.languages || [navigator.language || "en"]) {
-      const c = String(l).toLowerCase().split("-")[0];
-      if (known(c)) return c;
-    }
-    return "en";
+    return browserLang();
   }
   const lang = pick(), info = known(lang);
   const root = document.documentElement;
   root.lang = lang;
   root.dir = info[2];
 
-  const I18N = (window.I18N = { lang, dir: info[2], languages: all.map(([code, name, dir]) => ({ code, name, dir })), t: (s) => s, ready: Promise.resolve() });
-  I18N.set = (code) => { try { localStorage.setItem(KEY, code); } catch (e) {} location.reload(); };
+  let chosen = null;
+  try { chosen = localStorage.getItem(KEY); } catch (e) {}
+  const I18N = (window.I18N = { lang, dir: info[2], languages: all.map(([code, name, dir]) => ({ code, name, dir })), t: (s) => s, ready: Promise.resolve(),
+                                auto: !(chosen && known(chosen)), browser: browserLang() });
+  /** code: a language, or "auto" to follow the browser again. */
+  I18N.set = (code) => {
+    try { if (code === "auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY, code); } catch (e) {}
+    const u = new URL(location.href); u.searchParams.delete("lang");
+    location.replace(u.href);
+  };
   if (lang === "en") return;
 
   /* ---------------------------------------------------------------- dictionary */
