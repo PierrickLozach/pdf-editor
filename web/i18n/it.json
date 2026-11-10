@@ -250,7 +250,9 @@
   "Place the image": "Posiziona l'immagine",
   "Add": "Aggiungi",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Trascina l'immagine per spostarla e un angolo per ridimensionarla. Invio o “Aggiungi” per finire, Esc per annullare.",
-  "Image added. You can undo it.": "Immagine aggiunta. Puoi annullare."
+  "Image added. You can undo it.": "Immagine aggiunta. Puoi annullare.",
+  "Undo": "Annulla",
+  "Redo": "Ripeti"
  },
  "patterns": [
   [

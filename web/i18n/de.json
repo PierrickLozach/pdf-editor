@@ -250,7 +250,9 @@
   "Place the image": "Bild platzieren",
   "Add": "Hinzufügen",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Ziehen Sie das Bild, um es zu verschieben, und eine Ecke, um die Größe zu ändern. Eingabe oder „Hinzufügen“ zum Abschließen, Esc zum Abbrechen.",
-  "Image added. You can undo it.": "Bild hinzugefügt. Sie können es rückgängig machen."
+  "Image added. You can undo it.": "Bild hinzugefügt. Sie können es rückgängig machen.",
+  "Undo": "Rückgängig",
+  "Redo": "Wiederholen"
  },
  "patterns": [
   [

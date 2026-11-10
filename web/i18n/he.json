@@ -250,7 +250,9 @@
   "Place the image": "מיקום התמונה",
   "Add": "הוספה",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "גוררים את התמונה כדי להזיז אותה, ופינה כדי לשנות את גודלה. Enter או \"הוספה\" לסיום, Esc לביטול.",
-  "Image added. You can undo it.": "התמונה נוספה. אפשר לבטל."
+  "Image added. You can undo it.": "התמונה נוספה. אפשר לבטל.",
+  "Undo": "ביטול",
+  "Redo": "ביצוע מחדש"
  },
  "patterns": [
   [

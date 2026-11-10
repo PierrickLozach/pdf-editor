@@ -250,7 +250,9 @@
   "Place the image": "Placer l'image",
   "Add": "Ajouter",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Faites glisser l'image pour la déplacer, un coin pour la redimensionner. Entrée ou « Ajouter » pour terminer, Échap pour annuler.",
-  "Image added. You can undo it.": "Image ajoutée. Vous pouvez annuler."
+  "Image added. You can undo it.": "Image ajoutée. Vous pouvez annuler.",
+  "Undo": "Annuler",
+  "Redo": "Rétablir"
  },
  "patterns": [
   [

@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23e5322d'/><path d='M9 23V9h6.5a4.5 4.5 0 0 1 0 9H12v5z' fill='white'/></svg>">
-<script src="i18n.js?v=552842007c"></script>
-<link rel="stylesheet" href="style.css?v=552842007c">
+<script src="i18n.js?v=ab246acb37"></script>
+<link rel="stylesheet" href="style.css?v=ab246acb37">
 <meta name="description" content="Free PDF editor that runs entirely in your browser: edit text with the original font, find and replace, white-out, images, pages. Your files are never uploaded.">
 <meta name="theme-color" content="#e5322d">
 </head>
@@ -25,8 +25,8 @@
   </div>
 
   <div class="group">
-    <button id="btnUndo" class="needs-doc icon" title="Undo (⌘Z)" disabled><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
-    <button id="btnRedo" class="needs-doc icon" title="Redo (⇧⌘Z)" disabled><svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg></button>
+    <button id="btnUndo" class="needs-doc" title="Undo (⌘Z)" aria-label="Undo (⌘Z)" disabled><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span>Undo</span></button>
+    <button id="btnRedo" class="needs-doc" title="Redo (⇧⌘Z)" aria-label="Redo (⇧⌘Z)" disabled><svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg><span>Redo</span></button>
   </div>
 
   <div class="group tools" role="radiogroup" aria-label="Tool">
@@ -169,13 +169,13 @@
 <input id="fontFilesInput" type="file" accept=".ttf,.otf,.ttc,.otc,font/ttf,font/otf,font/collection,font/sfnt,application/x-font-ttf" multiple hidden>
 <input id="fontFolderInput" type="file" webkitdirectory multiple hidden>
 
-<script src="app.js?v=552842007c"></script>
-<script src="move.js?v=552842007c"></script>
-<script src="place.js?v=552842007c"></script>
-<script src="reduce.js?v=552842007c"></script>
-<script src="files.js?v=552842007c"></script>
-<script src="active.js?v=552842007c"></script>
-<script src="legacy.js?v=552842007c"></script>
-<script src="fit.js?v=552842007c"></script>
+<script src="app.js?v=ab246acb37"></script>
+<script src="move.js?v=ab246acb37"></script>
+<script src="place.js?v=ab246acb37"></script>
+<script src="reduce.js?v=ab246acb37"></script>
+<script src="files.js?v=ab246acb37"></script>
+<script src="active.js?v=ab246acb37"></script>
+<script src="legacy.js?v=ab246acb37"></script>
+<script src="fit.js?v=ab246acb37"></script>
 </body>
 </html>

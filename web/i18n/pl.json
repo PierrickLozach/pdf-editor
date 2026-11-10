@@ -250,7 +250,9 @@
   "Place the image": "Umieść obraz",
   "Add": "Dodaj",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Przeciągnij obraz, aby go przesunąć, a róg, aby zmienić rozmiar. Enter lub „Dodaj”, aby zakończyć, Esc, aby anulować.",
-  "Image added. You can undo it.": "Dodano obraz. Możesz to cofnąć."
+  "Image added. You can undo it.": "Dodano obraz. Możesz to cofnąć.",
+  "Undo": "Cofnij",
+  "Redo": "Ponów"
  },
  "patterns": [
   [

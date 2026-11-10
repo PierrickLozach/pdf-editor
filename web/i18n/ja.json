@@ -250,7 +250,9 @@
   "Place the image": "画像を配置",
   "Add": "追加",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "画像をドラッグして移動し、角をドラッグしてサイズを変更します。Enter キーまたは「追加」で完了、Esc でキャンセルします。",
-  "Image added. You can undo it.": "画像を追加しました。取り消すことができます。"
+  "Image added. You can undo it.": "画像を追加しました。取り消すことができます。",
+  "Undo": "元に戻す",
+  "Redo": "やり直す"
  },
  "patterns": [
   [

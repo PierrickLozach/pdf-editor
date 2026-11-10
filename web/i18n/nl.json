@@ -250,7 +250,9 @@
   "Place the image": "Afbeelding plaatsen",
   "Add": "Toevoegen",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Sleep de afbeelding om haar te verplaatsen en een hoek om het formaat te wijzigen. Enter of ‘Toevoegen’ om af te ronden, Esc om te annuleren.",
-  "Image added. You can undo it.": "Afbeelding toegevoegd. Je kunt dit ongedaan maken."
+  "Image added. You can undo it.": "Afbeelding toegevoegd. Je kunt dit ongedaan maken.",
+  "Undo": "Ongedaan maken",
+  "Redo": "Opnieuw"
  },
  "patterns": [
   [

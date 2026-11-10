@@ -635,11 +635,21 @@ export class Engine {
   _checkpoint() {
     const s = this.s;
     s.undo.push(this._snapshot());
+    s.lastRedo = s.redo.slice();             // kept in case the change turns out to be empty
     s.redo.length = 0;
     let total = s.undo.reduce((a, x) => a + x.data.length, 0);
     while (s.undo.length > MAX_UNDO || (s.undo.length > 1 && total > MAX_UNDO_BYTES)) {
       total -= s.undo.shift().data.length;
     }
+  }
+
+  /** The change just started did nothing: forget its undo step, give the redo history back. */
+  _dropCheckpoint() {
+    const s = this.s;
+    if (!s.undo.length) return;
+    s.undo.pop();
+    s.redo = s.lastRedo || [];
+    s.lastRedo = null;
   }
 
   _reload(data) {
@@ -1848,6 +1858,7 @@ export class Engine {
       } catch (e) { /* an image this engine cannot read: left as it is */ }
     }
     if (changed) await this._changed([...Array(doc.countPages()).keys()]);
+    else this._dropCheckpoint();                 // nothing to compress: no undo step
     const after = this.export().length;
     return { ...this.info(), before, after, images: changed, changed: changed ? [...Array(doc.countPages()).keys()] : [] };
   }
@@ -1864,6 +1875,7 @@ export class Engine {
     const s = this._need();
     this._checkpoint();
     const r = scanActive(s.doc, true);
+    if (!r.total) { this._dropCheckpoint(); return { ...this.info(), removed: r, changed: [] }; }
     await this._changed([...Array(s.doc.countPages()).keys()]);
     return { ...this.info(), removed: r, changed: [...Array(s.doc.countPages()).keys()] };
   }

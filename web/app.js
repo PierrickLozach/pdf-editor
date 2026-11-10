@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=552842007c", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=ab246acb37", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -781,6 +781,15 @@ function bindEditorBar() {
   });
   document.addEventListener("keydown", e => {
     if (!S.ed || e.target !== S.ed.box) return;
+    // ⌘Z / Ctrl+Z while editing: the browser undoes the typing; once nothing is typed (the text is
+    // back to what it was), it closes the box and undoes the previous change of the document
+    const mod = e.metaKey || e.ctrlKey, z = keyOf(e);
+    if (mod && (z === "z" || z === "y") && readBox(S.ed.box) === (S.ed.original || "") && !S.ed.dx && !S.ed.dy) {
+      e.preventDefault();
+      closeEditor(false);
+      undoRedo(z === "y" || e.shiftKey ? "redo" : "undo");
+      return;
+    }
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); closeEditor(true); }
     else if (e.key === "Escape") { e.preventDefault(); closeEditor(false); }
   });
@@ -1027,11 +1036,31 @@ async function mergeFile(file) {
 }
 
 /* ---------------------------------------------------------------- wiring */
+/** The letter of a shortcut key, on any keyboard layout: the printed Latin letter when the key has
+ *  one (AZERTY, QWERTZ…), otherwise the key's position (Arabic, Hebrew, Cyrillic, Greek… keyboards,
+ *  where ⌘Z / Ctrl+Z is the key in the Z position). */
+function keyOf(e) {
+  const k = e.key || "";
+  if (/^[a-z]$/i.test(k)) return k.toLowerCase();
+  const m = /^Key([A-Z])$/.exec(e.code || "");
+  return m ? m[1].toLowerCase() : k.toLowerCase();
+}
 function isTyping(e) {
   const t = e.target;
   return t.isContentEditable || /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName);
 }
 
+/** Shortcut hints in tooltips: ⌘ and ⇧ on a Mac, Ctrl+ and Shift+ elsewhere. */
+const MAC_KEYS = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);     // ⌘ keyboards
+function localKeys(root = document) {
+  if (MAC_KEYS) return;
+  for (const el of root.querySelectorAll("[title]")) {
+    const t = el.title;
+    if (!/[⌘⇧]/.test(t)) continue;
+    el.title = t.replace(/ \/ Ctrl\+[A-Z]/, "").replace(/⇧⌘/g, "Ctrl+Shift+").replace(/⌘/g, "Ctrl+");
+    if (el.getAttribute("aria-label")) el.setAttribute("aria-label", el.title);
+  }
+}
 function init() {
   $("#btnOpen").onclick = $("#btnOpen2").onclick = () => (window.FILES ? FILES.pick() : $("#fileInput").click());
   $("#fileInput").onchange = e => { openFile(e.target.files[0]); e.target.value = ""; };
@@ -1040,6 +1069,10 @@ function init() {
   $("#btnMerge").onclick = () => $("#mergeInput").click();
   $("#btnSave").onclick = saveFile;
   $("#btnDownload").onclick = download;
+  // after the translation (it looks tooltips up by their English ⌘ text), then for new tooltips too
+  const keysLater = () => requestAnimationFrame(() => localKeys());
+  if (window.I18N && I18N.ready) I18N.ready.then(() => (document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", keysLater, { once: true }) : keysLater()));
+  else localKeys();
   $("#btnUndo").onclick = () => undoRedo("undo");
   $("#btnRedo").onclick = () => undoRedo("redo");
   $("#btnZoomIn").onclick = () => zoomStep(1);
@@ -1081,18 +1114,18 @@ function init() {
 
   document.addEventListener("keydown", e => {
     const mod = e.metaKey || e.ctrlKey;
-    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); window.FILES ? FILES.pick() : $("#fileInput").click(); return; }
+    if (mod && keyOf(e) === "o") { e.preventDefault(); window.FILES ? FILES.pick() : $("#fileInput").click(); return; }
     if (!S.doc) return;
-    if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); if (e.shiftKey && window.FILES) FILES.saveAs(); else saveFile(); return; }
-    if (mod && e.key.toLowerCase() === "f") { e.preventDefault(); openFind(); return; }
+    if (mod && keyOf(e) === "s") { e.preventDefault(); if (e.shiftKey && window.FILES) FILES.saveAs(); else saveFile(); return; }
+    if (mod && keyOf(e) === "f") { e.preventDefault(); openFind(); return; }
     if (mod && (e.key === "=" || e.key === "+")) { e.preventDefault(); zoomStep(1); return; }
     if (mod && e.key === "-") { e.preventDefault(); zoomStep(-1); return; }
     if (mod && e.key === "0") { e.preventDefault(); setZoom(fitZoom()); return; }
     if (isTyping(e)) return;
-    if (mod && e.key.toLowerCase() === "z") { e.preventDefault(); if (window.PLACE && PLACE.active) { PLACE.cancel(); return; } undoRedo(e.shiftKey ? "redo" : "undo"); return; }
-    if (mod && e.key.toLowerCase() === "y") { e.preventDefault(); undoRedo("redo"); return; }
+    if (mod && keyOf(e) === "z") { e.preventDefault(); if (window.PLACE && PLACE.active) { PLACE.cancel(); return; } undoRedo(e.shiftKey ? "redo" : "undo"); return; }
+    if (mod && keyOf(e) === "y") { e.preventDefault(); undoRedo("redo"); return; }
     if (mod) return;
-    const k = e.key.toLowerCase();
+    const k = keyOf(e);
     if (k === "e") setTool("edit");
 
     else if (k === "t") setTool("add");

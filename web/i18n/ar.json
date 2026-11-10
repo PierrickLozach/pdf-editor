@@ -250,7 +250,9 @@
   "Place the image": "وضع الصورة",
   "Add": "إضافة",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "اسحب الصورة لتحريكها، واسحب أحد أركانها لتغيير حجمها. اضغط Enter أو «إضافة» للإنهاء، وEsc للإلغاء.",
-  "Image added. You can undo it.": "تمت إضافة الصورة. يمكنك التراجع عن ذلك."
+  "Image added. You can undo it.": "تمت إضافة الصورة. يمكنك التراجع عن ذلك.",
+  "Undo": "تراجع",
+  "Redo": "إعادة"
  },
  "patterns": [
   [

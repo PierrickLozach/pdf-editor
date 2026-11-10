@@ -250,7 +250,9 @@
   "Place the image": "放置图像",
   "Add": "添加",
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "拖动图像可移动位置，拖动角可调整大小。按 Enter 或“添加”完成，按 Esc 取消。",
-  "Image added. You can undo it.": "已添加图像。可以撤销。"
+  "Image added. You can undo it.": "已添加图像。可以撤销。",
+  "Undo": "撤销",
+  "Redo": "重做"
  },
  "patterns": [
   [
