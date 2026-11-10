@@ -242,3 +242,8 @@ details.change .form { max-width: 420px; }
 .doc table.ref th, .doc table.ref td { text-align: start; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
 .doc table.ref td:first-child { white-space: nowrap; }
 @media (max-width: 700px) { .doc table.ref td:first-child { white-space: normal; } }
+
+/* ---------- landing: link to the developer documentation ---------- */
+.dev-cta { text-align: center; }
+.dev-cta .intro { margin-bottom: 18px; }
+.dev-cta .ctas { justify-content: center; }
