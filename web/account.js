@@ -71,7 +71,7 @@
     if (!box) {
       box = el(`<section id="myPdfs" aria-labelledby="myPdfsTitle">
         <div class="mp-head"><h2 id="myPdfsTitle">${t("My PDFs")}</h2><button class="primary" id="mpAdd">${t("Add PDFs")}</button></div>
-        <p class="mp-note small muted">${t("Encrypted with your passkey and kept on this device only.")}</p>
+        <p class="mp-note small muted">${t("Encrypted and kept on this device only.")}</p>
         <ul id="mpList"></ul>
         <p id="mpEmpty" class="small muted" hidden>${t("No PDF yet. Add one, or open a PDF and save it.")}</p>
         <input id="mpInput" type="file" accept="application/pdf,.pdf" multiple hidden>
@@ -277,7 +277,7 @@
         <div class="dlg-head"><h2 id="authTitle"></h2><button class="icon close" title="${t("Close (Esc)")}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
         <p class="err warnbox" role="alert" hidden></p>
         <div class="auth-create">
-          <p class="small">${t("No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted with it and kept on this device only.")}</p>
+          <p class="small">${t("No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted and kept on this device only.")}</p>
           <form id="authCreateForm">
             <label class="field">${t("Your name")}<input id="authName" type="text" autocomplete="name" maxlength="60" required></label>
             <div class="actions"><button type="submit" class="primary">${t("Create my account")}</button></div>

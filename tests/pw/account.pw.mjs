@@ -24,7 +24,8 @@ page.on("pageerror", (e) => errs.push(e.message));
 page.on("console", (m) => { if (m.type() === "error" && !/downloadable font/.test(m.text())) errs.push(m.text()); });
 const cdp = await ctx.newCDPSession(page);
 await cdp.send("WebAuthn.enable");
-const { authenticatorId } = await cdp.send("WebAuthn.addVirtualAuthenticator", { options: { protocol: "ctap2", ctap2Version: "ctap2_1", transport: "internal", hasResidentKey: true, hasUserVerification: true, isUserVerified: true, hasPrf: true, automaticPresenceSimulation: true } });
+const { authenticatorId } = await cdp.send("WebAuthn.addVirtualAuthenticator", { options: { protocol: "ctap2", ctap2Version: "ctap2_1", transport: "internal", hasResidentKey: true, hasUserVerification: true, isUserVerified: true, hasPrf: !process.env.NOPRF, automaticPresenceSimulation: true } });
+console.log(process.env.NOPRF ? "  (passkey WITHOUT the PRF feature, like some password-manager extensions)" : "  (passkey with the PRF feature)");
 const waitFn = async (expr, timeout = 30000) => {
   const t0 = Date.now();
   while (Date.now() - t0 < timeout) { try { if (await page.evaluate(`!!(${expr})`)) return true; } catch (e) {} await sleep(100); }
@@ -61,6 +62,7 @@ try {
   const creds = (await cdp.send("WebAuthn.getCredentials", { authenticatorId })).credentials;
   ok(creds.length === 1 && creds[0].isResidentCredential, "one passkey on the device, discoverable (no user name to type)");
   ok((await page.textContent(".acct-avatar")).trim() === "MD", "toolbar shows the account (MD)");
+  ok((await page.evaluate(() => Vault.account.mode)) === (process.env.NOPRF ? "device" : "prf"), "account kind: " + (await page.evaluate(() => Vault.account.mode)));
   ok(await waitFn(`!document.querySelector('#myPdfs').hidden && !document.querySelector('#mpEmpty').hidden`), "“My PDFs” shown, empty");
 
   // ---------------------------------------------------------------- add a PDF, open it, edit it, save it

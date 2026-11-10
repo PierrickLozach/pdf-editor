@@ -97,14 +97,63 @@
 
   /** Sign in with a passkey of this site (any account): returns the PRF secret and the user id. */
   async function assert(allow) {
+    const challenge = rand(32);
     const cred = await navigator.credentials.get({
       publicKey: {
-        challenge: rand(32), userVerification: "required", timeout: 120000,
+        challenge, userVerification: "required", timeout: 120000,
         allowCredentials: allow ? allow.map((id) => ({ type: "public-key", id: unb64(id) })) : [],
         extensions: { prf: { eval: { first: PRF_SALT } } },
       },
     });
-    return { credId: cred.id, user: cred.response.userHandle ? b64(cred.response.userHandle) : null, prf: await prfFrom(cred) };
+    return { cred, challenge, credId: cred.id, user: cred.response.userHandle ? b64(cred.response.userHandle) : null, prf: await prfFrom(cred) };
+  }
+
+  /* ---------------------------------------------------------------- passkeys without PRF
+   * Some passkey providers (for example some password-manager extensions) cannot give the PRF
+   * secret. Their accounts use a "device" key instead: a random AES-256 key that the browser keeps
+   * as a non-exportable key (it can encrypt and decrypt, but its value can never be read). The
+   * files only open after a passkey sign-in whose signature is checked here, against the public
+   * key saved when the passkey was created. */
+  function derToRaw(der, size) {             // ECDSA signature: DER SEQUENCE{r, s} -> r || s
+    let i = 2;
+    if (der[1] & 0x80) i = 2 + (der[1] & 0x7f);
+    const part = () => {
+      if (der[i++] !== 2) throw new Error("bad signature");
+      const len = der[i++];
+      let v = der.slice(i, i + len); i += len;
+      while (v.length > size && v[0] === 0) v = v.slice(1);
+      const out = new Uint8Array(size); out.set(v, size - v.length); return out;
+    };
+    const r = part(), sg = part(), o = new Uint8Array(size * 2);
+    o.set(r); o.set(sg, size);
+    return o;
+  }
+  const ALGS = {
+    "-7": { imp: { name: "ECDSA", namedCurve: "P-256" }, ver: { name: "ECDSA", hash: "SHA-256" }, der: 32 },
+    "-257": { imp: { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, ver: { name: "RSASSA-PKCS1-v1_5" } },
+    "-8": { imp: { name: "Ed25519" }, ver: { name: "Ed25519" } },
+  };
+  async function verifyAssertion(account, cred, challenge) {
+    const k = (account.keys || {})[cred.id];
+    if (!k) return account.credIds.includes(cred.id);      // the browser gave no public key: trust the browser
+    const a = ALGS[String(k.alg)];
+    if (!a) return account.credIds.includes(cred.id);
+    const r = cred.response;
+    const cd = JSON.parse(dec.decode(r.clientDataJSON));
+    if (cd.type !== "webauthn.get" || cd.origin !== location.origin || cd.challenge !== b64(challenge)) return false;
+    const ad = new Uint8Array(r.authenticatorData);
+    const rpHash = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(location.hostname)));
+    for (let i = 0; i < 32; i++) if (rpHash[i] !== ad[i]) return false;
+    if ((ad[32] & 0x05) !== 0x05) return false;            // user present and verified
+    const key = await crypto.subtle.importKey("spki", unb64(k.spki), a.imp, false, ["verify"]);
+    const h = new Uint8Array(await crypto.subtle.digest("SHA-256", r.clientDataJSON));
+    const data = new Uint8Array(ad.length + 32); data.set(ad); data.set(h, ad.length);
+    let sig = new Uint8Array(r.signature);
+    if (a.der) sig = derToRaw(sig, a.der);
+    return crypto.subtle.verify(a.ver, key, sig, data);
+  }
+  async function forget(credId) {             // remove a passkey we will not use from the device's list
+    try { if (PublicKeyCredential.signalUnknownCredential) await PublicKeyCredential.signalUnknownCredential({ rpId: location.hostname, credentialId: credId }); } catch (e) {}
   }
 
   /* ---------------------------------------------------------------- session (this tab) */
@@ -113,15 +162,21 @@
   const emit = () => listeners.forEach((f) => { try { f(current && current.account); } catch (e) {} });
 
   async function unlock(account, prf) {
-    const wk = await wrappingKey(prf, unb64(account.salt));
-    const key = await crypto.subtle.unwrapKey("raw", unb64(account.wrapped), wk, "AES-KW", { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+    let key;
+    if (account.mode === "device") {
+      key = account.deviceKey;
+      try { sessionStorage.setItem(SESSION, JSON.stringify({ id: account.id, device: true })); } catch (e) {}
+    } else {
+      const wk = await wrappingKey(prf, unb64(account.salt));
+      key = await crypto.subtle.unwrapKey("raw", unb64(account.wrapped), wk, "AES-KW", { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+      try { sessionStorage.setItem(SESSION, JSON.stringify({ id: account.id, k: b64(await crypto.subtle.exportKey("raw", key)) })); } catch (e) {}
+    }
     current = { account, key };
-    try { sessionStorage.setItem(SESSION, JSON.stringify({ id: account.id, k: b64(await crypto.subtle.exportKey("raw", key)) })); } catch (e) {}
     await tx("accounts", "readwrite", (st) => req(st.put({ ...account, lastSignIn: Date.now() })));
     emit();
     return publicAccount(account);
   }
-  const publicAccount = (a) => a && { id: a.id, name: a.name, createdAt: a.createdAt, lastSignIn: a.lastSignIn, picture: a.picture || null };
+  const publicAccount = (a) => a && { id: a.id, name: a.name, createdAt: a.createdAt, lastSignIn: a.lastSignIn, picture: a.picture || null, mode: a.mode || "prf" };
 
   /** Restore the session after a reload in the same tab (no second passkey prompt). */
   async function resume() {
@@ -130,7 +185,9 @@
     if (!s) return null;
     const account = await tx("accounts", "readonly", (st) => req(st.get(s.id)));
     if (!account) { sessionStorage.removeItem(SESSION); return null; }
-    const key = await crypto.subtle.importKey("raw", unb64(s.k), { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+    const key = s.device ? (account.mode === "device" ? account.deviceKey : null)
+      : await crypto.subtle.importKey("raw", unb64(s.k), { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+    if (!key) { sessionStorage.removeItem(SESSION); return null; }
     current = { account, key };
     emit();
     return publicAccount(account);
@@ -146,7 +203,6 @@
     async create(name) {
       name = String(name || "").trim().slice(0, 60);
       if (!name) throw new Error(t("Please enter your name."));
-      if (!(await prfSupported())) throw new Error(t("This browser cannot keep your files encrypted with a passkey. Use an up-to-date Chrome, Edge, Safari or Firefox."));
       const userId = rand(16);
       const cred = await navigator.credentials.create({
         publicKey: {
@@ -159,22 +215,31 @@
           extensions: { prf: { eval: { first: PRF_SALT } }, credProps: true },
         },
       });
-      const ext = cred.getClientExtensionResults ? cred.getClientExtensionResults() : {};
-      let prf = await prfFrom(cred);
-      if (!prf) {
-        if (ext.prf && ext.prf.enabled === false) throw new Error(t("This passkey cannot encrypt files (it lacks the needed feature). Try another device or password manager."));
-        // some authenticators only give the secret when signing in: ask once more
-        const a = await assert([cred.id]);
-        prf = a.prf;
-        if (!prf) throw new Error(t("This passkey cannot encrypt files (it lacks the needed feature). Try another device or password manager."));
+      try {
+        const ext = cred.getClientExtensionResults ? cred.getClientExtensionResults() : {};
+        let prf = await prfFrom(cred);
+        if (!prf && ext.prf && ext.prf.enabled) prf = (await assert([cred.id])).prf;   // some give it only at sign-in
+        const r = cred.response, keys = {};
+        try {
+          const spki = r.getPublicKey && r.getPublicKey(), alg = r.getPublicKeyAlgorithm && r.getPublicKeyAlgorithm();
+          if (spki && alg) keys[cred.id] = { alg, spki: b64(spki) };
+        } catch (e) {}
+        const account = { id: b64(userId), name, credIds: [cred.id], keys, createdAt: Date.now(), lastSignIn: Date.now() };
+        if (prf) {
+          const salt = rand(32);
+          const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+          const wrapped = new Uint8Array(await crypto.subtle.wrapKey("raw", key, await wrappingKey(prf, salt), "AES-KW"));
+          Object.assign(account, { mode: "prf", salt: b64(salt), wrapped: b64(wrapped) });
+        } else {
+          const deviceKey = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+          Object.assign(account, { mode: "device", deviceKey });
+        }
+        await tx("accounts", "readwrite", (st) => req(st.add(account)));
+        return await unlock(account, prf);
+      } catch (e) {
+        await forget(cred.id);                // do not leave an unused passkey behind
+        throw e;
       }
-      const salt = rand(32);
-      const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-      const wk = await wrappingKey(prf, salt);
-      const wrapped = new Uint8Array(await crypto.subtle.wrapKey("raw", key, wk, "AES-KW"));
-      const account = { id: b64(userId), name, credIds: [cred.id], salt: b64(salt), wrapped: b64(wrapped), createdAt: Date.now(), lastSignIn: Date.now() };
-      await tx("accounts", "readwrite", (st) => req(st.add(account)));
-      return unlock(account, prf);
     },
 
     /** Sign in: the browser shows this site's passkeys; the one chosen says which account it is. */
@@ -185,6 +250,10 @@
       const a = await assert(all.flatMap((x) => x.credIds));
       const account = all.find((x) => x.id === a.user) || all.find((x) => x.credIds.includes(a.credId));
       if (!account) throw new Error(t("This passkey's account is not on this browser. Your files are kept in the browser where you created the account."));
+      if (account.mode === "device") {
+        if (!(await verifyAssertion(account, a.cred, a.challenge))) throw new Error(t("This passkey could not be verified."));
+        return unlock(account, null);
+      }
       if (!a.prf) throw new Error(t("This passkey cannot unlock your files on this device."));
       try { return await unlock(account, a.prf); }
       catch (e) { throw new Error(t("This passkey cannot unlock your files on this device.")); }
@@ -201,7 +270,8 @@
     async deleteAccount() {
       if (!current) return;
       const id = current.account.id;
-      await assert(current.account.credIds);             // confirm it is really the owner
+      const a = await assert(current.account.credIds);   // confirm it is really the owner
+      if (current.account.mode === "device" && !(await verifyAssertion(current.account, a.cred, a.challenge))) throw new Error(t("This passkey could not be verified."));
       const files = await tx("files", "readonly", (st) => req(st.index("account").getAll(id)));
       await tx(["files", "blobs", "accounts"], "readwrite", (fs, bs, as) => {
         for (const f of files) { fs.delete(f.id); for (const v of f.versions) bs.delete(v.blob); }

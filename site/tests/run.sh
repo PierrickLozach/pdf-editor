@@ -9,3 +9,4 @@ for i in $(seq 1 60); do sleep 1; curl -s -o /dev/null http://127.0.0.1:8787/ &&
 echo "== website (browsers)"; (cd ../tests/pw && node site.pw.mjs all | tail -1)
 echo "== languages and right-to-left"; (cd ../tests/pw && node i18n.pw.mjs all | tail -1)
 echo "== accounts and My PDFs (passkeys)"; (cd ../tests/pw && node account.pw.mjs | tail -1)
+echo "== accounts with a passkey WITHOUT PRF (e.g. Bitwarden)"; (cd ../tests/pw && NOPRF=1 node account.pw.mjs | tail -1)

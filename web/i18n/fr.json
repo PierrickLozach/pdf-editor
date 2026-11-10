@@ -172,7 +172,6 @@
   "Delete my account?": "Supprimer mon compte ?",
   "Your account and every PDF saved in it are deleted from this device for good. Your passkey will be asked to confirm.": "Votre compte et tous les PDF qu'il contient sont supprimés définitivement de cet appareil. Votre clé d'accès vous sera demandée pour confirmer.",
   "Account deleted": "Compte supprimé",
-  "Encrypted with your passkey and kept on this device only.": "Chiffrés avec votre clé d'accès et gardés sur cet appareil uniquement.",
   "No PDF yet. Add one, or open a PDF and save it.": "Aucun PDF pour l'instant. Ajoutez-en un, ou ouvrez un PDF et enregistrez-le.",
   "More": "Plus",
   "versions": "versions",
@@ -190,7 +189,6 @@
   "Create your account": "Créer votre compte",
   "Create my account": "Créer mon compte",
   "Your name": "Votre nom",
-  "No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted with it and kept on this device only.": "Aucun mot de passe à retenir : votre appareil crée une clé d'accès (empreinte, visage, code ou téléphone). Vos PDF sont chiffrés avec elle et gardés sur cet appareil uniquement.",
   "Already have an account on this device?": "Déjà un compte sur cet appareil ?",
   "Use the passkey you created for this site.": "Utilisez la clé d'accès créée pour ce site.",
   "Sign in with a passkey": "Se connecter avec une clé d'accès",
@@ -204,14 +202,15 @@
   "Passkeys need a secure address (https).": "Les clés d'accès demandent une adresse sécurisée (https).",
   "This browser or device cannot create passkeys.": "Ce navigateur ou cet appareil ne peut pas créer de clé d'accès.",
   "Please enter your name.": "Indiquez votre nom.",
-  "This browser cannot keep your files encrypted with a passkey. Use an up-to-date Chrome, Edge, Safari or Firefox.": "Ce navigateur ne peut pas chiffrer vos fichiers avec une clé d'accès. Utilisez un Chrome, Edge, Safari ou Firefox à jour.",
-  "This passkey cannot encrypt files (it lacks the needed feature). Try another device or password manager.": "Cette clé d'accès ne peut pas chiffrer de fichiers (il lui manque la fonction nécessaire). Essayez un autre appareil ou gestionnaire de mots de passe.",
   "This browser cannot use passkeys.": "Ce navigateur ne peut pas utiliser de clé d'accès.",
   "This passkey's account is not on this browser. Your files are kept in the browser where you created the account.": "Le compte de cette clé d'accès n'est pas dans ce navigateur. Vos fichiers sont gardés dans le navigateur où vous avez créé le compte.",
   "This passkey cannot unlock your files on this device.": "Cette clé d'accès ne peut pas déverrouiller vos fichiers sur cet appareil.",
   "Please sign in first.": "Connectez-vous d'abord.",
   "This file is no longer in your account.": "Ce fichier n'est plus dans votre compte.",
-  "No account on this browser yet. Create one: it takes a few seconds.": "Aucun compte dans ce navigateur pour l'instant. Créez-en un : cela prend quelques secondes."
+  "No account on this browser yet. Create one: it takes a few seconds.": "Aucun compte dans ce navigateur pour l'instant. Créez-en un : cela prend quelques secondes.",
+  "Encrypted and kept on this device only.": "Chiffrés et gardés sur cet appareil uniquement.",
+  "No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted and kept on this device only.": "Aucun mot de passe à retenir : votre appareil crée une clé d'accès (empreinte, visage, code ou téléphone). Vos PDF sont chiffrés et gardés sur cet appareil uniquement.",
+  "This passkey could not be verified.": "Cette clé d'accès n'a pas pu être vérifiée."
  },
  "patterns": [
   [
