@@ -202,7 +202,8 @@ try {
   const pinned = Object.values(cat).every((v) => /^\d+\.\d+\.\d+$/.test(v[5]));
   ok(pinned, `all ${Object.keys(cat).length} free fonts are pinned to an exact version (published versions never change)`);
 
-  ok(violations.length === 0, "no Content-Security-Policy violation during the whole run " + violations.slice(0, 3).join(" | "));
+  const unexpected = violations.filter((v) => !/example\.com/.test(v));          // the probe above is blocked on purpose
+  ok(unexpected.length === 0, "no Content-Security-Policy violation during the whole run (besides the deliberate probe) " + unexpected.slice(0, 3).join(" | "));
   ok(errs.length === 0, "no script errors " + errs.slice(0, 3).join(" | "));
 } catch (e) {
   fails++; console.log("  FAIL exception: " + e.message.split("\n")[0]);
