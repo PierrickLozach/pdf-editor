@@ -75,9 +75,10 @@
   }
   async function openRecent(x) {
     try {
-      // a click is needed for the browser to ask; it asks only the first time after a restart
-      if ((await x.handle.queryPermission({ mode: "readwrite" })) !== "granted" &&
-          (await x.handle.requestPermission({ mode: "readwrite" })) !== "granted") return toast(t("Access to the file was not allowed."), true);
+      // Opening only needs to READ the file: the browser asks "view", not "edit". Permission to write
+      // into it is asked when (and if) the person saves into it.
+      if ((await x.handle.queryPermission({ mode: "read" })) !== "granted" &&
+          (await x.handle.requestPermission({ mode: "read" })) !== "granted") return toast(t("Access to the file was not allowed."), true);
       const f = await x.handle.getFile();
       f.__handle = x.handle;
       openFile(f);

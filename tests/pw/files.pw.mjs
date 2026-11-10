@@ -101,9 +101,25 @@ try {
   await page.reload(); await ready();
   ok(await waitFn(`!document.querySelector('#recentFiles').hidden && document.querySelectorAll('#recentFiles li').length === 1`), "Recent files: the file is listed after a reload");
   ok((await page.textContent("#recentFiles .rf-name")) === "invoice.pdf", "…by its name");
+  // as after a browser restart: the stored file has no permission yet; record what the editor asks for
+  await page.evaluate(() => {
+    window.__asked = [];
+    const P = FileSystemHandle.prototype, q = P.queryPermission, r = P.requestPermission;
+    window.__restorePerm = () => { P.queryPermission = q; P.requestPermission = r; };
+    P.queryPermission = async function (o) { return "prompt"; };
+    P.requestPermission = async function (o) { window.__asked.push(o && o.mode); return "granted"; };
+  });
   await page.click("#recentFiles .rf-open");
   await docReady();
   ok(await find("27 Mill Lane") === 1, "reopened from Recent files: the saved edit is there");
+  const asked = await page.evaluate(() => window.__asked.slice());
+  ok(asked.length === 1 && asked[0] === "read", "opening a recent file asks the browser only to VIEW it, not to edit it: " + JSON.stringify(asked));
+  await page.evaluate(() => { window.__asked.length = 0; S.dirty = true; });
+  await page.click("#btnSave");
+  await waitFn(`!document.querySelector('#saveDlg').hidden`);
+  await page.click("#saveDlg .sd-cancel");
+  ok((await page.evaluate(() => window.__asked.length)) === 0, "…nothing more is asked unless the person saves into it");
+  await page.evaluate(() => { window.__restorePerm(); S.dirty = false; });
   ok(await editLine("BS1 4QA BRISTOL", "BA1 1LZ BATH"), "second edit");
   await page.click("#btnSave");
   await waitFn(`!document.querySelector('#saveDlg').hidden`);
