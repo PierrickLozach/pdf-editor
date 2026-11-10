@@ -246,7 +246,11 @@
   "Save as a new file…": "שמירה כקובץ חדש…",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "אפשר להחליף את קובץ ה-PDF שנפתח, או להשאיר אותו ללא שינוי ולשמור את השינויים בקובץ חדש.",
   "Don't ask again for this PDF": "לא לשאול שוב לגבי קובץ PDF זה",
-  "Save lets you replace your file or save a new one.": "בשמירה אפשר לבחור: להחליף את הקובץ או ליצור קובץ חדש."
+  "Save lets you replace your file or save a new one.": "בשמירה אפשר לבחור: להחליף את הקובץ או ליצור קובץ חדש.",
+  "Place the image": "מיקום התמונה",
+  "Add": "הוספה",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "גוררים את התמונה כדי להזיז אותה, ופינה כדי לשנות את גודלה. Enter או \"הוספה\" לסיום, Esc לביטול.",
+  "Image added. You can undo it.": "התמונה נוספה. אפשר לבטל."
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "הטקסט הוקטן ל-{n} pt כדי להתאים"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "לוחצים על עמוד כדי למקם את \"{name}\", או גוררים כדי לבחור את גודלו"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "החלפת \"{name}\""
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "לוחצים במקום שבו \"{name}\" צריכה להופיע (או גוררים כדי לסמן את הגודל), ואז מכוונים"
   ]
  ]
 }

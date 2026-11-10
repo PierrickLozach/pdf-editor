@@ -246,7 +246,11 @@
   "Save as a new file…": "新しいファイルとして保存…",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "開いた PDF を置き換えるか、元のファイルはそのままにして変更を新しいファイルに保存します。",
   "Don't ask again for this PDF": "この PDF では今後確認しない",
-  "Save lets you replace your file or save a new one.": "保存時に、元のファイルを置き換えるか新しいファイルにするかを選べます。"
+  "Save lets you replace your file or save a new one.": "保存時に、元のファイルを置き換えるか新しいファイルにするかを選べます。",
+  "Place the image": "画像を配置",
+  "Add": "追加",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "画像をドラッグして移動し、角をドラッグしてサイズを変更します。Enter キーまたは「追加」で完了、Esc でキャンセルします。",
+  "Image added. You can undo it.": "画像を追加しました。取り消すことができます。"
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "収まるようにテキストを {n} pt に縮小しました"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "ページをクリックして「{name}」を配置するか、ドラッグしてサイズを指定してください"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "「{name}」を置き換える"
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "「{name}」を置く位置をクリック（またはドラッグしてサイズを指定）し、調整します"
   ]
  ]
 }

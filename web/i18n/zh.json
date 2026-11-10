@@ -246,7 +246,11 @@
   "Save as a new file…": "另存为新文件…",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "替换已打开的 PDF，或保留原文件不变，将更改保存到新文件中。",
   "Don't ask again for this PDF": "此 PDF 不再询问",
-  "Save lets you replace your file or save a new one.": "保存时可选择替换原文件或另存为新文件。"
+  "Save lets you replace your file or save a new one.": "保存时可选择替换原文件或另存为新文件。",
+  "Place the image": "放置图像",
+  "Add": "添加",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "拖动图像可移动位置，拖动角可调整大小。按 Enter 或“添加”完成，按 Esc 取消。",
+  "Image added. You can undo it.": "已添加图像。可以撤销。"
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "文本已缩小至 {n} pt 以适应宽度"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "在页面上点击以放置“{name}”，或拖动以选择其大小"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "替换“{name}”"
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "在要放置“{name}”的位置单击（或拖动以绘制大小），然后调整"
   ]
  ]
 }

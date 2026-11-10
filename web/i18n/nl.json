@@ -246,7 +246,11 @@
   "Save as a new file…": "Opslaan als nieuw bestand…",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "Vervang de geopende pdf, of laat hem ongewijzigd en sla de wijzigingen op in een nieuw bestand.",
   "Don't ask again for this PDF": "Niet meer vragen voor deze pdf",
-  "Save lets you replace your file or save a new one.": "Bij opslaan kies je: je bestand vervangen of een nieuw maken."
+  "Save lets you replace your file or save a new one.": "Bij opslaan kies je: je bestand vervangen of een nieuw maken.",
+  "Place the image": "Afbeelding plaatsen",
+  "Add": "Toevoegen",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Sleep de afbeelding om haar te verplaatsen en een hoek om het formaat te wijzigen. Enter of ‘Toevoegen’ om af te ronden, Esc om te annuleren.",
+  "Image added. You can undo it.": "Afbeelding toegevoegd. Je kunt dit ongedaan maken."
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "Tekst verkleind tot {n} pt zodat hij past"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "Klik op een pagina om ‘{name}’ te plaatsen, of sleep om de grootte te kiezen"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "‘{name}’ vervangen"
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "Klik waar ‘{name}’ moet komen (of sleep om de grootte te tekenen) en pas het daarna aan"
   ]
  ]
 }

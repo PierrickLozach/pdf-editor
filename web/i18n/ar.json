@@ -246,7 +246,11 @@
   "Save as a new file…": "حفظ في ملف جديد…",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "استبدل ملف PDF الذي فتحته، أو احتفظ به دون تغيير واحفظ التغييرات في ملف جديد.",
   "Don't ask again for this PDF": "عدم السؤال مرة أخرى لهذا الملف",
-  "Save lets you replace your file or save a new one.": "عند الحفظ، تختار بين استبدال ملفك أو إنشاء ملف جديد."
+  "Save lets you replace your file or save a new one.": "عند الحفظ، تختار بين استبدال ملفك أو إنشاء ملف جديد.",
+  "Place the image": "وضع الصورة",
+  "Add": "إضافة",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "اسحب الصورة لتحريكها، واسحب أحد أركانها لتغيير حجمها. اضغط Enter أو «إضافة» للإنهاء، وEsc للإلغاء.",
+  "Image added. You can undo it.": "تمت إضافة الصورة. يمكنك التراجع عن ذلك."
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "صُغّر النص إلى {n} pt ليتسع"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "انقر على صفحة لوضع «{name}»، أو اسحب لاختيار حجمها"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "استبدال «{name}»"
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "انقر حيث تريد وضع «{name}» (أو اسحب لرسم حجمها)، ثم اضبطها"
   ]
  ]
 }

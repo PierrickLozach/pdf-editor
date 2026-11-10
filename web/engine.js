@@ -1703,7 +1703,8 @@ export class Engine {
     return { ...this.info(), changed: [pno] };
   }
 
-  async addImage(pno, rect, bytes) {
+  /** fill: true = exactly the rectangle (what the placing frame shows); false = proportions kept, centred */
+  async addImage(pno, rect, bytes, fill = false) {
     const s = this._need();
     let img;
     try { img = new mupdf.Image(bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes)); }
@@ -1712,10 +1713,13 @@ export class Engine {
     const [ox, oy] = this._offset(page);
     let [x0, y0, x1, y1] = [rect[0] + ox, rect[1] + oy, rect[2] + ox, rect[3] + oy];
     const iw = img.getWidth(), ih = img.getHeight();
-    const bw = x1 - x0, bh = y1 - y0;                    // keep proportions, centred in the box
-    const sc = Math.min(bw / iw, bh / ih);
-    const w = iw * sc, h = ih * sc;
-    x0 += (bw - w) / 2; y0 += (bh - h) / 2;
+    const bw = x1 - x0, bh = y1 - y0;
+    let w = bw, h = bh;
+    if (!fill) {                                          // keep proportions, centred in the box
+      const sc = Math.min(bw / iw, bh / ih);
+      w = iw * sc; h = ih * sc;
+      x0 += (bw - w) / 2; y0 += (bh - h) / 2;
+    }
     this._checkpoint();
     const doc = s.doc;
     const ref = doc.addImage(img);

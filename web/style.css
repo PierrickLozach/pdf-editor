@@ -300,3 +300,16 @@ a.logo:hover, a.logo:focus-visible { filter: brightness(1.12); outline: none; bo
 #homeLink a:hover { color: var(--fg); text-decoration: underline; }
 [dir="rtl"] #homeLink .hl-arrow { display: inline-block; transform: scaleX(-1); }
 #saveDlg .check { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-top: 4px; cursor: pointer; }
+
+/* ---------- placing an image: one frame, moved and resized before it is added ---------- */
+.placer { position: absolute; z-index: 15; outline: 1.5px solid var(--blue); outline-offset: 0; cursor: move; touch-action: none; user-select: none; box-shadow: 0 0 0 4000px rgba(0,0,0,.06); }
+.placer:focus { outline-width: 2px; }
+.placer img { width: 100%; height: 100%; display: block; pointer-events: none; opacity: .92; }
+.placer .ph { position: absolute; width: 12px; height: 12px; background: #fff; border: 1.5px solid var(--blue); border-radius: 2px; }
+.placer .ph.nw { left: -7px; top: -7px; cursor: nwse-resize; } .placer .ph.se { right: -7px; bottom: -7px; cursor: nwse-resize; }
+.placer .ph.ne { right: -7px; top: -7px; cursor: nesw-resize; } .placer .ph.sw { left: -7px; bottom: -7px; cursor: nesw-resize; }
+.placer-bar { position: absolute; top: calc(100% + 8px); inset-inline-start: 0; display: flex; gap: 6px; white-space: nowrap; cursor: default; }
+.placer.bar-above .placer-bar { top: auto; bottom: calc(100% + 8px); }
+.placer-bar button { height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); font: inherit; font-size: 13px; cursor: pointer; box-shadow: var(--shadow); }
+.placer-bar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (pointer: coarse) { .placer .ph { width: 22px; height: 22px; } .placer .ph.nw, .placer .ph.sw { left: -12px; } .placer .ph.ne, .placer .ph.se { right: -12px; } .placer .ph.nw, .placer .ph.ne { top: -12px; } .placer .ph.sw, .placer .ph.se { bottom: -12px; } }

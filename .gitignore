@@ -18,6 +18,7 @@
 !/tests/pw/site.pw.mjs
 !/tests/untraced.test.mjs
 !/tests/pw/files.pw.mjs
+!/tests/pw/image.pw.mjs
 !/tests/untraced.test.mjs
 !/tests/pw/i18n.pw.mjs
 !/tests/untraced.test.mjs

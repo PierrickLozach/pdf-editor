@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=b01924c6ba", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=552842007c", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -344,6 +344,7 @@ function setZoom(z, anchorY) {
   setZoom.t = setTimeout(() => $$("#pages .page").forEach(el => el._visible && loadPage(+el.dataset.i)), 120);
   drawHits();
   updateButtons();
+  if (window.PLACE) PLACE.redraw();
 }
 
 function zoomStep(dir) {
@@ -800,6 +801,7 @@ function bindEditorBar() {
 function setTool(t) {
   if (!S.doc) return;
   closeEditor(true);
+  if (window.PLACE && PLACE.active && t !== "image") PLACE.cancel(true);
   if (t === "image") {
     if (!S.image) { $("#imageInput").click(); return; }   // the tool is set once a picture is chosen
   }
@@ -808,7 +810,7 @@ function setTool(t) {
   $$(".tool").forEach(b => b.classList.toggle("active", b.dataset.tool === t));
   if (t === "edit") $$("#pages .page").forEach(el => el._visible && loadSpans(+el.dataset.i));
   document.body.dispatchEvent(new Event("toolchange"));
-  if (t === "image" && S.image) toast(`Click on a page to place “${S.image.name}”, or drag to choose its size`);
+  if (t === "image" && S.image) toast(`Click where “${S.image.name}” should go (or drag to draw its size), then adjust it`);
   if (t === "erase") toast("Drag over the area to white out – text under it is really removed");
   if (t === "add") toast("Click where the new text should start");
 }
@@ -829,6 +831,7 @@ function bindLayer(el, i) {
       return;
     }
     if (S.tool !== "erase" && S.tool !== "image") return;
+    if (S.tool === "image" && window.PLACE && PLACE.active) return;     // the open frame decides (add or cancel)
     e.preventDefault();
     const a = ptFromEvent(el, e);
     const rb = document.createElement("div");
@@ -852,11 +855,10 @@ function bindLayer(el, i) {
         if (small) { rb.remove(); return toast("Drag to draw the area to white out"); }
         await busy(async () => applyInfo(await call("erase", i, rect)));
       } else {
-        if (small) {   // a click: default width 160 pt, keep the picture's proportions
-          const w = Math.min(160, pg.w - a.x), h = w * S.image.h / S.image.w;
-          rect = [a.x, a.y, a.x + w, a.y + h];
-        }
-        await busy(async () => applyInfo(await call("addImage", i, rect, new Uint8Array(await S.image.blob.arrayBuffer()))));
+        rb.remove();
+        if (!S.image) return;
+        PLACE.start(i, rect);            // one frame to move and resize; added only when confirmed
+        return;
       }
       setTimeout(() => rb.remove(), 400);
     };
@@ -1087,7 +1089,7 @@ function init() {
     if (mod && e.key === "-") { e.preventDefault(); zoomStep(-1); return; }
     if (mod && e.key === "0") { e.preventDefault(); setZoom(fitZoom()); return; }
     if (isTyping(e)) return;
-    if (mod && e.key.toLowerCase() === "z") { e.preventDefault(); undoRedo(e.shiftKey ? "redo" : "undo"); return; }
+    if (mod && e.key.toLowerCase() === "z") { e.preventDefault(); if (window.PLACE && PLACE.active) { PLACE.cancel(); return; } undoRedo(e.shiftKey ? "redo" : "undo"); return; }
     if (mod && e.key.toLowerCase() === "y") { e.preventDefault(); undoRedo("redo"); return; }
     if (mod) return;
     const k = e.key.toLowerCase();

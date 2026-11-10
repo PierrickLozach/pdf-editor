@@ -246,7 +246,11 @@
   "Save as a new file…": "Als neue Datei speichern …",
   "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "Ersetzen Sie das geöffnete PDF oder behalten Sie es unverändert und speichern Sie die Änderungen in einer neuen Datei.",
   "Don't ask again for this PDF": "Bei diesem PDF nicht mehr fragen",
-  "Save lets you replace your file or save a new one.": "Beim Speichern wählen Sie: Datei ersetzen oder eine neue anlegen."
+  "Save lets you replace your file or save a new one.": "Beim Speichern wählen Sie: Datei ersetzen oder eine neue anlegen.",
+  "Place the image": "Bild platzieren",
+  "Add": "Hinzufügen",
+  "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Ziehen Sie das Bild, um es zu verschieben, und eine Ecke, um die Größe zu ändern. Eingabe oder „Hinzufügen“ zum Abschließen, Esc zum Abbrechen.",
+  "Image added. You can undo it.": "Bild hinzugefügt. Sie können es rückgängig machen."
  },
  "patterns": [
   [
@@ -280,10 +284,6 @@
   [
    "Text shrunk to {n} pt to fit",
    "Text auf {n} pt verkleinert, damit er passt"
-  ],
-  [
-   "Click on a page to place “{name}”, or drag to choose its size",
-   "Klicken Sie auf eine Seite, um „{name}“ zu platzieren, oder ziehen Sie, um die Größe zu wählen"
   ],
   [
    "{n} could not be replaced automatically (mixed styles): edit them by clicking",
@@ -424,6 +424,10 @@
   [
    "Replace “{name}”",
    "„{name}“ ersetzen"
+  ],
+  [
+   "Click where “{name}” should go (or drag to draw its size), then adjust it",
+   "Klicken Sie dorthin, wo „{name}“ hin soll (oder ziehen Sie die Größe auf), und passen Sie es dann an"
   ]
  ]
 }
