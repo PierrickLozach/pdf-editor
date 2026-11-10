@@ -7,7 +7,7 @@ description: Edit, redact, OCR, split, merge, convert, compress and protect PDFs
   <p class="lead">The engine behind this editor, as a JavaScript library: edit text in its original font, redact, recognise text in scans, split, merge, convert, compress and protect PDFs from your own code.</p>
   <ul class="doc-points">
     <li><b>Runs where your code runs</b> – in a web page or in Node.js. Documents are never sent to a server, ours or anyone's.</li>
-    <li><b>Free, no key, no quota</b> – nothing to sign up for. Free software under the <a href="{{source}}/blob/main/LICENSE">AGPL-3.0</a> (like MuPDF, which it is built on).</li>
+    <li><b>Free, no key, no quota</b> – nothing to sign up for. Free under the <a href="{{source}}/blob/main/LICENSE">AGPL-3.0</a>; a <a href="#licence">commercial licence</a> is available.</li>
     <li><b>Same results as the editor</b> – the saved PDF keeps the original's properties and carries no trace of the editing.</li>
   </ul>
 
@@ -105,7 +105,8 @@ const locked = await pdf.protect("a long password");              // AES-256 cop
 
   <h2 id="licence">Licence and limits</h2>
   <ul>
-    <li><b>AGPL-3.0.</b> You can use it for free, also in commercial work. If people use your modified version over a network, you must offer them its source code.</li>
+    <li><b>Two licences.</b> Free under the <a href="{{source}}/blob/main/LICENSE">GNU AGPL v3</a>: you may use it, also commercially, if you publish the complete source code of any modified version you give to others or offer over a network. To use it in a commercial product or service without these obligations, ask for a <b>commercial licence</b>, negotiated case by case: <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Details: <a href="{{source}}/blob/main/LICENSING.md">LICENSING.md</a>.</li>
+    <li>The PDF engine, MuPDF, belongs to Artifex Software (AGPL); closed-source commercial use of it also needs a licence from <a href="https://artifex.com/licensing">Artifex</a>.</li>
     <li>It runs on the machine running your code, so large PDFs need memory there: up to about 250&nbsp;MB per PDF in a browser.</li>
     <li>Word, Excel or PowerPoint to PDF is not part of it: export to PDF from those programs.</li>
     <li>Questions and problems: <a href="{{source}}/issues">GitHub issues</a>.</li>

@@ -12,9 +12,9 @@ Website and deployment: see [site/DEPLOY.md](site/DEPLOY.md).
 
 ## Licence
 
-GNU Affero General Public License v3 (see `LICENSE`), because the editor is built on
-[MuPDF](https://mupdf.com) © Artifex Software, Inc. Bundled fonts: Liberation, Carlito, Caladea
-(SIL Open Font License) and DejaVu.
+Dual-licensed: **GNU AGPL v3** (free, see `LICENSE`) **or a commercial licence** negotiated with the author for
+commercial use without the AGPL's obligations — see [`LICENSING.md`](LICENSING.md). The editor is built on
+MuPDF © Artifex Software (AGPL; commercial licences from Artifex).
 
 Third-party code shipped with the site: MuPDF.js (AGPL), tesseract.js and its language models (Apache-2.0),
 fonts under open licences (Liberation, Carlito, Caladea, DejaVu, Dancing Script — see `web/vendor/` and `web/fonts/`).

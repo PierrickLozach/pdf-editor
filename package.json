@@ -15,12 +15,13 @@
     "web/vendor/mupdf/",
     "LICENSE",
     "README.md",
-    "web/vendor/tessdata/"
+    "web/vendor/tessdata/",
+    "LICENSING.md"
   ],
   "engines": {
     "node": ">=20"
   },
-  "license": "AGPL-3.0-only",
+  "license": "(AGPL-3.0-only OR LicenseRef-Commercial)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PierrickLozach/pdf-editor.git"

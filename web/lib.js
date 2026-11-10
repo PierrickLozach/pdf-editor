@@ -1,5 +1,6 @@
 /* PDF Editor library — the engine of https://pdf-editor.pierrick35.workers.dev as a JavaScript API.
- * Free software (AGPL-3.0, like MuPDF it is built on). Runs where it is called — a web page or Node.js —
+ * Licence: GNU AGPL v3, or a commercial licence negotiated with the author (see LICENSING.md).
+ * Runs where it is called — a web page or Node.js —
  * so documents are never sent to a server.
  *
  *   import { PDF } from "https://pdf-editor.pierrick35.workers.dev/lib/v1/pdf-editor.js";   // browsers

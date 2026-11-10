@@ -48,7 +48,8 @@ shutil.move(str(LIB / "lib.js"), str(LIB / "pdf-editor.js"))
 shutil.copytree(WEB / "fonts", LIB / "fonts", ignore=shutil.ignore_patterns(".DS_Store"))
 shutil.copytree(WEB / "vendor" / "mupdf", LIB / "vendor" / "mupdf", ignore=shutil.ignore_patterns(".DS_Store"))
 (LIB / "LICENSE.txt").write_text((ROOT / "LICENSE").read_text())
-(LIB / "README.txt").write_text(f"PDF Editor library {json.loads((WEB / 'package.json').read_text()).get('version', '')} — AGPL-3.0.\n"
+(LIB / "LICENSING.txt").write_text((ROOT / "LICENSING.md").read_text())
+(LIB / "README.txt").write_text(f"PDF Editor library {json.loads((WEB / 'package.json').read_text()).get('version', '')} — AGPL-3.0, or a commercial licence (see LICENSING.txt).\n"
     f"Documentation: {cfg['url']}/developers   Source: {cfg['source']}\n"
     "Text recognition (ocr) in a browser needs the recogniser served from your own site: see the documentation.\n")
 shutil.copy(WEB / "icon.png", PUB / "icon.png")
