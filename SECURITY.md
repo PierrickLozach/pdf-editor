@@ -20,7 +20,7 @@ Please report it privately through **[GitHub → Security → Report a vulnerabi
 |---|---|---|---|
 | A01 | Broken access control | No accounts and no server: nothing to access. The editor can only touch a file the person picked or dropped, through the browser's permission prompt. | `security.pw.mjs`, `files.pw.mjs` |
 | A02 | Security misconfiguration | Every response (pages, files, 404s) has a strict Content-Security-Policy (no inline scripts or styles, no `eval`; the editor only adds WebAssembly), `frame-ancestors 'none'` + `X-Frame-Options: DENY`, HSTS (2 years), `nosniff`, COOP/CORP same-origin, Referrer-Policy, a restrictive Permissions-Policy. No directory listing. | `security.pw.mjs` (A02), `site.pw.mjs` (no CSP violation in Chromium, Firefox, WebKit) |
-| A03 | Software supply chain | MuPDF vendored at a known version (no published advisories at the time of review); its files and the bundled fonts are pinned by SHA-256 in `tools/vendor.lock.json` and the build stops if one changes. Free fonts are fetched from exact, immutable npm versions only (2,072 families pinned), from one CDN folder allowed by the CSP, size- and format-checked. `npm audit`: 0 vulnerabilities. Dependabot watches the npm tooling. | `security.pw.mjs` (A03), `tools/vendor_lock.py` |
+| A03 | Software supply chain | MuPDF and the text recogniser (tesseract.js 7.0.0 / core 6.1.2, Apache-2.0, with its language models) vendored at known versions and served by this site — the recogniser downloads nothing from elsewhere (no published advisories at the time of review); its files and the bundled fonts are pinned by SHA-256 in `tools/vendor.lock.json` and the build stops if one changes. Free fonts are fetched from exact, immutable npm versions only (2,072 families pinned), from one CDN folder allowed by the CSP, size- and format-checked. `npm audit`: 0 vulnerabilities. Dependabot watches the npm tooling. | `security.pw.mjs` (A03), `tools/vendor_lock.py` |
 | A04 | Cryptographic failures | Nothing sensitive is stored: no accounts, no keys. The only document kept in the browser is the crash-recovery copy of the PDF being edited, removed by “Close”. All traffic is HTTPS (HSTS). | `security.pw.mjs` (A04) |
 | A05 | Injection | No `eval`, no inline scripts; PDF-derived text (font names) and file names are inserted as text or escaped; the CSP blocks any injected script anyway. Tested with a PDF whose font is named `<img src=x onerror=…>`, HTML in file names, and an HTML file renamed `.pdf`. | `security.pw.mjs` (A05) |
 | A06 | Insecure design | Least data by design (nothing on a server). Limits: 250 MB per PDF (largest size tested to open, edit and save in Chromium, Firefox and WebKit; explained before opening, with how to make a PDF smaller); 10 MB per downloaded font. | `security.pw.mjs` (A06), `files.pw.mjs` |
@@ -34,6 +34,14 @@ Please report it privately through **[GitHub → Security → Report a vulnerabi
 A PDF saved by the editor keeps the original's properties: title, author, subject, keywords, creator,
 producer, creation and modification dates, XMP metadata, file ID and PDF version. The editor adds no
 mention of itself and the engine's "Written by MuPDF" comment is blanked (`tests/untraced.test.mjs`).
+
+## Tools that remove information
+
+- **Redact** removes, for good, the text under each box, the pixels of pictures under it (the picture is rewritten) and the
+  drawings it covers, then draws a black box. It is checked by extracting the text and the pictures of the saved file
+  (`tests/tools.test.mjs`). **Whiteout** removes the text under it but only paints over pictures: use Redact for private data.
+- **Protect** encrypts a copy with AES-256 (the owner password is random and never shown); the PDF open in the editor is not changed.
+- **OCR** runs in the browser: the pages are never uploaded. The recognised text is invisible and only added on top.
 
 ## Limits (known and accepted)
 

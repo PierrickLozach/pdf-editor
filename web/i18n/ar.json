@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "اسحب الصورة لتحريكها، واسحب أحد أركانها لتغيير حجمها. اضغط Enter أو «إضافة» للإنهاء، وEsc للإلغاء.",
   "Image added. You can undo it.": "تمت إضافة الصورة. يمكنك التراجع عن ذلك.",
   "Undo": "تراجع",
-  "Redo": "إعادة"
+  "Redo": "إعادة",
+  "1 area marked": "تم تحديد منطقة واحدة",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "صورة أو مسح ضوئي لتوقيعك على ورق أبيض: تصبح الورقة شفافة.",
+  "A word across every page": "كلمة على كل الصفحات",
+  "Add numbers": "إضافة الأرقام",
+  "Add watermark": "إضافة العلامة المائية",
+  "Adding the text to the PDF…": "جارٍ إضافة النص إلى ملف PDF…",
+  "All pages": "كل الصفحات",
+  "Allow copying the text": "السماح بنسخ النص",
+  "Allow printing": "السماح بالطباعة",
+  "Apply redactions": "تطبيق التنقيح",
+  "Apply redactions?": "هل تريد تطبيق التنقيح؟",
+  "Black": "أسود",
+  "Blue": "أزرق",
+  "Bottom left": "أسفل اليسار",
+  "Bottom right": "أسفل اليمين",
+  "Bottom, centred": "أسفل، في الوسط",
+  "CONFIDENTIAL": "سري",
+  "Choose a password of at least 4 characters": "اختر كلمة مرور من 4 أحرف على الأقل",
+  "Choose a picture of your signature first": "اختر صورة لتوقيعك أولاً",
+  "Clear": "مسح",
+  "Click to unmark": "انقر لإلغاء التحديد",
+  "Click where the signature goes, then adjust it": "انقر حيث تريد وضع التوقيع، ثم اضبطه",
+  "Colour": "اللون",
+  "Compress photos and scans": "ضغط الصور والمسوحات الضوئية",
+  "Convert": "تحويل",
+  "Create a PDF from pictures": "إنشاء ملف PDF من صور",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "تتم العملية في هذا المتصفح: لا تُرفع الصفحات أبداً. من 2 إلى 5 ثوانٍ تقريباً لكل صفحة؛ وتُنزَّل بيانات اللغة (من 1 إلى 3 ميغابايت) مرة واحدة.",
+  "Drag over the area to redact": "اسحب فوق المنطقة المراد تنقيحها",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "اسحب فوق ما يجب أن يختفي نهائياً. انقر على منطقة محددة لإلغاء تحديدها.",
+  "Draw": "رسم",
+  "Draw your signature first": "ارسم توقيعك أولاً",
+  "Draw, type or upload your signature": "ارسم توقيعك أو اكتبه أو حمّله",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "تحتوي كل الصفحات على نص بالفعل. لا تفيد إعادة التعرّف عليه إلا مع المسوحات الرديئة.",
+  "Extract pages into one new PDF": "استخراج الصفحات إلى ملف PDF جديد واحد",
+  "File": "ملف",
+  "First number": "الرقم الأول",
+  "Forget this signature": "نسيان هذا التوقيع",
+  "Grey": "رمادي",
+  "JPEG image": "صورة JPEG",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "احتفظ بكلمة المرور في مكان آمن: لا يمكن لأحد فتح ملف PDF بدونها. النسخة المحمية ملف جديد، ولا يتغير ملف PDF المفتوح هنا.",
+  "Language of the document": "لغة المستند",
+  "Light": "خفيفة",
+  "Make searchable (OCR)": "جعله قابلاً للبحث (OCR)",
+  "Mark all": "تحديد الكل",
+  "Medium": "متوسطة",
+  "No page chosen": "لم يتم اختيار أي صفحة",
+  "No page of this PDF has text: it looks scanned.": "لا تحتوي أي صفحة من ملف PDF هذا على نص: يبدو أنه ممسوح ضوئياً.",
+  "No page to number": "لا توجد صفحات لترقيمها",
+  "No picture chosen": "لم يتم اختيار أي صورة",
+  "No text was found on these pages.": "لم يُعثر على أي نص في هذه الصفحات.",
+  "Not on the first page (cover)": "ليس على الصفحة الأولى (الغلاف)",
+  "Nothing to redact": "لا يوجد ما يُنقَّح",
+  "Number every page": "ترقيم كل الصفحات",
+  "One PDF per page": "ملف PDF لكل صفحة",
+  "One PDF per range": "ملف PDF لكل نطاق",
+  "Only people with the password can open it": "لا يفتحه إلا من لديه كلمة المرور",
+  "Only the pages without text": "الصفحات التي لا تحتوي على نص فقط",
+  "PDF made from the picture. Save it to keep it.": "تم إنشاء ملف PDF من الصورة. احفظه للاحتفاظ به.",
+  "PNG image": "صورة PNG",
+  "Page numbers": "أرقام الصفحات",
+  "Page numbers added. You can undo it.": "تمت إضافة أرقام الصفحات. يمكنك التراجع عن ذلك.",
+  "Password": "كلمة المرور",
+  "Picture quality": "جودة الصور",
+  "Pictures": "صور",
+  "Place the signature": "ضع التوقيع",
+  "Please choose pictures (JPEG, PNG…)": "يُرجى اختيار صور (JPEG، PNG…)",
+  "Print (300 dpi)": "طباعة (300 dpi)",
+  "Protect": "حماية",
+  "Protect with a password": "الحماية بكلمة مرور",
+  "Recognise text": "التعرّف على النص",
+  "Recognise the text of scanned pages": "التعرّف على نص الصفحات الممسوحة ضوئياً",
+  "Recognising text…": "جارٍ التعرّف على النص…",
+  "Red": "أحمر",
+  "Redact": "تنقيح",
+  "Remember it in this browser": "تذكّره في هذا المتصفح",
+  "Remove private text and pictures for good": "إزالة النصوص والصور الخاصة نهائياً",
+  "Screen (150 dpi)": "شاشة (150 dpi)",
+  "Second language (optional)": "لغة ثانية (اختياري)",
+  "Separate PDFs from some pages": "ملفات PDF منفصلة من بعض الصفحات",
+  "Sign": "توقيع",
+  "Sign here with the mouse, a finger or a pen": "وقّع هنا بالماوس أو بإصبعك أو بقلم",
+  "Signature": "التوقيع",
+  "Split": "تقسيم",
+  "Split or extract pages": "تقسيم الصفحات أو استخراجها",
+  "Strength": "الشدة",
+  "Strong": "قوية",
+  "Style": "النمط",
+  "Text": "نص",
+  "The password cannot contain a comma": "لا يمكن أن تحتوي كلمة المرور على فاصلة",
+  "The text recognition could not be loaded. Check the connection and try again.": "تعذّر تحميل أداة التعرّف على النص. تحقق من الاتصال وحاول مرة أخرى.",
+  "The two passwords are different": "كلمتا المرور غير متطابقتين",
+  "This picture could not be read.": "تعذّرت قراءة هذه الصورة.",
+  "To Word, text or pictures": "إلى Word أو نص أو صور",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "لتحويل ملف Word أو Excel أو PowerPoint إلى PDF، استخدم ملف › حفظ باسم أو تصدير كـ PDF في ذلك البرنامج.",
+  "Tools": "الأدوات",
+  "Tools: sign, redact, OCR, split, convert…": "الأدوات: توقيع، تنقيح، OCR، تقسيم، تحويل…",
+  "Top right": "أعلى اليمين",
+  "Type": "كتابة",
+  "Type it again": "اكتبها مرة أخرى",
+  "Type the text of the watermark": "اكتب نص العلامة المائية",
+  "Type your name first": "اكتب اسمك أولاً",
+  "Upload": "تحميل",
+  "Use this signature": "استخدام هذا التوقيع",
+  "Watermark": "علامة مائية",
+  "Watermark added. You can undo it.": "تمت إضافة العلامة المائية. يمكنك التراجع عن ذلك.",
+  "Where": "الموضع",
+  "Word document": "مستند Word",
+  "Word or number to remove everywhere": "كلمة أو رقم لإزالته في كل مكان",
+  "Your signatures (kept in this browser):": "توقيعاتك (محفوظة في هذا المتصفح):",
+  "ZIP archive": "أرشيف ZIP",
+  "drag over what must disappear, or mark a word everywhere": "اسحب فوق ما يجب أن يختفي، أو حدّد كلمة في كل مكان",
+  "one picture per page": "صورة لكل صفحة",
+  "smaller files": "ملفات أصغر",
+  "the text, to edit it in Word; the layout is not kept": "النص، لتعديله في Word؛ لا يُحتفظ بالتنسيق"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "انقر حيث تريد وضع «{name}» (أو اسحب لرسم حجمها)، ثم اضبطها"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "تحقق من الصفحات: أرقام من 1 إلى {n}، مثل 1-3، 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "تم تنزيل «{name}»"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "تم إنشاء ملف PDF من {n} صور. احفظه للاحتفاظ به."
+  ],
+  [
+   "Page {k} of {n}",
+   "الصفحة {k} من {n}"
+  ],
+  [
+   "Page {n} of {total}",
+   "الصفحة {n} من {total}"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "تم التعرّف على النص في {n} صفحات: يمكن الآن البحث في ملف PDF والنسخ منه. يمكنك التراجع عن ذلك."
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "ستُزال المناطق المحددة ({n}) نهائياً مع ما تحتها من نصوص وصور ورسوم. يمكنك التراجع عن ذلك إلى أن تغلق ملف PDF؛ أما الملف المحفوظ فلا يمكن استرداده."
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "يحتوي ملف PDF هذا على {n} صفحات. مثال: 1-3، 5، 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "{k} من {n} صفحات بلا نص (ممسوحة ضوئياً)."
+  ],
+  [
+   "{n} areas marked",
+   "تم تحديد {n} مناطق"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "تم تنقيح {n} مناطق. احفظ ملف PDF للاحتفاظ بالتغيير."
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "«{word}» غير موجودة في ملف PDF هذا"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "تم تحديد «{word}» {n} مرات. تحقق من الصفحات، ثم طبّق."
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "«{name}» ليست صورة يمكن لهذا المحرر قراءتها"
   ]
  ]
 }

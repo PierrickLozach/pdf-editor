@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Sleep de afbeelding om haar te verplaatsen en een hoek om het formaat te wijzigen. Enter of ‘Toevoegen’ om af te ronden, Esc om te annuleren.",
   "Image added. You can undo it.": "Afbeelding toegevoegd. Je kunt dit ongedaan maken.",
   "Undo": "Ongedaan maken",
-  "Redo": "Opnieuw"
+  "Redo": "Opnieuw",
+  "1 area marked": "1 gebied gemarkeerd",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "Een foto of scan van je handtekening op wit papier: het papier wordt transparant gemaakt.",
+  "A word across every page": "Een woord over elke pagina",
+  "Add numbers": "Nummeren",
+  "Add watermark": "Watermerk toevoegen",
+  "Adding the text to the PDF…": "Tekst wordt aan de PDF toegevoegd…",
+  "All pages": "Alle pagina's",
+  "Allow copying the text": "Kopiëren van tekst toestaan",
+  "Allow printing": "Afdrukken toestaan",
+  "Apply redactions": "Zwartlakken toepassen",
+  "Apply redactions?": "Zwartlakken toepassen?",
+  "Black": "Zwart",
+  "Blue": "Blauw",
+  "Bottom left": "Linksonder",
+  "Bottom right": "Rechtsonder",
+  "Bottom, centred": "Onder, gecentreerd",
+  "CONFIDENTIAL": "VERTROUWELIJK",
+  "Choose a password of at least 4 characters": "Kies een wachtwoord van minstens 4 tekens",
+  "Choose a picture of your signature first": "Kies eerst een afbeelding van je handtekening",
+  "Clear": "Wissen",
+  "Click to unmark": "Klik om de markering op te heffen",
+  "Click where the signature goes, then adjust it": "Klik waar de handtekening moet komen en pas hem daarna aan",
+  "Colour": "Kleur",
+  "Compress photos and scans": "Foto's en scans comprimeren",
+  "Convert": "Converteren",
+  "Create a PDF from pictures": "PDF maken van afbeeldingen",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "Gebeurt in deze browser: de pagina's worden nooit geüpload. Ongeveer 2 tot 5 seconden per pagina; de taalgegevens (1 tot 3 MB) worden één keer gedownload.",
+  "Drag over the area to redact": "Sleep over het gebied dat je wilt zwartlakken",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "Sleep over wat definitief moet verdwijnen. Klik op een gemarkeerd gebied om de markering op te heffen.",
+  "Draw": "Tekenen",
+  "Draw your signature first": "Teken eerst je handtekening",
+  "Draw, type or upload your signature": "Teken, typ of upload je handtekening",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "Elke pagina heeft al tekst. Opnieuw herkennen is alleen nuttig bij slechte scans.",
+  "Extract pages into one new PDF": "Pagina's uitpakken naar één nieuwe PDF",
+  "File": "Bestand",
+  "First number": "Eerste nummer",
+  "Forget this signature": "Deze handtekening vergeten",
+  "Grey": "Grijs",
+  "JPEG image": "JPEG-afbeelding",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "Bewaar het wachtwoord goed: zonder kan niemand de PDF openen. De beveiligde kopie is een nieuw bestand; de PDF die hier open is, verandert niet.",
+  "Language of the document": "Taal van het document",
+  "Light": "Licht",
+  "Make searchable (OCR)": "Doorzoekbaar maken (OCR)",
+  "Mark all": "Alles markeren",
+  "Medium": "Gemiddeld",
+  "No page chosen": "Geen pagina gekozen",
+  "No page of this PDF has text: it looks scanned.": "Geen enkele pagina van deze PDF heeft tekst: hij lijkt gescand.",
+  "No page to number": "Geen pagina om te nummeren",
+  "No picture chosen": "Geen afbeelding gekozen",
+  "No text was found on these pages.": "Er is geen tekst gevonden op deze pagina's.",
+  "Not on the first page (cover)": "Niet op de eerste pagina (voorblad)",
+  "Nothing to redact": "Niets om zwart te lakken",
+  "Number every page": "Elke pagina nummeren",
+  "One PDF per page": "Eén PDF per pagina",
+  "One PDF per range": "Eén PDF per bereik",
+  "Only people with the password can open it": "Alleen wie het wachtwoord heeft, kan hem openen",
+  "Only the pages without text": "Alleen de pagina's zonder tekst",
+  "PDF made from the picture. Save it to keep it.": "PDF gemaakt van de afbeelding. Sla hem op om hem te bewaren.",
+  "PNG image": "PNG-afbeelding",
+  "Page numbers": "Paginanummers",
+  "Page numbers added. You can undo it.": "Paginanummers toegevoegd. Je kunt dit ongedaan maken.",
+  "Password": "Wachtwoord",
+  "Picture quality": "Beeldkwaliteit",
+  "Pictures": "Afbeeldingen",
+  "Place the signature": "Handtekening plaatsen",
+  "Please choose pictures (JPEG, PNG…)": "Kies afbeeldingen (JPEG, PNG…)",
+  "Print (300 dpi)": "Afdrukken (300 dpi)",
+  "Protect": "Beveiligen",
+  "Protect with a password": "Beveiligen met wachtwoord",
+  "Recognise text": "Tekst herkennen",
+  "Recognise the text of scanned pages": "Tekst van gescande pagina's herkennen",
+  "Recognising text…": "Tekst herkennen…",
+  "Red": "Rood",
+  "Redact": "Zwartlakken",
+  "Remember it in this browser": "Onthouden in deze browser",
+  "Remove private text and pictures for good": "Privétekst en -afbeeldingen definitief verwijderen",
+  "Screen (150 dpi)": "Scherm (150 dpi)",
+  "Second language (optional)": "Tweede taal (optioneel)",
+  "Separate PDFs from some pages": "Losse PDF's van bepaalde pagina's",
+  "Sign": "Ondertekenen",
+  "Sign here with the mouse, a finger or a pen": "Onderteken hier met de muis, een vinger of een pen",
+  "Signature": "Handtekening",
+  "Split": "Splitsen",
+  "Split or extract pages": "Pagina's splitsen of uitpakken",
+  "Strength": "Sterkte",
+  "Strong": "Sterk",
+  "Style": "Stijl",
+  "Text": "Tekst",
+  "The password cannot contain a comma": "Het wachtwoord mag geen komma bevatten",
+  "The text recognition could not be loaded. Check the connection and try again.": "De tekstherkenning kon niet worden geladen. Controleer de verbinding en probeer het opnieuw.",
+  "The two passwords are different": "De twee wachtwoorden komen niet overeen",
+  "This picture could not be read.": "Deze afbeelding kon niet worden gelezen.",
+  "To Word, text or pictures": "Naar Word, tekst of afbeeldingen",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Om een Word-, Excel- of PowerPoint-bestand naar PDF om te zetten, gebruik je in dat programma Bestand › Opslaan als of Exporteren als PDF.",
+  "Tools": "Tools",
+  "Tools: sign, redact, OCR, split, convert…": "Tools: ondertekenen, zwartlakken, OCR, splitsen, converteren…",
+  "Top right": "Rechtsboven",
+  "Type": "Typen",
+  "Type it again": "Typ het opnieuw",
+  "Type the text of the watermark": "Typ de tekst van het watermerk",
+  "Type your name first": "Typ eerst je naam",
+  "Upload": "Uploaden",
+  "Use this signature": "Deze handtekening gebruiken",
+  "Watermark": "Watermerk",
+  "Watermark added. You can undo it.": "Watermerk toegevoegd. Je kunt dit ongedaan maken.",
+  "Where": "Positie",
+  "Word document": "Word-document",
+  "Word or number to remove everywhere": "Woord of getal dat overal moet verdwijnen",
+  "Your signatures (kept in this browser):": "Je handtekeningen (bewaard in deze browser):",
+  "ZIP archive": "ZIP-archief",
+  "drag over what must disappear, or mark a word everywhere": "sleep over wat moet verdwijnen, of markeer een woord overal",
+  "one picture per page": "één afbeelding per pagina",
+  "smaller files": "kleinere bestanden",
+  "the text, to edit it in Word; the layout is not kept": "de tekst, om in Word te bewerken; de opmaak blijft niet behouden"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "Klik waar ‘{name}’ moet komen (of sleep om de grootte te tekenen) en pas het daarna aan"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "Controleer de pagina's: nummers van 1 tot {n}, zoals 1-3, 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "‘{name}’ gedownload"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "PDF gemaakt van {n} afbeeldingen. Sla hem op om hem te bewaren."
+  ],
+  [
+   "Page {k} of {n}",
+   "Pagina {k} van {n}"
+  ],
+  [
+   "Page {n} of {total}",
+   "Pagina {n} van {total}"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "Tekst herkend op {n} pagina's: de PDF is nu doorzoekbaar en kopieerbaar. Je kunt dit ongedaan maken."
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "De gemarkeerde gebieden ({n}) worden definitief verwijderd: tekst, afbeeldingen en tekeningen eronder. Tot je de PDF sluit, kun je dit nog ongedaan maken; het opgeslagen bestand kan niet worden hersteld."
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "Deze PDF heeft {n} pagina's. Bijvoorbeeld: 1-3, 5, 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "{k} van de {n} pagina's hebben geen tekst (gescand)."
+  ],
+  [
+   "{n} areas marked",
+   "{n} gebieden gemarkeerd"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "{n} gebieden zwartgelakt. Sla de PDF op om dit te bewaren."
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "‘{word}’ komt niet voor in deze PDF"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "‘{word}’ {n} keer gemarkeerd. Controleer de pagina's en pas daarna toe."
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "‘{name}’ is geen afbeelding die deze editor kan lezen"
   ]
  ]
 }

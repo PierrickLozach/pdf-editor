@@ -357,6 +357,41 @@ function readPdfFont(f, nm) {
 
 
 
+
+/* ------------------------------------------------------------------ ZIP (stored, no compression) */
+let crcTable = null;
+/** files: [{name, bytes: Uint8Array | string}] -> the bytes of a .zip (used for .docx and bundles). */
+export function makeZip(files) {
+  const enc = new TextEncoder();
+  if (!crcTable) { crcTable = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; crcTable[n] = c >>> 0; } }
+  const crc = (b) => { let c = 0xffffffff; for (let i = 0; i < b.length; i++) c = crcTable[(c ^ b[i]) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+  const d = new Date();
+  const stamp = (((d.getFullYear() - 1980) << 9 | (d.getMonth() + 1) << 5 | d.getDate()) << 16 | (d.getHours() << 11 | d.getMinutes() << 5 | d.getSeconds() >> 1)) >>> 0;
+  const local = [], central = [];
+  let off = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), data = f.bytes instanceof Uint8Array ? f.bytes : enc.encode(String(f.bytes)), c = crc(data);
+    const h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true);
+    h.setUint32(10, stamp, true); h.setUint32(14, c, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true);
+    h.setUint16(26, name.length, true); h.setUint16(28, 0, true);
+    local.push(new Uint8Array(h.buffer), name, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint32(12, stamp, true); ch.setUint32(16, c, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true);
+    ch.setUint16(28, name.length, true); ch.setUint32(42, off, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    off += 30 + name.length + data.length;
+  }
+  const csize = central.reduce((a, b) => a + b.length, 0);
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, csize, true); e.setUint32(16, off, true);
+  const parts = [...local, ...central, new Uint8Array(e.buffer)];
+  const out = new Uint8Array(parts.reduce((a, b) => a + b.length, 0));
+  let p = 0; for (const b of parts) { out.set(b, p); p += b.length; }
+  return out;
+}
+
 /* ------------------------------------------------------------------ no trace of the editor in saved files */
 /** The file the engine wrote, without what would tell that it was rewritten: the engine's
  *  "% Written by MuPDF" comment (blanked, same length, so every offset stays valid) and a newer
@@ -988,7 +1023,7 @@ export class Engine {
   }
 
   /** Draw text lines. origin/dir in display coords; align uses extent [t0,t1] along dir. */
-  _drawText(page, origin, dir, text, fontRes, size, color, align = "left", extent = [0, 0]) {
+  _drawText(page, origin, dir, text, fontRes, size, color, align = "left", extent = [0, 0], opacity = 1) {
     const chain = fontRes.fonts || [fontRes];
     const inv = M.invert(page.getTransform());
     const [dx, dy] = dir, down = [-dy, dx];
@@ -996,7 +1031,8 @@ export class Engine {
     const lines = text.split("\n").map((line) => (line.trim() ? this._runs(chain, line) : null));
     const used = [...new Set(lines.flat().filter(Boolean).map((run) => run.fr))];
     const alias = this._aliases(page, used);
-    let ops = `q\n${fmt(r)} ${fmt(g)} ${fmt(b)} rg\nBT\n`;
+    const gs = opacity < 1 ? `/${this._alphaState(page, opacity)} gs\n` : "";
+    let ops = `q\n${gs}${fmt(r)} ${fmt(g)} ${fmt(b)} rg\nBT\n`;
     lines.forEach((runs, n) => {
       if (!runs) return;
       const w = runs.reduce((a, run) => a + run.adv, 0) * size;
@@ -1062,12 +1098,13 @@ export class Engine {
     appendContent(this.s.doc, page, `q\n${fmt(r)} ${fmt(g)} ${fmt(b)} rg\n${path}\nh f\nQ`);
   }
 
-  _redact(page, rects) {
+  _redact(page, rects, full = false) {
     for (const r of rects) {
       const a = page.createAnnotation("Redact");
       a.setRect(r);
     }
-    page.applyRedactions(false, mupdf.PDFPage.REDACT_IMAGE_NONE, mupdf.PDFPage.REDACT_LINE_ART_NONE, mupdf.PDFPage.REDACT_TEXT_REMOVE);
+    if (full) page.applyRedactions(true, mupdf.PDFPage.REDACT_IMAGE_PIXELS, mupdf.PDFPage.REDACT_LINE_ART_REMOVE_IF_COVERED, mupdf.PDFPage.REDACT_TEXT_REMOVE);
+    else page.applyRedactions(false, mupdf.PDFPage.REDACT_IMAGE_NONE, mupdf.PDFPage.REDACT_LINE_ART_NONE, mupdf.PDFPage.REDACT_TEXT_REMOVE);
   }
 
   /** Font descriptors on a page whose Ascent/Descent are far too large. MuPDF decides
@@ -1177,14 +1214,14 @@ export class Engine {
     appendContent(s.doc, page, ops);
   }
 
-  _redactOnly(pno, rects) {
+  _redactOnly(pno, rects, full = false) {
     const s = this.s;
     const bad = this._badFontDescs(s.doc.loadPage(pno));
-    if (!bad.length) { this._redact(s.doc.loadPage(pno), rects); return; }
+    if (!bad.length) { this._redact(s.doc.loadPage(pno), rects, full); return; }
     // Work on a fresh copy in which those fonts are loaded with sane metrics, then restore them.
     const tmp = mupdf.Document.openDocument(s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice(), "application/pdf").asPDF();
     for (const b of bad) { const fd = tmp.newIndirect(b.num); fd.put("Ascent", Math.min(b.asc, 950)); fd.put("Descent", Math.max(b.desc, -250)); }
-    this._redact(tmp.loadPage(pno), rects);
+    this._redact(tmp.loadPage(pno), rects, full);
     for (const b of bad) { const fd = tmp.newIndirect(b.num); fd.put("Ascent", b.asc); fd.put("Descent", b.desc); }
     s.doc = tmp;            // object numbers are unchanged, so fontRefs stay valid
     s.origCache = null;
@@ -1433,7 +1470,7 @@ export class Engine {
           origin: [rd(ink[0].origin[0] - ox), rd(ink[0].origin[1] - oy)],
           size: rd(sp.size), color: hex(sp.color), font: sp.font.replace(/^[A-Z]{6}\+/, ""), family: sp.info.display,
           bold: sp.bold, italic: sp.italic, serif: sp.serif, mono: sp.mono,
-          editable: !!rdir(l.dir), garbled: sp.text.includes("\ufffd"),
+          editable: !!rdir(l.dir) && !/GlyphLess/i.test(sp.fontName), ocr: /GlyphLess/i.test(sp.fontName), garbled: sp.text.includes("\ufffd"),
           displayDir: [rd(l.dir[0]), rd(l.dir[1])],
           matchedFont: pred.label, fontKind: pred.kind, exact: ["exact", "embedded", "free"].includes(pred.kind),
           compatLabel: pred.compatLabel || null, previewId: pred.previewId,
@@ -1861,6 +1898,259 @@ export class Engine {
     else this._dropCheckpoint();                 // nothing to compress: no undo step
     const after = this.export().length;
     return { ...this.info(), before, after, images: changed, changed: changed ? [...Array(doc.countPages()).keys()] : [] };
+  }
+
+
+  /* -------------------------------------------------- tools: redact, split, convert, protect, stamps, OCR */
+  /** Redact for good: what is under each box (text, pictures, drawings) is removed from the file and
+   *  a black box drawn. areas: [{page, rect: [x0, y0, x1, y1]}] in page coordinates. One undo step. */
+  async redact(areas) {
+    const s = this._need();
+    const by = new Map();
+    for (const a of areas || []) {
+      if (!(a.page >= 0 && a.page < s.doc.countPages())) continue;
+      const [ox, oy] = this._offset(s.doc.loadPage(a.page)), r = a.rect;
+      const rr = [Math.min(r[0], r[2]) + ox, Math.min(r[1], r[3]) + oy, Math.max(r[0], r[2]) + ox, Math.max(r[1], r[3]) + oy];
+      if (rr[2] - rr[0] < 0.5 || rr[3] - rr[1] < 0.5) continue;
+      if (!by.has(a.page)) by.set(a.page, []);
+      by.get(a.page).push(rr);
+    }
+    if (!by.size) throw new EditError("Nothing to redact");
+    this._checkpoint();
+    for (const [pno, rects] of by) this._redactOnly(pno, rects, true);
+    const changed = [...by.keys()];
+    await this._changed(changed);
+    return { ...this.info(), changed, redacted: [...by.values()].reduce((a, r) => a + r.length, 0) };
+  }
+
+  /** New PDFs made of some pages (the open document is not changed). parts: [[0, 1], [2]] -> [bytes] */
+  extract(parts) {
+    const s = this._need();
+    const base = new mupdf.PDFDocument(this.export());
+    const n = base.countPages();
+    const info = base.getTrailer().get("Info");
+    return parts.map((pages) => {
+      if (!pages.length) throw new EditError("No page chosen");
+      const out = new mupdf.PDFDocument();
+      const map = out.newGraftMap();
+      for (const p of pages) { if (!(p >= 0 && p < n)) throw new EditError("No such page"); map.graftPage(-1, base, p); }
+      if (info && !info.isNull()) out.getTrailer().put("Info", map.graftObject(info));    // same title, author…
+      return untraced(out.saveToBuffer("garbage=deduplicate,compress").asUint8Array().slice(), s.version);
+    });
+  }
+
+  /** Pages as pictures: [{page, bytes}], PNG or JPEG, 72 to 300 dpi. */
+  toImages(format = "png", dpi = 150, pages = null) {
+    const s = this._need();
+    const list = pages && pages.length ? pages : [...Array(s.doc.countPages()).keys()];
+    const sc = Math.max(72, Math.min(Number(dpi) || 150, 300)) / 72;
+    return list.map((p) => {
+      const pix = s.doc.loadPage(p).toPixmap(M.scale(sc, sc), mupdf.ColorSpace.DeviceRGB, false, true);
+      const b = format === "jpg" ? pix.asJPEG(90, false) : pix.asPNG();
+      const bytes = (b.asUint8Array ? b.asUint8Array() : b).slice();
+      pix.destroy();
+      return { page: p, bytes };
+    });
+  }
+
+  /** A page as a grey PNG, for text recognition. */
+  pagePng(pno, dpi = 300) {
+    const s = this._need();
+    const sc = Math.max(72, Math.min(Number(dpi) || 300, 400)) / 72;
+    const pix = s.doc.loadPage(pno).toPixmap(M.scale(sc, sc), mupdf.ColorSpace.DeviceGray, false, true);
+    const b = pix.asPNG(), bytes = (b.asUint8Array ? b.asUint8Array() : b).slice();
+    const w = pix.getWidth(), h = pix.getHeight();
+    pix.destroy();
+    return { bytes, w, h };
+  }
+
+  /** Pages with (almost) no text: the scans worth recognising. */
+  textlessPages() {
+    const s = this._need(), out = [];
+    for (let p = 0; p < s.doc.countPages(); p++) {
+      const t = s.doc.loadPage(p).toStructuredText("preserve-whitespace").asText().replace(/\s+/g, "");
+      if (t.length < 20) out.push(p);
+    }
+    return out;
+  }
+
+  /** The text, page after page. */
+  toText() {
+    const s = this._need(), out = [];
+    for (let p = 0; p < s.doc.countPages(); p++) out.push(s.doc.loadPage(p).toStructuredText("preserve-whitespace").asText().replace(/\s+$/, ""));
+    return out.join("\n\f\n") + "\n";
+  }
+
+  /** A Word document (.docx): the text in reading order, one paragraph per block, with its size,
+   *  bold and italic, and a page break between pages. Layout, pictures and tables are not kept. */
+  toDocx() {
+    const s = this._need();
+    const esc = (t) => String(t).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\ufffe\uffff]/g, "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const n = s.doc.countPages();
+    let body = "";
+    for (let p = 0; p < n; p++) {
+      const j = JSON.parse(s.doc.loadPage(p).toStructuredText("preserve-whitespace").asJSON());
+      for (const blk of j.blocks || []) {
+        if (blk.type !== "text" || !blk.lines) continue;
+        let runs = "";
+        blk.lines.forEach((ln, i) => {
+          const f = ln.font || {};
+          let t = String(ln.text || "").replace(/\s+$/, "");
+          if (!t) return;
+          const next = blk.lines[i + 1];
+          if (next) t = /[-\u00ad]$/.test(t) ? t.replace(/[-\u00ad]$/, "") : t + " ";      // re-join hyphenated lines
+          const font = String(f.name || "").replace(/^[A-Z]{6}\+/, "").replace(/[-,](Bold|Italic|Oblique|Regular|BoldItalic|MT|PS)+$/i, "").replace(/MT$|PSMT$/, "");
+          const bold = f.weight === "bold" || /bold|black|heavy/i.test(f.name || ""), italic = f.style === "italic" || /italic|oblique/i.test(f.name || "");
+          const sz = Math.max(2, Math.round((f.size || 11) * 2));
+          runs += `<w:r><w:rPr>${font ? `<w:rFonts w:ascii="${esc(font)}" w:hAnsi="${esc(font)}" w:cs="${esc(font)}"/>` : ""}${bold ? "<w:b/>" : ""}${italic ? "<w:i/>" : ""}<w:sz w:val="${sz}"/></w:rPr><w:t xml:space="preserve">${esc(t)}</w:t></w:r>`;
+        });
+        if (runs) body += `<w:p>${runs}</w:p>`;
+      }
+      if (p < n - 1) body += `<w:p><w:r><w:br w:type="page"/></w:r></w:p>`;
+    }
+    const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
+    return makeZip([
+      { name: "[Content_Types].xml", bytes: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>` },
+      { name: "_rels/.rels", bytes: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>` },
+      { name: "word/document.xml", bytes: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W}><w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>` },
+    ]);
+  }
+
+  /** A copy that needs a password to open (AES-256). The open document is not changed. */
+  protect(password, allowPrint = true, allowCopy = false) {
+    this._need();
+    password = String(password || "");
+    if (password.length < 4) throw new EditError("Choose a password of at least 4 characters");
+    if (password.includes(",")) throw new EditError("The password cannot contain a comma");
+    // permission bits (ISO 32000, table 22): 3 print, 4 modify, 5 copy, 11 assemble, 12 high-quality print
+    let perm = -1 & ~8 & ~1024;
+    if (!allowCopy) perm &= ~16;
+    if (!allowPrint) perm &= ~(4 | 2048);
+    const owner = [...crypto.getRandomValues(new Uint8Array(18))].map((b) => b.toString(16).padStart(2, "0")).join("");
+    const doc = new mupdf.PDFDocument(this.export());
+    const out = doc.saveToBuffer(`encrypt=aes-256,user-password=${password},owner-password=${owner},permissions=${perm},garbage=deduplicate,compress,regenerate-id=no`).asUint8Array().slice();
+    return untraced(out, null);                     // AES-256 needs PDF 1.7+: the version is not lowered
+  }
+
+  /** Page numbers. o: {format: "{n}" | "{n} / {total}" | "Page {n} of {total}" (already translated),
+   *  position: "bottom-center" | "bottom-right" | "bottom-left" | "top-right", size, start, skipFirst}. */
+  async pageNumbers(o = {}) {
+    const s = this._need();
+    const n = s.doc.countPages(), first = o.skipFirst ? 1 : 0;
+    if (first >= n) throw new EditError("No page to number");
+    const start = Number.isFinite(+o.start) ? Math.round(+o.start) : 1, size = Math.max(5, Math.min(Number(o.size) || 10, 48));
+    const format = String(o.format || "{n}"), pos = String(o.position || "bottom-center");
+    const total = start + (n - first) - 1;
+    const sample = format.replace(/\{n\}|\{total\}/g, "0123456789");
+    const fontRes = await this.resolveFont(null, sample, "b:liberationsans", false, false);
+    this._checkpoint();
+    const changed = [];
+    for (let p = first; p < n; p++) {
+      const page = s.doc.loadPage(p), b = page.getBounds(), m = 28;
+      const text = format.replace("{n}", String(start + p - first)).replace("{total}", String(total));
+      const y = pos.startsWith("top") ? b[1] + m + size * 0.8 : b[3] - m;
+      const align = pos.endsWith("right") ? "right" : pos.endsWith("left") ? "left" : "center";
+      this._drawText(page, [b[0] + m, y], [1, 0], text, fontRes, size, o.color || "#333333", align, [0, b[2] - b[0] - 2 * m]);
+      changed.push(p);
+    }
+    await this._changed(changed);
+    return { ...this.info(), changed };
+  }
+
+  /** A watermark across every page: semi-transparent text along the diagonal. */
+  async watermark(text, o = {}) {
+    const s = this._need();
+    text = String(text || "").replace(/\s+/g, " ").trim();
+    if (!text) throw new EditError("Empty text");
+    const fontRes = await this.resolveFont(null, text, "b:liberationsans", true, false);
+    const chain = fontRes.fonts || [fontRes];
+    const adv = this._runs(chain, text).reduce((a, r) => a + r.adv, 0) || 1;
+    const opacity = Math.max(0.05, Math.min(Number(o.opacity) || 0.18, 1));
+    this._checkpoint();
+    const changed = [];
+    for (let p = 0; p < s.doc.countPages(); p++) {
+      const page = s.doc.loadPage(p), b = page.getBounds(), w = b[2] - b[0], h = b[3] - b[1];
+      const a = Math.atan2(h, w), dir = [Math.cos(a), -Math.sin(a)], down = [-dir[1], dir[0]];
+      const size = Math.min(Number(o.size) || 1e9, (Math.hypot(w, h) * 0.75) / adv, h / 4);
+      const c = [b[0] + w / 2, b[1] + h / 2], half = (adv * size) / 2;
+      const origin = [c[0] - dir[0] * half + down[0] * size * 0.35, c[1] - dir[1] * half + down[1] * size * 0.35];
+      this._drawText(page, origin, dir, text, fontRes, size, o.color || "#c0392b", "left", [0, 0], opacity);
+      changed.push(p);
+    }
+    await this._changed(changed);
+    return { ...this.info(), changed };
+  }
+
+  _alphaState(page, alpha) {
+    const doc = this.s.doc, res = pageResources(doc, page.getObject()), gs = subDict(doc, res, "ExtGState");
+    const name = "PDFEa" + Math.round(alpha * 100);
+    const cur = gs.get(name);
+    if (!cur || cur.isNull()) {
+      const d = doc.newDictionary();
+      d.put("Type", doc.newName("ExtGState")); d.put("ca", alpha); d.put("CA", alpha);
+      gs.put(name, doc.addObject(d));
+    }
+    return name;
+  }
+
+  /** Make scans searchable. layers: [{page, pdf}] where pdf is the one-page PDF the text recogniser
+   *  made from a picture of the page (picture + invisible text). Only its invisible text is laid over
+   *  the page, stretched to the page: nothing visible changes. One undo step. */
+  async addTextLayer(layers) {
+    const s = this._need();
+    this._checkpoint();
+    const changed = [];
+    for (const { page: pno, pdf } of layers || []) {
+      let src;
+      try { src = new mupdf.PDFDocument(pdf instanceof Uint8Array ? pdf : new Uint8Array(pdf)); } catch (e) { continue; }
+      const sp = src.loadPage(0), sb = sp.getBounds(), spo = sp.getObject();
+      const W = sb[2] - sb[0], H = sb[3] - sb[1];
+      const ops = readContents(spo).replace(/q\s+[-\d.\s]+cm\s+\/[^\s/]+\s+Do\s+Q/g, "");      // drop the picture
+      if (!/BT[\s\S]*?Tj|BT[\s\S]*?TJ/.test(ops)) continue;
+      const map = s.doc.newGraftMap();
+      const res = s.doc.newDictionary();
+      const fonts = spo.get("Resources") && spo.get("Resources").get("Font");
+      if (fonts && !fonts.isNull()) res.put("Font", map.graftObject(fonts));
+      const xo = s.doc.addStream(ops, {});
+      xo.put("Type", s.doc.newName("XObject")); xo.put("Subtype", s.doc.newName("Form"));
+      const bbox = s.doc.newArray(); for (const v of [0, 0, W, H]) bbox.push(v); xo.put("BBox", bbox);
+      xo.put("Resources", res);
+      const page = s.doc.loadPage(pno), b = page.getBounds(), w = b[2] - b[0], h = b[3] - b[1];
+      const cm = M.concat([w / W, 0, 0, -h / H, b[0], b[1] + h], M.invert(page.getTransform()));
+      const xod = subDict(s.doc, pageResources(s.doc, page.getObject()), "XObject");
+      const name = "PDFEOcr" + this._tok().slice(0, 5);
+      xod.put(name, xo);
+      appendContent(s.doc, page, `q\n${cm.map(fmt).join(" ")} cm\n/${name} Do\nQ`);
+      changed.push(pno);
+    }
+    if (!changed.length) { this._dropCheckpoint(); return { ...this.info(), changed: [] }; }
+    await this._changed(changed);
+    return { ...this.info(), changed };
+  }
+
+  /** A new PDF from pictures (JPEG, PNG, GIF, BMP, TIFF), one page each, then opened.
+   *  o.size: "a4" (fitted on A4 with margins, portrait or landscape) or "fit" (the picture's size). */
+  fromImages(list, o = {}) {
+    if (!list || !list.length) throw new EditError("No picture chosen");
+    const out = new mupdf.PDFDocument();
+    for (const im of list) {
+      let img;
+      try { img = new mupdf.Image(im.bytes instanceof Uint8Array ? im.bytes : new Uint8Array(im.bytes)); }
+      catch (e) { throw new EditError(`“${im.name}” is not a picture this editor can read`); }
+      const iw = img.getWidth(), ih = img.getHeight(), xr = img.getXResolution() || 96, yr = img.getYResolution() || 96;
+      let pw, ph, w, h, x, y;
+      if (o.size === "fit") { pw = w = iw * 72 / xr; ph = h = ih * 72 / yr; x = y = 0; }
+      else {
+        const land = iw > ih; pw = land ? 842 : 595; ph = land ? 595 : 842;
+        const m = 28, sc = Math.min((pw - 2 * m) / iw, (ph - 2 * m) / ih);
+        w = iw * sc; h = ih * sc; x = (pw - w) / 2; y = (ph - h) / 2;
+      }
+      const ref = out.addImage(img);
+      const res = out.addObject({ XObject: { Im0: ref } });
+      out.insertPage(-1, out.addPage([0, 0, pw, ph], 0, res, `q ${fmt(w)} 0 0 ${fmt(h)} ${fmt(x)} ${fmt(y)} cm /Im0 Do Q`));
+    }
+    const bytes = out.saveToBuffer("garbage=deduplicate,compress").asUint8Array().slice();
+    return this.open(untraced(bytes, null), o.name || "images.pdf");
   }
 
   /** Active content in the PDF: scripts, actions that open programs or web pages on their own,

@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "拖动图像可移动位置，拖动角可调整大小。按 Enter 或“添加”完成，按 Esc 取消。",
   "Image added. You can undo it.": "已添加图像。可以撤销。",
   "Undo": "撤销",
-  "Redo": "重做"
+  "Redo": "重做",
+  "1 area marked": "已标记 1 个区域",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "白纸上签名的照片或扫描件：纸张部分会变为透明。",
+  "A word across every page": "在每一页上加一段文字",
+  "Add numbers": "添加页码",
+  "Add watermark": "添加水印",
+  "Adding the text to the PDF…": "正在将文本添加到 PDF…",
+  "All pages": "所有页面",
+  "Allow copying the text": "允许复制文本",
+  "Allow printing": "允许打印",
+  "Apply redactions": "应用涂黑",
+  "Apply redactions?": "要应用涂黑吗？",
+  "Black": "黑色",
+  "Blue": "蓝色",
+  "Bottom left": "左下",
+  "Bottom right": "右下",
+  "Bottom, centred": "底部居中",
+  "CONFIDENTIAL": "机密",
+  "Choose a password of at least 4 characters": "请设置至少 4 个字符的密码",
+  "Choose a picture of your signature first": "请先选择签名图片",
+  "Clear": "清除",
+  "Click to unmark": "点击取消标记",
+  "Click where the signature goes, then adjust it": "点击要放置签名的位置，然后调整",
+  "Colour": "颜色",
+  "Compress photos and scans": "压缩照片和扫描件",
+  "Convert": "转换",
+  "Create a PDF from pictures": "用图片创建 PDF",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "在此浏览器中完成：页面绝不会被上传。每页约需 2 到 5 秒；语言数据（1 到 3 MB）只需下载一次。",
+  "Drag over the area to redact": "拖动框选要涂黑的区域",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "拖动框选要永久删除的内容。点击已标记的区域可取消标记。",
+  "Draw": "手写",
+  "Draw your signature first": "请先手写签名",
+  "Draw, type or upload your signature": "手写、输入或上传签名",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "所有页面都已包含文本。只有扫描质量较差时才需要重新识别。",
+  "Extract pages into one new PDF": "将页面提取到一个新 PDF",
+  "File": "文件",
+  "First number": "起始页码",
+  "Forget this signature": "删除此签名",
+  "Grey": "灰色",
+  "JPEG image": "JPEG 图像",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "请妥善保管密码：没有密码，任何人都无法打开此 PDF。受保护的副本是一个新文件；此处打开的 PDF 不会改变。",
+  "Language of the document": "文档语言",
+  "Light": "浅",
+  "Make searchable (OCR)": "使其可搜索 (OCR)",
+  "Mark all": "全部标记",
+  "Medium": "中",
+  "No page chosen": "未选择页面",
+  "No page of this PDF has text: it looks scanned.": "此 PDF 的所有页面都没有文本：似乎是扫描件。",
+  "No page to number": "没有需要编号的页面",
+  "No picture chosen": "未选择图片",
+  "No text was found on these pages.": "在这些页面上未找到文本。",
+  "Not on the first page (cover)": "首页（封面）不加",
+  "Nothing to redact": "没有要涂黑的内容",
+  "Number every page": "为每一页编号",
+  "One PDF per page": "每页一个 PDF",
+  "One PDF per range": "每个范围一个 PDF",
+  "Only people with the password can open it": "只有知道密码的人才能打开",
+  "Only the pages without text": "仅无文本的页面",
+  "PDF made from the picture. Save it to keep it.": "已用图片创建 PDF。请保存以保留。",
+  "PNG image": "PNG 图像",
+  "Page numbers": "页码",
+  "Page numbers added. You can undo it.": "已添加页码。可以撤销。",
+  "Password": "密码",
+  "Picture quality": "图片质量",
+  "Pictures": "图片",
+  "Place the signature": "放置签名",
+  "Please choose pictures (JPEG, PNG…)": "请选择图片（JPEG、PNG…）",
+  "Print (300 dpi)": "打印 (300 dpi)",
+  "Protect": "保护",
+  "Protect with a password": "用密码保护",
+  "Recognise text": "识别文本",
+  "Recognise the text of scanned pages": "识别扫描页面中的文本",
+  "Recognising text…": "正在识别文本…",
+  "Red": "红色",
+  "Redact": "涂黑",
+  "Remember it in this browser": "在此浏览器中记住",
+  "Remove private text and pictures for good": "永久删除私密文本和图片",
+  "Screen (150 dpi)": "屏幕 (150 dpi)",
+  "Second language (optional)": "第二语言（可选）",
+  "Separate PDFs from some pages": "将部分页面拆为单独的 PDF",
+  "Sign": "签名",
+  "Sign here with the mouse, a finger or a pen": "在此处用鼠标、手指或触控笔签名",
+  "Signature": "签名",
+  "Split": "拆分",
+  "Split or extract pages": "拆分或提取页面",
+  "Strength": "浓度",
+  "Strong": "深",
+  "Style": "样式",
+  "Text": "文本",
+  "The password cannot contain a comma": "密码不能包含逗号",
+  "The text recognition could not be loaded. Check the connection and try again.": "无法加载文本识别。请检查网络连接，然后重试。",
+  "The two passwords are different": "两次输入的密码不一致",
+  "This picture could not be read.": "无法读取此图片。",
+  "To Word, text or pictures": "转为 Word、文本或图片",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "要将 Word、Excel 或 PowerPoint 文件转换为 PDF，请在该程序中使用“文件 › 另存为”或“导出为 PDF”。",
+  "Tools": "工具",
+  "Tools: sign, redact, OCR, split, convert…": "工具：签名、涂黑、OCR、拆分、转换…",
+  "Top right": "右上",
+  "Type": "输入",
+  "Type it again": "再次输入",
+  "Type the text of the watermark": "输入水印文字",
+  "Type your name first": "请先输入姓名",
+  "Upload": "上传",
+  "Use this signature": "使用此签名",
+  "Watermark": "水印",
+  "Watermark added. You can undo it.": "已添加水印。可以撤销。",
+  "Where": "位置",
+  "Word document": "Word 文档",
+  "Word or number to remove everywhere": "要在所有位置删除的文字或数字",
+  "Your signatures (kept in this browser):": "你的签名（保存在此浏览器中）：",
+  "ZIP archive": "ZIP 压缩包",
+  "drag over what must disappear, or mark a word everywhere": "框选要删除的内容，或标记所有出现的某个词",
+  "one picture per page": "每页一张图片",
+  "smaller files": "文件更小",
+  "the text, to edit it in Word; the layout is not kept": "仅文本，可在 Word 中编辑；不保留版式"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "在要放置“{name}”的位置单击（或拖动以绘制大小），然后调整"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "请检查页码：1 到 {n} 之间的数字，例如 1-3, 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "已下载“{name}”"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "已用 {n} 张图片创建 PDF。请保存以保留。"
+  ],
+  [
+   "Page {k} of {n}",
+   "第 {k} 页，共 {n} 页"
+  ],
+  [
+   "Page {n} of {total}",
+   "第 {n} 页，共 {total} 页"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "已识别 {n} 页的文本：现在可以搜索和复制此 PDF 的内容。可以撤销。"
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "已标记的区域（{n} 个）将被永久删除，包括其下的文本、图片和图形。关闭 PDF 之前仍可撤销；保存后的文件无法恢复。"
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "此 PDF 共 {n} 页。例如：1-3, 5, 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "{n} 页中有 {k} 页没有文本（扫描件）。"
+  ],
+  [
+   "{n} areas marked",
+   "已标记 {n} 个区域"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "已涂黑 {n} 个区域。请保存 PDF 以保留更改。"
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "此 PDF 中没有“{word}”"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "“{word}”已标记 {n} 处。请检查页面，然后应用。"
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "“{name}”不是此编辑器可以读取的图片"
   ]
  ]
 }

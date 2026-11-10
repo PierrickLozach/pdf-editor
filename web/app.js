@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=b9b229c9e3", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=2c973910db", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -320,6 +320,7 @@ function freePage(el) {
 function refreshPage(i) {
   const el = pageEl(i);
   if (!el) return;
+  if (window.REDACT && REDACT.on) setTimeout(() => REDACT.redraw(), 0);
   $(".spans", el).innerHTML = "";
   el.dataset.spansV = "";
   const nt = $(".notext", el); if (nt) nt.remove();
@@ -345,6 +346,7 @@ function setZoom(z, anchorY) {
   drawHits();
   updateButtons();
   if (window.PLACE) PLACE.redraw();
+  if (window.REDACT && REDACT.on) REDACT.redraw();
 }
 
 function zoomStep(dir) {
@@ -839,12 +841,12 @@ function bindLayer(el, i) {
       setTimeout(() => startAdd(i, p.x, p.y), 0);
       return;
     }
-    if (S.tool !== "erase" && S.tool !== "image") return;
+    if (S.tool !== "erase" && S.tool !== "image" && S.tool !== "redact") return;
     if (S.tool === "image" && window.PLACE && PLACE.active) return;     // the open frame decides (add or cancel)
     e.preventDefault();
     const a = ptFromEvent(el, e);
     const rb = document.createElement("div");
-    rb.className = "rubber" + (S.tool === "erase" ? " erase" : "");
+    rb.className = "rubber" + (S.tool === "erase" ? " erase" : S.tool === "redact" ? " redact" : "");
     layer.appendChild(rb);
     let b = a;
     const move = ev => {
@@ -860,6 +862,12 @@ function bindLayer(el, i) {
       const pg = S.doc.pages[i];
       let rect = [Math.min(a.x, b.x), Math.min(a.y, b.y), Math.max(a.x, b.x), Math.max(a.y, b.y)];
       const small = rect[2] - rect[0] < 4 || rect[3] - rect[1] < 4;
+      if (S.tool === "redact") {
+        rb.remove();
+        if (small) return toast("Drag over the area to redact");
+        REDACT.add(i, rect);             // marked only; removed for good when “Apply redactions” is pressed
+        return;
+      }
       if (S.tool === "erase") {
         if (small) { rb.remove(); return toast("Drag to draw the area to white out"); }
         await busy(async () => applyInfo(await call("erase", i, rect)));
@@ -1131,6 +1139,7 @@ function init() {
     else if (k === "t") setTool("add");
     else if (k === "w") setTool("erase");
     else if (k === "i") setTool("image");
+    else if (k === "r" && window.REDACT) REDACT.start();
     else if (e.key === "Escape" && !$("#findPanel").hidden) closeFind();
     else if (e.key === "Alt") document.body.classList.add("show-boxes");
   });

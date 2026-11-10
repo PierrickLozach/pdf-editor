@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "גוררים את התמונה כדי להזיז אותה, ופינה כדי לשנות את גודלה. Enter או \"הוספה\" לסיום, Esc לביטול.",
   "Image added. You can undo it.": "התמונה נוספה. אפשר לבטל.",
   "Undo": "ביטול",
-  "Redo": "ביצוע מחדש"
+  "Redo": "ביצוע מחדש",
+  "1 area marked": "אזור אחד סומן",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "תמונה או סריקה של החתימה על נייר לבן: הנייר יהפוך לשקוף.",
+  "A word across every page": "מילה לרוחב כל עמוד",
+  "Add numbers": "הוספת מספרים",
+  "Add watermark": "הוספת סימן מים",
+  "Adding the text to the PDF…": "הטקסט מתווסף ל-PDF…",
+  "All pages": "כל העמודים",
+  "Allow copying the text": "לאפשר העתקת טקסט",
+  "Allow printing": "לאפשר הדפסה",
+  "Apply redactions": "החלת ההשחרות",
+  "Apply redactions?": "להחיל את ההשחרות?",
+  "Black": "שחור",
+  "Blue": "כחול",
+  "Bottom left": "למטה משמאל",
+  "Bottom right": "למטה מימין",
+  "Bottom, centred": "למטה, במרכז",
+  "CONFIDENTIAL": "חסוי",
+  "Choose a password of at least 4 characters": "יש לבחור סיסמה בת 4 תווים לפחות",
+  "Choose a picture of your signature first": "יש לבחור קודם תמונה של החתימה",
+  "Clear": "ניקוי",
+  "Click to unmark": "לחיצה לביטול הסימון",
+  "Click where the signature goes, then adjust it": "יש ללחוץ במקום שבו תופיע החתימה ואז לכוונן אותה",
+  "Colour": "צבע",
+  "Compress photos and scans": "דחיסת תמונות וסריקות",
+  "Convert": "המרה",
+  "Create a PDF from pictures": "יצירת PDF מתמונות",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "התהליך מתבצע בדפדפן הזה: העמודים אף פעם לא מועלים. כ-2 עד 5 שניות לעמוד; נתוני השפה (1 עד 3 MB) יורדים פעם אחת.",
+  "Drag over the area to redact": "יש לגרור מעל האזור להשחרה",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "יש לגרור מעל מה שצריך להיעלם לצמיתות. לחיצה על אזור מסומן מבטלת את הסימון.",
+  "Draw": "ציור",
+  "Draw your signature first": "יש לצייר קודם את החתימה",
+  "Draw, type or upload your signature": "ציור, הקלדה או העלאה של החתימה",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "בכל העמודים כבר יש טקסט. זיהוי חוזר מועיל רק לסריקות באיכות נמוכה.",
+  "Extract pages into one new PDF": "חילוץ עמודים ל-PDF חדש אחד",
+  "File": "קובץ",
+  "First number": "מספר ראשון",
+  "Forget this signature": "שכחת החתימה הזו",
+  "Grey": "אפור",
+  "JPEG image": "תמונת JPEG",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "חשוב לשמור את הסיסמה במקום בטוח: בלעדיה אי אפשר לפתוח את ה-PDF. העותק המוגן הוא קובץ חדש; ה-PDF הפתוח כאן לא משתנה.",
+  "Language of the document": "שפת המסמך",
+  "Light": "חלש",
+  "Make searchable (OCR)": "הפיכה לניתן לחיפוש (OCR)",
+  "Mark all": "סימון הכול",
+  "Medium": "בינוני",
+  "No page chosen": "לא נבחר עמוד",
+  "No page of this PDF has text: it looks scanned.": "באף עמוד ב-PDF הזה אין טקסט: נראה שהוא סרוק.",
+  "No page to number": "אין עמודים למספור",
+  "No picture chosen": "לא נבחרה תמונה",
+  "No text was found on these pages.": "לא נמצא טקסט בעמודים האלה.",
+  "Not on the first page (cover)": "לא בעמוד הראשון (שער)",
+  "Nothing to redact": "אין מה להשחיר",
+  "Number every page": "מספור כל העמודים",
+  "One PDF per page": "PDF אחד לכל עמוד",
+  "One PDF per range": "PDF אחד לכל טווח",
+  "Only people with the password can open it": "רק מי שיש לו את הסיסמה יוכל לפתוח אותו",
+  "Only the pages without text": "רק העמודים ללא טקסט",
+  "PDF made from the picture. Save it to keep it.": "נוצר PDF מהתמונה. יש לשמור אותו כדי לא לאבד אותו.",
+  "PNG image": "תמונת PNG",
+  "Page numbers": "מספרי עמודים",
+  "Page numbers added. You can undo it.": "מספרי העמודים נוספו. אפשר לבטל את הפעולה.",
+  "Password": "סיסמה",
+  "Picture quality": "איכות התמונות",
+  "Pictures": "תמונות",
+  "Place the signature": "מיקום החתימה",
+  "Please choose pictures (JPEG, PNG…)": "יש לבחור תמונות (JPEG, PNG…)",
+  "Print (300 dpi)": "הדפסה (300 dpi)",
+  "Protect": "הגנה",
+  "Protect with a password": "הגנה באמצעות סיסמה",
+  "Recognise text": "זיהוי טקסט",
+  "Recognise the text of scanned pages": "זיהוי הטקסט בעמודים סרוקים",
+  "Recognising text…": "הטקסט מזוהה…",
+  "Red": "אדום",
+  "Redact": "השחרה",
+  "Remember it in this browser": "לזכור בדפדפן הזה",
+  "Remove private text and pictures for good": "הסרה לצמיתות של טקסט ותמונות פרטיים",
+  "Screen (150 dpi)": "מסך (150 dpi)",
+  "Second language (optional)": "שפה שנייה (לא חובה)",
+  "Separate PDFs from some pages": "קובצי PDF נפרדים מחלק מהעמודים",
+  "Sign": "חתימה",
+  "Sign here with the mouse, a finger or a pen": "אפשר לחתום כאן בעכבר, באצבע או בעט",
+  "Signature": "חתימה",
+  "Split": "פיצול",
+  "Split or extract pages": "פיצול או חילוץ עמודים",
+  "Strength": "עוצמה",
+  "Strong": "חזק",
+  "Style": "סגנון",
+  "Text": "טקסט",
+  "The password cannot contain a comma": "הסיסמה לא יכולה להכיל פסיק",
+  "The text recognition could not be loaded. Check the connection and try again.": "לא ניתן היה לטעון את זיהוי הטקסט. יש לבדוק את החיבור ולנסות שוב.",
+  "The two passwords are different": "שתי הסיסמאות שונות",
+  "This picture could not be read.": "לא ניתן היה לקרוא את התמונה הזו.",
+  "To Word, text or pictures": "ל-Word, לטקסט או לתמונות",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "כדי להפוך קובץ Word, Excel או PowerPoint ל-PDF, יש להשתמש באפשרות קובץ › שמירה בשם או ייצוא כ-PDF באותה תוכנה.",
+  "Tools": "כלים",
+  "Tools: sign, redact, OCR, split, convert…": "כלים: חתימה, השחרה, OCR, פיצול, המרה…",
+  "Top right": "למעלה מימין",
+  "Type": "הקלדה",
+  "Type it again": "יש להקליד אותה שוב",
+  "Type the text of the watermark": "יש להקליד את הטקסט של סימן המים",
+  "Type your name first": "יש להקליד קודם את השם",
+  "Upload": "העלאה",
+  "Use this signature": "שימוש בחתימה הזו",
+  "Watermark": "סימן מים",
+  "Watermark added. You can undo it.": "סימן המים נוסף. אפשר לבטל את הפעולה.",
+  "Where": "מיקום",
+  "Word document": "מסמך Word",
+  "Word or number to remove everywhere": "מילה או מספר להסרה מכל מקום",
+  "Your signatures (kept in this browser):": "החתימות שלך (שמורות בדפדפן הזה):",
+  "ZIP archive": "ארכיון ZIP",
+  "drag over what must disappear, or mark a word everywhere": "גרירה מעל מה שצריך להיעלם, או סימון מילה בכל מקום",
+  "one picture per page": "תמונה אחת לכל עמוד",
+  "smaller files": "קבצים קטנים יותר",
+  "the text, to edit it in Word; the layout is not kept": "הטקסט, לעריכה ב-Word; הפריסה לא נשמרת"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "לוחצים במקום שבו \"{name}\" צריכה להופיע (או גוררים כדי לסמן את הגודל), ואז מכוונים"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "יש לבדוק את העמודים: מספרים מ-1 עד {n}, למשל 1-3, 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "הקובץ \"{name}\" הורד"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "נוצר PDF מ-{n} תמונות. יש לשמור אותו כדי לא לאבד אותו."
+  ],
+  [
+   "Page {k} of {n}",
+   "עמוד {k} מתוך {n}"
+  ],
+  [
+   "Page {n} of {total}",
+   "עמוד {n} מתוך {total}"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "זוהה טקסט ב-{n} עמודים: עכשיו אפשר לחפש ולהעתיק ב-PDF. אפשר לבטל את הפעולה."
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "האזורים המסומנים ({n}) יוסרו לצמיתות, כולל הטקסט, התמונות והציורים שמתחתם. אפשר לבטל את הפעולה עד לסגירת ה-PDF; את הקובץ השמור אי אפשר לשחזר."
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "ב-PDF הזה יש {n} עמודים. לדוגמה: 1-3, 5, 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "ב-{k} מתוך {n} עמודים אין טקסט (סרוקים)."
+  ],
+  [
+   "{n} areas marked",
+   "{n} אזורים סומנו"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "{n} אזורים הושחרו. יש לשמור את ה-PDF כדי לשמור את השינוי."
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "\"{word}\" לא מופיע ב-PDF הזה"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "\"{word}\" סומן {n} פעמים. יש לבדוק את העמודים ואז להחיל."
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "\"{name}\" אינו תמונה שהעורך הזה יכול לקרוא"
   ]
  ]
 }

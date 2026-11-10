@@ -1,0 +1,2 @@
+tesseract.js 7.0.0 and tesseract.js-core 6.1.2 (Apache-2.0), language models @tesseract.js-data 4.0.0_best_int (Apache-2.0).
+https://github.com/naptha/tesseract.js  https://github.com/tesseract-ocr/tessdata

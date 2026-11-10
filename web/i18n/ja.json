@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "画像をドラッグして移動し、角をドラッグしてサイズを変更します。Enter キーまたは「追加」で完了、Esc でキャンセルします。",
   "Image added. You can undo it.": "画像を追加しました。取り消すことができます。",
   "Undo": "元に戻す",
-  "Redo": "やり直す"
+  "Redo": "やり直す",
+  "1 area marked": "1 か所をマークしました",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "白い紙に書いた署名の写真またはスキャン画像：紙の部分は透明になります。",
+  "A word across every page": "すべてのページに文字を重ねます",
+  "Add numbers": "番号を追加",
+  "Add watermark": "透かしを追加",
+  "Adding the text to the PDF…": "PDF にテキストを追加しています…",
+  "All pages": "すべてのページ",
+  "Allow copying the text": "テキストのコピーを許可",
+  "Allow printing": "印刷を許可",
+  "Apply redactions": "墨消しを適用",
+  "Apply redactions?": "墨消しを適用しますか？",
+  "Black": "黒",
+  "Blue": "青",
+  "Bottom left": "左下",
+  "Bottom right": "右下",
+  "Bottom, centred": "下部中央",
+  "CONFIDENTIAL": "社外秘",
+  "Choose a password of at least 4 characters": "4 文字以上のパスワードを設定してください",
+  "Choose a picture of your signature first": "先に署名の画像を選択してください",
+  "Clear": "消去",
+  "Click to unmark": "クリックしてマークを解除",
+  "Click where the signature goes, then adjust it": "署名を入れる位置をクリックしてから調整してください",
+  "Colour": "色",
+  "Compress photos and scans": "写真やスキャンを圧縮",
+  "Convert": "変換",
+  "Create a PDF from pictures": "画像から PDF を作成",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "このブラウザ内で処理され、ページがアップロードされることはありません。1 ページあたり約 2〜5 秒かかります。言語データ（1〜3 MB）は最初に一度だけダウンロードされます。",
+  "Drag over the area to redact": "墨消しする範囲をドラッグしてください",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "完全に消去する部分をドラッグしてください。マークした範囲をクリックするとマークを解除できます。",
+  "Draw": "手書き",
+  "Draw your signature first": "先に署名を手書きしてください",
+  "Draw, type or upload your signature": "署名を手書き、入力、またはアップロード",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "すべてのページにすでにテキストがあります。再認識が役立つのは画質の悪いスキャンの場合だけです。",
+  "Extract pages into one new PDF": "ページを抽出して 1 つの新しい PDF に",
+  "File": "ファイル",
+  "First number": "開始番号",
+  "Forget this signature": "この署名を削除",
+  "Grey": "グレー",
+  "JPEG image": "JPEG 画像",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "パスワードは大切に保管してください。パスワードがないと誰も PDF を開けません。保護されたコピーは新しいファイルとして作成され、ここで開いている PDF は変更されません。",
+  "Language of the document": "文書の言語",
+  "Light": "薄い",
+  "Make searchable (OCR)": "検索可能にする (OCR)",
+  "Mark all": "すべてマーク",
+  "Medium": "普通",
+  "No page chosen": "ページが選択されていません",
+  "No page of this PDF has text: it looks scanned.": "この PDF のどのページにもテキストがありません。スキャンされた文書のようです。",
+  "No page to number": "番号を付けるページがありません",
+  "No picture chosen": "画像が選択されていません",
+  "No text was found on these pages.": "これらのページにテキストは見つかりませんでした。",
+  "Not on the first page (cover)": "最初のページ（表紙）には付けない",
+  "Nothing to redact": "墨消しする内容がありません",
+  "Number every page": "すべてのページに番号を付けます",
+  "One PDF per page": "1 ページごとに 1 つの PDF",
+  "One PDF per range": "範囲ごとに 1 つの PDF",
+  "Only people with the password can open it": "パスワードを知っている人だけが開けます",
+  "Only the pages without text": "テキストのないページのみ",
+  "PDF made from the picture. Save it to keep it.": "画像から PDF を作成しました。残すには保存してください。",
+  "PNG image": "PNG 画像",
+  "Page numbers": "ページ番号",
+  "Page numbers added. You can undo it.": "ページ番号を追加しました。元に戻すこともできます。",
+  "Password": "パスワード",
+  "Picture quality": "画質",
+  "Pictures": "画像",
+  "Place the signature": "署名を配置",
+  "Please choose pictures (JPEG, PNG…)": "画像（JPEG、PNG…）を選択してください",
+  "Print (300 dpi)": "印刷用 (300 dpi)",
+  "Protect": "保護",
+  "Protect with a password": "パスワードで保護",
+  "Recognise text": "テキストを認識",
+  "Recognise the text of scanned pages": "スキャンしたページの文字を認識",
+  "Recognising text…": "テキストを認識しています…",
+  "Red": "赤",
+  "Redact": "墨消し",
+  "Remember it in this browser": "このブラウザに保存する",
+  "Remove private text and pictures for good": "非公開のテキストや画像を完全に削除",
+  "Screen (150 dpi)": "画面用 (150 dpi)",
+  "Second language (optional)": "第 2 言語（省略可）",
+  "Separate PDFs from some pages": "一部のページを別々の PDF に",
+  "Sign": "署名",
+  "Sign here with the mouse, a finger or a pen": "マウス、指、またはペンでここに署名してください",
+  "Signature": "署名",
+  "Split": "分割",
+  "Split or extract pages": "ページの分割・抽出",
+  "Strength": "濃さ",
+  "Strong": "濃い",
+  "Style": "スタイル",
+  "Text": "テキスト",
+  "The password cannot contain a comma": "パスワードにカンマは使用できません",
+  "The text recognition could not be loaded. Check the connection and try again.": "文字認識を読み込めませんでした。接続を確認して、もう一度お試しください。",
+  "The two passwords are different": "2 つのパスワードが一致しません",
+  "This picture could not be read.": "この画像を読み込めませんでした。",
+  "To Word, text or pictures": "Word、テキスト、画像に変換",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Word、Excel、PowerPoint のファイルを PDF にするには、そのアプリで「ファイル › 名前を付けて保存」または「PDF としてエクスポート」を使用してください。",
+  "Tools": "ツール",
+  "Tools: sign, redact, OCR, split, convert…": "ツール：署名、墨消し、OCR、分割、変換…",
+  "Top right": "右上",
+  "Type": "入力",
+  "Type it again": "もう一度入力",
+  "Type the text of the watermark": "透かしの文字を入力してください",
+  "Type your name first": "先に名前を入力してください",
+  "Upload": "アップロード",
+  "Use this signature": "この署名を使用",
+  "Watermark": "透かし",
+  "Watermark added. You can undo it.": "透かしを追加しました。元に戻すこともできます。",
+  "Where": "位置",
+  "Word document": "Word 文書",
+  "Word or number to remove everywhere": "すべての箇所から削除する語句または数字",
+  "Your signatures (kept in this browser):": "保存した署名（このブラウザ内）：",
+  "ZIP archive": "ZIP アーカイブ",
+  "drag over what must disappear, or mark a word everywhere": "消す部分をドラッグ、または語句をすべてマーク",
+  "one picture per page": "1 ページにつき 1 枚の画像",
+  "smaller files": "ファイルが小さい",
+  "the text, to edit it in Word; the layout is not kept": "テキストのみ。Word で編集できます。レイアウトは保持されません"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "「{name}」を置く位置をクリック（またはドラッグしてサイズを指定）し、調整します"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "ページを確認してください：1〜{n} の数字で、例：1-3, 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "「{name}」をダウンロードしました"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "{n} 枚の画像から PDF を作成しました。残すには保存してください。"
+  ],
+  [
+   "Page {k} of {n}",
+   "{k} / {n} ページ"
+  ],
+  [
+   "Page {n} of {total}",
+   "{n} / {total} ページ"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "{n} ページのテキストを認識しました。PDF の検索とコピーができるようになりました。元に戻すこともできます。"
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "マークした範囲（{n} か所）と、その下にあるテキスト、画像、図形が完全に削除されます。PDF を閉じるまでは元に戻せますが、保存したファイルは復元できません。"
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "この PDF は {n} ページです。例：1-3, 5, 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "{n} ページ中 {k} ページにテキストがありません（スキャン）。"
+  ],
+  [
+   "{n} areas marked",
+   "{n} か所をマークしました"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "{n} か所を墨消ししました。残すには PDF を保存してください。"
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "「{word}」はこの PDF にありません"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "「{word}」を {n} か所マークしました。ページを確認してから適用してください。"
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "「{name}」はこのエディタで読み込める画像ではありません"
   ]
  ]
 }

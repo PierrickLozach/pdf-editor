@@ -252,7 +252,121 @@
   "Drag the image to move it, a corner to resize it. Enter or “Add” to finish, Esc to cancel.": "Przeciągnij obraz, aby go przesunąć, a róg, aby zmienić rozmiar. Enter lub „Dodaj”, aby zakończyć, Esc, aby anulować.",
   "Image added. You can undo it.": "Dodano obraz. Możesz to cofnąć.",
   "Undo": "Cofnij",
-  "Redo": "Ponów"
+  "Redo": "Ponów",
+  "1 area marked": "Zaznaczono 1 obszar",
+  "A photo or scan of your signature on white paper: the paper is made transparent.": "Zdjęcie lub skan podpisu na białym papierze: papier stanie się przezroczysty.",
+  "A word across every page": "Napis w poprzek każdej strony",
+  "Add numbers": "Numeruj",
+  "Add watermark": "Dodaj znak wodny",
+  "Adding the text to the PDF…": "Dodawanie tekstu do pliku PDF…",
+  "All pages": "Wszystkie strony",
+  "Allow copying the text": "Zezwalaj na kopiowanie tekstu",
+  "Allow printing": "Zezwalaj na drukowanie",
+  "Apply redactions": "Zastosuj zaczernienie",
+  "Apply redactions?": "Zastosować zaczernienie?",
+  "Black": "Czarny",
+  "Blue": "Niebieski",
+  "Bottom left": "Na dole po lewej",
+  "Bottom right": "Na dole po prawej",
+  "Bottom, centred": "Na dole, wyśrodkowane",
+  "CONFIDENTIAL": "POUFNE",
+  "Choose a password of at least 4 characters": "Wybierz hasło o długości co najmniej 4 znaków",
+  "Choose a picture of your signature first": "Najpierw wybierz obraz podpisu",
+  "Clear": "Wyczyść",
+  "Click to unmark": "Kliknij, aby odznaczyć",
+  "Click where the signature goes, then adjust it": "Kliknij miejsce podpisu, a potem go dopasuj",
+  "Colour": "Kolor",
+  "Compress photos and scans": "Kompresuj zdjęcia i skany",
+  "Convert": "Konwertuj",
+  "Create a PDF from pictures": "Utwórz PDF z obrazów",
+  "Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once.": "Odbywa się w tej przeglądarce: strony nigdy nie są wysyłane. Około 2–5 sekund na stronę; dane językowe (1–3 MB) są pobierane jednorazowo.",
+  "Drag over the area to redact": "Przeciągnij po obszarze do zaczernienia",
+  "Drag over what must disappear for good. Click a marked area to unmark it.": "Przeciągnij po tym, co ma zniknąć na zawsze. Kliknij zaznaczony obszar, aby go odznaczyć.",
+  "Draw": "Narysuj",
+  "Draw your signature first": "Najpierw narysuj podpis",
+  "Draw, type or upload your signature": "Narysuj, wpisz lub prześlij podpis",
+  "Every page already has text. Recognising it again is only useful for poor scans.": "Każda strona ma już tekst. Ponowne rozpoznawanie przydaje się tylko przy słabych skanach.",
+  "Extract pages into one new PDF": "Wyodrębnij strony do jednego nowego pliku PDF",
+  "File": "Plik",
+  "First number": "Pierwszy numer",
+  "Forget this signature": "Zapomnij ten podpis",
+  "Grey": "Szary",
+  "JPEG image": "Obraz JPEG",
+  "Keep the password safe: without it nobody can open the PDF. The protected copy is a new file; the PDF open here is not changed.": "Przechowuj hasło w bezpiecznym miejscu: bez niego nikt nie otworzy pliku PDF. Chroniona kopia to nowy plik; otwarty tutaj PDF nie zostanie zmieniony.",
+  "Language of the document": "Język dokumentu",
+  "Light": "Słaba",
+  "Make searchable (OCR)": "Umożliw wyszukiwanie (OCR)",
+  "Mark all": "Zaznacz wszystkie",
+  "Medium": "Średnia",
+  "No page chosen": "Nie wybrano strony",
+  "No page of this PDF has text: it looks scanned.": "Żadna strona tego pliku PDF nie zawiera tekstu: wygląda na skan.",
+  "No page to number": "Brak stron do numerowania",
+  "No picture chosen": "Nie wybrano obrazu",
+  "No text was found on these pages.": "Na tych stronach nie znaleziono tekstu.",
+  "Not on the first page (cover)": "Bez pierwszej strony (okładki)",
+  "Nothing to redact": "Nie ma nic do zaczernienia",
+  "Number every page": "Numeruj każdą stronę",
+  "One PDF per page": "Jeden PDF na stronę",
+  "One PDF per range": "Jeden PDF na zakres",
+  "Only people with the password can open it": "Otworzą go tylko osoby znające hasło",
+  "Only the pages without text": "Tylko strony bez tekstu",
+  "PDF made from the picture. Save it to keep it.": "Utworzono PDF z obrazu. Zapisz go, aby go zachować.",
+  "PNG image": "Obraz PNG",
+  "Page numbers": "Numery stron",
+  "Page numbers added. You can undo it.": "Dodano numery stron. Możesz to cofnąć.",
+  "Password": "Hasło",
+  "Picture quality": "Jakość obrazów",
+  "Pictures": "Obrazy",
+  "Place the signature": "Umieść podpis",
+  "Please choose pictures (JPEG, PNG…)": "Wybierz obrazy (JPEG, PNG…)",
+  "Print (300 dpi)": "Druk (300 dpi)",
+  "Protect": "Zabezpiecz",
+  "Protect with a password": "Zabezpiecz hasłem",
+  "Recognise text": "Rozpoznaj tekst",
+  "Recognise the text of scanned pages": "Rozpoznaj tekst zeskanowanych stron",
+  "Recognising text…": "Rozpoznawanie tekstu…",
+  "Red": "Czerwony",
+  "Redact": "Zaczernij",
+  "Remember it in this browser": "Zapamiętaj w tej przeglądarce",
+  "Remove private text and pictures for good": "Trwale usuń prywatny tekst i obrazy",
+  "Screen (150 dpi)": "Ekran (150 dpi)",
+  "Second language (optional)": "Drugi język (opcjonalnie)",
+  "Separate PDFs from some pages": "Osobne pliki PDF z wybranych stron",
+  "Sign": "Podpisz",
+  "Sign here with the mouse, a finger or a pen": "Podpisz się tutaj myszą, palcem lub rysikiem",
+  "Signature": "Podpis",
+  "Split": "Podziel",
+  "Split or extract pages": "Podziel lub wyodrębnij strony",
+  "Strength": "Intensywność",
+  "Strong": "Mocna",
+  "Style": "Styl",
+  "Text": "Tekst",
+  "The password cannot contain a comma": "Hasło nie może zawierać przecinka",
+  "The text recognition could not be loaded. Check the connection and try again.": "Nie udało się wczytać rozpoznawania tekstu. Sprawdź połączenie i spróbuj ponownie.",
+  "The two passwords are different": "Hasła nie są takie same",
+  "This picture could not be read.": "Nie udało się odczytać tego obrazu.",
+  "To Word, text or pictures": "Do Worda, tekstu lub obrazów",
+  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Aby zamienić plik Word, Excel lub PowerPoint na PDF, użyj w tym programie polecenia Plik › Zapisz jako lub Eksportuj do formatu PDF.",
+  "Tools": "Narzędzia",
+  "Tools: sign, redact, OCR, split, convert…": "Narzędzia: podpis, zaczernianie, OCR, podział, konwersja…",
+  "Top right": "Na górze po prawej",
+  "Type": "Wpisz",
+  "Type it again": "Wpisz ponownie",
+  "Type the text of the watermark": "Wpisz tekst znaku wodnego",
+  "Type your name first": "Najpierw wpisz swoje imię i nazwisko",
+  "Upload": "Prześlij",
+  "Use this signature": "Użyj tego podpisu",
+  "Watermark": "Znak wodny",
+  "Watermark added. You can undo it.": "Dodano znak wodny. Możesz to cofnąć.",
+  "Where": "Położenie",
+  "Word document": "Dokument Word",
+  "Word or number to remove everywhere": "Słowo lub liczba do usunięcia wszędzie",
+  "Your signatures (kept in this browser):": "Twoje podpisy (zapisane w tej przeglądarce):",
+  "ZIP archive": "Archiwum ZIP",
+  "drag over what must disappear, or mark a word everywhere": "przeciągnij po tym, co ma zniknąć, lub zaznacz słowo wszędzie",
+  "one picture per page": "jeden obraz na stronę",
+  "smaller files": "mniejsze pliki",
+  "the text, to edit it in Word; the layout is not kept": "sam tekst do edycji w Wordzie; układ nie zostanie zachowany"
  },
  "patterns": [
   [
@@ -430,6 +544,62 @@
   [
    "Click where “{name}” should go (or drag to draw its size), then adjust it",
    "Kliknij, gdzie ma się znaleźć „{name}” (lub przeciągnij, aby wyznaczyć rozmiar), a potem dopasuj"
+  ],
+  [
+   "Check the pages: numbers from 1 to {n}, like 1-3, 5",
+   "Sprawdź strony: numery od 1 do {n}, np. 1-3, 5"
+  ],
+  [
+   "Downloaded “{name}”",
+   "Pobrano „{name}”"
+  ],
+  [
+   "PDF made from {n} pictures. Save it to keep it.",
+   "Utworzono PDF z obrazów (liczba: {n}). Zapisz go, aby go zachować."
+  ],
+  [
+   "Page {k} of {n}",
+   "Strona {k} z {n}"
+  ],
+  [
+   "Page {n} of {total}",
+   "Strona {n} z {total}"
+  ],
+  [
+   "Text recognised on {n} pages: the PDF can now be searched and copied. You can undo it.",
+   "Rozpoznano tekst na stronach (liczba: {n}): plik PDF można teraz przeszukiwać i kopiować. Możesz to cofnąć."
+  ],
+  [
+   "The marked areas ({n}) are removed for good: text, pictures and drawings under them. You can still undo it until you close the PDF; the saved file cannot be recovered.",
+   "Zaznaczone obszary ({n}) zostaną trwale usunięte: tekst, obrazy i rysunki pod nimi. Do zamknięcia pliku PDF możesz to jeszcze cofnąć; zapisanego pliku nie da się przywrócić."
+  ],
+  [
+   "This PDF has {n} pages. For example: 1-3, 5, 8-",
+   "Liczba stron tego pliku PDF: {n}. Na przykład: 1-3, 5, 8-"
+  ],
+  [
+   "{k} of {n} pages have no text (scanned).",
+   "Strony bez tekstu (zeskanowane): {k} z {n}."
+  ],
+  [
+   "{n} areas marked",
+   "Zaznaczone obszary: {n}"
+  ],
+  [
+   "{n} areas redacted. Save the PDF to keep it.",
+   "Zaczernione obszary: {n}. Zapisz plik PDF, aby zachować zmiany."
+  ],
+  [
+   "“{word}” is not in this PDF",
+   "Nie znaleziono „{word}” w tym pliku PDF"
+  ],
+  [
+   "“{word}” marked {n} times. Check the pages, then apply.",
+   "Zaznaczono „{word}” (wystąpienia: {n}). Sprawdź strony, a następnie zastosuj."
+  ],
+  [
+   "“{name}” is not a picture this editor can read",
+   "„{name}” nie jest obrazem, który ten edytor potrafi odczytać"
   ]
  ]
 }
