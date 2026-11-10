@@ -18,7 +18,8 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 /* ---------- toolbar ---------- */
 #toolbar { height: 52px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: var(--panel);
   border-bottom: 1px solid var(--border); box-shadow: var(--shadow); position: relative; z-index: 20; }
-.brand { display: flex; align-items: center; gap: 8px; min-width: 0; margin-inline-end: 8px; flex: 0 1 320px; }
+.brand { display: flex; align-items: center; gap: 8px; min-width: 34px; margin-inline-end: 8px; flex: 0 1 320px; overflow: hidden; padding: 2px; }
+body:not(.has-doc) .brand { flex: none; }        /* start screen: the name is short, never squeezed under the buttons */
 body.has-doc .brand { flex-shrink: 0.3; }
 .brand .logo { width: 26px; height: 26px; border-radius: 6px; background: var(--accent); color: #fff; font-weight: 700;
   display: grid; place-items: center; flex: none; }
@@ -190,7 +191,7 @@ body.tool-erase .page .layer, body.tool-image .page .layer, body.tool-add .page 
 .dlg p { margin: 0 0 10px; line-height: 1.45; }
 .dlg .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; }
 .dlg button:not(.icon):not(.link) { height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: inherit; cursor: pointer; font: inherit; }
-.dlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dlg button.primary, .dlg button.primary:not(.icon):not(.link) { background: var(--accent); border-color: var(--accent); color: #fff; }
 .dlg button.link { border: 0; background: none; padding: 0; color: var(--blue); text-decoration: underline; cursor: pointer; font: inherit; }
 .dlg .foot { margin: 12px 0 0; }
 .dlg .row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -290,3 +291,12 @@ html.i18n-wait body { visibility: hidden; }
 :lang(he) body { font-family: -apple-system, "Arial Hebrew", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif; }
 :lang(zh) body { font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif; }
 :lang(ja) body { font-family: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif; }
+
+/* ---------- home link, save dialog ---------- */
+a.logo { text-decoration: none; display: grid; place-items: center; }
+a.logo:hover, a.logo:focus-visible { filter: brightness(1.12); outline: none; box-shadow: 0 0 0 2px var(--accent-soft); }
+#homeLink { margin: 14px 0 0; }
+#homeLink a { color: var(--muted); text-decoration: none; }
+#homeLink a:hover { color: var(--fg); text-decoration: underline; }
+[dir="rtl"] #homeLink .hl-arrow { display: inline-block; transform: scaleX(-1); }
+#saveDlg .check { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-top: 4px; cursor: pointer; }

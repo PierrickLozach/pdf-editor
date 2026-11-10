@@ -218,7 +218,6 @@
   "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "لتصغيره: على Mac، افتحه في «معاينة»، ثم ملف › تصدير… › مرشّح Quartz: تقليل حجم الملف؛ أو قسّمه إلى أجزاء (في «معاينة»، اسحب الصفحات خارج الشريط الجانبي). ملفات PDF الكبيرة تكون غالبًا صورًا أو مستندات ممسوحة ضوئيًا: يكفي المسح بدقة 150–200 dpi للمستندات.",
   "Saving into the file was not allowed: a copy is saved instead.": "لم يُسمح بالحفظ في الملف: حُفظت نسخة بدلًا من ذلك.",
   "Saved": "تم الحفظ",
-  "Save writes your changes back into the same file.": "يكتب «حفظ» تغييراتك في الملف نفسه.",
   "Save downloads the edited PDF.": "يُنزّل «حفظ» ملف PDF المعدَّل.",
   "Accounts have been removed.": "أُزيلت الحسابات.",
   "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "نزّلها الآن: ستُحذف بعد ذلك من هذا المتصفح. يُطلب مفتاح المرور مرة واحدة لفتح قفلها.",
@@ -241,7 +240,13 @@
   "XFA form": "نموذج XFA",
   "media": "وسائط",
   "embedded document": "مستند مضمّن",
-  "Browser language": "لغة المتصفح"
+  "Browser language": "لغة المتصفح",
+  "Home page": "الصفحة الرئيسية",
+  "Save your changes": "حفظ التغييرات",
+  "Save as a new file…": "حفظ في ملف جديد…",
+  "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "استبدل ملف PDF الذي فتحته، أو احتفظ به دون تغيير واحفظ التغييرات في ملف جديد.",
+  "Don't ask again for this PDF": "عدم السؤال مرة أخرى لهذا الملف",
+  "Save lets you replace your file or save a new one.": "عند الحفظ، تختار بين استبدال ملفك أو إنشاء ملف جديد."
  },
  "patterns": [
   [
@@ -415,6 +420,10 @@
   [
    "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
    "يحتوي ملف PDF هذا على محتوى نشط ({kinds}). لا يشغّله المحرر أبدًا، لكن قد تشغّله برامج قراءة PDF الأخرى. يُزال عند الحفظ، ما لم تختر الاحتفاظ به."
+  ],
+  [
+   "Replace “{name}”",
+   "استبدال «{name}»"
   ]
  ]
 }

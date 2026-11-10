@@ -37,13 +37,29 @@ const editLine = async (from, to) => {
   await page.keyboard.press("Enter");
   return waitFn(`!S.ed && !S.pending`);
 };
+
+// what a file in the test's private folder contains: read in the page, searched with a separate engine in Node
+import { Engine } from "../../web/engine.js";
+const webDir = new URL("../../web/", import.meta.url).pathname;
+const nodeEngine = () => new Engine({ manifest: JSON.parse(fs.readFileSync(webDir + "fonts/fonts.json", "utf8")), fetchBytes: async (s) => new Uint8Array(fs.readFileSync(webDir + "fonts/" + s.file)) });
+async function onDisk(name, ...texts) {
+  const b64 = await page.evaluate(async (n) => {
+    const b = new Uint8Array(await (await (await (await navigator.storage.getDirectory()).getFileHandle(n)).getFile()).arrayBuffer());
+    let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000)); return btoa(s);
+  }, name);
+  const bytes = new Uint8Array(Buffer.from(b64, "base64"));
+  const e = nodeEngine(); e.open(bytes, name);
+  return { size: bytes.length, found: texts.map((t) => e.find(t).length) };
+}
 const find = (q) => page.evaluate((q) => call("find", q).then((h) => h.length), q);
 
 try {
   await page.goto(URL0);
   await ready();
   ok(await page.evaluate(() => FILES.supported), "this browser can save into files (File System Access)");
-  ok(/250 MB/.test(await page.textContent("#sizeNote")) && /same file/.test(await page.textContent("#sizeNote")), "start screen: “" + (await page.textContent("#sizeNote")) + "”");
+  ok(/250 MB/.test(await page.textContent("#sizeNote")) && /replace your file or save a new one/.test(await page.textContent("#sizeNote")), "start screen: “" + (await page.textContent("#sizeNote")) + "”");
+  ok(await page.evaluate(() => { const a = document.querySelector("#toolbar .brand a.logo"); return a && a.getAttribute("href") === "/"; }), "the logo in the toolbar links to the home page");
+  ok(await page.evaluate(() => { const a = document.querySelector("#homeLink a"); return a && a.getAttribute("href") === "/" && /Home page/.test(a.textContent); }), "the start screen has a link back to the home page");
   ok(await page.evaluate(() => !document.querySelector("#btnSignIn, #acctArea, #myPdfs, #acctHint")), "no account interface left");
 
   // ---------------------------------------------------------------- open with Open (file picker)
@@ -67,13 +83,19 @@ try {
   const downloads = [];
   page.on("download", (d) => downloads.push(d.suggestedFilename()));
   await page.keyboard.press(process.platform === "darwin" ? "Meta+s" : "Control+s");
-  ok(await waitFn(`!S.dirty && document.querySelector('#saveState').textContent === "Saved"`), "⌘S: “Saved”");
+  ok(await waitFn(`!document.querySelector('#saveDlg').hidden`), "⌘S asks: replace the file or save a new one");
+  ok(/Replace “invoice\.pdf”/.test(await page.textContent("#saveDlg .sd-replace")) && /new file/.test(await page.textContent("#saveDlg .sd-new")), "…buttons: “" + (await page.textContent("#saveDlg .sd-replace")) + "”, “" + (await page.textContent("#saveDlg .sd-new")) + "”");
+  await page.click("#saveDlg .sd-cancel");
+  ok(await waitFn(`document.querySelector('#saveDlg').hidden && S.dirty`), "Cancel: nothing saved");
+  await page.keyboard.press(process.platform === "darwin" ? "Meta+s" : "Control+s");
+  await waitFn(`!document.querySelector('#saveDlg').hidden`);
+  await page.click("#saveDlg .sd-replace");
+  ok(await waitFn(`!S.dirty && document.querySelector('#saveState').textContent === "Saved"`), "“Replace”: “Saved”");
   ok(/Saved in “invoice\.pdf”/.test(await page.textContent("#toast")), "message: " + (await page.textContent("#toast")));
   await sleep(500);
   ok(downloads.length === 0, "nothing downloaded: the file itself was saved");
-  const disk = await page.evaluate(async () => { const f = await (await (await navigator.storage.getDirectory()).getFileHandle("invoice.pdf")).getFile(); const b = new Uint8Array(await f.arrayBuffer()); const size = b.length; await call("open", b, "check.pdf"); const r = [await call("find", "27 Mill Lane"), await call("find", "14 Harbour Street")].map((h) => h.length); await call("discard"); return { r, size }; });
-  ok(disk.r[0] === 1 && disk.r[1] === 0, `the file on disk now contains the edit (${disk.size} bytes)`);
-  await page.evaluate(() => call("discard"));
+  const disk = await onDisk("invoice.pdf", "27 Mill Lane", "14 Harbour Street");
+  ok(disk.found[0] === 1 && disk.found[1] === 0, `the file on disk now contains the edit (${disk.size} bytes)`);
 
   // ---------------------------------------------------------------- recent files
   await page.reload(); await ready();
@@ -84,17 +106,35 @@ try {
   ok(await find("27 Mill Lane") === 1, "reopened from Recent files: the saved edit is there");
   ok(await editLine("BS1 4QA BRISTOL", "BA1 1LZ BATH"), "second edit");
   await page.click("#btnSave");
-  ok(await waitFn(`!S.dirty`), "Save again");
-  const disk2 = await page.evaluate(async () => { const h = await (await navigator.storage.getDirectory()).getFileHandle("invoice.pdf"); const b = new Uint8Array(await (await h.getFile()).arrayBuffer()); await call("open", b, "c.pdf"); const r = (await call("find", "BA1 1LZ BATH")).length; await call("discard"); return r; });
+  await waitFn(`!document.querySelector('#saveDlg').hidden`);
+  await page.check("#saveDlgOnce");
+  await page.click("#saveDlg .sd-replace");
+  ok(await waitFn(`!S.dirty`), "Save again (Replace, “Don't ask again for this PDF”)");
+  const disk2 = (await onDisk("invoice.pdf", "BA1 1LZ BATH")).found[0];
   ok(disk2 === 1, "the same file holds both edits");
+  // "don't ask again": the next save goes straight into the file
+  await page.evaluate(() => { S.dirty = true; });
+  await page.click("#btnSave");
+  ok(await waitFn(`!S.dirty`) && await page.evaluate(() => document.querySelector('#saveDlg').hidden), "after “Don't ask again”: Save writes without asking");
+  // save as a new file: the original stays as it was, later saves go to the new file
+  await page.evaluate(async () => {
+    const root = await navigator.storage.getDirectory();
+    window.showSaveFilePicker = async (o) => { window.__suggested = o.suggestedName; return root.getFileHandle("invoice-copy.pdf", { create: true }); };
+  });
+  ok(await editLine("BA1 1LZ BATH", "OX1 2JD OXFORD"), "third edit (before saving as a new file)");
+  await page.keyboard.press(process.platform === "darwin" ? "Meta+Shift+s" : "Control+Shift+s");
+  ok(await waitFn(`!S.dirty && /invoice-copy\.pdf/.test(document.querySelector('#toast').textContent)`), "⇧⌘S saves as a new file: " + (await page.textContent("#toast")));
+  ok((await page.evaluate(() => window.__suggested)) === "invoice.pdf", "the new file is proposed under the same name, without “(edited)”");
+  const both = { "invoice.pdf": (await onDisk("invoice.pdf", "OX1 2JD OXFORD")).found[0], "invoice-copy.pdf": (await onDisk("invoice-copy.pdf", "OX1 2JD OXFORD")).found[0] };
+  ok(both["invoice.pdf"] === 0 && both["invoice-copy.pdf"] === 1, "the original is unchanged, the new file has the edit " + JSON.stringify(both));
+  await page.reload(); await ready();
   // a stored list never contains the document itself
   const rec = await page.evaluate(async () => { const d = await new Promise((r) => { const q = indexedDB.open("pdf-editor-files"); q.onsuccess = () => r(q.result); }); return new Promise((r) => { const q = d.transaction("recent").objectStore("recent").getAll(); q.onsuccess = () => r(q.result.map((x) => ({ keys: Object.keys(x).sort().join(","), kind: x.handle && x.handle.kind }))); }); });
-  ok(rec.length === 1 && rec[0].keys === "handle,id,name,time" && rec[0].kind === "file", "the list keeps a reference to the file, never a copy of it");
+  ok(rec.length === 2 && rec.every((r) => r.keys === "handle,id,name,time" && r.kind === "file"), "the list keeps references to the files (original and new one), never copies");
   // the file disappears
-  await page.reload(); await ready();
-  await page.evaluate(async () => { const root = await navigator.storage.getDirectory(); await root.removeEntry("invoice.pdf"); });
-  await page.click("#recentFiles .rf-open");
-  ok(await waitFn(`/moved or deleted/.test(document.querySelector('#toast').textContent) && document.querySelector('#recentFiles').hidden`), "a deleted file: clear message, removed from the list");
+  await page.evaluate(async () => { const root = await navigator.storage.getDirectory(); await root.removeEntry("invoice-copy.pdf"); });
+  await page.click("#recentFiles li:first-child .rf-open");
+  ok(await waitFn(`/moved or deleted/.test(document.querySelector('#toast').textContent) && document.querySelectorAll('#recentFiles li').length === 1`), "a deleted file: clear message, removed from the list");
 
   // ---------------------------------------------------------------- a file without a handle: Save makes a copy
   await page.setInputFiles("#fileInput", fx("demo-invoice.pdf"));
@@ -103,7 +143,7 @@ try {
   await page.evaluate(() => { window.showSaveFilePicker = undefined; });
   await editLine("NORTHWIND STUDIO", "SOUTHWIND STUDIO");
   const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#btnSave")]);
-  ok(dl.suggestedFilename() === "demo-invoice (edited).pdf", "Save downloads an edited copy: " + dl.suggestedFilename());
+  ok(dl.suggestedFilename() === "demo-invoice.pdf", "Save downloads the edited PDF under its own name: " + dl.suggestedFilename());
 
   // ---------------------------------------------------------------- size limit
   await page.evaluate(() => { FILES.maxBytes = 1024 * 1024; });                     // simulate 1 MB
@@ -169,7 +209,7 @@ console.log("\nFirefox (no File System Access)");
   await p.waitForFunction(() => S.doc && S.spans[S.doc.pages[0].v]);
   await p.evaluate(() => { S.dirty = true; });
   const [d] = await Promise.all([p.waitForEvent("download"), p.click("#btnSave")]);
-  ok(d.suggestedFilename() === "demo-invoice (edited).pdf", "Save downloads the edited copy");
+  ok(d.suggestedFilename() === "demo-invoice.pdf", "Save downloads the edited PDF under its own name");
   await fb.close();
 }
 await browser.close();

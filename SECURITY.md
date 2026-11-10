@@ -29,6 +29,12 @@ Please report it privately through **[GitHub → Security → Report a vulnerabi
 | A09 | Logging and alerting | By design nothing about users is logged (no server). Security reports: `security.txt` + GitHub private reporting. | – |
 | A10 | Mishandling of exceptional conditions | Fails closed: a damaged PDF (broken page tree, deep nesting) or a decompression bomb (2.5 MB → 2.7 GB) is refused or handled without crashing, and the PDF already open keeps working. Oversized files, failed saves (written to a temporary file and swapped in only when complete) and engine errors give plain-language messages. | `security.pw.mjs` (A10), `files.pw.mjs` |
 
+## Privacy of edited files
+
+A PDF saved by the editor keeps the original's properties: title, author, subject, keywords, creator,
+producer, creation and modification dates, XMP metadata, file ID and PDF version. The editor adds no
+mention of itself and the engine's "Written by MuPDF" comment is blanked (`tests/untraced.test.mjs`).
+
 ## Limits (known and accepted)
 
 - Anyone with access to the person's unlocked computer can open the files they can open; the browser's crash-recovery copy of the PDF

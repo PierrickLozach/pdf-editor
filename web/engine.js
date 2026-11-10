@@ -356,6 +356,23 @@ function readPdfFont(f, nm) {
 }
 
 
+
+/* ------------------------------------------------------------------ no trace of the editor in saved files */
+/** The file the engine wrote, without what would tell that it was rewritten: the engine's
+ *  "% Written by MuPDF" comment (blanked, same length, so every offset stays valid) and a newer
+ *  PDF version number than the original's. The title, author, dates and producer are never
+ *  changed, and the file ID is kept (regenerate-id=no). */
+function untraced(bytes, version) {
+  const head = new TextDecoder("latin1").decode(bytes.subarray(0, 96));
+  const m = head.match(/% Written by MuPDF[^\r\n]*/);
+  if (m) for (let i = m.index + 1; i < m.index + m[0].length; i++) bytes[i] = 0x20;       // keep "%": a blank comment
+  const v = head.match(/^%PDF-(\d)\.(\d)/);
+  if (v && version && /^\d\.\d$/.test(version) && version < `${v[1]}.${v[2]}`) {
+    bytes[5] = version.charCodeAt(0); bytes[7] = version.charCodeAt(2);
+  }
+  return bytes;
+}
+
 /* ------------------------------------------------------------------ active content */
 const DANGEROUS_ACTIONS = new Set(["JavaScript", "Launch", "SubmitForm", "ImportData", "Rendition", "Sound", "Movie", "RichMediaExecute", "GoToE"]);
 // links are fine (web, mail, phone, or written without a scheme like "www.example.com");
@@ -565,14 +582,20 @@ export class Engine {
     if (doc.needsPassword()) {
       if (!password) throw new EditError("PASSWORD_REQUIRED");
       if (!doc.authenticatePassword(password)) throw new EditError("WRONG_PASSWORD");
-      data = doc.asPDF().saveToBuffer("decrypt").asUint8Array().slice();
+      data = doc.asPDF().saveToBuffer("decrypt,regenerate-id=no").asUint8Array().slice();
       doc = mupdf.Document.openDocument(data, "application/pdf");
     }
     const pdf = doc.asPDF();
     if (!pdf) throw new EditError("Not a PDF file");
     // check the new document fully before it replaces the open one (a broken PDF must not
     // leave the editor half-switched: OWASP A10)
-    const next = { name: name || "document.pdf", doc: pdf, tokens: [], undo: [], redo: [], fontRefs: new Map(),
+    const head = new TextDecoder("latin1").decode(data.subarray(0, 16)).match(/^%PDF-(\d\.\d)/);
+    let fileId = null;                       // the original file ID, put back on every save
+    try {
+      const id = pdf.getTrailer().get("ID");
+      if (id && id.isArray() && id.length === 2) fileId = [id.get(0).asByteString().slice(), id.get(1).asByteString().slice()];
+    } catch (e) {}
+    const next = { name: name || "document.pdf", doc: pdf, version: head ? head[1] : null, fileId, tokens: [], undo: [], redo: [], fontRefs: new Map(),
                    embCache: new Map(), textCache: new Map() };
     let n;
     try {
@@ -606,7 +629,7 @@ export class Engine {
 
   _snapshot() {
     const s = this.s;
-    return { data: s.doc.saveToBuffer("").asUint8Array().slice(), tokens: [...s.tokens] };
+    return { data: s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice(), tokens: [...s.tokens] };
   }
 
   _checkpoint() {
@@ -638,7 +661,7 @@ export class Engine {
   _schedulePersist() {
     clearTimeout(this._pt);
     this._pt = setTimeout(() => {
-      try { this.persist(this.s.name, this.s.doc.saveToBuffer("").asUint8Array().slice()); } catch (e) { /* best effort */ }
+      try { this.persist(this.s.name, this.s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice()); } catch (e) { /* best effort */ }
     }, 800);
   }
 
@@ -1149,7 +1172,7 @@ export class Engine {
     const bad = this._badFontDescs(s.doc.loadPage(pno));
     if (!bad.length) { this._redact(s.doc.loadPage(pno), rects); return; }
     // Work on a fresh copy in which those fonts are loaded with sane metrics, then restore them.
-    const tmp = mupdf.Document.openDocument(s.doc.saveToBuffer("").asUint8Array().slice(), "application/pdf").asPDF();
+    const tmp = mupdf.Document.openDocument(s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice(), "application/pdf").asPDF();
     for (const b of bad) { const fd = tmp.newIndirect(b.num); fd.put("Ascent", Math.min(b.asc, 950)); fd.put("Descent", Math.max(b.desc, -250)); }
     this._redact(tmp.loadPage(pno), rects);
     for (const b of bad) { const fd = tmp.newIndirect(b.num); fd.put("Ascent", b.asc); fd.put("Descent", b.desc); }
@@ -1265,13 +1288,21 @@ export class Engine {
         const x = l.spans[i];
         if (!lookalike(x) || x.chars.filter((c) => !isSpace(c.c)).length > 3) continue;
         const prev = l.spans[i - 1], next = l.spans[i + 1];
-        const host = near(prev, x) && !lookalike(prev) ? prev : near(next, x) && !lookalike(next) ? next : null;
+        // the host is the PDF's own text: another font, or the same family (when the PDF's font is
+        // itself one of the look-alikes, e.g. a PDF made with Liberation Sans)
+        const fam = (a) => parsePdfFont(a.fontName).key;
+        const ok = (h) => near(h, x) && (!lookalike(h) || fam(h) === fam(x)) && !(h === next && next.gap);
+        const host = ok(prev) && !x.gap ? prev : next && ok(next) ? next : null;
         if (!host) continue;
         if (host === prev) { prev.chars.push(...x.chars); l.spans.splice(i, 1); i--; }
         else { next.chars.unshift(...x.chars); l.spans.splice(i, 1); i--; }
       }
+      // pieces of one text: the same font, or the same family drawn from two copies of it (the PDF's
+      // subset and the full font an edit added for the letters the subset lacks)
       for (let i = 1; i < l.spans.length; i++) {
-        if (l.spans[i].key === l.spans[i - 1].key && !l.spans[i].gap) { l.spans[i - 1].chars.push(...l.spans[i].chars); l.spans.splice(i, 1); i--; }
+        const a = l.spans[i - 1], b = l.spans[i];
+        const sameFam = parsePdfFont(a.fontName).key === parsePdfFont(b.fontName).key && near(a, b);
+        if ((b.key === a.key || sameFam) && !b.gap) { a.chars.push(...b.chars); l.spans.splice(i, 1); i--; }
       }
       l.spans.forEach((sp, si) => {
         sp.id = `${l.bi}.${l.li}.${si}`;
@@ -1729,7 +1760,7 @@ export class Engine {
       doc.insertPage(pno + 1, obj);
       t.splice(pno + 1, 0, this._tok());
     } else if (op === "duplicate") {
-      const copy = new mupdf.PDFDocument(doc.saveToBuffer(""));
+      const copy = new mupdf.PDFDocument(doc.saveToBuffer("regenerate-id=no"));
       doc.graftPage(pno + 1, copy, pno);
       t.splice(pno + 1, 0, this._tok());
     } else {
@@ -1835,14 +1866,22 @@ export class Engine {
 
   export() {
     const s = this._need();
-    const data = s.doc.saveToBuffer("").asUint8Array().slice();
+    const data = s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice();
+    let out;
+    const keepId = (d) => {
+      if (!s.fileId) return;
+      try { const a = d.newArray(); a.push(d.newByteString(s.fileId[0])); a.push(d.newByteString(s.fileId[1])); d.getTrailer().put("ID", a); } catch (e) {}
+    };
     try {
       const copy = new mupdf.PDFDocument(data);
       copy.subsetFonts();
-      return copy.saveToBuffer("garbage=deduplicate,compress").asUint8Array().slice();
+      keepId(copy);
+      out = copy.saveToBuffer("garbage=deduplicate,compress,regenerate-id=no").asUint8Array().slice();
     } catch (e) {
-      return s.doc.saveToBuffer("garbage=compact,compress").asUint8Array().slice();
+      keepId(s.doc);
+      out = s.doc.saveToBuffer("garbage=compact,compress,regenerate-id=no").asUint8Array().slice();
     }
+    return untraced(out, s.version);
   }
 
   fontList() { return this.fonts.families(); }

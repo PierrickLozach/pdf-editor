@@ -218,7 +218,6 @@
   "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "减小方法：在 Mac 上用“预览”打开它，然后选择“文件 › 导出…”，Quartz 滤镜选“减小文件大小”；或将其拆分成几部分（在“预览”中，将页面从边栏拖出）。大型 PDF 几乎都是扫描件或照片：扫描文档时使用 150–200 dpi 即可。",
   "Saving into the file was not allowed: a copy is saved instead.": "未获准保存到该文件，已改为保存副本。",
   "Saved": "已保存",
-  "Save writes your changes back into the same file.": "“保存”会将修改写回原文件。",
   "Save downloads the edited PDF.": "“保存”会下载编辑后的 PDF。",
   "Accounts have been removed.": "账户功能已移除。",
   "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "请立即下载，之后它们会从此浏览器中删除。解锁时需要验证一次您的通行密钥。",
@@ -241,7 +240,13 @@
   "XFA form": "XFA 表单",
   "media": "媒体",
   "embedded document": "嵌入的文档",
-  "Browser language": "浏览器语言"
+  "Browser language": "浏览器语言",
+  "Home page": "首页",
+  "Save your changes": "保存更改",
+  "Save as a new file…": "另存为新文件…",
+  "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "替换已打开的 PDF，或保留原文件不变，将更改保存到新文件中。",
+  "Don't ask again for this PDF": "此 PDF 不再询问",
+  "Save lets you replace your file or save a new one.": "保存时可选择替换原文件或另存为新文件。"
  },
  "patterns": [
   [
@@ -415,6 +420,10 @@
   [
    "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
    "此 PDF 包含活动内容（{kinds}）。编辑器绝不会运行这些内容，但其他 PDF 阅读器可能会运行。保存时会将其移除，除非您选择保留。"
+  ],
+  [
+   "Replace “{name}”",
+   "替换“{name}”"
   ]
  ]
 }

@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=cbe5c6ddb3", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=b01924c6ba", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -64,7 +64,7 @@ async function answerWorker(m) {
   } catch (e) { engineWorker.postMessage({ req: m.req, error: e.message }); }
 }
 const PLAIN = (() => { const d = document.createElement("div"); d.contentEditable = "plaintext-only"; return d.contentEditable === "plaintext-only"; })();
-function outName(name) { return String(name || "document").replace(/\.pdf$/i, "").replace(/[\/\\:]/g, "-") + " (edited).pdf"; }
+function outName(name) { return String(name || "document").replace(/\.pdf$/i, "").replace(/[\/\\:]/g, "-") + ".pdf"; }   // the same name: nothing tells it was edited
 function triggerDownload(bytes, name) {
   const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
   const a = document.createElement("a");
@@ -1081,7 +1081,7 @@ function init() {
     const mod = e.metaKey || e.ctrlKey;
     if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); window.FILES ? FILES.pick() : $("#fileInput").click(); return; }
     if (!S.doc) return;
-    if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); saveFile(); return; }
+    if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); if (e.shiftKey && window.FILES) FILES.saveAs(); else saveFile(); return; }
     if (mod && e.key.toLowerCase() === "f") { e.preventDefault(); openFind(); return; }
     if (mod && (e.key === "=" || e.key === "+")) { e.preventDefault(); zoomStep(1); return; }
     if (mod && e.key === "-") { e.preventDefault(); zoomStep(-1); return; }

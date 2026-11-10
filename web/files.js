@@ -117,19 +117,42 @@
   /** Called once a file is open in the editor. */
   F.opened = (file) => {
     F.handle = (file && file.__handle) || null;
+    askedFor = null;
     if (F.handle) remember(F.handle, file.name);
     mark();
   };
-  F.closed = () => { F.handle = null; mark(); renderRecent(); };
+  F.closed = () => { F.handle = null; askedFor = null; mark(); renderRecent(); };
   F.afterChange = () => mark();
 
   /* ---------------------------------------------------------------- save */
   /** Save into the file that was opened. Returns false when that is not possible (the caller
    *  then saves a copy as before). */
+  /** Save (⌘S): when the PDF came from a file on the computer, ask whether to replace it or to
+   *  save the changes in a new file (once per opened PDF if the person ticks "Don't ask again").
+   *  Returns false when there is no such file (the caller then downloads a copy). */
+  let askedFor = null;                    // the handle for which "don't ask again" was ticked
   F.save = async () => {
     if (!F.handle || !S.doc) return false;
     await closeEditor(true);
-    const h = F.handle;
+    if (askedFor !== F.handle) {
+      const choice = await ask(F.handle.name);
+      if (choice === "cancel") return true;
+      if (choice === "new") { await F.saveAs(); return true; }
+    }
+    return writeTo(F.handle);
+  };
+  /** ⇧⌘S, or "Save as a new file…": a new file chosen by the person; later saves go there. */
+  F.saveAs = async () => {
+    if (!S.doc) return;
+    if (typeof window.showSaveFilePicker !== "function") { download(); return; }
+    await closeEditor(true);
+    if (window.ACTIVE) await ACTIVE.remove(false);
+    let h;
+    try { h = await window.showSaveFilePicker({ suggestedName: outName(S.doc.name), types: [{ description: t("PDF document"), accept: { "application/pdf": [".pdf"] } }] }); }
+    catch (e) { return; }                                    // cancelled
+    if (await writeTo(h)) { F.handle = h; askedFor = null; mark(); }
+  };
+  async function writeTo(h) {
     try {
       if ((await h.queryPermission({ mode: "readwrite" })) !== "granted" &&
           (await h.requestPermission({ mode: "readwrite" })) !== "granted") { toast(t("Saving into the file was not allowed: a copy is saved instead."), false, 6000); return false; }
@@ -147,7 +170,38 @@
       remember(h, h.name);
     });
     return ok;
-  };
+  }
+  /** "replace", "new" or "cancel" */
+  function ask(name) {
+    let d = document.getElementById("saveDlg");
+    if (!d) {
+      d = el(`<div id="saveDlg" class="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="saveDlgTitle"><div class="box">
+        <h2 id="saveDlgTitle">${t("Save your changes")}</h2>
+        <p class="small">${t("Replace the PDF you opened, or keep it unchanged and save the changes in a new file.")}</p>
+        <label class="check"><input type="checkbox" id="saveDlgOnce"> <span>${t("Don't ask again for this PDF")}</span></label>
+        <div class="actions"><button class="sd-cancel">${t("Cancel")}</button><button class="sd-new">${t("Save as a new file…")}</button><button class="primary sd-replace"></button></div>
+      </div></div>`);
+      document.body.appendChild(d);
+    }
+    d.querySelector(".sd-replace").textContent = t("Replace “{name}”").replace("{name}", name);
+    d.querySelector("#saveDlgOnce").checked = false;
+    d.hidden = false;
+    d.querySelector(".sd-replace").focus();
+    return new Promise((res) => {
+      const done = (v) => {
+        d.hidden = true;
+        if (v === "replace" && d.querySelector("#saveDlgOnce").checked) askedFor = F.handle;
+        d.onclick = d.onkeydown = null;
+        res(v);
+      };
+      d.onclick = (e) => {
+        if (e.target.closest(".sd-replace")) done("replace");
+        else if (e.target.closest(".sd-new")) done("new");
+        else if (e.target.closest(".sd-cancel") || e.target === d) done("cancel");
+      };
+      d.onkeydown = (e) => { if (e.key === "Escape") done("cancel"); };
+    });
+  }
   /** A "Save as" chose a new file: later saves go there. */
   F.adopt = (h) => { if (h && h.kind === "file") { F.handle = h; remember(h, h.name); mark(); } };
 
@@ -161,7 +215,27 @@
   }
 
   /* ---------------------------------------------------------------- start */
+  /** The site's home page in the editor's language ("/", "/fr/", "/ar/"…). */
+  const home = () => { const l = (window.I18N && I18N.lang) || "en"; return l === "en" ? "/" : `/${l}/`; };
+  function homeLinks() {
+    const label = t("Home page");
+    let logo = document.querySelector("#toolbar .brand .logo");
+    if (logo && logo.tagName !== "A") {
+      const a = el(`<a class="logo" href="${home()}">P</a>`);
+      logo.replaceWith(a); logo = a;
+    }
+    if (logo) { logo.title = label; logo.setAttribute("aria-label", label); logo.href = home(); }
+    const drop = document.querySelector("#empty .drop");
+    let p = document.getElementById("homeLink");
+    if (drop && !p) {
+      p = el(`<p id="homeLink" class="small"><a><span class="hl-arrow" aria-hidden="true">←</span> <span class="hl-text"></span></a></p>`);
+      drop.appendChild(p);
+    }
+    if (p) { p.querySelector("a").href = home(); p.querySelector(".hl-text").textContent = label; }
+  }
   function start() {
+    homeLinks();
+    if (window.I18N && I18N.ready) I18N.ready.then(homeLinks);
     const name = document.getElementById("docName");
     if (name && !document.getElementById("saveState")) name.after(el(`<span id="saveState" class="save-state" hidden></span>`));
     const drop = document.querySelector("#empty .drop");
@@ -169,7 +243,7 @@
       const note = el(`<p id="sizeNote" class="small muted"></p>`);
       // written once the translations are loaded (the page watcher does not split sentences)
       const fill = () => { note.textContent = t("PDFs up to {max}.").replace("{max}", F.size(F.maxBytes)) + " " +
-        (F.supported ? t("Save writes your changes back into the same file.") : t("Save downloads the edited PDF.")); };
+        (F.supported ? t("Save lets you replace your file or save a new one.") : t("Save downloads the edited PDF.")); };
       fill();
       if (window.I18N && I18N.ready) I18N.ready.then(fill);
       const lic = drop.querySelector("p.muted.small");

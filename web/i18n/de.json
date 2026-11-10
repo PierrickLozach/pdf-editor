@@ -218,7 +218,6 @@
   "To make it smaller: on a Mac, open it in Preview, then File › Export… › Quartz Filter: Reduce File Size; or split it into parts (in Preview, drag pages out of the sidebar). Large PDFs are almost always scans or photos: scanning at 150–200 dpi is enough for documents.": "So verkleinern Sie es: Öffnen Sie es auf dem Mac in Vorschau, dann Ablage › Exportieren … › Quartz-Filter: Dateigröße reduzieren; oder teilen Sie es in mehrere Teile (in Vorschau Seiten aus der Seitenleiste ziehen). Große PDFs sind fast immer Scans oder Fotos: Für Dokumente reicht ein Scan mit 150–200 dpi.",
   "Saving into the file was not allowed: a copy is saved instead.": "Speichern in die Datei wurde nicht erlaubt: Stattdessen wird eine Kopie gespeichert.",
   "Saved": "Gespeichert",
-  "Save writes your changes back into the same file.": "„Speichern“ schreibt Ihre Änderungen in dieselbe Datei zurück.",
   "Save downloads the edited PDF.": "„Speichern“ lädt das bearbeitete PDF herunter.",
   "Accounts have been removed.": "Konten wurden entfernt.",
   "Download them now: they will then be deleted from this browser. Your passkey is asked once to unlock them.": "Laden Sie sie jetzt herunter: Danach werden sie aus diesem Browser gelöscht. Ihr Passkey wird einmal abgefragt, um sie zu entsperren.",
@@ -241,7 +240,13 @@
   "XFA form": "XFA-Formular",
   "media": "Medien",
   "embedded document": "eingebettetes Dokument",
-  "Browser language": "Browsersprache"
+  "Browser language": "Browsersprache",
+  "Home page": "Startseite",
+  "Save your changes": "Änderungen speichern",
+  "Save as a new file…": "Als neue Datei speichern …",
+  "Replace the PDF you opened, or keep it unchanged and save the changes in a new file.": "Ersetzen Sie das geöffnete PDF oder behalten Sie es unverändert und speichern Sie die Änderungen in einer neuen Datei.",
+  "Don't ask again for this PDF": "Bei diesem PDF nicht mehr fragen",
+  "Save lets you replace your file or save a new one.": "Beim Speichern wählen Sie: Datei ersetzen oder eine neue anlegen."
  },
  "patterns": [
   [
@@ -415,6 +420,10 @@
   [
    "This PDF contains active content ({kinds}). The editor never runs it, but other PDF readers may. It is removed when you save, unless you keep it.",
    "Dieses PDF enthält aktive Inhalte ({kinds}). Der Editor führt sie nie aus, andere PDF-Reader aber möglicherweise. Sie werden beim Speichern entfernt, sofern Sie sie nicht behalten."
+  ],
+  [
+   "Replace “{name}”",
+   "„{name}“ ersetzen"
   ]
  ]
 }

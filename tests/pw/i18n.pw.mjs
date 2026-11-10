@@ -1,3 +1,4 @@
+import fs from "node:fs";
 // The editor in other languages, in Chromium, Firefox and WebKit:
 //  - French: every visible text of the main screens is translated, messages too, editing works
 //  - right-to-left: a test language ("rtl", never published) mirrors the interface but not the PDF
@@ -12,19 +13,21 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let total = 0;
 
 // visible texts with English words left (the PDF, file and font names excepted)
-const english = () => {
-  const out = [];
+const english = (translated = []) => {
+  const out = [], known = new Set(translated);
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   for (let n = w.nextNode(); n; n = w.nextNode()) {
     const t = n.nodeValue.trim(), el = n.parentElement;
     if (!t || !/[A-Za-z]{3}/.test(t) || el.closest("script,style,.editbox,#docName,#fontList,[data-noi18n],select,option,#edInfo")) continue;
     if (el.closest("[hidden]") || !el.getClientRects().length) continue;
     if (/^(MuPDF|PDF|Image|Pages|OK|Polices|Google Fonts…\)?|Arial|Calibri)$/.test(t)) continue;
+    if (known.has(t)) continue;                             // a translation that happens to contain an English word ("Page d'accueil")
     out.push(t);
   }
   return out.filter((t) => /\b(the|and|your|this|with|text|to|of|font|fonts|page|click|drag|file|edit|open|save)\b/i.test(t));
 };
 
+const FR_VALUES = (() => { const d = JSON.parse(fs.readFileSync(new URL("../../web/i18n/fr.json", import.meta.url), "utf8")); return Object.values(d.strings).map((v) => v.trim()); })();
 async function run(name) {
   let fails = 0;
   const ok = (c, m) => { console.log(`  ${c ? "ok  " : "FAIL"} [${name}] ${m}`); if (!c) fails++; };
@@ -44,12 +47,12 @@ async function run(name) {
     await p.goto(URL0);
     await waitFn(p, `document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait')`, 60000);
     ok((await p.getAttribute("html", "lang")) === "fr" && /Éditeur PDF/.test(await p.title()), "French from the browser's language (lang=fr, title)");
-    let left = await p.evaluate(english);
+    let left = await p.evaluate(english, FR_VALUES);
     ok(!left.length, "start screen fully in French " + left.slice(0, 4).join(" | "));
     await p.evaluate(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); return call("discard"); });
     await p.setInputFiles("#fileInput", pdf);
     await waitFn(p, `S.doc && S.spans[S.doc.pages[0].v] && pageEl(0).dataset.rkey`);
-    left = await p.evaluate(english);
+    left = await p.evaluate(english, FR_VALUES);
     ok(!left.length, "editor with a PDF fully in French " + left.slice(0, 4).join(" | "));
     const titles = await p.evaluate(() => [...document.querySelectorAll("#toolbar [title]")].map((b) => b.title).filter((t) => /\b(the|and|to|of|click)\b/.test(t)));
     ok(!titles.length, "button tooltips in French " + titles.slice(0, 3).join(" | "));
