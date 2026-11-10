@@ -19,5 +19,26 @@ for f in sorted(data, key=lambda f: (f.get("type") != "google", f["family"])):  
 # well-known PDF names of fonts that Google publishes under another name
 for alias, real in {"sourcesanspro": "sourcesans3", "sourceserifpro": "sourceserif4", "notosansui": "notosans"}.items():
     if alias not in cat and real in cat: cat[alias] = cat[real]
+# Pin every family to its exact published version (OWASP A03, supply chain): a published npm
+# version never changes, so a font downloaded later is the very file that was checked here.
+import concurrent.futures as cf
+import time, urllib.error
+def version(fid):
+    r = urllib.request.Request(f"https://registry.npmjs.org/-/package/@fontsource%2f{fid}/dist-tags", headers={"User-Agent": "pdf-editor catalogue builder"})
+    for attempt in range(8):
+        try: return json.load(urllib.request.urlopen(r, timeout=30)).get("latest")
+        except urllib.error.HTTPError as e:
+            if e.code == 404: return None
+            time.sleep(min(30, 2 ** attempt))           # 429: slow down
+        except Exception: time.sleep(2)
+    return None
+ids = sorted({v[0] for v in cat.values()})
+with cf.ThreadPoolExecutor(4) as ex: vers = dict(zip(ids, ex.map(version, ids)))
+missing = [i for i in ids if not vers.get(i)]
+for k in list(cat):
+    v = vers.get(cat[k][0])
+    if v: cat[k] = cat[k][:5] + [v]
+    else: del cat[k]                         # no pinned version: not offered
+print(len(missing), "families without a published version were left out")
 OUT.write_text(json.dumps(cat, separators=(",", ":")))
 print(len(cat), "families,", OUT.stat().st_size // 1024, "KB ->", OUT)

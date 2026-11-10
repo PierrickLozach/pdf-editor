@@ -210,7 +210,43 @@
   "No account on this browser yet. Create one: it takes a few seconds.": "Aucun compte dans ce navigateur pour l'instant. Créez-en un : cela prend quelques secondes.",
   "Encrypted and kept on this device only.": "Chiffrés et gardés sur cet appareil uniquement.",
   "No password to remember: your device creates a passkey (fingerprint, face, PIN or phone). Your PDFs are encrypted and kept on this device only.": "Aucun mot de passe à retenir : votre appareil crée une clé d'accès (empreinte, visage, code ou téléphone). Vos PDF sont chiffrés et gardés sur cet appareil uniquement.",
-  "This passkey could not be verified.": "Cette clé d'accès n'a pas pu être vérifiée."
+  "This passkey could not be verified.": "Cette clé d'accès n'a pas pu être vérifiée.",
+  "This file could not be decrypted: it was changed or damaged.": "Ce fichier n'a pas pu être déchiffré : il a été modifié ou endommagé.",
+  "Not enough storage space left in this browser. Delete PDFs you no longer need, or download them.": "Plus assez d'espace de stockage dans ce navigateur. Supprimez les PDF dont vous n'avez plus besoin, ou téléchargez-les.",
+  "This PDF is too large for My PDFs (200 MB at most).": "Ce PDF est trop volumineux pour Mes PDF (200 Mo au maximum).",
+  "Signed out after 30 minutes without activity. Sign in again to open your PDFs.": "Déconnecté après 30 minutes d'inactivité. Reconnectez-vous pour ouvrir vos PDF.",
+  "Previous sign-in": "Connexion précédente",
+  "Reduce file size": "Réduire la taille du fichier",
+  "Reduce file size…": "Réduire la taille du fichier…",
+  "Compress photos and scans to make the PDF smaller": "Compresser les photos et les scans pour alléger le PDF",
+  "Photos and scanned pages are compressed; text and drawings stay sharp and editable. You can undo it.": "Les photos et pages scannées sont compressées ; le texte et les dessins restent nets et modifiables. Vous pouvez annuler.",
+  "Smaller": "Plus léger",
+  "good for printing (about 200 dpi)": "convient à l'impression (environ 200 dpi)",
+  "Smallest": "Le plus léger",
+  "for email and screens (about 120 dpi)": "pour l'e-mail et l'écran (environ 120 dpi)",
+  "Other ways to make a PDF smaller": "Autres façons d'alléger un PDF",
+  "Delete pages you do not need, or split a long PDF: delete half of the pages, save, then do the same with the other half.": "Supprimez les pages inutiles, ou coupez un long PDF en deux : supprimez la moitié des pages, enregistrez, puis faites de même avec l'autre moitié.",
+  "On a Mac: open the PDF in Preview, File › Export, Quartz Filter: Reduce File Size.": "Sur Mac : ouvrez le PDF dans Aperçu, Fichier › Exporter, Filtre Quartz : Réduire la taille du fichier.",
+  "When scanning: 150–200 dpi is enough for documents (300 dpi in black and white for small print).": "À la numérisation : 150 à 200 dpi suffisent pour des documents (300 dpi en noir et blanc pour les petits caractères).",
+  "Reduce": "Réduire",
+  "Calculating the size…": "Calcul de la taille…",
+  "Current size": "Taille actuelle",
+  "My PDFs accept up to": "Mes PDF acceptent jusqu'à",
+  "Reducing the size…": "Réduction de la taille…",
+  "Size reduced": "Taille réduite",
+  "This PDF has no large photos or scans to compress: it is already about as small as it can be.": "Ce PDF ne contient pas de grandes photos ou de scans à compresser : il est déjà presque aussi léger que possible.",
+  "This PDF is too large for My PDFs": "Ce PDF est trop volumineux pour Mes PDF",
+  "Reduce its size? It opens in the editor first.": "Réduire sa taille ? Il s'ouvre d'abord dans l'éditeur.",
+  "Reduce its size": "Réduire sa taille",
+  "Still too large. Try “Smallest”, or delete pages and save the PDF in two parts.": "Encore trop volumineux. Essayez « Le plus léger », ou supprimez des pages et enregistrez le PDF en deux parties.",
+  "Save it in My PDFs?": "L'enregistrer dans Mes PDF ?",
+  "Up to 200 MB per PDF.": "Jusqu'à 200 Mo par PDF.",
+  "Too large?": "Trop volumineux ?",
+  "Size limit": "Taille maximale",
+  "A PDF in My PDFs can be up to 200 MB. Larger PDFs are almost always scans or photos: open the PDF, then use “Reduce file size…” in the page panel (it compresses the images and keeps the text sharp). You can also delete pages you do not need, or save a long PDF in two parts.": "Un PDF de Mes PDF peut faire jusqu'à 200 Mo. Les PDF plus lourds sont presque toujours des scans ou des photos : ouvrez le PDF, puis utilisez « Réduire la taille du fichier… » dans le panneau des pages (les images sont compressées, le texte reste net). Vous pouvez aussi supprimer les pages inutiles, ou enregistrer un long PDF en deux parties.",
+  "Open it and use “Reduce file size…”.": "Ouvrez-le et utilisez « Réduire la taille du fichier… ».",
+  "MB": "Mo",
+  "KB": "Ko"
  },
  "patterns": [
   [
@@ -360,6 +396,22 @@
   [
    "Account deleted ({n} PDF)",
    "Compte supprimé ({n} PDF)"
+  ],
+  [
+   "“{name}” is {size}; a PDF in My PDFs can be up to {limit}.",
+   "« {name} » fait {size} ; un PDF de Mes PDF peut faire jusqu'à {limit}."
+  ],
+  [
+   "Current size: {a} · My PDFs accept up to {b}",
+   "Taille actuelle : {a} · Mes PDF acceptent jusqu'à {b}"
+  ],
+  [
+   "Current size: {a}",
+   "Taille actuelle : {a}"
+  ],
+  [
+   "Size reduced: {a} → {b}",
+   "Taille réduite : {a} → {b}"
   ]
  ]
 }

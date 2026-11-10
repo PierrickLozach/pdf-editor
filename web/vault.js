@@ -9,11 +9,16 @@
  *    every PDF and its name. Without the passkey, nothing stored can be read.
  *  - everything lives in this browser's IndexedDB ("pdf-editor-vault"): accounts, encrypted
  *    files and their previous versions.
- * Browsers without the PRF extension cannot use accounts; the editor itself still works.
+ *  - passkeys without the PRF extension use a non-extractable AES-256 key kept by the browser,
+ *    released only after a passkey sign-in whose signature is verified here.
+ *  - keys are never readable by scripts (non-extractable CryptoKeys). A sign-in lasts until the tab
+ *    is closed, 30 minutes without activity, or 12 hours at most.
  * Exposes window.Vault. Classic script, loaded before app.js. */
 (function () {
   "use strict";
-  const DB = "pdf-editor-vault", VER = 1, KEEP_VERSIONS = 5, SESSION = "pdfe.vaultSession";
+  const DB = "pdf-editor-vault", VER = 2, KEEP_VERSIONS = 5, SESSION = "pdfe.vaultSession";
+  const IDLE_MS = 30 * 60 * 1000, MAX_MS = 12 * 3600 * 1000;      // sign-in lifetime
+  const MAX_FILE = 200 * 1024 * 1024;                               // one PDF in My PDFs
   const enc = new TextEncoder(), dec = new TextDecoder();
   const b64 = (u) => { let s = ""; const a = new Uint8Array(u); for (let i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
   const unb64 = (s) => { const t = s.replace(/-/g, "+").replace(/_/g, "/"); const b = atob(t + "===".slice((t.length + 3) % 4)); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
@@ -31,6 +36,7 @@
         if (!d.objectStoreNames.contains("accounts")) d.createObjectStore("accounts", { keyPath: "id" });
         if (!d.objectStoreNames.contains("files")) d.createObjectStore("files", { keyPath: "id" }).createIndex("account", "account");
         if (!d.objectStoreNames.contains("blobs")) d.createObjectStore("blobs");
+        if (!d.objectStoreNames.contains("sessions")) d.createObjectStore("sessions", { keyPath: "id" });
       };
       r.onsuccess = () => res(r.result);
       r.onerror = () => rej(r.error);
@@ -61,7 +67,13 @@
     return { iv, data: new Uint8Array(c) };
   }
   async function open(key, box, aad) {
-    return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: box.iv, additionalData: aad }, key, box.data));
+    try { return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: box.iv, additionalData: aad }, key, box.data)); }
+    catch (e) { throw new Error(t("This file could not be decrypted: it was changed or damaged.")); }
+  }
+  /** Storage errors in words a person understands. */
+  function storageError(e) {
+    if (e && (e.name === "QuotaExceededError" || /quota/i.test(e.message || ""))) return new Error(t("Not enough storage space left in this browser. Delete PDFs you no longer need, or download them."));
+    return e;
   }
   const aadOf = (accountId, fileId, what) => enc.encode(`${accountId}|${fileId}|${what}`);
 
@@ -145,12 +157,19 @@
     const rpHash = new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(location.hostname)));
     for (let i = 0; i < 32; i++) if (rpHash[i] !== ad[i]) return false;
     if ((ad[32] & 0x05) !== 0x05) return false;            // user present and verified
+    const count = ((ad[33] << 24) | (ad[34] << 16) | (ad[35] << 8) | ad[36]) >>> 0;
+    if (count && k.count && count <= k.count) return false;  // counter went back: a cloned passkey
     const key = await crypto.subtle.importKey("spki", unb64(k.spki), a.imp, false, ["verify"]);
     const h = new Uint8Array(await crypto.subtle.digest("SHA-256", r.clientDataJSON));
     const data = new Uint8Array(ad.length + 32); data.set(ad); data.set(h, ad.length);
     let sig = new Uint8Array(r.signature);
     if (a.der) sig = derToRaw(sig, a.der);
-    return crypto.subtle.verify(a.ver, key, sig, data);
+    const okSig = await crypto.subtle.verify(a.ver, key, sig, data);
+    if (okSig && count) {
+      account.keys[cred.id] = { ...k, count };
+      await tx("accounts", "readwrite", (st) => req(st.put(account))).catch(() => {});
+    }
+    return okSig;
   }
   async function forget(credId) {             // remove a passkey we will not use from the device's list
     try { if (PublicKeyCredential.signalUnknownCredential) await PublicKeyCredential.signalUnknownCredential({ rpId: location.hostname, credentialId: credId }); } catch (e) {}
@@ -163,35 +182,71 @@
 
   async function unlock(account, prf) {
     let key;
-    if (account.mode === "device") {
-      key = account.deviceKey;
-      try { sessionStorage.setItem(SESSION, JSON.stringify({ id: account.id, device: true })); } catch (e) {}
-    } else {
+    if (account.mode === "device") key = account.deviceKey;
+    else {
       const wk = await wrappingKey(prf, unb64(account.salt));
-      key = await crypto.subtle.unwrapKey("raw", unb64(account.wrapped), wk, "AES-KW", { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-      try { sessionStorage.setItem(SESSION, JSON.stringify({ id: account.id, k: b64(await crypto.subtle.exportKey("raw", key)) })); } catch (e) {}
+      key = await crypto.subtle.unwrapKey("raw", unb64(account.wrapped), wk, "AES-KW", { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
     }
-    current = { account, key };
-    await tx("accounts", "readwrite", (st) => req(st.put({ ...account, lastSignIn: Date.now() })));
+    // the sign-in of this tab: a random id here, the (non-extractable) key in IndexedDB
+    const sid = b64(rand(16)), now = Date.now();
+    await tx(["sessions", "accounts"], "readwrite", (ss, as) => {
+      ss.put({ id: sid, account: account.id, key, created: now, lastActive: now });
+      as.put({ ...account, previousSignIn: account.lastSignIn || null, lastSignIn: now });
+    });
+    try { sessionStorage.setItem(SESSION, sid); } catch (e) {}
+    current = { account: { ...account, previousSignIn: account.lastSignIn || null, lastSignIn: now }, key, sid };
     emit();
-    return publicAccount(account);
+    return publicAccount(current.account);
   }
-  const publicAccount = (a) => a && { id: a.id, name: a.name, createdAt: a.createdAt, lastSignIn: a.lastSignIn, picture: a.picture || null, mode: a.mode || "prf" };
+  const publicAccount = (a) => a && { id: a.id, name: a.name, createdAt: a.createdAt, lastSignIn: a.lastSignIn, previousSignIn: a.previousSignIn || null, mode: a.mode || "prf" };
+  const expired = (x, now) => now - x.lastActive > IDLE_MS || now - x.created > MAX_MS;
 
-  /** Restore the session after a reload in the same tab (no second passkey prompt). */
+  async function purgeSessions() {
+    const now = Date.now();
+    await tx("sessions", "readwrite", async (ss) => {
+      for (const x of await req(ss.getAll())) if (expired(x, now)) ss.delete(x.id);
+    }).catch(() => {});
+  }
+  /** Restore the sign-in after a reload in the same tab (no second passkey prompt). */
   async function resume() {
-    let s = null;
-    try { s = JSON.parse(sessionStorage.getItem(SESSION) || "null"); } catch (e) {}
-    if (!s) return null;
-    const account = await tx("accounts", "readonly", (st) => req(st.get(s.id)));
-    if (!account) { sessionStorage.removeItem(SESSION); return null; }
-    const key = s.device ? (account.mode === "device" ? account.deviceKey : null)
-      : await crypto.subtle.importKey("raw", unb64(s.k), { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-    if (!key) { sessionStorage.removeItem(SESSION); return null; }
-    current = { account, key };
+    let sid = null;
+    try { sid = sessionStorage.getItem(SESSION); } catch (e) {}
+    try { sessionStorage.removeItem("pdfe.vaultSession.old"); } catch (e) {}
+    await purgeSessions();
+    if (!sid || sid[0] === "{") { try { sessionStorage.removeItem(SESSION); } catch (e) {} return null; }   // old format: sign in again
+    const x = await tx("sessions", "readonly", (ss) => req(ss.get(sid)));
+    const account = x && await tx("accounts", "readonly", (st) => req(st.get(x.account)));
+    if (!x || !account) { try { sessionStorage.removeItem(SESSION); } catch (e) {} return null; }
+    current = { account, key: x.key, sid };
+    touch(true);
     emit();
     return publicAccount(account);
   }
+  /* activity keeps the sign-in alive; 30 minutes without any locks it */
+  let lastTouch = 0;
+  async function touch(force) {
+    if (!current) return;
+    const now = Date.now();
+    if (!force && now - lastTouch < 60000) return;
+    lastTouch = now;
+    const sid = current.sid;
+    await tx("sessions", "readwrite", async (ss) => {
+      const x = await req(ss.get(sid));
+      if (!x) return;
+      if (expired(x, now)) { ss.delete(sid); return; }
+      ss.put({ ...x, lastActive: now });
+    }).catch(() => {});
+  }
+  function checkExpiry() {
+    if (!current) return;
+    const sid = current.sid;
+    tx("sessions", "readonly", (ss) => req(ss.get(sid))).then((x) => {
+      if (current && current.sid === sid && (!x || expired(x, Date.now()))) { Vault.signOut(); Vault.locked = true; emit(); }
+    }).catch(() => {});
+  }
+  for (const ev of ["pointerdown", "keydown", "wheel", "touchstart"]) addEventListener(ev, () => touch(false), { passive: true, capture: true });
+  setInterval(checkExpiry, 60000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) checkExpiry(); });
 
   const Vault = {
     supported, prfSupported, explain,
@@ -227,7 +282,7 @@
         const account = { id: b64(userId), name, credIds: [cred.id], keys, createdAt: Date.now(), lastSignIn: Date.now() };
         if (prf) {
           const salt = rand(32);
-          const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+          const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);   // extractable only to be wrapped, here
           const wrapped = new Uint8Array(await crypto.subtle.wrapKey("raw", key, await wrappingKey(prf, salt), "AES-KW"));
           Object.assign(account, { mode: "prf", salt: b64(salt), wrapped: b64(wrapped) });
         } else {
@@ -261,8 +316,11 @@
 
     resume,
     signOut() {
+      const sid = current && current.sid;
       current = null;
+      Vault.locked = false;
       try { sessionStorage.removeItem(SESSION); } catch (e) {}
+      if (sid) tx("sessions", "readwrite", (ss) => { ss.delete(sid); }).catch(() => {});
       emit();
     },
 
@@ -273,8 +331,10 @@
       const a = await assert(current.account.credIds);   // confirm it is really the owner
       if (current.account.mode === "device" && !(await verifyAssertion(current.account, a.cred, a.challenge))) throw new Error(t("This passkey could not be verified."));
       const files = await tx("files", "readonly", (st) => req(st.index("account").getAll(id)));
-      await tx(["files", "blobs", "accounts"], "readwrite", (fs, bs, as) => {
+      const sessions = await tx("sessions", "readonly", (ss) => req(ss.getAll()));
+      await tx(["files", "blobs", "accounts", "sessions"], "readwrite", (fs, bs, as, ss) => {
         for (const f of files) { fs.delete(f.id); for (const v of f.versions) bs.delete(v.blob); }
+        for (const x of sessions) if (x.account === id) ss.delete(x.id);
         as.delete(id);
       });
       try {
@@ -303,6 +363,7 @@
     /** Add a new PDF, or save a new version of an existing one (the previous ones are kept). */
     async save(bytes, name, fileId) {
       if (!current) throw new Error(t("Please sign in first."));
+      if (bytes.length > Vault.maxFileBytes) throw new Error(t("This PDF is too large for My PDFs (200 MB at most)."));
       const { account, key } = current;
       const id = fileId || b64(rand(12));
       const blob = b64(rand(12));
@@ -310,7 +371,7 @@
       const nm = await seal(key, enc.encode(name), aadOf(account.id, id, "name"));
       const v = { blob, iv: b64(box.iv), size: bytes.length, time: Date.now() };
       let dropped = [];
-      await tx(["files", "blobs"], "readwrite", async (fs, bs) => {
+      try { await tx(["files", "blobs"], "readwrite", async (fs, bs) => {
         const old = fileId ? await req(fs.get(id)) : null;
         if (fileId && (!old || old.account !== account.id)) throw new Error(t("This file is no longer in your account."));
         const versions = [v, ...(old ? old.versions : [])];
@@ -318,7 +379,7 @@
         for (const d of dropped) bs.delete(d.blob);
         bs.put(box.data, blob);
         fs.put({ id, account: account.id, name: b64(nm.data), nameIv: b64(nm.iv), created: old ? old.created : Date.now(), versions: versions.slice(0, KEEP_VERSIONS) });
-      });
+      }); } catch (e) { throw storageError(e); }
       return { id, name, time: v.time, size: bytes.length };
     },
 
@@ -368,5 +429,7 @@
     await tx("accounts", "readwrite", (st) => req(st.put(a)));
     current.account = a; emit();
   };
+  Vault.maxFileBytes = MAX_FILE;
+  Vault.locked = false;
   window.Vault = Vault;
 })();

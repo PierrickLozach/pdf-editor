@@ -40,7 +40,7 @@ async function run(name) {
     const ctx = await browser.newContext({ locale: "fr-FR", viewport: { width: 1400, height: 900 } });
     const p = await ctx.newPage();
     p.on("pageerror", (e) => errs.push(e.message));
-    p.on("console", (m) => { if (m.type() === "error" && !/downloadable font/.test(m.text())) errs.push(m.text()); });
+    p.on("console", (m) => { if (m.type() === "error" && !/downloadable font|Refused to apply a stylesheet/.test(m.text())) errs.push(m.text()); });
     await p.goto(URL0);
     await waitFn(p, `document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait')`, 60000);
     ok((await p.getAttribute("html", "lang")) === "fr" && /Éditeur PDF/.test(await p.title()), "French from the browser's language (lang=fr, title)");

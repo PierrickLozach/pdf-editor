@@ -3,7 +3,7 @@
  *           worker -> main: {req, type:"localFont", postscriptName}   main -> worker: {req, bytes|error}
  * The open document is also kept in IndexedDB (this browser only) so a reload or a
  * crash does not lose the edits. Nothing ever leaves the computer. */
-import { Engine, EditError, readFontFile } from "./engine.js?v=9e6d740b6a";
+import { Engine, EditError, readFontFile } from "./engine.js?v=e33fa13824";
 
 let engine = null;
 let reqSeq = 0;
@@ -31,9 +31,14 @@ async function fetchBytes(src) {
   if (src.type === "free") {                   // free font from the font library: kept for next time
     const cached = await idbDo("readonly", (st) => st.get("free:" + src.url), FONTFILES);
     if (cached && cached.bytes) return cached.bytes;
-    const r = await fetch(src.url, { credentials: "omit", referrerPolicy: "no-referrer" });
+    // only pinned files of the font library, of a sensible size, that really are fonts (OWASP A03/A08)
+    if (!/^https:\/\/cdn\.jsdelivr\.net\/fontsource\/fonts\/[a-z0-9-]+@\d+\.\d+\.\d+\/[a-z0-9-]+\.ttf$/.test(src.url)) throw new Error("font address refused");
+    const r = await fetch(src.url, { credentials: "omit", referrerPolicy: "no-referrer", redirect: "error", cache: "force-cache" });
     if (!r.ok) throw new Error("free font download failed");
+    if (Number(r.headers.get("content-length") || 0) > 10 * 1048576) throw new Error("free font too large");
     const bytes = new Uint8Array(await r.arrayBuffer());
+    const tag = String.fromCharCode(...bytes.slice(0, 4));
+    if (bytes.length > 10 * 1048576 || !(tag === "\0\x01\0\0" || tag === "OTTO" || tag === "true")) throw new Error("not a font file");
     idbDo("readwrite", (st) => st.put({ name: src.url.split("/").pop(), bytes }, "free:" + src.url), FONTFILES);
     return bytes;
   }
@@ -68,10 +73,13 @@ async function idbDo(mode, fn, store = STORE) {
     });
   } catch (e) { return null; }   // private mode or storage disabled: just skip
 }
-const persist = (name, bytes) => idbDo("readwrite", (st) => st.put({ name, bytes, time: Date.now() }, "current"));
+/* Crash recovery keeps an unencrypted copy of the open PDF in this browser. It is switched off
+ * while someone is signed in: their PDFs are only ever stored encrypted (My PDFs). */
+let recovery = true;
+const persist = (name, bytes) => (recovery ? idbDo("readwrite", (st) => st.put({ name, bytes, time: Date.now() }, "current")) : Promise.resolve());
 
 const ready = (async () => {
-  const manifest = await (await fetch(new URL("fonts/fonts.json?v=9e6d740b6a", import.meta.url))).json();
+  const manifest = await (await fetch(new URL("fonts/fonts.json?v=e33fa13824", import.meta.url))).json();
   engine = new Engine({ manifest, fetchBytes, persist });
   // the catalogue of free fonts (Google Fonts...): small, loaded in the background
   fetch(new URL("fonts/free-fonts.json", import.meta.url)).then((r) => r.json()).then((c) => engine.setFreeCatalog(c)).catch(() => {});
@@ -150,6 +158,11 @@ const worker = {
     return { fonts: engine.fontList(), list: userFamilies() };
   },
   async userFontFamilies() { return userFamilies(); },
+  async setRecovery(on) {
+    recovery = !!on;
+    if (!recovery) await idbDo("readwrite", (st) => st.delete("current"));     // no plaintext copy left behind
+    return true;
+  },
   async discard() { await idbDo("readwrite", (st) => st.delete("current")); engine.s = null; return true; },
 };
 

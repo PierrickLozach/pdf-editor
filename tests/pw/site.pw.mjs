@@ -19,10 +19,23 @@ async function run(name) {
   const errs = [];
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push(e.message));
-    p.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errs.push(`${p.url()}: ${m.text()}`); });
+    // (screenshots: the test tool injects a stylesheet that the site's strict policy refuses – expected)
+    p.on("console", (m) => { if (m.type() === "error" && !/status of 404|Refused to apply a stylesheet/.test(m.text())) errs.push(`${p.url()}: ${m.text()}`); });
     return p;
   };
   try {
+    // ---------------------------------------------------------------- no policy violation on normal page loads
+    {
+      const c0 = await browser.newContext();
+      const q = await c0.newPage();
+      const v = [];
+      await q.exposeFunction("__v", (x) => v.push(x));
+      await q.addInitScript(() => document.addEventListener("securitypolicyviolation", (e) => window.__v(`${e.violatedDirective} ${e.blockedURI}`)));
+      for (const u of ["/", "/fr/privacy", "/app/"]) { await q.goto(BASE + u); await sleep(u === "/app/" ? 2500 : 600); }
+      ok(v.length === 0, "no Content-Security-Policy violation when loading the pages and the editor " + v.slice(0, 3).join(" | "));
+      await c0.close();
+    }
+
     // ---------------------------------------------------------------- English visitor
     const en = await browser.newContext({ locale: "en-US", viewport: { width: 1360, height: 900 } });
     let p = watch(await en.newPage());

@@ -254,6 +254,7 @@ html.i18n-wait body { visibility: hidden; }
 .acct-menu[hidden] { display: none; }
 .acct-menu .who { padding: 8px 10px 10px; border-bottom: 1px solid var(--border); margin-bottom: 4px; display: grid; font-size: 13px; gap: 2px; }
 .acct-menu .who span { color: var(--muted); font-size: 12px; }
+.acct-menu .who .prev:empty { display: none; }
 .acct-menu button, .mp-menu button { text-align: start; padding: 8px 10px; border-radius: 8px; color: var(--fg); background: none; border: 0; font: inherit; font-size: 14px; cursor: pointer; height: auto; }
 .acct-menu button:hover, .mp-menu button:hover { background: var(--hover); }
 .acct-menu .danger, .mp-menu .danger { color: #dc2626; }
@@ -290,3 +291,11 @@ html.i18n-wait body { visibility: hidden; }
 #toolbar.fit3 .save-state { display: none; }
 #toolbar.fit4 .brand { flex: 0 1 140px; } #toolbar.fit4 #docName { min-width: 0; }
 #toolbar.fit4 #btnZoomLabel, #toolbar.fit4 #btnFit { display: none; }
+
+/* ---------- reduce file size ---------- */
+#btnReduce { margin-top: 6px; }
+.rd-opt { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; margin: 8px 0; cursor: pointer; }
+.rd-opt input { margin-top: 3px; }
+.rd-tips { margin-top: 12px; }
+.rd-tips ul { margin: 6px 0 0; padding-inline-start: 18px; color: var(--muted); }
+.rd-tips li { margin: 4px 0; }

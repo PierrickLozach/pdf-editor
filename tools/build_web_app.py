@@ -733,6 +733,16 @@ R('''    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor"
     if (window.ACCOUNT && ACCOUNT.closed) ACCOUNT.closed();
   };''')
 
+# ---------------------------------------------------------------- security (OWASP A05, A02)
+R('''function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }''',
+  '''function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }''')
+R('''    t.innerHTML = `<div class="tframe" style="height:${h}px"><canvas''', '''    t.innerHTML = `<div class="tframe"><canvas''')
+
+R('''    bindThumbDrag(t);
+    box.appendChild(t);''', '''    t.querySelector(".tframe").style.height = h + "px";     // set from code: no inline style in HTML (CSP)
+    bindThumbDrag(t);
+    box.appendChild(t);''')
+
 # focus the editing box at once: the font preview loads afterwards, keystrokes are never lost
 R('''  syncBar();
   await previewFont();

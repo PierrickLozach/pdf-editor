@@ -8,7 +8,10 @@
   const t = (s) => (window.I18N ? I18N.t(s) : s);
   const V = window.Vault;
   const A = (window.ACCOUNT = { fileId: null, savedVersion: 0 });   // fileId of the open PDF if it is in "My PDFs"
-  const fmtSize = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1024)) + " KB");
+  const fmtSize = (b) => {
+    const big = b >= 1048576, v = big ? b / 1048576 : Math.max(1, Math.round(b / 1024));
+    return `${v.toLocaleString(document.documentElement.lang || "en", { maximumFractionDigits: big ? 1 : 0 })} ${t(big ? "MB" : "KB")}`;
+  };
   const fmtDate = (ms) => new Date(ms).toLocaleString(document.documentElement.lang || undefined, { dateStyle: "medium", timeStyle: "short" });
   const initials = (n) => (String(n || "?").trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join("") || "?").toUpperCase();
   const el = (html) => { const d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstElementChild; };
@@ -29,13 +32,14 @@
     btn.title = acc.name;
     btn.querySelector(".acct-avatar").textContent = initials(acc.name);
     const menu = el(`<div class="acct-menu" id="acctMenu" role="menu" hidden>
-      <div class="who"><b></b><span>${t("Passkey account · files kept on this device")}</span></div>
+      <div class="who"><b></b><span>${t("Passkey account · files kept on this device")}</span><span class="prev"></span></div>
       <button role="menuitem" id="mMyPdfs">${t("My PDFs")}</button>
       <button role="menuitem" id="mRename">${t("Change my name")}</button>
       <button role="menuitem" id="mSignOut">${t("Sign out")}</button>
       <button role="menuitem" id="mDelete" class="danger">${t("Delete my account")}</button>
     </div>`);
     menu.querySelector(".who b").textContent = acc.name;
+    menu.querySelector(".who .prev").textContent = acc.previousSignIn ? `${t("Previous sign-in")}: ${fmtDate(acc.previousSignIn)}` : "";
     btn.onclick = (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; btn.setAttribute("aria-expanded", String(!menu.hidden)); };
     document.addEventListener("pointerdown", (e) => { if (!menu.contains(e.target) && !btn.contains(e.target)) { menu.hidden = true; btn.setAttribute("aria-expanded", "false"); } });
     menu.querySelector("#mMyPdfs").onclick = () => { menu.hidden = true; showHome(); };
@@ -71,13 +75,15 @@
     if (!box) {
       box = el(`<section id="myPdfs" aria-labelledby="myPdfsTitle">
         <div class="mp-head"><h2 id="myPdfsTitle">${t("My PDFs")}</h2><button class="primary" id="mpAdd">${t("Add PDFs")}</button></div>
-        <p class="mp-note small muted">${t("Encrypted and kept on this device only.")}</p>
+        <p class="mp-note small muted">${t("Encrypted and kept on this device only.")} ${t("Up to 200 MB per PDF.")} <button class="link" id="mpSizeHelp">${t("Too large?")}</button></p>
         <ul id="mpList"></ul>
         <p id="mpEmpty" class="small muted" hidden>${t("No PDF yet. Add one, or open a PDF and save it.")}</p>
         <input id="mpInput" type="file" accept="application/pdf,.pdf" multiple hidden>
       </section>`);
       $("#empty .drop").prepend(box);
       box.querySelector("#mpAdd").onclick = () => box.querySelector("#mpInput").click();
+      box.querySelector("#mpSizeHelp").onclick = () => modal({ title: t("Size limit"), ok: t("OK"),
+        text: t("A PDF in My PDFs can be up to 200 MB. Larger PDFs are almost always scans or photos: open the PDF, then use “Reduce file size…” in the page panel (it compresses the images and keeps the text sharp). You can also delete pages you do not need, or save a long PDF in two parts.") });
       box.querySelector("#mpInput").onchange = async (e) => { const f = [...e.target.files]; e.target.value = ""; await addFiles(f); };
     }
     return box;
@@ -154,11 +160,19 @@
   async function addFiles(files) {
     const pdfs = files.filter((f) => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
     if (!pdfs.length) return toast(t("Please choose a PDF file"), true);
+    const big = pdfs.filter((f) => f.size > V.maxFileBytes);
+    const ok = pdfs.filter((f) => f.size <= V.maxFileBytes);
+    if (big.length && !ok.length && window.REDUCE) {
+      const f = big[0];
+      return REDUCE.tooLarge(f.size, f.name, new Uint8Array(await f.arrayBuffer()));
+    }
+    if (big.length) toast(t("This PDF is too large for My PDFs (200 MB at most).") + ` (${big.map((f) => f.name).join(", ")}) · ` + t("Open it and use “Reduce file size…”."), true, 10000);
+    if (!ok.length) return;
     await busy(async () => {
-      for (const f of pdfs) await V.save(new Uint8Array(await f.arrayBuffer()), f.name);
+      for (const f of ok) await V.save(new Uint8Array(await f.arrayBuffer()), f.name);
     });
     V.persist();
-    toast(pdfs.length > 1 ? t("{n} PDFs added").replace("{n}", pdfs.length) : t("Added to My PDFs"));
+    if (!big.length) toast(ok.length > 1 ? t("{n} PDFs added").replace("{n}", ok.length) : t("Added to My PDFs"));
     showHome();
   }
 
@@ -199,14 +213,17 @@
   A.save = async () => {
     if (!V.account) return false;
     await closeEditor(true);
+    let tooBig = 0;
     await busy(async () => {
       const bytes = await call("export");
+      if (bytes.length > V.maxFileBytes) { tooBig = bytes.length; return; }
       const r = await V.save(bytes, S.doc.name, A.fileId);
       A.fileId = r.id;
       S.dirty = false;
       markSaved();
       toast(t("Saved in My PDFs"));
     });
+    if (tooBig && window.REDUCE) { await REDUCE.tooLarge(tooBig, S.doc.name); return true; }
     V.persist();
     return true;
   };
@@ -300,11 +317,25 @@
     $("#docName").after(el(`<span id="saveState" class="save-state" hidden></span>`));   // inside .brand, after the name
   }
 
+  /* while signed in, nothing is kept unencrypted (the crash-recovery copy is switched off) */
+  const recovery = () => Promise.resolve(typeof engineReady !== "undefined" ? engineReady : null).then(() => call("setRecovery", !V.account)).catch(() => {});
   async function start() {
     if (!V || !V.supported()) return;               // no passkeys here: the editor works without accounts
     dialogs();
-    V.onChange(() => { renderButton(); if (!S.doc) showHome(); markSaved(); });
+    V.onChange(() => {
+      try {
+        recovery();
+        renderButton(); markSaved();
+        if (V.locked) {                              // 30 minutes without activity
+          if (S.doc && A.fileId) closeDoc();
+          toast(t("Signed out after 30 minutes without activity. Sign in again to open your PDFs."), false, 8000);
+          V.locked = false;
+        }
+        if (!S.doc) showHome();
+      } catch (e) { console.error(e); }
+    });
     await V.resume().catch(() => null);
+    recovery();
     renderButton();
     if (!S.doc) showHome();
   }

@@ -1,0 +1,9 @@
+# Dependency updates and security alerts for the build tools (OWASP A03)
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /site
+    schedule: { interval: weekly }
+  - package-ecosystem: npm
+    directory: /tests/pw
+    schedule: { interval: weekly }

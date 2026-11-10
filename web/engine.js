@@ -136,7 +136,8 @@ class FontLibrary {
       for (let n = info.key.length; n >= 4 && !c; n--) if (this.free[info.key.slice(0, n)]) { c = this.free[info.key.slice(0, n)]; fam = info.key.slice(0, n); }
       if (!c || fam.length < info.base.length) return [];
     }
-    const [id, family, weights, styles, subsets] = c;
+    const [id, family, weights, styles, subsets, ver] = c;
+    if (!ver || !/^\d+\.\d+\.\d+$/.test(ver) || !/^[a-z0-9-]+$/.test(id)) return [];   // only pinned, well-formed fonts
     const want = weightOf(psname, bold);
     const w = weights.reduce((a, b) => (Math.abs(b - want) < Math.abs(a - want) ? b : a), weights[0]);
     const st = italic && styles & 2 ? "italic" : styles & 1 ? "normal" : "italic";
@@ -145,7 +146,7 @@ class FontLibrary {
       let e = this.entries.find((x) => x.id === eid);
       if (!e) {
         e = { id: eid, family, key: normKey(family), bold: w >= 600, italic: st === "italic", ps: "", kind: "free",
-              source: { type: "free", url: `${FREE_CDN}${id}@latest/${sub}-${w}-${st}.ttf` }, label: family, subset: sub };
+              source: { type: "free", url: `${FREE_CDN}${id}@${ver}/${sub}-${w}-${st}.ttf` }, label: family, subset: sub };
         this.entries.push(e);
       }
       return e;
@@ -1691,6 +1692,66 @@ export class Engine {
   }
 
   /** Final, compact PDF: fonts added by the editor are subset to the characters used. */
+  /** Make the PDF smaller. Large photos and scans are re-encoded as JPEG at a lower resolution
+   *  (the main reason PDFs are heavy); text, vector drawings and small images are not touched.
+   *  level "smaller": at most 2200 px on the long side (about 200 dpi on A4), JPEG quality 80;
+   *  "smallest": 1400 px (about 120 dpi), quality 65. One undo step. -> {before, after, images} */
+  async reduceSize(level = "smaller") {
+    const s = this._need();
+    const maxSide = level === "smallest" ? 1400 : 2200, quality = level === "smallest" ? 65 : 80;
+    const before = this.export().length;
+    const doc = s.doc;
+    const nm = (o) => { try { return o && o.isName() ? o.asName() : null; } catch (e) { return null; } };
+    // images used as soft masks (transparency) stay lossless
+    const smasks = new Set(), images = [];
+    const n = doc.countObjects();
+    for (let i = 1; i < n; i++) {
+      let o;
+      try { o = doc.newIndirect(i); if (!o.isStream() || nm(o.get("Subtype")) !== "Image") continue; } catch (e) { continue; }
+      images.push(o);
+      const sm = o.get("SMask");
+      if (sm && sm.isIndirect()) smasks.add(sm.asIndirect());
+    }
+    this._checkpoint();
+    let changed = 0;
+    for (const o of images) {
+      try {
+        if (smasks.has(o.asIndirect())) continue;
+        const im = o.get("ImageMask"), mk = o.get("Mask"), bpc = o.get("BitsPerComponent");
+        if ((im && im.isBoolean() && im.asBoolean()) || (mk && mk.isArray())) continue;     // stencils, colour-key masks
+        if (bpc && bpc.isNumber() && bpc.asNumber() < 8) continue;                         // 1-bit scans: already compact
+        const rawLen = o.readRawStream().asUint8Array().length;    // read at once: the view is lost when memory grows
+        if (rawLen < 80 * 1024) continue;                                                  // small images: not worth it
+        const img = doc.loadImage(o);
+        const w = img.getWidth(), h = img.getHeight();
+        const k = Math.min(1, maxSide / Math.max(w, h));
+        const nw = Math.max(1, Math.round(w * k)), nh = Math.max(1, Math.round(h * k));
+        const base = img.toPixmap();
+        const gray = base.getNumberOfComponents() - (base.getAlpha() ? 1 : 0) === 1;
+        const cs = gray ? mupdf.ColorSpace.DeviceGray : mupdf.ColorSpace.DeviceRGB;
+        const plain = new mupdf.Image(base);                                               // without its mask
+        const pix = new mupdf.Pixmap(cs, [0, 0, nw, nh], false);
+        pix.clear(255);
+        const dev = new mupdf.DrawDevice(M.identity, pix);
+        dev.fillImage(plain, [nw, 0, 0, nh, 0, 0], 1);
+        dev.close(); dev.destroy();
+        const jpg = pix.asJPEG(quality, false);
+        const bytes = (jpg.asUint8Array ? jpg.asUint8Array() : jpg).slice();
+        pix.destroy(); plain.destroy(); base.destroy(); img.destroy();
+        if (bytes.length > rawLen * 0.85) continue;                                        // no real gain
+        o.writeRawStream(bytes);
+        o.put("Filter", doc.newName("DCTDecode"));
+        o.put("Width", nw); o.put("Height", nh); o.put("BitsPerComponent", 8);
+        o.put("ColorSpace", doc.newName(gray ? "DeviceGray" : "DeviceRGB"));
+        for (const key of ["DecodeParms", "Decode", "Intent"]) o.delete(key);
+        changed++;
+      } catch (e) { /* an image this engine cannot read: left as it is */ }
+    }
+    if (changed) await this._changed([...Array(doc.countPages()).keys()]);
+    const after = this.export().length;
+    return { ...this.info(), before, after, images: changed, changed: changed ? [...Array(doc.countPages()).keys()] : [] };
+  }
+
   export() {
     const s = this._need();
     const data = s.doc.saveToBuffer("").asUint8Array().slice();

@@ -26,7 +26,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=9e6d740b6a", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=e33fa13824", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -416,7 +416,7 @@ function buildThumbs() {
     t.dataset.i = i;
     t.draggable = true;
     const h = Math.round(120 * p.h / p.w);
-    t.innerHTML = `<div class="tframe" style="height:${h}px"><canvas width="0" height="0" aria-label="Page ${i + 1}"></canvas></div>
+    t.innerHTML = `<div class="tframe"><canvas width="0" height="0" aria-label="Page ${i + 1}"></canvas></div>
       <div class="num">${i + 1}</div>
       <div class="tacts">
         <button data-act="rotate" title="Rotate 90° clockwise"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 1-2.3-5.7L20 8"/><path d="M20 3v5h-5"/></svg></button>
@@ -429,6 +429,7 @@ function buildThumbs() {
       if (b) { e.stopPropagation(); pageAction(b.dataset.act, +t.dataset.i); return; }
       scrollToPage(+t.dataset.i);
     });
+    t.querySelector(".tframe").style.height = h + "px";     // set from code: no inline style in HTML (CSP)
     bindThumbDrag(t);
     box.appendChild(t);
     thumbObserver.observe(t);
@@ -641,7 +642,7 @@ function syncBar() {
   placeBar();
 }
 
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 
 function placeBar() {
   if (!S.ed) return;
