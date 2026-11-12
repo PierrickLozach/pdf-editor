@@ -247,3 +247,13 @@ details.change .form { max-width: 420px; }
 .dev-cta { text-align: center; }
 .dev-cta .intro { margin-bottom: 18px; }
 .dev-cta .ctas { justify-content: center; }
+
+/* ---------- GitHub link in the header: quiet, but always there ---------- */
+.gh-link { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; color: var(--muted); flex: none; }
+.gh-link svg { width: 20px; height: 20px; fill: currentColor; }
+.gh-link:hover, .gh-link:focus-visible { color: var(--fg); background: var(--bg2); outline: none; }
+.privacy-band .gh-line { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-weight: 600; color: inherit; }
+.privacy-band .gh-line svg { width: 16px; height: 16px; fill: currentColor; }
+.stats-choice { padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg2); }
+.stats-choice label { display: flex; gap: 10px; align-items: center; cursor: pointer; }
+.stats-choice input { width: 18px; height: 18px; accent-color: var(--accent); }

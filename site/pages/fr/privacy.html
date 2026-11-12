@@ -1,19 +1,23 @@
 <!--
 title: Confidentialité – {{name}}
-description: {{name}} ne collecte rien sur vous : vos PDF et vos polices restent sur votre appareil.
+description: {{name}} ne voit jamais vos documents et ne collecte rien qui vous identifie : seulement des totaux anonymes de visites.
 -->
 <main id="main" class="prose wrap narrow">
   <h1>Confidentialité</h1>
   <p class="updated">Dernière mise à jour : {{updated}}</p>
-  <p><b>En bref :</b> nous ne collectons, ne conservons et ne partageons aucune donnée personnelle. Pas de compte, pas de cookies, pas de mesure d'audience, pas de publicité.</p>
+  <p><b>En bref :</b> nous ne collectons, ne conservons et ne partageons aucune donnée personnelle. Pas de compte, pas de cookies, pas de publicité, et aucune société de mesure d'audience n'intervient. Nous comptons seulement les visites de façon anonyme, en totaux par jour, pour savoir combien le site est utilisé.</p>
   <h2>Vos documents</h2>
   <p>L'éditeur fonctionne entièrement dans votre navigateur. Les PDF que vous ouvrez sont lus, modifiés et enregistrés sur votre appareil ; ils ne sont jamais envoyés, ni à nous ni à personne.</p>
   <h2>Ce que garde votre navigateur</h2>
   <p>Pour bien fonctionner, l'éditeur conserve quelques éléments dans le stockage de votre navigateur, sur votre appareil uniquement : le document en cours (pour qu'un rechargement ne fasse pas perdre votre travail – « Fermer » le supprime), la liste des fichiers récents (une référence à chaque fichier de votre ordinateur, jamais une copie), les polices que vous ajoutez ou qu'il a téléchargées, et de petites préférences comme votre langue. Nous n'y avons pas accès. Vous pouvez tout effacer à tout moment depuis les réglages de votre navigateur (données du site).</p>
   <h2>Polices gratuites</h2>
   <p>Quand un PDF utilise une police gratuite (par exemple de Google Fonts) et que les lettres que vous tapez manquent dans le PDF, l'éditeur télécharge cette police depuis le réseau jsDelivr (cdn.jsdelivr.net). Comme tout téléchargement, cette demande communique votre adresse réseau (IP) et le nom de la police à jsDelivr — jamais votre document. Vous pouvez désactiver cela dans la fenêtre Polices de l'éditeur.</p>
+  <h2>Statistiques de visite</h2>
+  <p>Pour savoir combien le site est utilisé, il compte lui-même les visites – aucune société de mesure d'audience n'intervient. Quand une page s'ouvre, elle indique à notre serveur de quelle page il s'agit ; pour la première page d'une visite, également le site qui vous a envoyé (son nom de domaine seulement, par exemple « google »), la langue de votre navigateur, et si vous utilisez un ordinateur, une tablette ou un téléphone. Notre serveur y ajoute le pays qu'il voit pour la connexion. Dans l'éditeur, il compte aussi qu'un PDF a été ouvert, enregistré ou créé, sa tranche de taille et les outils utilisés – jamais un nom de fichier, ni rien de vos documents.</p>
+  <p>Seuls des totaux par jour sont conservés (par exemple « visiteurs français le 3 mars : 12 »). Votre adresse IP, un cookie ou un quelconque identifiant ne sont jamais conservés ni utilisés : une visite ne peut donc être reliée ni à vous ni à une autre visite. Rien n'est compté si votre navigateur demande aux sites de ne pas vous pister (Do Not Track ou Global Privacy Control).</p>
+  <p class="stats-choice"><label><input type="checkbox" id="statsOptOut"> <span>Ne pas compter mes visites dans ce navigateur</span></label></p>
   <h2>Hébergement</h2>
   <p>Le site est hébergé par Cloudflare, Inc., qui traite des données techniques (comme les adresses IP) pour afficher les pages et les protéger contre les attaques, selon sa propre politique de confidentialité. Nous ne recevons ni ne conservons ces journaux.</p>
   <h2>Vos droits</h2>
-  <p>Comme nous ne détenons aucune donnée sur vous, il n'y a rien à vous communiquer, corriger ou supprimer. Pour toute question, écrivez à <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Vous pouvez aussi contacter la CNIL (www.cnil.fr).</p>
+  <p>Comme nous ne détenons aucune donnée sur vous (les statistiques sont des totaux anonymes), il n'y a rien à vous communiquer, corriger ou supprimer. Pour toute question, écrivez à <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Vous pouvez aussi contacter la CNIL (www.cnil.fr).</p>
 </main>

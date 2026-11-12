@@ -18,5 +18,6 @@
   "footer_free": "自由软件（AGPL）",
   "date_format": "%Y年%-m月%-d日",
   "language_auto": "浏览器语言",
-  "footer_developers": "开发者"
+  "footer_developers": "开发者",
+  "github": "GitHub 上的源代码"
 }

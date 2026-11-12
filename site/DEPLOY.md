@@ -27,6 +27,13 @@ The first time on a computer: `npx wrangler login` (a browser window opens: clic
 
 `site/site.json`: `publisher.name` is shown on the legal notice and terms pages, `publisher.email` is the contact on the terms, privacy and developer pages. As a non-professional publisher, the legal notice gives only the host's details (French LCEN): make sure the host (your Cloudflare account) has your real name and postal address. If the site becomes a business, a full professional address is required. The build reminds you while the email is a placeholder.
 
+## Visit statistics
+
+Anonymous daily totals, kept in the D1 database `pdf-editor-stats` (free plan: 100,000 counts a day). The table is
+created with `wrangler d1 execute pdf-editor-stats --remote --file worker/schema.sql`. The statistics page is
+`/api/stats?key=…` (JSON: `/api/stats.json?days=30&key=…`); set or change its key with `wrangler secret put STATS_KEY`.
+If the free daily limit is ever reached, only counting stops: the site keeps working.
+
 ## Languages
 
 The site and the editor are in English, French, Spanish, Portuguese (Brazil), German, Dutch, Italian,

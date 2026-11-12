@@ -17,3 +17,12 @@ if (sel) {
   });
 }
 const y = $("#year"); if (y) y.textContent = new Date().getFullYear();
+// privacy page: "Do not count my visits in this browser"
+const opt = $("#statsOptOut");
+if (opt) {
+  const off = () => { try { return localStorage.getItem("pdfe.noStats") === "1"; } catch (e) { return false; } };
+  opt.checked = off();
+  const dnt = navigator.doNotTrack === "1" || navigator.globalPrivacyControl === true;
+  if (dnt) { opt.checked = true; opt.disabled = true; opt.title = "Your browser already asks websites not to track you"; }
+  opt.addEventListener("change", () => { try { if (opt.checked) localStorage.setItem("pdfe.noStats", "1"); else localStorage.removeItem("pdfe.noStats"); } catch (e) {} });
+}

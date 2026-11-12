@@ -1,15 +1,25 @@
 {
-  // PDF Editor - Cloudflare Workers static assets (free, unlimited requests). No server code,
-  // no database: the site is only files. Deploy: npm run deploy (see DEPLOY.md).
+  // PDF Editor - Cloudflare Workers (free plan). The site is static files (unlimited, free); a small
+  // Worker answers /api/* only: anonymous visit statistics, kept per day in D1 (worker/index.js).
+  // Deploy: npm run deploy (see DEPLOY.md).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pdf-editor",
+  "main": "worker/index.js",
   "compatibility_date": "2026-11-01",
   // no public address for each past version: only the current site is online
   "preview_urls": false,
   "workers_dev": true,
   "assets": {
     "directory": "./public",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+    // only the statistics run code; every page and file is served directly
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "pdf-editor-stats", "database_id": "8d17301c-9ffe-4701-906e-1ed4cac2159b", "migrations_dir": "worker" }
+  ],
+  "vars": { "LANGS": "en,fr,es,pt,de,nl,it,pl,ar,he,zh,ja" },
+  "observability": { "enabled": false }
 }

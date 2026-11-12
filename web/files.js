@@ -216,6 +216,7 @@
       ok = true;
       mark();
       toast(t("Saved in “{name}”").replace("{name}", h.name));
+      window.PDFE_STATS && PDFE_STATS.event("pdf_saved");
       remember(h, h.name);
     });
     return ok;

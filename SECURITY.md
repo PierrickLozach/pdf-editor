@@ -49,6 +49,15 @@ mention of itself and the engine's "Written by MuPDF" comment is blanked (`tests
 with `Access-Control-Allow-Origin: *` and `Cross-Origin-Resource-Policy: cross-origin`. These files are public and read-only;
 they process documents in the calling page, which never sends them here.
 
+## Visit statistics
+
+The site counts visits itself (`site/worker/index.js`, Cloudflare D1), only on `/api/*`: daily totals of the page, the
+referring domain, the country Cloudflare sees, the browser language, the device type, and editor events (PDF opened /
+saved / created, its size range, tools used). No IP address, cookie, identifier, user agent, file name or time of day is
+stored. Requests from other origins, bots, automated browsers, Do Not Track / Global Privacy Control and the privacy
+page's opt-out are not counted; only known pages and events are accepted, with a cap on distinct values per day.
+`/api/stats` answers 404 without the key (`wrangler secret put STATS_KEY`, compared in constant time).
+
 ## Limits (known and accepted)
 
 - Anyone with access to the person's unlocked computer can open the files they can open; the browser's crash-recovery copy of the PDF

@@ -232,6 +232,7 @@
       const list = [];
       for (const f of files) list.push({ name: f.name, bytes: await prepare(f) });
       const info = await call("fromImages", list, { name: base(files[0].name) + ".pdf" });
+      window.PDFE_STATS && PDFE_STATS.event("pdf_created");
       $("#resume").hidden = true;
       loadDoc(info, true);
       if (window.FILES) FILES.opened(null);
@@ -258,7 +259,7 @@
     sign: () => window.SIGN && SIGN.open(), redact: () => window.REDACT && REDACT.start(), ocr: () => window.OCR && OCR.open(),
     split, convert, protect, numbers, watermark, reduce: () => window.REDUCE && REDUCE.open(),
   };
-  TOOLS.run = (k) => { if (S.doc && RUN[k]) return RUN[k](); };
+  TOOLS.run = (k) => { if (S.doc && RUN[k]) { window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: k }); return RUN[k](); } };
 
   function menu() {
     const find = document.getElementById("btnFind");

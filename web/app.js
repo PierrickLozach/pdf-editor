@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=977f5bf227", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=e082da43ae", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -139,6 +139,7 @@ async function openFile(file, password) {
     await engineReady;
     const bytes = new Uint8Array(await file.arrayBuffer());
     const info = await call("open", bytes, file.name, password);
+    window.PDFE_STATS && PDFE_STATS.event("pdf_opened", { size: bytes.length || bytes.byteLength });
     $("#resume").hidden = true;
     loadDoc(info, true);
     if (window.FILES) FILES.opened(file);
@@ -189,6 +190,7 @@ async function saveFile() {
         call("markSaved").catch(() => {});
         if (window.FILES) FILES.adopt(h);
         toast(`Saved: ${h.name}`);
+        window.PDFE_STATS && PDFE_STATS.event("pdf_saved");
         return;
       } catch (e) { if (e.name === "AbortError") return; }
     }
@@ -196,6 +198,7 @@ async function saveFile() {
     S.dirty = false;
     call("markSaved").catch(() => {});
     toast(`Downloaded: ${name}`);
+    window.PDFE_STATS && PDFE_STATS.event("pdf_downloaded");
   });
 }
 
@@ -205,6 +208,7 @@ async function download() {
   closeEditor(true).then(() => busy(async () => {
     const bytes = await call("export");
     triggerDownload(bytes, outName(S.doc.name));
+    window.PDFE_STATS && PDFE_STATS.event("pdf_downloaded");
     S.dirty = false;
     call("markSaved").catch(() => {});
   }));
@@ -720,6 +724,7 @@ async function closeEditorNow(commit) {
     S.addDefaults = { fontKey: st.fontKey || "b:liberationsans", size: +st.size, color: st.color, bold: st.bold, italic: st.italic };
     const base = ed.y + lineBox(+st.size, 0.905, -0.212) / 1;
     await busy(async () => {
+      window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "add" });
       const info = await call("addText", ed.page, ed.x + 1 / S.zoom, base, text,
         { fontKey: st.fontKey || "b:liberationsans", size: +st.size, color: st.color, bold: st.bold, italic: st.italic });
       applyInfo(info);
@@ -743,6 +748,7 @@ async function closeEditorNow(commit) {
   await busy(async () => {
     const info = moveOnly ? await call("moveSpans", body.page, [{ id: sp.id, expected: sp.text }], ed.dx, ed.dy)
                           : await call("editSpan", body.page, body.span, body.expected, body.text, body);
+      window.PDFE_STATS && PDFE_STATS.event("text_edited");
     applyInfo(info);
     // letters drawn with a look-alike font: explain once why the computer's fonts help, then redo it with them
     if (!moveOnly && /Liberation|Carlito|Caladea|DejaVu/.test(info.font || "") && !st.fontKey)
@@ -874,6 +880,7 @@ function bindLayer(el, i) {
       if (S.tool === "erase") {
         if (small) { rb.remove(); return toast("Drag to draw the area to white out"); }
         await busy(async () => applyInfo(await call("erase", i, rect)));
+        window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "erase" });
       } else {
         rb.remove();
         if (!S.image) return;
@@ -1007,6 +1014,7 @@ async function replaceAll() {
   await busy(async () => {
     const o = findOpts();
     const r = await call("replaceAll", o.query, $("#replaceInput").value, o.matchCase, o.wholeWord, null);
+    window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "find" });
     applyInfo(r);
     const pages = r.changed.length;
     let msg = `Replaced ${r.replaced} occurrence${r.replaced > 1 ? "s" : ""} on ${pages} page${pages > 1 ? "s" : ""}`;

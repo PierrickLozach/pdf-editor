@@ -115,6 +115,7 @@
     try {
       const bytes = new Uint8Array(await S.image.blob.arrayBuffer());
       const ok = await busy(async () => { applyInfo(await call("addImage", i, rect, bytes, true)); return true; });   // exactly the frame
+      if (ok && !(S.image && S.image.signature)) window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "image" });
       if (!ok) { a.busy = false; return; }
     } catch (e) { a.busy = false; return; }
     end();
