@@ -25,8 +25,7 @@ The first time on a computer: `npx wrangler login` (a browser window opens: clic
 
 ## Before going live
 
-`site/site.json`: `publisher.address` and `publisher.email` are shown on the legal notice page
-(required in France). The build reminds you while they are empty.
+`site/site.json`: `publisher.name` is shown on the legal notice and terms pages, `publisher.email` is the contact on the terms, privacy and developer pages. As a non-professional publisher, the legal notice gives only the host's details (French LCEN): make sure the host (your Cloudflare account) has your real name and postal address. If the site becomes a business, a full professional address is required. The build reminds you while the email is a placeholder.
 
 ## Languages
 
