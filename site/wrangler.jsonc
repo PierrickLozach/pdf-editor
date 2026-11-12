@@ -4,6 +4,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pdf-editor",
   "compatibility_date": "2026-11-01",
+  // no public address for each past version: only the current site is online
+  "preview_urls": false,
+  "workers_dev": true,
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page",
