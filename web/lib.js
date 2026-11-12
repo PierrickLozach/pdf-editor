@@ -158,6 +158,27 @@ export class PDF {
     this._set(r);
     return { redacted: r.redacted };
   }
+  /** The pictures of a page: [{id, box, width, height}] (box in points; width/height in pixels). */
+  async images(page) { return (await wrap(() => this._e.pageImages(page))).map((im) => ({ id: im.id, box: im.bbox, width: im.w, height: im.h })); }
+  /** Delete lines of text (ids from lines(); tilted ones too: stamps, watermarks). options: { everyPage } also
+   *  deletes the same stamp found at the same place on the other pages. -> {pages} */
+  async deleteText(page, ids, options = {}) {
+    let items = [{ page, ids }];
+    if (options.everyPage) for (const id of ids) items.push(...(await wrap(() => this._e.similarText(page, id))).pages);
+    const r = await wrap(() => this._e.removeText(items));
+    this._set(r);
+    return { pages: r.changed.length };
+  }
+  /** Delete a picture (id from images()). options: { everyPage } also deletes the same picture at the same
+   *  place on the other pages. -> {pages} */
+  async deleteImage(page, id, options = {}) {
+    const im = this._e.pageImages(page).find((x) => x.id === id);
+    if (!im) throw new PDFError("No such picture on that page");
+    const items = [{ page, id }, ...(options.everyPage ? this._e.similarImages(page, id).map((q) => ({ page: q, like: im })) : [])];
+    const r = await wrap(() => this._e.removeImages(items));
+    this._set(r);
+    return { pages: r.changed.length };
+  }
   /** Remove scripts, launch actions, unsafe links, attached files, XFA. -> {removed} */
   async removeActiveContent() { const r = await this._e.removeActiveContent(); this._set(r); return { removed: r.removed.total }; }
 

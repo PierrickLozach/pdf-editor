@@ -50,6 +50,13 @@ ok(r.redacted === 2 && !/2026/.test(textOf(saved)) && /SOUTHWIND/.test(textOf(sa
 const box = (await pdf.find("Lake Street"))[0].box;
 r = await pdf.redact([{ page: 0, box: [box[0] - 2, box[1] - 2, box[2] + 2, box[3] + 2] }]);
 ok(r.redacted === 1 && !/Lake Street/.test(textOf(await pdf.save())) && /SOUTHWIND/.test(textOf(await pdf.save())), "redact([{page, box}])");
+// deleting items
+pdf = await PDF.open(fx("demo-invoice.pdf"));
+await pdf.duplicatePage(0); await pdf.watermark("DRAFT"); await pdf.addImage(0, [440, 700, 520, 780], fs.readFileSync(path.join(here, "..", "web", "icon.png")));
+const wmLine = (await pdf.lines(0)).find((l) => !l.editable);
+ok((await pdf.deleteText(0, [wmLine.id], { everyPage: true })).pages === 2 && (await pdf.find("DRAFT")).length === 0, "deleteText({everyPage}): the tilted watermark is gone from both pages");
+const pics = await pdf.images(0);
+ok(pics.length === 1 && (await pdf.deleteImage(0, pics[0].id)).pages === 1 && (await pdf.images(0)).length === 0, "images() / deleteImage()");
 // pages
 pdf = await PDF.open(fx("demo-invoice.pdf"));
 await pdf.duplicatePage(0); await pdf.insertBlankPage(1); await pdf.rotatePage(2, 90);

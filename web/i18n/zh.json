@@ -101,7 +101,6 @@
   "Loading…": "正在加载…",
   "Click to edit · drag to move": "点击编辑 · 拖动移动",
   "Tilted text cannot be edited": "倾斜的文本无法编辑",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "此文本是倾斜的，无法直接编辑。请改用“涂白”+“添加文本”。",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "此页面没有可编辑的文本（可能是扫描图像？），请使用“涂白”+“添加文本”。",
   "You can undo this with ⌘Z.": "可按 ⌘Z 撤销。",
   "Delete": "删除",
@@ -377,7 +376,16 @@
   "Click a text and type": "点击文字并输入",
   "It keeps the original font, size and colour.": "保留原来的字体、字号和颜色。",
   "Into your file, or as a new one.": "保存到原文件或另存为新文件。",
-  "Click any text to change it": "点击任意文字即可修改"
+  "Click any text to change it": "点击任意文字即可修改",
+  "Click to select it (to delete it)": "点击选中（以便删除）",
+  "Delete this text": "删除此文字",
+  "Stamp or watermark": "印章或水印",
+  "Picture": "图片",
+  "Deleted. You can undo it.": "已删除。可以撤销。",
+  "Click to select this picture": "点击选中此图片",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "此图片叠在另一张图片上：删除会把两张都去掉。请改用“涂白”或“涂黑”。",
+  "This picture could not be deleted": "无法删除此图片",
+  "Nothing to delete": "没有可删除的内容"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "“{name}”中未保存的更改将被删除。文件本身不会改变。"
+  ],
+  [
+   "Delete ({n} lines)",
+   "删除（{n} 行）"
+  ],
+  [
+   "Delete on every page ({n})",
+   "在所有页面删除（{n}）"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "已在 {n} 个页面删除。可以撤销。"
   ]
  ]
 }

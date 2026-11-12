@@ -16,7 +16,7 @@ const KINDS = {
   visit: 1, page: 1, source: 1, country: 1, lang: 1, device: 1, browser: 1, event: 1, tool: 1, size: 1,
 };
 const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded"]);
-const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find"]);
+const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete"]);
 const SIZES = new Set(["<1MB", "1-10MB", "10-50MB", "50MB+"]);
 const MAX_VALUES_PER_KIND_AND_DAY = 400;
 

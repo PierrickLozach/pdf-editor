@@ -87,6 +87,7 @@ const locked = await pdf.protect("a long password");              // AES-256 cop
       <tr><td><code>addText(page, x, y, text, options)</code></td><td>New text; <code>x, y</code> is the start of the baseline.</td></tr>
       <tr><td><code>addImage(page, box, image)</code></td><td>A picture (or a signature with a transparent background) in a box.</td></tr>
       <tr><td><code>whiteout(page, box, color)</code></td><td>Remove the text under a box and paint over it.</td></tr>
+      <tr><td><code>deleteText(page, ids, {everyPage})</code>, <code>deleteImage(page, id, {everyPage})</code>, <code>images(page)</code></td><td>Delete lines of text (tilted stamps and watermarks too) or pictures, on one page or wherever the same item is.</td></tr>
       <tr><td><code>redact(areas | {text})</code></td><td>Remove for good and draw black boxes → <code>{redacted}</code>.</td></tr>
       <tr><td><code>activeContent()</code>, <code>removeActiveContent()</code></td><td>Scripts, launch actions, unsafe links, attachments, XFA: list them, remove them.</td></tr>
       <tr><td><code>rotatePage</code>, <code>deletePage</code>, <code>movePage</code>, <code>duplicatePage</code>, <code>insertBlankPage</code>, <code>append(input)</code></td><td>Organise pages.</td></tr>

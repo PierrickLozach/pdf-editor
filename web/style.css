@@ -461,3 +461,21 @@ body.dragging-file .drop { border-color: var(--accent); background: var(--accent
   .ms-arrow { opacity: 0; } .ms-ok { opacity: 1; }
   .drop, button.big-btn { transition: none; }
 }
+
+/* ---------- deleting items: stamps, watermarks, pictures ---------- */
+.page .span.locked { cursor: pointer; }
+body.tool-edit .page .span.locked:hover { outline: 1.5px dashed var(--accent); outline-offset: 2px; border-radius: 3px; }
+.imgpick { position: absolute; cursor: pointer; border-radius: 3px; }
+body.tool-edit .imgpick:hover { outline: 1.5px dashed var(--accent); outline-offset: 2px; }
+body:not(.tool-edit) .imgpick { pointer-events: none; }
+.rm-sel { position: absolute; border: 2px solid var(--accent); border-radius: 4px; background: rgba(229,50,45,.08); pointer-events: none; z-index: 8; animation: pdfe-rm-in .15s ease-out; }
+@keyframes pdfe-rm-in { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+.remove-bar { position: fixed; z-index: 45; display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 12px; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); font-size: 13px; }
+.remove-bar[hidden] { display: none; }
+.remove-bar .rm-what { color: var(--muted); font-weight: 600; margin-inline-end: 4px; white-space: nowrap; }
+.remove-bar button { height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--panel); color: var(--fg); font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.remove-bar button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.remove-bar button.icon { width: 30px; padding: 0; justify-content: center; }
+.remove-bar svg, #edDelete svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#edDelete:hover { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .rm-sel { animation: none; } }

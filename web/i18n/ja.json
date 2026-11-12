@@ -101,7 +101,6 @@
   "Loading…": "読み込み中…",
   "Click to edit · drag to move": "クリックで編集 · ドラッグで移動",
   "Tilted text cannot be edited": "傾いたテキストは編集できません",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "このテキストは傾いているため、その場で編集できません。代わりに「白塗り」と「テキスト追加」を使ってください。",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "このページには編集できるテキストがありません（スキャン画像かもしれません）。「白塗り」と「テキスト追加」を使ってください。",
   "You can undo this with ⌘Z.": "⌘Z で取り消せます。",
   "Delete": "削除",
@@ -377,7 +376,16 @@
   "Click a text and type": "テキストをクリックして入力",
   "It keeps the original font, size and colour.": "元のフォント・サイズ・色のままです。",
   "Into your file, or as a new one.": "元のファイルに、または新しいファイルとして。",
-  "Click any text to change it": "テキストをクリックすると変更できます"
+  "Click any text to change it": "テキストをクリックすると変更できます",
+  "Click to select it (to delete it)": "クリックして選択（削除できます）",
+  "Delete this text": "このテキストを削除",
+  "Stamp or watermark": "スタンプまたは透かし",
+  "Picture": "画像",
+  "Deleted. You can undo it.": "削除しました。元に戻せます。",
+  "Click to select this picture": "クリックしてこの画像を選択",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "この画像は別の画像に重なっています。削除すると両方消えます。「白塗り」か「墨消し」を使ってください。",
+  "This picture could not be deleted": "この画像を削除できませんでした",
+  "Nothing to delete": "削除するものがありません"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "「{name}」の保存されていない変更は削除されます。ファイル自体は変更されません。"
+  ],
+  [
+   "Delete ({n} lines)",
+   "削除（{n} 行）"
+  ],
+  [
+   "Delete on every page ({n})",
+   "すべてのページで削除（{n}）"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "{n} ページで削除しました。元に戻せます。"
   ]
  ]
 }

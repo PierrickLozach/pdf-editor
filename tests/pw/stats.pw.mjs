@@ -5,7 +5,8 @@
 import fs from "node:fs";
 import { chromium } from "playwright";
 const B = (process.argv[2] || "http://localhost:8787").replace(/\/$/, "");
-const KEY = process.argv[3] || fs.readFileSync("/tmp/stats-key.txt", "utf8").trim();
+// the key of the local test server (site/.dev.vars, never published); for the live site pass it as 3rd argument
+const KEY = process.argv[3] || (fs.readFileSync(new URL("../../site/.dev.vars", import.meta.url), "utf8").match(/^STATS_KEY=(.+)$/m) || [])[1]?.trim();
 let fails = 0;
 const ok = (c, m) => { console.log(`  ${c ? "ok  " : "FAIL"} ${m}`); if (!c) fails++; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

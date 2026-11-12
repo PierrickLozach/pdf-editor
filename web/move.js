@@ -239,7 +239,18 @@ function mvPress(e, el, pg) {
       if (!S.doc) return;
       if (additive && hit) mvSelect(pg, mvLine(pg, hit), true);
       else if (hit) { mvClear(); startEdit(pg, hit); }
-      else mvClear();
+      else {
+        mvClear();
+        // no editable line here: a stamp or a watermark, or a picture, is selected to be deleted
+        if (!window.REMOVE) return;
+        const b = (r) => p0.x >= r[0] - 2 && p0.x <= r[2] + 2 && p0.y >= r[1] - 2 && p0.y <= r[3] + 2;
+        const stamp = mvSpans(pg).filter((x) => !x.editable && !x.ocr && x.text.trim() && b(x.bbox))
+          .sort((u, v) => (u.bbox[2] - u.bbox[0]) * (u.bbox[3] - u.bbox[1]) - (v.bbox[2] - v.bbox[0]) * (v.bbox[3] - v.bbox[1]))[0];
+        // a tilted line's box is a large rectangle: a picture inside it is the thing clicked on
+        const pic = REMOVE.imageAt(pg, p0.x, p0.y);
+        if (pic) return REMOVE.selectImage(pg, pic);
+        if (stamp) REMOVE.selectText(pg, stamp);
+      }
     });
   };
   window.addEventListener("pointermove", move);

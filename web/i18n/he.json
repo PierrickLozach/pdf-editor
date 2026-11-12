@@ -101,7 +101,6 @@
   "Loading…": "בטעינה…",
   "Click to edit · drag to move": "לחיצה לעריכה · גרירה להזזה",
   "Tilted text cannot be edited": "אי אפשר לערוך טקסט מוטה",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "הטקסט הזה מוטה: אי אפשר לערוך אותו במקום. במקום זאת אפשר להשתמש ב\"מחיקה בלבן\" ואז ב\"הוספת טקסט\".",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "אין בעמוד הזה טקסט שאפשר לערוך (תמונה סרוקה?) – אפשר להשתמש ב\"מחיקה בלבן\" ואז ב\"הוספת טקסט\".",
   "You can undo this with ⌘Z.": "אפשר לבטל זאת עם ⌘Z.",
   "Delete": "מחיקה",
@@ -377,7 +376,16 @@
   "Click a text and type": "לוחצים על טקסט ומקלידים",
   "It keeps the original font, size and colour.": "הגופן, הגודל והצבע נשארים כמו במקור.",
   "Into your file, or as a new one.": "לקובץ שלך או כקובץ חדש.",
-  "Click any text to change it": "לוחצים על טקסט כלשהו כדי לשנות אותו"
+  "Click any text to change it": "לוחצים על טקסט כלשהו כדי לשנות אותו",
+  "Click to select it (to delete it)": "לחיצה לבחירה (כדי למחוק)",
+  "Delete this text": "מחיקת הטקסט הזה",
+  "Stamp or watermark": "חותמת או סימן מים",
+  "Picture": "תמונה",
+  "Deleted. You can undo it.": "נמחק. אפשר לבטל.",
+  "Click to select this picture": "לחיצה לבחירת התמונה הזו",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "התמונה הזו מונחת מעל תמונה אחרת: מחיקתה תמחק את שתיהן. עדיף להשתמש ב\"מחיקה בלבן\" או ב\"השחרה\".",
+  "This picture could not be deleted": "לא ניתן היה למחוק את התמונה הזו",
+  "Nothing to delete": "אין מה למחוק"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "השינויים ב-\"{name}\" שלא נשמרו יימחקו. הקובץ עצמו לא משתנה."
+  ],
+  [
+   "Delete ({n} lines)",
+   "מחיקה ({n} שורות)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "מחיקה בכל הדפים ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "נמחק ב-{n} דפים. אפשר לבטל."
   ]
  ]
 }

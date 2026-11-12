@@ -101,10 +101,9 @@
   "Loading…": "Cargando…",
   "Click to edit · drag to move": "Haz clic para editar · arrastra para mover",
   "Tilted text cannot be edited": "El texto inclinado no se puede editar",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Este texto está inclinado: no se puede editar directamente. Usa Corrector + Añadir texto.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "No hay texto editable en esta página (¿imagen escaneada?) – usa Corrector + Añadir texto.",
   "You can undo this with ⌘Z.": "Puedes deshacerlo con ⌘Z.",
-  "Delete": "Eliminar",
+  "Delete": "Borrar",
   "Close": "Cerrar",
   "Included fonts": "Fuentes incluidas",
   "Fonts on this computer": "Fuentes de este ordenador",
@@ -377,7 +376,16 @@
   "Click a text and type": "Haz clic en un texto y escribe",
   "It keeps the original font, size and colour.": "Mantiene la fuente, el tamaño y el color originales.",
   "Into your file, or as a new one.": "En tu archivo o como uno nuevo.",
-  "Click any text to change it": "Haz clic en cualquier texto para cambiarlo"
+  "Click any text to change it": "Haz clic en cualquier texto para cambiarlo",
+  "Click to select it (to delete it)": "Haz clic para seleccionarlo (para borrarlo)",
+  "Delete this text": "Borrar este texto",
+  "Stamp or watermark": "Sello o marca de agua",
+  "Picture": "Imagen",
+  "Deleted. You can undo it.": "Borrado. Puedes deshacerlo.",
+  "Click to select this picture": "Haz clic para seleccionar esta imagen",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Esta imagen está sobre otra: borrarla eliminaría las dos. Usa Corrector o Censurar.",
+  "This picture could not be deleted": "No se pudo borrar esta imagen",
+  "Nothing to delete": "Nada que borrar"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "Se eliminan los cambios de «{name}» que no se guardaron. El archivo en sí no cambia."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Borrar ({n} líneas)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Borrar en todas las páginas ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Borrado en {n} páginas. Puedes deshacerlo."
   ]
  ]
 }

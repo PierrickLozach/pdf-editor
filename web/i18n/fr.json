@@ -101,7 +101,6 @@
   "Loading…": "Chargement…",
   "Click to edit · drag to move": "Cliquer pour modifier · glisser pour déplacer",
   "Tilted text cannot be edited": "Un texte incliné ne peut pas être modifié",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Ce texte est incliné : il ne peut pas être modifié sur place. Utilisez Masquer puis Ajouter du texte.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Aucun texte modifiable sur cette page (image scannée ?) – utilisez Masquer puis Ajouter du texte.",
   "You can undo this with ⌘Z.": "Vous pouvez l'annuler avec ⌘Z.",
   "Delete": "Supprimer",
@@ -377,7 +376,16 @@
   "Click a text and type": "Cliquez sur un texte et tapez",
   "It keeps the original font, size and colour.": "Il garde la police, la taille et la couleur d'origine.",
   "Into your file, or as a new one.": "Dans votre fichier ou dans un nouveau.",
-  "Click any text to change it": "Cliquez sur un texte pour le modifier"
+  "Click any text to change it": "Cliquez sur un texte pour le modifier",
+  "Click to select it (to delete it)": "Cliquez pour le sélectionner (pour le supprimer)",
+  "Delete this text": "Supprimer ce texte",
+  "Stamp or watermark": "Cachet ou filigrane",
+  "Picture": "Image",
+  "Deleted. You can undo it.": "Supprimé. Vous pouvez annuler.",
+  "Click to select this picture": "Cliquez pour sélectionner cette image",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Cette image recouvre une autre image : la supprimer effacerait les deux. Utilisez plutôt Masquer ou Caviarder.",
+  "This picture could not be deleted": "Cette image n'a pas pu être supprimée",
+  "Nothing to delete": "Rien à supprimer"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "Les modifications de « {name} » qui n'ont pas été enregistrées sont supprimées. Le fichier lui-même n'est pas modifié."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Supprimer ({n} lignes)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Supprimer sur toutes les pages ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Supprimé sur {n} pages. Vous pouvez annuler."
   ]
  ]
 }

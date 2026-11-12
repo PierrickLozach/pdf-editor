@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=e082da43ae", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=651c7798f5", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -327,6 +327,7 @@ function freePage(el) {
 function refreshPage(i) {
   const el = pageEl(i);
   if (!el) return;
+  if (window.REMOVE && REMOVE.sel && REMOVE.sel.page === i) REMOVE.clear();
   if (window.REDACT && REDACT.on) setTimeout(() => REDACT.redraw(), 0);
   $(".spans", el).innerHTML = "";
   el.dataset.spansV = "";
@@ -354,6 +355,7 @@ function setZoom(z, anchorY) {
   updateButtons();
   if (window.PLACE) PLACE.redraw();
   if (window.REDACT && REDACT.on) REDACT.redraw();
+  if (window.REMOVE) REMOVE.clear();
 }
 
 function zoomStep(dir) {
@@ -386,11 +388,11 @@ async function loadSpans(i) {
     d.className = "span" + (sp.editable ? "" : " locked");
     const [x0, y0, x1, y1] = sp.bbox;
     Object.assign(d.style, { left: x0 * z + "px", top: y0 * z + "px", width: (x1 - x0) * z + "px", height: (y1 - y0) * z + "px" });
-    d.title = sp.editable ? "Click to edit · drag to move" : "Tilted text cannot be edited";
+    d.title = sp.editable ? "Click to edit · drag to move" : "Click to select it (to delete it)";
     d.addEventListener("pointerdown", async e => {
       if (S.tool !== "edit" || e.button !== 0) return;
       e.preventDefault(); e.stopPropagation();
-      if (!sp.editable) return toast("This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.", true);
+      if (!sp.editable) { if (window.REMOVE) REMOVE.selectText(i, sp); return; }   // a stamp, a watermark: select it, to delete it
       const v0 = p.v;
       if (S.pending) await S.pending;
       let target = sp;
@@ -409,6 +411,7 @@ async function loadSpans(i) {
     });
     layer.appendChild(d);
   }
+  if (window.REMOVE) REMOVE.decorate(i, el, layer);           // clickable pictures, under the text
   const old = $(".notext", el); if (old) old.remove();
   if (!spans.length) {
     const n = document.createElement("div");
@@ -786,6 +789,7 @@ function bindEditorBar() {
   }));
   $("#edApply").addEventListener("click", () => closeEditor(true));
   $("#edCancel").addEventListener("click", () => closeEditor(false));
+  $("#edDelete").addEventListener("click", () => window.REMOVE && REMOVE.deleteEditing());
   $("#editorBar").addEventListener("keydown", e => {
     if (e.key === "Escape") { e.preventDefault(); closeEditor(false); }
     if (e.key === "Enter" && e.target.tagName === "INPUT") { e.preventDefault(); closeEditor(true); }
@@ -821,6 +825,7 @@ function bindEditorBar() {
 function setTool(t) {
   if (!S.doc) return;
   closeEditor(true);
+  if (window.REMOVE) REMOVE.clear();
   if (window.PLACE && PLACE.active && t !== "image") PLACE.cancel(true);
   if (t === "image") {
     if (!S.image) { $("#imageInput").click(); return; }   // the tool is set once a picture is chosen

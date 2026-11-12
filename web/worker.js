@@ -3,7 +3,7 @@
  *           worker -> main: {req, type:"localFont", postscriptName}   main -> worker: {req, bytes|error}
  * The open document is also kept in IndexedDB (this browser only) so a reload or a
  * crash does not lose the edits. Nothing ever leaves the computer. */
-import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=e082da43ae";
+import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=651c7798f5";
 
 let engine = null;
 let reqSeq = 0;
@@ -80,7 +80,7 @@ let recovery = true;
 const persist = (name, bytes, unsaved = true) => (recovery ? idbDo("readwrite", (st) => st.put({ name, bytes, time: Date.now(), unsaved }, "current")) : Promise.resolve());
 
 const ready = (async () => {
-  const manifest = await (await fetch(new URL("fonts/fonts.json?v=e082da43ae", import.meta.url))).json();
+  const manifest = await (await fetch(new URL("fonts/fonts.json?v=651c7798f5", import.meta.url))).json();
   engine = new Engine({ manifest, fetchBytes, persist });
   // the catalogue of free fonts (Google Fonts...): small, loaded in the background
   fetch(new URL("fonts/free-fonts.json", import.meta.url)).then((r) => r.json()).then((c) => engine.setFreeCatalog(c)).catch(() => {});

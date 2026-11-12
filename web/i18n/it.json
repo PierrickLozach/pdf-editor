@@ -101,7 +101,6 @@
   "Loading…": "Caricamento…",
   "Click to edit · drag to move": "Clic per modificare · trascina per spostare",
   "Tilted text cannot be edited": "Il testo inclinato non si può modificare",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Questo testo è inclinato: non si può modificare sul posto. Usa Bianchetto e poi Aggiungi testo.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Nessun testo modificabile in questa pagina (immagine scansionata?) – usa Bianchetto e poi Aggiungi testo.",
   "You can undo this with ⌘Z.": "Puoi annullare con ⌘Z.",
   "Delete": "Elimina",
@@ -377,7 +376,16 @@
   "Click a text and type": "Fai clic su un testo e scrivi",
   "It keeps the original font, size and colour.": "Mantiene il carattere, la dimensione e il colore originali.",
   "Into your file, or as a new one.": "Nel tuo file o in uno nuovo.",
-  "Click any text to change it": "Fai clic su un testo per modificarlo"
+  "Click any text to change it": "Fai clic su un testo per modificarlo",
+  "Click to select it (to delete it)": "Fai clic per selezionarlo (per eliminarlo)",
+  "Delete this text": "Elimina questo testo",
+  "Stamp or watermark": "Timbro o filigrana",
+  "Picture": "Immagine",
+  "Deleted. You can undo it.": "Eliminato. Puoi annullare.",
+  "Click to select this picture": "Fai clic per selezionare questa immagine",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Questa immagine è sopra un'altra: eliminarla cancellerebbe entrambe. Usa Bianchetto o Oscura.",
+  "This picture could not be deleted": "Impossibile eliminare questa immagine",
+  "Nothing to delete": "Niente da eliminare"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "Le modifiche a “{name}” non salvate vengono eliminate. Il file stesso non cambia."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Elimina ({n} righe)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Elimina su tutte le pagine ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Eliminato su {n} pagine. Puoi annullare."
   ]
  ]
 }

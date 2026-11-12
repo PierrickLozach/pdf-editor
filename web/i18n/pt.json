@@ -101,7 +101,6 @@
   "Loading…": "Carregando…",
   "Click to edit · drag to move": "Clique para editar · arraste para mover",
   "Tilted text cannot be edited": "Texto inclinado não pode ser editado",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Este texto está inclinado: não pode ser editado no lugar. Use Corretivo + Adicionar texto.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Não há texto editável nesta página (imagem digitalizada?) – use Corretivo + Adicionar texto.",
   "You can undo this with ⌘Z.": "Você pode desfazer isso com ⌘Z.",
   "Delete": "Excluir",
@@ -377,7 +376,16 @@
   "Click a text and type": "Clique em um texto e digite",
   "It keeps the original font, size and colour.": "Mantém a fonte, o tamanho e a cor originais.",
   "Into your file, or as a new one.": "No seu arquivo ou como um novo.",
-  "Click any text to change it": "Clique em qualquer texto para alterá-lo"
+  "Click any text to change it": "Clique em qualquer texto para alterá-lo",
+  "Click to select it (to delete it)": "Clique para selecionar (para excluir)",
+  "Delete this text": "Excluir este texto",
+  "Stamp or watermark": "Carimbo ou marca d'água",
+  "Picture": "Imagem",
+  "Deleted. You can undo it.": "Excluído. Você pode desfazer.",
+  "Click to select this picture": "Clique para selecionar esta imagem",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Esta imagem está sobre outra: excluí-la apagaria as duas. Use Corretivo ou Ocultar.",
+  "This picture could not be deleted": "Não foi possível excluir esta imagem",
+  "Nothing to delete": "Nada para excluir"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "As alterações em “{name}” que não foram salvas serão apagadas. O arquivo em si não muda."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Excluir ({n} linhas)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Excluir em todas as páginas ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Excluído em {n} páginas. Você pode desfazer."
   ]
  ]
 }

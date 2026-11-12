@@ -101,7 +101,6 @@
   "Loading…": "جارٍ التحميل…",
   "Click to edit · drag to move": "انقر للتعديل · اسحب للنقل",
   "Tilted text cannot be edited": "لا يمكن تعديل النص المائل",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "هذا النص مائل: لا يمكن تعديله في مكانه. استخدم «تبييض» ثم «إضافة نص» بدلًا من ذلك.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "لا يوجد نص قابل للتعديل في هذه الصفحة (صورة ممسوحة ضوئيًا؟) – استخدم «تبييض» ثم «إضافة نص».",
   "You can undo this with ⌘Z.": "يمكنك التراجع عن ذلك باستخدام ⌘Z.",
   "Delete": "حذف",
@@ -377,7 +376,16 @@
   "Click a text and type": "انقر على نص واكتب",
   "It keeps the original font, size and colour.": "يحتفظ بالخط والحجم واللون الأصلية.",
   "Into your file, or as a new one.": "في ملفك أو كملف جديد.",
-  "Click any text to change it": "انقر على أي نص لتغييره"
+  "Click any text to change it": "انقر على أي نص لتغييره",
+  "Click to select it (to delete it)": "انقر لتحديده (لحذفه)",
+  "Delete this text": "حذف هذا النص",
+  "Stamp or watermark": "ختم أو علامة مائية",
+  "Picture": "صورة",
+  "Deleted. You can undo it.": "تم الحذف. يمكنك التراجع.",
+  "Click to select this picture": "انقر لتحديد هذه الصورة",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "هذه الصورة فوق صورة أخرى: حذفها سيمحو الاثنتين. استخدم «تبييض» أو «تنقيح» بدلًا من ذلك.",
+  "This picture could not be deleted": "تعذّر حذف هذه الصورة",
+  "Nothing to delete": "لا شيء للحذف"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "تُحذف التغييرات غير المحفوظة على «{name}». ولا يتغير الملف نفسه."
+  ],
+  [
+   "Delete ({n} lines)",
+   "حذف ({n} أسطر)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "حذف في كل الصفحات ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "تم الحذف في {n} صفحات. يمكنك التراجع."
   ]
  ]
 }

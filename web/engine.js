@@ -1158,14 +1158,14 @@ export class Engine {
    *  (glyphs whose box merely touches the area) or moves the glyphs that follow the removed ones
    *  on a slanted line; so the page's glyphs are compared before and after, and every glyph that
    *  was not meant to go is put back exactly where it was. */
-  _redactPage(pno, rects, keepOthers = true) {
+  _redactPage(pno, rects, keepOthers = true, onlyKeys = null) {
     if (!keepOthers) { this._redactOnly(pno, rects); return; }
     const before = this._glyphSnapshot(pno);
     const inside = (g) => { const c = glyphCentre(g); return rects.some((r) => c[0] >= r[0] - 0.05 && c[0] <= r[2] + 0.05 && c[1] >= r[1] - 0.05 && c[1] <= r[3] + 0.05); };
     // the edited text is level (or vertical): letters drawn at a slant across it - a stamp, a
     // watermark - are not part of it and are always put back
     const level = (g) => { const a = Math.abs(Math.atan2(g.m[1], g.m[0])) % (Math.PI / 2); return Math.min(a, Math.PI / 2 - a) < 0.05; };
-    const intended = new Set(before.filter((g) => inside(g) && level(g)).map((g) => g.key));
+    const intended = onlyKeys || new Set(before.filter((g) => inside(g) && level(g)).map((g) => g.key));
     this._redactOnly(pno, rects);
     const was = new Set(before.map((g) => g.key));
     for (let round = 0; round < 4; round++) {
@@ -1933,6 +1933,128 @@ export class Engine {
     return { ...this.info(), before, after, images: changed, changed: changed ? [...Array(doc.countPages()).keys()] : [] };
   }
 
+
+
+  /* -------------------------------------------------- deleting items: lines of text (stamps, watermarks), pictures */
+  /** The glyphs that draw a line of text (pageText id), as the glyph snapshot sees them. */
+  _spanGlyphs(pno, id, snap) {
+    const line = this._lines(pno).flatMap((l) => l.spans).find((x) => x.id === id);
+    if (!line) return [];
+    const out = [];
+    for (const c of line.chars) {
+      if (isSpace(c.c)) continue;
+      const name = c.font.getName();
+      const g = snap.find((g) => g.font === name && Math.abs(g.x - c.origin[0]) < 0.05 && Math.abs(g.y - c.origin[1]) < 0.05);
+      if (g) out.push(g);
+    }
+    return out;
+  }
+
+  /** Other lines that belong with this one: the rest of a stamp or watermark (text that cannot be edited,
+   *  same font, size and colour on the page), and the same text at the same place on other pages.
+   *  -> {group: [ids on this page], pages: [{page, ids}] (other pages)} */
+  similarText(pno, id) {
+    const s = this._need();
+    const all = this.pageText(pno), sp = all.find((x) => x.id === id);
+    if (!sp) return { group: [], pages: [] };
+    const same = (a, b) => a.font === b.font && Math.abs(a.size - b.size) < 0.1 && a.color === b.color && a.editable === b.editable;
+    const group = sp.editable ? [sp] : all.filter((x) => same(x, sp));
+    const pages = [];
+    for (let q = 0; q < s.doc.countPages(); q++) {
+      if (q === pno) continue;
+      const other = this.pageText(q), ids = [];
+      for (const g of group) {
+        const cx = (g.bbox[0] + g.bbox[2]) / 2, cy = (g.bbox[1] + g.bbox[3]) / 2;
+        // a stamp often carries a date or a name that differs a little: same place, size and look is enough
+        const m = other.find((o) => same(o, g) && Math.abs((o.bbox[0] + o.bbox[2]) / 2 - cx) < 3 && Math.abs((o.bbox[1] + o.bbox[3]) / 2 - cy) < 3 &&
+          (o.text === g.text || !g.editable));
+        if (m) ids.push(m.id);
+      }
+      if (ids.length === group.length) pages.push({ page: q, ids });
+    }
+    return { group: group.map((g) => g.id), pages };
+  }
+
+  /** Delete lines of text, whatever their angle (a tilted watermark too). items: [{page, ids}].
+   *  Only those letters go: the text, pictures and drawings around them are kept. One undo step. */
+  async removeText(items) {
+    const s = this._need();
+    const plan = [];
+    for (const { page, ids } of items || []) {
+      if (!(page >= 0 && page < s.doc.countPages())) continue;
+      const snap = this._glyphSnapshot(page);
+      const glyphs = ids.flatMap((id) => this._spanGlyphs(page, id, snap));
+      if (glyphs.length) plan.push({ page, glyphs });
+    }
+    if (!plan.length) throw new EditError("Nothing to delete");
+    this._checkpoint();
+    for (const { page, glyphs } of plan) {
+      const rects = glyphs.map((g) => { const c = glyphCentre(g); return [c[0] - 0.05, c[1] - 0.05, c[0] + 0.05, c[1] + 0.05]; });
+      this._redactPage(page, rects, true, new Set(glyphs.map((g) => g.key)));
+    }
+    const changed = plan.map((p) => p.page);
+    await this._changed(changed);
+    return { ...this.info(), changed, removed: plan.reduce((a, p) => a + p.glyphs.length, 0) };
+  }
+
+  /** The pictures a page draws: [{id, bbox}] (bbox like pageText's), the biggest last. */
+  pageImages(pno) {
+    const s = this._need(), page = s.doc.loadPage(pno), [ox, oy] = this._offset(page);
+    const out = [];
+    try {
+      const dev = new mupdf.Device({ fillImage(img, ctm) {
+        const pts = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, y]) => [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]]);
+        const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+        out.push({ raw: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)], w: img.getWidth(), h: img.getHeight() });
+      } });
+      page.run(dev, M.identity); dev.close();
+    } catch (e) {}
+    return out.map((im, i) => ({ id: i, bbox: [im.raw[0] - ox, im.raw[1] - oy, im.raw[2] - ox, im.raw[3] - oy].map(rd), raw: im.raw, w: im.w, h: im.h }));
+  }
+
+  /** The same picture at the same place on other pages (a logo, a watermark picture). -> [page] */
+  similarImages(pno, id) {
+    const im = this.pageImages(pno).find((x) => x.id === id);
+    if (!im) return [];
+    const out = [];
+    for (let q = 0; q < this.s.doc.countPages(); q++) {
+      if (q === pno) continue;
+      if (this.pageImages(q).some((o) => o.w === im.w && o.h === im.h && o.bbox.every((v, k) => Math.abs(v - im.bbox[k]) < 2))) out.push(q);
+    }
+    return out;
+  }
+
+  /** Delete pictures. items: [{page, id}] for this page, or {page, like: {w, h, bbox}} on other pages.
+   *  Refused, with nothing changed, when another picture would go with it (one lying under it). */
+  async removeImages(items) {
+    const s = this._need();
+    const work = [];
+    for (const it of items || []) {
+      const list = this.pageImages(it.page);
+      const im = it.like ? list.find((o) => o.w === it.like.w && o.h === it.like.h && o.bbox.every((v, k) => Math.abs(v - it.like.bbox[k]) < 2)) : list.find((x) => x.id === it.id);
+      if (im) work.push({ page: it.page, im, count: list.length });
+    }
+    if (!work.length) throw new EditError("Nothing to delete");
+    const keep = s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice();
+    this._checkpoint();
+    for (const { page, im, count } of work) {
+      const pg = s.doc.loadPage(page);
+      const cx = (im.raw[0] + im.raw[2]) / 2, cy = (im.raw[1] + im.raw[3]) / 2;
+      const a = pg.createAnnotation("Redact");
+      a.setRect([cx - 0.05, cy - 0.05, cx + 0.05, cy + 0.05]);
+      pg.applyRedactions(false, mupdf.PDFPage.REDACT_IMAGE_REMOVE, mupdf.PDFPage.REDACT_LINE_ART_NONE, mupdf.PDFPage.REDACT_TEXT_NONE);
+      const after = this.pageImages(page);
+      const gone = after.length < count && !after.some((o) => o.w === im.w && o.h === im.h && o.bbox.every((v, k) => Math.abs(v - im.bbox[k]) < 0.5));
+      if (!gone || after.length !== count - 1) {
+        this._reload(keep); this._dropCheckpoint();
+        throw new EditError(gone ? "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead." : "This picture could not be deleted");
+      }
+    }
+    const changed = [...new Set(work.map((w) => w.page))];
+    s.textCache = new Map();
+    await this._changed(changed);
+    return { ...this.info(), changed, removed: work.length };
+  }
 
   /* -------------------------------------------------- tools: redact, split, convert, protect, stamps, OCR */
   /** Redact for good: what is under each box (text, pictures, drawings) is removed from the file and

@@ -101,7 +101,6 @@
   "Loading…": "Wird geladen …",
   "Click to edit · drag to move": "Klicken zum Bearbeiten · ziehen zum Verschieben",
   "Tilted text cannot be edited": "Schräger Text kann nicht bearbeitet werden",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Dieser Text ist schräg und kann nicht direkt bearbeitet werden. Verwenden Sie stattdessen Abdecken + Text hinzufügen.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Kein bearbeitbarer Text auf dieser Seite (gescanntes Bild?) – verwenden Sie Abdecken + Text hinzufügen.",
   "You can undo this with ⌘Z.": "Mit ⌘Z können Sie das widerrufen.",
   "Delete": "Löschen",
@@ -377,7 +376,16 @@
   "Click a text and type": "Auf einen Text klicken und tippen",
   "It keeps the original font, size and colour.": "Schriftart, Größe und Farbe bleiben wie im Original.",
   "Into your file, or as a new one.": "In Ihre Datei oder als neue Datei.",
-  "Click any text to change it": "Klicken Sie auf einen Text, um ihn zu ändern"
+  "Click any text to change it": "Klicken Sie auf einen Text, um ihn zu ändern",
+  "Click to select it (to delete it)": "Klicken, um es auszuwählen (zum Löschen)",
+  "Delete this text": "Diesen Text löschen",
+  "Stamp or watermark": "Stempel oder Wasserzeichen",
+  "Picture": "Bild",
+  "Deleted. You can undo it.": "Gelöscht. Sie können es rückgängig machen.",
+  "Click to select this picture": "Klicken, um dieses Bild auszuwählen",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Dieses Bild liegt über einem anderen: Beim Löschen würden beide entfernt. Verwenden Sie Abdecken oder Schwärzen.",
+  "This picture could not be deleted": "Dieses Bild konnte nicht gelöscht werden",
+  "Nothing to delete": "Nichts zu löschen"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "Die nicht gespeicherten Änderungen an „{name}“ werden gelöscht. Die Datei selbst bleibt unverändert."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Löschen ({n} Zeilen)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Auf allen Seiten löschen ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Auf {n} Seiten gelöscht. Sie können es rückgängig machen."
   ]
  ]
 }

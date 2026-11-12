@@ -101,7 +101,6 @@
   "Loading…": "Laden…",
   "Click to edit · drag to move": "Klik om te bewerken · sleep om te verplaatsen",
   "Tilted text cannot be edited": "Schuine tekst kan niet worden bewerkt",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Deze tekst staat schuin en kan niet ter plekke worden bewerkt. Gebruik in plaats daarvan Afdekken + Tekst toevoegen.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Geen bewerkbare tekst op deze pagina (gescande afbeelding?) – gebruik Afdekken + Tekst toevoegen.",
   "You can undo this with ⌘Z.": "Je kunt dit ongedaan maken met ⌘Z.",
   "Delete": "Verwijderen",
@@ -377,7 +376,16 @@
   "Click a text and type": "Klik op een tekst en typ",
   "It keeps the original font, size and colour.": "Lettertype, grootte en kleur blijven zoals in het origineel.",
   "Into your file, or as a new one.": "In je bestand of als nieuw bestand.",
-  "Click any text to change it": "Klik op een tekst om hem te wijzigen"
+  "Click any text to change it": "Klik op een tekst om hem te wijzigen",
+  "Click to select it (to delete it)": "Klik om het te selecteren (om het te verwijderen)",
+  "Delete this text": "Deze tekst verwijderen",
+  "Stamp or watermark": "Stempel of watermerk",
+  "Picture": "Afbeelding",
+  "Deleted. You can undo it.": "Verwijderd. Je kunt het ongedaan maken.",
+  "Click to select this picture": "Klik om deze afbeelding te selecteren",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Deze afbeelding ligt over een andere: verwijderen zou beide wissen. Gebruik Afdekken of Zwartlakken.",
+  "This picture could not be deleted": "Deze afbeelding kon niet worden verwijderd",
+  "Nothing to delete": "Niets te verwijderen"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "De niet-opgeslagen wijzigingen in ‘{name}’ worden verwijderd. Het bestand zelf verandert niet."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Verwijderen ({n} regels)"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Op alle pagina's verwijderen ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Verwijderd op {n} pagina's. Je kunt het ongedaan maken."
   ]
  ]
 }

@@ -101,7 +101,6 @@
   "Loading…": "Ładowanie…",
   "Click to edit · drag to move": "Kliknij, aby edytować · przeciągnij, aby przesunąć",
   "Tilted text cannot be edited": "Nie można edytować pochylonego tekstu",
-  "This text is tilted: it can't be edited in place. Use Whiteout + Add text instead.": "Ten tekst jest pochylony: nie można go edytować w miejscu. Użyj Korektora, a potem Dodaj tekst.",
   "No editable text on this page (scanned image?) – use Whiteout + Add text.": "Na tej stronie nie ma tekstu do edycji (skan?) – użyj Korektora, a potem Dodaj tekst.",
   "You can undo this with ⌘Z.": "Możesz to cofnąć za pomocą ⌘Z.",
   "Delete": "Usuń",
@@ -377,7 +376,16 @@
   "Click a text and type": "Kliknij tekst i pisz",
   "It keeps the original font, size and colour.": "Czcionka, rozmiar i kolor pozostają jak w oryginale.",
   "Into your file, or as a new one.": "Do Twojego pliku albo jako nowy plik.",
-  "Click any text to change it": "Kliknij dowolny tekst, aby go zmienić"
+  "Click any text to change it": "Kliknij dowolny tekst, aby go zmienić",
+  "Click to select it (to delete it)": "Kliknij, aby zaznaczyć (aby usunąć)",
+  "Delete this text": "Usuń ten tekst",
+  "Stamp or watermark": "Pieczątka lub znak wodny",
+  "Picture": "Obraz",
+  "Deleted. You can undo it.": "Usunięto. Możesz cofnąć.",
+  "Click to select this picture": "Kliknij, aby zaznaczyć ten obraz",
+  "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Ten obraz leży na innym: usunięcie skasowałoby oba. Użyj narzędzia „Korektor” lub „Zaczernij”.",
+  "This picture could not be deleted": "Nie udało się usunąć tego obrazu",
+  "Nothing to delete": "Nic do usunięcia"
  },
  "patterns": [
   [
@@ -615,6 +623,18 @@
   [
    "The changes to “{name}” that were not saved are deleted. The file itself is not changed.",
    "Niezapisane zmiany w „{name}” zostaną usunięte. Sam plik się nie zmieni."
+  ],
+  [
+   "Delete ({n} lines)",
+   "Usuń (linie: {n})"
+  ],
+  [
+   "Delete on every page ({n})",
+   "Usuń na wszystkich stronach ({n})"
+  ],
+  [
+   "Deleted on {n} pages. You can undo it.",
+   "Usunięto na stronach: {n}. Możesz cofnąć."
   ]
  ]
 }
