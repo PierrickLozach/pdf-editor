@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "النص، لتعديله في Word؛ لا يُحتفظ بالتنسيق",
   "Unsaved changes": "تغييرات غير محفوظة",
   "Discard the unsaved changes": "تجاهل التغييرات غير المحفوظة",
-  "Discard the unsaved changes?": "تجاهل التغييرات غير المحفوظة؟"
+  "Discard the unsaved changes?": "تجاهل التغييرات غير المحفوظة؟",
+  "Choose a PDF": "اختر ملف PDF",
+  "How it works": "طريقة العمل",
+  "Open your PDF": "افتح ملف PDF",
+  "Drop it on this page, or choose it.": "أفلته في هذه الصفحة أو اختره.",
+  "Click a text and type": "انقر على نص واكتب",
+  "It keeps the original font, size and colour.": "يحتفظ بالخط والحجم واللون الأصلية.",
+  "Into your file, or as a new one.": "في ملفك أو كملف جديد.",
+  "Click any text to change it": "انقر على أي نص لتغييره"
  },
  "patterns": [
   [

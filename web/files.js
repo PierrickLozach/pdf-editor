@@ -71,7 +71,8 @@
     if (!box) {
       box = el(`<section id="recentFiles" aria-labelledby="recentTitle" hidden>
         <h2 id="recentTitle">${t("Recent files")}</h2><ul></ul></section>`);
-      document.querySelector("#empty .drop").prepend(box);
+      const slot = document.getElementById("recentSlot");               // under the main button
+      if (slot) slot.appendChild(box); else document.querySelector("#empty .drop").prepend(box);
     }
     let list = F.supported ? (await store("readonly", all).catch(() => [])).sort((a, b) => b.time - a.time) : [];
     let cur = null; try { cur = localStorage.getItem(CUR); } catch (e) {}

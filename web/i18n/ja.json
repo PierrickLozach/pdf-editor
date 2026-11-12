@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "テキストのみ。Word で編集できます。レイアウトは保持されません",
   "Unsaved changes": "未保存の変更あり",
   "Discard the unsaved changes": "未保存の変更を破棄",
-  "Discard the unsaved changes?": "未保存の変更を破棄しますか？"
+  "Discard the unsaved changes?": "未保存の変更を破棄しますか？",
+  "Choose a PDF": "PDF を選択",
+  "How it works": "使い方",
+  "Open your PDF": "PDF を開く",
+  "Drop it on this page, or choose it.": "このページにドロップするか、選択します。",
+  "Click a text and type": "テキストをクリックして入力",
+  "It keeps the original font, size and colour.": "元のフォント・サイズ・色のままです。",
+  "Into your file, or as a new one.": "元のファイルに、または新しいファイルとして。",
+  "Click any text to change it": "テキストをクリックすると変更できます"
  },
  "patterns": [
   [

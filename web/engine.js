@@ -342,7 +342,9 @@ function readPdfFont(f, nm) {
     if (!kind || !ENC[kind]) return null;
     const first = f.get("FirstChar").isNumber() ? f.get("FirstChar").asNumber() : 0;
     const ws = f.get("Widths");
-    if (!ws || !ws.isArray()) return null;
+    // no widths (one of the 14 standard fonts, only named): its letters can be put back where they
+    // were, but it is not used to write new text (no letter is offered: empty map)
+    if (!ws || !ws.isArray()) return { names: [nm(f.get("BaseFont"))], kind, map: new Map(), width: () => 0, hasToUnicode: !!(tmap && tmap.size), putBackOnly: true };
     const width = (code) => { const i = code - first; return i >= 0 && i < ws.length ? ws.get(i).asNumber() / 1000 : 0; };
     const map = new Map();
     for (const [ch, code] of ENC[kind]) {
@@ -915,7 +917,7 @@ export class Engine {
       if (missing().length) await add(lib.lookup(info.key, bold, italic, "local", styled ? null : sp.font) || lib.lookup(info.base, bold, italic, "local"), styled ? "chosen" : "exact");
       // 2. the font embedded in the PDF, re-embedded (when its letters can be looked up)
       if (!styled && sp.fontObj && missing().length) {
-        try { if (missing().some((ch) => sp.fontObj.encodeCharacter(ch.codePointAt(0)))) push({ id: "e:" + sp.fontObj.getName(), font: sp.fontObj, label: info.display, kind: "exact" }); } catch (e) {}
+        try { if (this._canEmbed(sp.fontObj) && missing().some((ch) => sp.fontObj.encodeCharacter(ch.codePointAt(0)))) push({ id: "e:" + sp.fontObj.getName(), font: sp.fontObj, label: info.display, kind: "exact" }); } catch (e) {}
       }
       // 3. the same font from the free font library, when it is a free font (downloaded on demand)
       if (this.allowFree && missing().length) {
@@ -982,6 +984,20 @@ export class Engine {
       prev = fr;
     }
     return runs;
+  }
+
+  /** Can this font of the PDF be embedded again? Not when it has no font file (Type3 fonts, whose
+   *  letters are drawings, or fonts the PDF only names). Checked once per font, in a scratch PDF. */
+  _canEmbed(font) {
+    if (!font) return false;
+    const k = font.getName();
+    this._embedOk = this._embedOk || new Map();
+    if (!this._embedOk.has(k)) {
+      let ok = false;
+      try { (this._scratch = this._scratch || new mupdf.PDFDocument()).addFont(font); ok = true; } catch (e) {}
+      this._embedOk.set(k, ok);
+    }
+    return this._embedOk.get(k);
   }
 
   _fontRef(fontRes) {
@@ -1146,7 +1162,10 @@ export class Engine {
     if (!keepOthers) { this._redactOnly(pno, rects); return; }
     const before = this._glyphSnapshot(pno);
     const inside = (g) => { const c = glyphCentre(g); return rects.some((r) => c[0] >= r[0] - 0.05 && c[0] <= r[2] + 0.05 && c[1] >= r[1] - 0.05 && c[1] <= r[3] + 0.05); };
-    const intended = new Set(before.filter(inside).map((g) => g.key));
+    // the edited text is level (or vertical): letters drawn at a slant across it - a stamp, a
+    // watermark - are not part of it and are always put back
+    const level = (g) => { const a = Math.abs(Math.atan2(g.m[1], g.m[0])) % (Math.PI / 2); return Math.min(a, Math.PI / 2 - a) < 0.05; };
+    const intended = new Set(before.filter((g) => inside(g) && level(g)).map((g) => g.key));
     this._redactOnly(pno, rects);
     const was = new Set(before.map((g) => g.key));
     for (let round = 0; round < 4; round++) {
@@ -1158,6 +1177,10 @@ export class Engine {
     }
     const now = new Set(this._glyphSnapshot(pno).map((g) => g.key));
     const lost = before.filter((g) => !intended.has(g.key) && !now.has(g.key));
+    // in reading order: line by line (direction, then distance across), then along the line
+    const keyOf = (g) => { const l = Math.hypot(g.m[0], g.m[1]) || 1, d = [g.m[0] / l, g.m[1] / l];
+      return [Math.round(Math.atan2(d[1], d[0]) * 50), Math.round((g.x * -d[1] + g.y * d[0]) * 2), g.x * d[0] + g.y * d[1]]; };
+    lost.sort((a, b) => { const ka = keyOf(a), kb = keyOf(b); return ka[0] - kb[0] || ka[1] - kb[1] || ka[2] - kb[2]; });
     if (lost.length) this._putGlyphs(pno, lost);
     this._lastLost = lost;
   }
@@ -1172,12 +1195,12 @@ export class Engine {
       return [c[0] || 0, c[1] || 0, c[2] || 0];
     };
     try {
-      const dev = new mupdf.Device({ fillText(text, ctm, cs, color) {
-        const rgbc = toRgb(cs, color || [0]);
+      const dev = new mupdf.Device({ fillText(text, ctm, cs, color, alpha) {
+        const rgbc = toRgb(cs, color || [0]), a = alpha == null ? 1 : Math.round(alpha * 100) / 100;
         text.walk({ showGlyph(font, trm, gid, unicode) {
           if (gid < 0) return;
           const m = M.concat(trm, ctm), name = font.getName();
-          out.push({ font: name, fontObj: font, gid, unicode, m, x: m[4], y: m[5], rgb: rgbc, key: `${name}|${gid}|${Math.round(m[4] * 8)}|${Math.round(m[5] * 8)}` });
+          out.push({ font: name, fontObj: font, gid, unicode, m, x: m[4], y: m[5], rgb: rgbc, alpha: a, key: `${name}|${gid}|${Math.round(m[4] * 8)}|${Math.round(m[5] * 8)}` });
         } });
       } });
       this.s.doc.loadPage(pno).run(dev, M.identity);
@@ -1212,7 +1235,13 @@ export class Engine {
       const alias = this._aliasFor(fdict, num);
       fdict.put(alias, s.doc.newIndirect(num));
       ops += `/${alias} 1 Tf\n`;
-      for (const g of list) ops += `${g.rgb.map(fmt).join(" ")} rg ${M.concat(g.m, inv).map(fmt).join(" ")} Tm <${g.code}> Tj\n`;
+      // each letter with its colour and its transparency (a stamp or a watermark is often see-through)
+      let alpha = 1;
+      for (const g of list) {
+        if ((g.alpha ?? 1) !== alpha) { alpha = g.alpha ?? 1; ops += `/${this._alphaState(page, alpha)} gs\n`; }
+        ops += `${g.rgb.map(fmt).join(" ")} rg ${M.concat(g.m, inv).map(fmt).join(" ")} Tm <${g.code}> Tj\n`;
+      }
+      if (alpha !== 1) ops += `/${this._alphaState(page, 1)} gs\n`;
     }
     ops += "ET\nQ";
     appendContent(s.doc, page, ops);
@@ -1431,7 +1460,7 @@ export class Engine {
     if (local) return { label: local.family, kind: "exact", previewId: local.id };
     if (origOk) return { label: info.display, kind: "embedded", previewId: (free[0] || compat || generic || {}).id || null, compatLabel: backup };
     let emb = false;
-    try { emb = sp.fontObj.encodeCharacter(65) > 0 || [...sp.text].some((ch) => !isSpace(ch) && sp.fontObj.encodeCharacter(ch.codePointAt(0)) > 0); } catch (e) {}
+    try { emb = this._canEmbed(sp.fontObj) && (sp.fontObj.encodeCharacter(65) > 0 || [...sp.text].some((ch) => !isSpace(ch) && sp.fontObj.encodeCharacter(ch.codePointAt(0)) > 0)); } catch (e) {}
     if (emb) return { label: info.display, kind: "embedded", previewId: (free[0] || compat || generic || {}).id || null, compatLabel: backup };
     if (free.length) return { label: free[0].label, kind: "free", previewId: free[0].id };
     if (compat) return { label: compat.label, kind: "compatible", previewId: compat.id };

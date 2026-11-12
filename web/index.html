@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23e5322d'/><path d='M9 23V9h6.5a4.5 4.5 0 0 1 0 9H12v5z' fill='white'/></svg>">
-<script src="i18n.js?v=799bbf27d9"></script>
-<link rel="stylesheet" href="style.css?v=799bbf27d9">
+<script src="i18n.js?v=977f5bf227"></script>
+<link rel="stylesheet" href="style.css?v=977f5bf227">
 <meta name="description" content="Free PDF editor that runs entirely in your browser: edit text with the original font, find and replace, white-out, images, pages. Your files are never uploaded.">
 <meta name="theme-color" content="#e5322d">
 </head>
@@ -57,14 +57,29 @@
   <section id="viewer" tabindex="-1">
     <div id="empty">
       <div class="drop">
-        <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 18v-6m0 0-3 3m3-3 3 3"/></svg>
+        <div class="start-anim" aria-hidden="true">
+          <div class="sa-tray"></div>
+          <div class="sa-doc"><span class="sa-fold"></span><i></i><i></i><i></i><b>PDF</b></div>
+          <svg class="sa-arrow" viewBox="0 0 24 24"><path d="M12 4v14m0 0-5-5m5 5 5-5"/></svg>
+        </div>
         <h1>Drop a PDF here</h1>
-        <p>or <button id="btnOpen2" class="link">choose a file</button></p>
-        <ul>
-          <li><b>Edit text</b> – click any text and type; the original is really removed and the new text uses the same font, size and colour.</li>
-          <li><b>Find &amp; replace</b> across the whole document.</li>
-          <li>Add text, white-out areas, add images or signatures, rotate, reorder, delete and merge pages.</li>
-        </ul>
+        <p class="start-actions"><button id="btnOpen2" class="primary big-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Choose a PDF</span></button></p>
+        <div id="recentSlot"></div>
+        <h2 class="howto-title">How it works</h2>
+        <ol class="howto">
+          <li>
+            <div class="mini m-open" aria-hidden="true"><span class="mo-tray"></span><span class="mo-doc"><i></i><i></i></span></div>
+            <b>Open your PDF</b><span>Drop it on this page, or choose it.</span>
+          </li>
+          <li>
+            <div class="mini m-edit" aria-hidden="true"><span class="me-page"><i></i><span class="me-num"><span class="me-a">2025</span><span class="me-b">2026</span><span class="me-caret"></span></span><i class="short"></i></span><svg class="me-ptr" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg><span class="me-ring"></span></div>
+            <b>Click a text and type</b><span>It keeps the original font, size and colour.</span>
+          </li>
+          <li>
+            <div class="mini m-save" aria-hidden="true"><span class="ms-doc"><i></i><i></i></span><svg class="ms-arrow" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg><svg class="ms-ok" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div>
+            <b>Save</b><span>Into your file, or as a new one.</span>
+          </li>
+        </ol>
         <p class="muted">Everything happens in your browser: your files are processed on this device and are never uploaded.</p>
         <p id="engineStatus" class="muted small">Loading the PDF engine…</p>
         <div id="resume" hidden><p id="resumeText"></p><button id="btnResume" class="primary">Resume editing</button> <button id="btnDiscard">Discard</button></div>
@@ -161,7 +176,7 @@
   </div>
 </div>
 
-<div id="dropOverlay" hidden><div>Drop the PDF to open it (or font files to add them)</div></div>
+<div id="dropOverlay" hidden><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0-5-5m5 5 5-5"/></svg><span>Drop the PDF to open it (or font files to add them)</span></div></div>
 
 <input id="fileInput" type="file" accept="application/pdf,.pdf" hidden>
 <input id="mergeInput" type="file" accept="application/pdf,.pdf" hidden>
@@ -169,17 +184,18 @@
 <input id="fontFilesInput" type="file" accept=".ttf,.otf,.ttc,.otc,font/ttf,font/otf,font/collection,font/sfnt,application/x-font-ttf" multiple hidden>
 <input id="fontFolderInput" type="file" webkitdirectory multiple hidden>
 
-<script src="app.js?v=799bbf27d9"></script>
-<script src="move.js?v=799bbf27d9"></script>
-<script src="place.js?v=799bbf27d9"></script>
-<script src="reduce.js?v=799bbf27d9"></script>
-<script src="files.js?v=799bbf27d9"></script>
-<script src="active.js?v=799bbf27d9"></script>
-<script src="tools.js?v=799bbf27d9"></script>
-<script src="sign.js?v=799bbf27d9"></script>
-<script src="redact.js?v=799bbf27d9"></script>
-<script src="ocr.js?v=799bbf27d9"></script>
-<script src="legacy.js?v=799bbf27d9"></script>
-<script src="fit.js?v=799bbf27d9"></script>
+<script src="app.js?v=977f5bf227"></script>
+<script src="move.js?v=977f5bf227"></script>
+<script src="place.js?v=977f5bf227"></script>
+<script src="start.js?v=977f5bf227"></script>
+<script src="reduce.js?v=977f5bf227"></script>
+<script src="files.js?v=977f5bf227"></script>
+<script src="active.js?v=977f5bf227"></script>
+<script src="tools.js?v=977f5bf227"></script>
+<script src="sign.js?v=977f5bf227"></script>
+<script src="redact.js?v=977f5bf227"></script>
+<script src="ocr.js?v=977f5bf227"></script>
+<script src="legacy.js?v=977f5bf227"></script>
+<script src="fit.js?v=977f5bf227"></script>
 </body>
 </html>

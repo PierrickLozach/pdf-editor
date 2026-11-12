@@ -130,9 +130,9 @@ button:disabled { opacity: .45; cursor: default; }
 /* ---------- empty state ---------- */
 #empty { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; }
 body.has-doc #empty { display: none; }
-.drop { max-width: 520px; text-align: center; padding: 40px 36px; border: 2px dashed var(--border); border-radius: 16px; background: var(--panel); }
+.drop { max-width: 600px; width: 100%; text-align: center; padding: 34px 36px 28px; border: 2px dashed var(--border); border-radius: 18px; background: var(--panel); transition: border-color .2s, background .2s, transform .2s; }
 .drop > svg { width: 56px; height: 56px; color: var(--accent); stroke-width: 1.4; }
-.drop h1 { font-size: 22px; margin: 10px 0 4px; }
+.drop h1 { font-size: 24px; margin: 6px 0 14px; }
 .drop ul { text-align: left; line-height: 1.55; padding-left: 18px; margin: 18px 0; }
 button.link { border: 0; background: none; color: var(--blue); cursor: pointer; padding: 0; text-decoration: underline; }
 
@@ -145,8 +145,10 @@ button.link { border: 0; background: none; color: var(--blue); cursor: pointer; 
 #modal .box { background: var(--panel); border-radius: 14px; padding: 20px; width: 380px; box-shadow: var(--shadow); }
 #modal h2 { margin: 0 0 8px; font-size: 16px; }
 #modal input { width: 100%; height: 36px; margin: 6px 0 14px; padding: 0 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); }
-#dropOverlay { position: fixed; inset: 0; z-index: 70; background: rgba(229,50,45,.12); border: 3px dashed var(--accent); display: grid; place-items: center;
-  font-size: 20px; font-weight: 600; color: var(--accent); pointer-events: none; }
+#dropOverlay { position: fixed; inset: 0; z-index: 70; background: rgba(229,50,45,.10); border: 3px dashed var(--accent); display: grid; place-items: center;
+  font-size: 20px; font-weight: 600; color: var(--accent); pointer-events: none; backdrop-filter: blur(1px); }
+#dropOverlay > div { display: grid; justify-items: center; gap: 12px; background: var(--panel); padding: 26px 34px; border-radius: 18px; box-shadow: var(--shadow); max-width: 80vw; text-align: center; }
+#dropOverlay svg { width: 54px; height: 54px; fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; animation: pdfe-drop-arrow 1s ease-in-out infinite; }
 #offline { position: fixed; top: 60px; left: 50%; transform: translateX(-50%); z-index: 80; background: #b91c1c; color: #fff; padding: 10px 16px; border-radius: 10px; box-shadow: var(--shadow); }
 body.busy, body.busy * { cursor: progress !important; }
 
@@ -369,3 +371,93 @@ body.tool-redact .page .spans { pointer-events: none; }
 .rf-when { flex: none; }
 .rf-name { min-width: 0; }
 @media (max-width: 760px) { .rf-badge { padding: 2px 6px; } }
+
+/* ================================================================ start screen: show what to do */
+.start-anim { position: relative; width: 132px; height: 104px; margin: 0 auto 4px; }
+.sa-tray { position: absolute; left: 8px; right: 8px; bottom: 4px; height: 34px; border: 2.5px dashed var(--accent); border-top: 0; border-radius: 0 0 14px 14px; opacity: .55; animation: pdfe-tray 3.2s ease-in-out infinite; }
+.sa-doc { position: absolute; left: 50%; top: 0; width: 46px; height: 58px; margin-left: -23px; background: var(--panel); border: 2px solid var(--accent); border-radius: 6px 14px 6px 6px; box-shadow: 0 6px 14px rgba(229,50,45,.18);
+  display: flex; flex-direction: column; gap: 4px; padding: 14px 8px 0; animation: pdfe-fall 3.2s cubic-bezier(.5,0,.4,1) infinite; }
+.sa-doc i { display: block; height: 3px; border-radius: 2px; background: var(--border); }
+.sa-doc i:nth-child(3) { width: 70%; }
+.sa-doc b { position: absolute; left: 0; right: 0; bottom: 4px; font-size: 9px; font-weight: 800; color: var(--accent); letter-spacing: .5px; }
+.sa-fold { position: absolute; top: -2px; right: -2px; width: 14px; height: 14px; background: var(--accent-soft); border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); border-radius: 0 12px 0 4px; }
+.sa-arrow { position: absolute; right: 0; top: 18px; width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; animation: pdfe-drop-arrow 1.6s ease-in-out infinite; }
+@keyframes pdfe-fall { 0%, 8% { transform: translateY(-6px); opacity: 0; } 22% { opacity: 1; } 48% { transform: translateY(34px); } 56% { transform: translateY(30px) scaleY(.96); } 64%, 82% { transform: translateY(34px); opacity: 1; } 100% { transform: translateY(34px); opacity: 0; } }
+@keyframes pdfe-tray { 0%, 44% { opacity: .45; } 56%, 80% { opacity: 1; } 100% { opacity: .45; } }
+@keyframes pdfe-drop-arrow { 0%, 100% { transform: translateY(-3px); opacity: .6; } 50% { transform: translateY(4px); opacity: 1; } }
+
+.start-actions { margin: 0 0 6px; }
+button.big-btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 26px; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer;
+  border: 1px solid var(--accent); box-shadow: 0 6px 18px rgba(229,50,45,.28); transition: transform .12s, box-shadow .12s; }
+button.big-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+button.big-btn:hover { transform: translateY(-1px); box-shadow: 0 9px 22px rgba(229,50,45,.34); }
+button.big-btn:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 3px; }
+.from-images { margin: 6px 0 0; font-size: 13px; }
+#recentSlot:not(:empty) { margin-top: 18px; }
+#recentSlot #recentFiles { text-align: start; }
+
+.howto-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 12px; }
+.howto { list-style: none; padding: 0; margin: 0 0 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; counter-reset: step; text-align: center; }
+.howto li { counter-increment: step; background: var(--hover); border-radius: 14px; padding: 12px 10px 14px; display: grid; justify-items: center; gap: 4px; align-content: start; }
+.howto li > b { font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.howto li > b::before { content: counter(step); display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; flex: none; }
+.howto li > span { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.mini { position: relative; width: 112px; height: 70px; margin-bottom: 4px; }
+/* 1. open: a page slides down into a tray */
+.mo-tray { position: absolute; left: 22px; right: 22px; bottom: 6px; height: 18px; border: 2px dashed var(--accent); border-top: 0; border-radius: 0 0 9px 9px; opacity: .7; }
+.mo-doc { position: absolute; left: 50%; top: 4px; width: 30px; height: 38px; margin-left: -15px; background: var(--panel); border: 2px solid var(--accent); border-radius: 4px 9px 4px 4px; display: grid; align-content: start; gap: 3px; padding: 9px 6px 0;
+  animation: pdfe-mini-fall 3s ease-in-out infinite; }
+.mo-doc i { display: block; height: 2px; background: var(--border); border-radius: 2px; }
+@keyframes pdfe-mini-fall { 0%, 10% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 1; } 55%, 85% { transform: translateY(18px); opacity: 1; } 100% { transform: translateY(18px); opacity: 0; } }
+/* 2. edit: the pointer clicks a number, which becomes another one */
+.me-page { position: absolute; inset: 6px 14px; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; display: grid; align-content: center; gap: 6px; padding: 0 10px; text-align: start; }
+.me-page i { display: block; height: 3px; background: var(--border); border-radius: 2px; }
+.me-page i.short { width: 60%; }
+.me-num { position: relative; display: inline-block; height: 14px; font: 700 12px/14px ui-monospace, Menlo, Consolas, monospace; color: var(--fg); border-radius: 3px; padding: 0 2px; animation: pdfe-sel 4s ease-in-out infinite; direction: ltr; }
+.me-a, .me-b { position: absolute; left: 2px; top: 0; }
+.me-a { animation: pdfe-old 4s steps(1) infinite; }
+.me-b { position: relative; left: 0; visibility: hidden; animation: pdfe-new 4s steps(1) infinite; }
+.me-caret { position: absolute; top: 1px; right: -1px; width: 1.5px; height: 12px; background: var(--accent); opacity: 0; animation: pdfe-caret 4s linear infinite; }
+.me-ptr { position: absolute; width: 18px; height: 18px; left: 66px; top: 40px; fill: var(--fg); stroke: var(--panel); stroke-width: 1.2; animation: pdfe-ptr 4s ease-in-out infinite; }
+.me-ring { position: absolute; left: 40px; top: 25px; width: 22px; height: 22px; margin: -11px 0 0 -11px; border: 2px solid var(--accent); border-radius: 50%; opacity: 0; animation: pdfe-ring 4s ease-out infinite; }
+@keyframes pdfe-ptr { 0% { transform: translate(18px, 14px); opacity: 0; } 12% { opacity: 1; } 32% { transform: translate(-22px, -12px); } 36% { transform: translate(-22px, -12px) scale(.85); } 40%, 88% { transform: translate(-22px, -12px); opacity: 1; } 100% { transform: translate(-22px, -12px); opacity: 0; } }
+@keyframes pdfe-ring { 0%, 34% { opacity: 0; transform: scale(.4); } 36% { opacity: 1; } 52% { opacity: 0; transform: scale(1.6); } 100% { opacity: 0; } }
+@keyframes pdfe-sel { 0%, 36% { background: transparent; box-shadow: none; } 38%, 90% { background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent); } 100% { background: transparent; box-shadow: none; } }
+@keyframes pdfe-old { 0%, 54% { visibility: visible; } 56%, 100% { visibility: hidden; } }
+@keyframes pdfe-new { 0%, 54% { visibility: hidden; } 56%, 100% { visibility: visible; } }
+@keyframes pdfe-caret { 0%, 38% { opacity: 0; } 40%, 46% { opacity: 1; } 48%, 52% { opacity: 0; } 54%, 62% { opacity: 1; } 64%, 70% { opacity: 0; } 72%, 90% { opacity: 1; } 100% { opacity: 0; } }
+/* 3. save: an arrow goes down into the page, then a tick */
+.ms-doc { position: absolute; left: 50%; top: 8px; width: 34px; height: 44px; margin-left: -17px; background: var(--panel); border: 2px solid var(--border); border-radius: 4px 10px 4px 4px; display: grid; align-content: start; gap: 3px; padding: 10px 7px 0; }
+.ms-doc i { display: block; height: 2px; background: var(--border); border-radius: 2px; }
+.ms-arrow, .ms-ok { position: absolute; left: 50%; width: 24px; height: 24px; margin-left: -12px; fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.ms-arrow { top: 20px; stroke: var(--accent); animation: pdfe-save 3s ease-in-out infinite; }
+.ms-ok { top: 22px; stroke: #16a34a; opacity: 0; animation: pdfe-ok 3s ease-in-out infinite; }
+@keyframes pdfe-save { 0% { transform: translateY(-16px); opacity: 0; } 20% { opacity: 1; } 45% { transform: translateY(2px); opacity: 1; } 55%, 100% { transform: translateY(2px); opacity: 0; } }
+@keyframes pdfe-ok { 0%, 52% { opacity: 0; transform: scale(.5); } 62%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+
+/* a file dragged over the window: the drop area answers */
+body.dragging-file .drop { border-color: var(--accent); background: var(--accent-soft); transform: scale(1.01); }
+
+/* the first PDF: point at a line of text, once */
+.coach { position: absolute; z-index: 12; pointer-events: none; }
+.coach-ring { position: absolute; inset: -5px -7px; border: 2.5px solid var(--accent); border-radius: 8px; animation: pdfe-coach 1.6s ease-out infinite; }
+.coach-bubble { position: absolute; top: calc(100% + 12px); inset-inline-start: 0; white-space: nowrap; background: var(--accent); color: #fff; font: 600 13px/1 -apple-system, "Segoe UI", sans-serif; padding: 9px 12px; border-radius: 9px; box-shadow: 0 6px 16px rgba(0,0,0,.2); animation: pdfe-bubble .35s ease-out both; }
+.coach-bubble::before { content: ""; position: absolute; top: -6px; inset-inline-start: 16px; border: 6px solid transparent; border-top: 0; border-bottom-color: var(--accent); }
+.coach.bye { opacity: 0; transition: opacity .3s; }
+@keyframes pdfe-coach { 0% { box-shadow: 0 0 0 0 rgba(229,50,45,.45); } 70% { box-shadow: 0 0 0 12px rgba(229,50,45,0); } 100% { box-shadow: 0 0 0 0 rgba(229,50,45,0); } }
+@keyframes pdfe-bubble { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
+  .howto { grid-template-columns: 1fr; }
+  .howto li { grid-template-columns: auto 1fr; justify-items: start; text-align: start; column-gap: 12px; }
+  .howto li .mini { grid-row: span 2; width: 92px; height: 60px; transform-origin: left center; }
+  .start-anim { transform: scale(.85); margin-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .start-anim *, .mini *, .coach *, #dropOverlay svg { animation: none !important; }
+  .sa-doc { transform: translateY(20px); }
+  .mo-doc { transform: translateY(14px); }
+  .me-a { visibility: hidden; } .me-b { visibility: visible; } .me-ptr { opacity: 0; }
+  .ms-arrow { opacity: 0; } .ms-ok { opacity: 1; }
+  .drop, button.big-btn { transition: none; }
+}

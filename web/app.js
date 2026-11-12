@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=799bbf27d9", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=977f5bf227", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -1152,13 +1152,15 @@ function init() {
   // drag & drop a PDF anywhere
   let dragDepth = 0;
   const hasFiles = e => [...(e.dataTransfer?.types || [])].includes("Files");
-  window.addEventListener("dragenter", e => { if (hasFiles(e)) { dragDepth++; $("#dropOverlay").hidden = false; } });
-  window.addEventListener("dragleave", e => { if (hasFiles(e) && --dragDepth <= 0) { dragDepth = 0; $("#dropOverlay").hidden = true; } });
+  // dragging a file over the window: on the start screen the drop area lights up, over a PDF an overlay says what happens
+  const dragUI = (on) => { document.body.classList.toggle("dragging-file", on); $("#dropOverlay").hidden = !on || !S.doc; };
+  window.addEventListener("dragenter", e => { if (hasFiles(e)) { dragDepth++; dragUI(true); } });
+  window.addEventListener("dragleave", e => { if (hasFiles(e) && --dragDepth <= 0) { dragDepth = 0; dragUI(false); } });
   window.addEventListener("dragover", e => { if (hasFiles(e)) e.preventDefault(); });
   window.addEventListener("drop", e => {
     if (!hasFiles(e)) return;
     e.preventDefault();
-    dragDepth = 0; $("#dropOverlay").hidden = true;
+    dragDepth = 0; document.body.classList.remove("dragging-file"); $("#dropOverlay").hidden = true;
     const hp = window.FILES ? FILES.handleFromDrop(e.dataTransfer) : null;     // only available during the drop
     const f = [...e.dataTransfer.files].find(f => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
     if (f && hp) return hp.then((h) => { if (h && h.kind === "file") f.__handle = h; openFile(f); });

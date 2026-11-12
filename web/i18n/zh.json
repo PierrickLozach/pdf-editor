@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "仅文本，可在 Word 中编辑；不保留版式",
   "Unsaved changes": "有未保存的更改",
   "Discard the unsaved changes": "放弃未保存的更改",
-  "Discard the unsaved changes?": "放弃未保存的更改？"
+  "Discard the unsaved changes?": "放弃未保存的更改？",
+  "Choose a PDF": "选择 PDF",
+  "How it works": "使用方法",
+  "Open your PDF": "打开 PDF",
+  "Drop it on this page, or choose it.": "拖放到此页面，或选择文件。",
+  "Click a text and type": "点击文字并输入",
+  "It keeps the original font, size and colour.": "保留原来的字体、字号和颜色。",
+  "Into your file, or as a new one.": "保存到原文件或另存为新文件。",
+  "Click any text to change it": "点击任意文字即可修改"
  },
  "patterns": [
   [

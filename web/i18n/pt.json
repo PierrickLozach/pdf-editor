@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "o texto, para editar no Word; o layout não é mantido",
   "Unsaved changes": "Alterações não salvas",
   "Discard the unsaved changes": "Descartar as alterações não salvas",
-  "Discard the unsaved changes?": "Descartar as alterações não salvas?"
+  "Discard the unsaved changes?": "Descartar as alterações não salvas?",
+  "Choose a PDF": "Escolher um PDF",
+  "How it works": "Como funciona",
+  "Open your PDF": "Abra seu PDF",
+  "Drop it on this page, or choose it.": "Solte-o nesta página ou escolha-o.",
+  "Click a text and type": "Clique em um texto e digite",
+  "It keeps the original font, size and colour.": "Mantém a fonte, o tamanho e a cor originais.",
+  "Into your file, or as a new one.": "No seu arquivo ou como um novo.",
+  "Click any text to change it": "Clique em qualquer texto para alterá-lo"
  },
  "patterns": [
   [

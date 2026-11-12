@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "de tekst, om in Word te bewerken; de opmaak blijft niet behouden",
   "Unsaved changes": "Niet opgeslagen",
   "Discard the unsaved changes": "Niet-opgeslagen wijzigingen verwijderen",
-  "Discard the unsaved changes?": "Niet-opgeslagen wijzigingen verwijderen?"
+  "Discard the unsaved changes?": "Niet-opgeslagen wijzigingen verwijderen?",
+  "Choose a PDF": "Kies een pdf",
+  "How it works": "Zo werkt het",
+  "Open your PDF": "Open je pdf",
+  "Drop it on this page, or choose it.": "Sleep hem naar deze pagina of kies hem.",
+  "Click a text and type": "Klik op een tekst en typ",
+  "It keeps the original font, size and colour.": "Lettertype, grootte en kleur blijven zoals in het origineel.",
+  "Into your file, or as a new one.": "In je bestand of als nieuw bestand.",
+  "Click any text to change it": "Klik op een tekst om hem te wijzigen"
  },
  "patterns": [
   [

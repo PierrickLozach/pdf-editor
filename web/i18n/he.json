@@ -369,7 +369,15 @@
   "the text, to edit it in Word; the layout is not kept": "הטקסט, לעריכה ב-Word; הפריסה לא נשמרת",
   "Unsaved changes": "שינויים שלא נשמרו",
   "Discard the unsaved changes": "ביטול השינויים שלא נשמרו",
-  "Discard the unsaved changes?": "לבטל את השינויים שלא נשמרו?"
+  "Discard the unsaved changes?": "לבטל את השינויים שלא נשמרו?",
+  "Choose a PDF": "בחירת PDF",
+  "How it works": "איך זה עובד",
+  "Open your PDF": "פותחים את ה-PDF",
+  "Drop it on this page, or choose it.": "גוררים אותו לדף הזה או בוחרים אותו.",
+  "Click a text and type": "לוחצים על טקסט ומקלידים",
+  "It keeps the original font, size and colour.": "הגופן, הגודל והצבע נשארים כמו במקור.",
+  "Into your file, or as a new one.": "לקובץ שלך או כקובץ חדש.",
+  "Click any text to change it": "לוחצים על טקסט כלשהו כדי לשנות אותו"
  },
  "patterns": [
   [
