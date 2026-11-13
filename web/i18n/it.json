@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "Scegli una password di almeno 4 caratteri.",
   "Comparison": "Confronto",
   "Close the comparison": "Chiudi il confronto",
-  "Highlighted on the pages: what is new or changed in this PDF.": "Evidenziato nelle pagine: ciò che è nuovo o modificato in questo PDF.",
   "No difference in the text.": "Nessuna differenza nel testo.",
-  "Only the text is compared, line by line (not pictures or layout).": "Viene confrontato solo il testo, riga per riga (non le immagini né l'impaginazione).",
   "New or changed:": "Nuovo o modificato:",
   "This PDF has a form: click a field to fill it in.": "Questo PDF contiene un modulo: fai clic su un campo per compilarlo.",
   "Click to fill in": "Fai clic per compilare",
@@ -491,7 +489,16 @@
   "watermarked": "con filigrana",
   "edited": "modificato",
   "redacted": "oscurato",
-  "protected": "protetto"
+  "protected": "protetto",
+  "New": "Nuovo",
+  "Removed": "Rimosso",
+  "removed": "rimosso",
+  "added or changed": "aggiunto o modificato",
+  "Click a line to see it on the page.": "Fai clic su una riga per vederla nella pagina.",
+  "Words are compared line by line (not pictures or layout).": "Le parole sono confrontate riga per riga (non immagini né impaginazione).",
+  "Changed line": "Riga modificata",
+  "before:": "prima:",
+  "Removed:": "Rimosso:"
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "Pagina {n}"
   ],
   [
-   "{n} new or changed",
-   "{n} nuove o modificate"
-  ],
-  [
    "{n} no longer here",
    "{n} non più presenti"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "Campo “{name}” aggiunto. Si può compilare con qualsiasi lettore PDF."
+  ],
+  [
+   "{n} changed",
+   "{n} modificate"
+  ],
+  [
+   "{n} new",
+   "{n} nuove"
+  ],
+  [
+   "{n} more",
+   "altre {n}"
   ]
  ]
 }

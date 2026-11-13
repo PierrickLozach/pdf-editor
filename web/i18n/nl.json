@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "Kies een wachtwoord van minstens 4 tekens.",
   "Comparison": "Vergelijking",
   "Close the comparison": "Vergelijking sluiten",
-  "Highlighted on the pages: what is new or changed in this PDF.": "Gemarkeerd op de pagina's: wat nieuw of gewijzigd is in deze PDF.",
   "No difference in the text.": "Geen verschil in de tekst.",
-  "Only the text is compared, line by line (not pictures or layout).": "Alleen de tekst wordt vergeleken, regel voor regel (geen afbeeldingen of opmaak).",
   "New or changed:": "Nieuw of gewijzigd:",
   "This PDF has a form: click a field to fill it in.": "Deze PDF bevat een formulier: klik op een veld om het in te vullen.",
   "Click to fill in": "Klik om in te vullen",
@@ -491,7 +489,16 @@
   "watermarked": "met watermerk",
   "edited": "bewerkt",
   "redacted": "zwartgelakt",
-  "protected": "beveiligd"
+  "protected": "beveiligd",
+  "New": "Nieuw",
+  "Removed": "Verwijderd",
+  "removed": "verwijderd",
+  "added or changed": "toegevoegd of gewijzigd",
+  "Click a line to see it on the page.": "Klik op een regel om die op de pagina te zien.",
+  "Words are compared line by line (not pictures or layout).": "Woorden worden regel voor regel vergeleken (geen afbeeldingen of opmaak).",
+  "Changed line": "Gewijzigde regel",
+  "before:": "eerst:",
+  "Removed:": "Verwijderd:"
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "Pagina {n}"
   ],
   [
-   "{n} new or changed",
-   "{n} nieuw of gewijzigd"
-  ],
-  [
    "{n} no longer here",
    "{n} niet meer aanwezig"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "Veld ‘{name}’ toegevoegd. Het kan met elke PDF-lezer worden ingevuld."
+  ],
+  [
+   "{n} changed",
+   "{n} gewijzigd"
+  ],
+  [
+   "{n} new",
+   "{n} nieuw"
+  ],
+  [
+   "{n} more",
+   "nog {n}"
   ]
  ]
 }

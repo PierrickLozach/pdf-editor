@@ -525,3 +525,27 @@ body.drawing-field #pages .page { cursor: crosshair; }
 .cmp-n.del { background: var(--accent-soft); cursor: pointer; }
 .cmp-list details ul { margin: 4px 0 0; padding-inline-start: 18px; color: var(--muted); }
 .rb-smart { white-space: nowrap; }
+
+/* compare, word by word */
+.cmp-line { position: absolute; outline: 1px dashed rgba(202,138,4,.7); border-radius: 2px; pointer-events: none; z-index: 4; }
+.cmp-line.flash { animation: pdfe-cmp-flash 1.2s ease-out; }
+@keyframes pdfe-cmp-flash { 0%, 40% { background: rgba(250,204,21,.45); outline-width: 3px; } 100% { background: transparent; } }
+.cmp-del { position: absolute; width: 4px; background: #dc2626; border-radius: 2px; z-index: 6; pointer-events: auto; cursor: help; }
+.cmp-del span { display: none; position: absolute; bottom: 100%; left: 50%; transform: translate(-50%, -4px); white-space: nowrap; background: #dc2626; color: #fff; font-size: 12px; padding: 1px 6px; border-radius: 4px; text-decoration: line-through; }
+.cmp-del:hover span, .cmp-del:focus span { display: block; }
+.cmp-panel del { background: rgba(220,38,38,.16); color: #b91c1c; text-decoration: line-through; border-radius: 3px; padding: 0 2px; }
+.cmp-panel ins { background: rgba(250,204,21,.4); color: inherit; text-decoration: none; border-radius: 3px; padding: 0 2px; }
+.cmp-page { padding: 6px 0; border-bottom: 1px solid var(--border); }
+.cmp-page > ul { list-style: none; padding: 0; margin: 4px 0 0; }
+.cmp-item { margin: 3px 0; line-height: 1.45; }
+.cmp-item .cmp-go { all: unset; cursor: pointer; display: block; border-radius: 6px; padding: 3px 5px; }
+.cmp-item .cmp-go:hover, .cmp-item .cmp-go:focus-visible { background: var(--hover); outline: none; }
+.cmp-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; border-radius: 4px; padding: 0 5px; }
+.cmp-tag.add { background: rgba(250,204,21,.4); }
+.cmp-tag.del { background: rgba(220,38,38,.16); color: #b91c1c; }
+@media (prefers-reduced-motion: reduce) { .cmp-line.flash { animation: none; background: rgba(250,204,21,.3); } }
+@media (prefers-color-scheme: dark) {
+  .cmp-panel del { background: rgba(248,113,113,.22); color: #fca5a5; }
+  .cmp-panel ins { background: rgba(250,204,21,.28); color: #fde68a; }
+  .cmp-tag.del { background: rgba(248,113,113,.22); color: #fca5a5; }
+}

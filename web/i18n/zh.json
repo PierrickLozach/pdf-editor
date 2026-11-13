@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "请设置至少 4 个字符的密码。",
   "Comparison": "比较",
   "Close the comparison": "关闭比较",
-  "Highlighted on the pages: what is new or changed in this PDF.": "页面上高亮显示的是此 PDF 中新增或更改的内容。",
   "No difference in the text.": "文本没有差异。",
-  "Only the text is compared, line by line (not pictures or layout).": "仅逐行比较文本（不比较图片或版式）。",
   "New or changed:": "新增或更改：",
   "This PDF has a form: click a field to fill it in.": "此 PDF 包含表单：点击字段即可填写。",
   "Click to fill in": "点击填写",
@@ -491,7 +489,16 @@
   "watermarked": "已加水印",
   "edited": "已编辑",
   "redacted": "已涂黑",
-  "protected": "已保护"
+  "protected": "已保护",
+  "New": "新增",
+  "Removed": "已删除",
+  "removed": "已删除",
+  "added or changed": "新增或修改",
+  "Click a line to see it on the page.": "点击一行即可在页面上查看。",
+  "Words are compared line by line (not pictures or layout).": "按行逐词比较（不比较图片或版式）。",
+  "Changed line": "已修改的行",
+  "before:": "修改前：",
+  "Removed:": "已删除："
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "第 {n} 页"
   ],
   [
-   "{n} new or changed",
-   "{n} 处新增或更改"
-  ],
-  [
    "{n} no longer here",
    "{n} 处已不存在"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "已添加字段“{name}”。任何 PDF 阅读器都可以填写。"
+  ],
+  [
+   "{n} changed",
+   "{n} 处修改"
+  ],
+  [
+   "{n} new",
+   "{n} 处新增"
+  ],
+  [
+   "{n} more",
+   "还有 {n} 处"
   ]
  ]
 }

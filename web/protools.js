@@ -163,9 +163,9 @@
   };
 
   /* ---------------------------------------------------------------- compare with another PDF */
-  PT.compare = async () => {
+  PT.compare = async (file) => {
     if (!S.doc || !(await need("compare"))) return;
-    const [f] = await pickFiles("application/pdf,.pdf", false);
+    const [f] = file instanceof Blob ? [file] : await pickFiles("application/pdf,.pdf", false);
     if (!f) return;
     await closeEditor(true);
     let res;
@@ -175,37 +175,63 @@
     PT.redrawCompare();
     panel();
   };
+  // one changed line as text: removed words crossed out, new ones marked
+  const diffHtml = (ops) => ops.map((o) => o.op === "same" ? esc(o.t) : o.op === "del" ? `<del>${esc(o.t)}</del>` : `<ins>${esc(o.t)}</ins>`).join(" ");
   function panel() {
     const old = document.getElementById("cmpPanel"); if (old) old.remove();
     const c = PT.cmp; if (!c) return;
-    const diff = c.res.pages.filter((p) => p.added.length || p.removed.length);
-    const rows = diff.map((p) => `<li><button class="link cmp-go" data-p="${p.page}">${esc(t("Page {n}").replace("{n}", p.page + 1))}</button>
-      ${p.added.length ? `<span class="cmp-n add">${esc(t("{n} new or changed").replace("{n}", p.added.length))}</span>` : ""}
-      ${p.removed.length ? `<details><summary class="cmp-n del">${esc(t("{n} no longer here").replace("{n}", p.removed.length))}</summary><ul>${p.removed.slice(0, 50).map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}</li>`).join("")
-      + c.res.extra.map((p) => `<li>${esc(t("Page {n} is only in “{name}”").replace("{n}", p.page + 1).replace("{name}", c.name))}</li>`).join("");
+    const diff = c.res.pages.filter((p) => p.changed.length || p.added.length || p.removed.length);
+    const MAX = 40;
+    const rows = diff.map((p) => {
+      const items = [
+        ...p.changed.map((x, k) => `<li class="cmp-item"><button class="cmp-go" data-p="${p.page}" data-k="c${k}">${diffHtml(x.ops)}</button></li>`),
+        ...p.added.map((x, k) => `<li class="cmp-item"><button class="cmp-go" data-p="${p.page}" data-k="a${k}"><span class="cmp-tag add">${esc(t("New"))}</span> <ins>${esc(x.text)}</ins></button></li>`),
+        ...p.removed.map((x) => `<li class="cmp-item"><span class="cmp-tag del">${esc(t("Removed"))}</span> <del>${esc(x)}</del></li>`),
+      ];
+      return `<li class="cmp-page"><b>${esc(t("Page {n}").replace("{n}", p.page + 1))}</b>
+        <span class="small muted">${esc([p.changed.length && t("{n} changed").replace("{n}", p.changed.length), p.added.length && t("{n} new").replace("{n}", p.added.length), p.removed.length && t("{n} no longer here").replace("{n}", p.removed.length)].filter(Boolean).join(" · "))}</span>
+        <ul>${items.slice(0, MAX).join("")}${items.length > MAX ? `<li class="small muted">… ${esc(t("{n} more").replace("{n}", items.length - MAX))}</li>` : ""}</ul></li>`;
+    }).join("") + c.res.extra.map((p) => `<li class="cmp-page">${esc(t("Page {n} is only in “{name}”").replace("{n}", p.page + 1).replace("{name}", c.name))}</li>`).join("");
     const d = el(`<aside id="cmpPanel" class="cmp-panel" role="region" aria-label="${esc(t("Comparison"))}">
       <div class="cmp-head"><b>${esc(t("Compared with “{name}”").replace("{name}", c.name))}</b><button class="icon cmp-x" title="${esc(t("Close the comparison"))}">✕</button></div>
-      ${diff.length || c.res.extra.length ? `<p class="small">${esc(t("Highlighted on the pages: what is new or changed in this PDF."))}</p><ul class="cmp-list">${rows}</ul>`
+      ${diff.length || c.res.extra.length ? `<p class="small"><del>${esc(t("removed"))}</del> <ins>${esc(t("added or changed"))}</ins> · ${esc(t("Click a line to see it on the page."))}</p><ul class="cmp-list">${rows}</ul>`
         : `<p>${esc(t("No difference in the text."))}</p>`}
-      <p class="small muted">${esc(t("Only the text is compared, line by line (not pictures or layout)."))}</p></aside>`);
+      <p class="small muted">${esc(t("Words are compared line by line (not pictures or layout)."))}</p></aside>`);
     document.body.appendChild(d);
     d.querySelector(".cmp-x").onclick = () => { PT.cmp = null; d.remove(); PT.redrawCompare(); };
-    d.querySelectorAll(".cmp-go").forEach((b) => (b.onclick = () => pageEl(+b.dataset.p).scrollIntoView({ block: "start", behavior: "smooth" })));
+    d.querySelectorAll(".cmp-go").forEach((b) => (b.onclick = () => {
+      const pg = +b.dataset.p, hl = pageEl(pg) && pageEl(pg).querySelector(`.cmp-line[data-k="${b.dataset.k}"]`);
+      (hl || pageEl(pg)).scrollIntoView({ block: "center", behavior: "smooth" });
+      if (hl) { hl.classList.remove("flash"); void hl.offsetWidth; hl.classList.add("flash"); }
+    }));
   }
   PT.redrawCompare = () => {
-    document.querySelectorAll(".cmp-hl").forEach((x) => x.remove());
+    document.querySelectorAll(".cmp-hl, .cmp-line, .cmp-del").forEach((x) => x.remove());
     if (!PT.cmp) return;
     S.doc.pages.forEach((p, i) => { const el = pageEl(i); if (el) drawCompare(i, el, el.querySelector(".spans")); });
   };
   function drawCompare(i, el, layer) {
     const c = PT.cmp, p = c && c.res.pages[i];
     if (!p || !layer || c.v[i] !== S.doc.pages[i].v) return;           // the page was edited since: not shown
-    for (const a of p.added) {
-      const [x0, y0, x1, y1] = a.bbox, d = document.createElement("div");
-      d.className = "cmp-hl"; d.title = t("New or changed:") + " " + a.text;
-      Object.assign(d.style, { left: (x0 - 2) * S.zoom + "px", top: (y0 - 1) * S.zoom + "px", width: (x1 - x0 + 4) * S.zoom + "px", height: (y1 - y0 + 2) * S.zoom + "px" });
+    const z = S.zoom;
+    const box = (cls, r, title, k) => {
+      const d = document.createElement("div");
+      d.className = cls; if (title) d.title = title; if (k) d.dataset.k = k;
+      Object.assign(d.style, { left: (r[0] - 2) * z + "px", top: (r[1] - 1) * z + "px", width: (r[2] - r[0] + 4) * z + "px", height: (r[3] - r[1] + 2) * z + "px" });
       layer.appendChild(d);
-    }
+    };
+    p.changed.forEach((x, k) => {
+      box("cmp-line", x.bbox, t("Changed line") + " – " + t("before:") + " " + x.old, "c" + k);
+      for (const r of x.ins) box("cmp-hl", r, t("New or changed:") + " " + x.new);
+      for (const m of x.del) {
+        const d = document.createElement("div");
+        d.className = "cmp-del"; d.title = t("Removed:") + " " + m.text;
+        Object.assign(d.style, { left: (m.x + 1) * z - 2 + "px", top: (m.y0 - 2) * z + "px", height: (m.y1 - m.y0 + 4) * z + "px" });
+        d.innerHTML = `<span>${esc(m.text)}</span>`;
+        layer.appendChild(d);
+      }
+    });
+    p.added.forEach((x, k) => { box("cmp-line", x.bbox, "", "a" + k); box("cmp-hl", x.bbox, t("New or changed:") + " " + x.text); });
   }
 
   /* ---------------------------------------------------------------- forms: fill in */

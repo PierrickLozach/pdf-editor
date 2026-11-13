@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "יש לבחור סיסמה בת 4 תווים לפחות.",
   "Comparison": "השוואה",
   "Close the comparison": "סגירת ההשוואה",
-  "Highlighted on the pages: what is new or changed in this PDF.": "מודגש בעמודים: מה חדש או השתנה ב-PDF הזה.",
   "No difference in the text.": "אין הבדל בטקסט.",
-  "Only the text is compared, line by line (not pictures or layout).": "רק הטקסט מושווה, שורה אחר שורה (לא תמונות ולא פריסה).",
   "New or changed:": "חדש או השתנה:",
   "This PDF has a form: click a field to fill it in.": "ב-PDF הזה יש טופס: לוחצים על שדה כדי למלא אותו.",
   "Click to fill in": "לחיצה למילוי",
@@ -491,7 +489,16 @@
   "watermarked": "סימן מים",
   "edited": "ערוך",
   "redacted": "מושחר",
-  "protected": "מוגן"
+  "protected": "מוגן",
+  "New": "חדש",
+  "Removed": "הוסר",
+  "removed": "הוסר",
+  "added or changed": "נוסף או שונה",
+  "Click a line to see it on the page.": "לחיצה על שורה מציגה אותה בדף.",
+  "Words are compared line by line (not pictures or layout).": "המילים מושוות שורה אחר שורה (לא תמונות או פריסה).",
+  "Changed line": "שורה ששונתה",
+  "before:": "לפני:",
+  "Removed:": "הוסר:"
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "עמוד {n}"
   ],
   [
-   "{n} new or changed",
-   "{n} חדשים או ששונו"
-  ],
-  [
    "{n} no longer here",
    "{n} כבר לא קיימים"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "השדה \"{name}\" נוסף. אפשר למלא אותו בכל קורא PDF."
+  ],
+  [
+   "{n} changed",
+   "{n} שונו"
+  ],
+  [
+   "{n} new",
+   "{n} חדשות"
+  ],
+  [
+   "{n} more",
+   "עוד {n}"
   ]
  ]
 }

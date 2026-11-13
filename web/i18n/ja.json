@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "4 文字以上のパスワードを設定してください。",
   "Comparison": "比較",
   "Close the comparison": "比較を閉じる",
-  "Highlighted on the pages: what is new or changed in this PDF.": "ページ上の強調表示：この PDF で新しく追加または変更された部分です。",
   "No difference in the text.": "テキストに違いはありません。",
-  "Only the text is compared, line by line (not pictures or layout).": "テキストのみを 1 行ずつ比較します（画像やレイアウトは対象外）。",
   "New or changed:": "新規または変更：",
   "This PDF has a form: click a field to fill it in.": "この PDF にはフォームがあります。フィールドをクリックして入力してください。",
   "Click to fill in": "クリックして入力",
@@ -491,7 +489,16 @@
   "watermarked": "透かし入り",
   "edited": "編集済み",
   "redacted": "墨消し済み",
-  "protected": "保護済み"
+  "protected": "保護済み",
+  "New": "新規",
+  "Removed": "削除",
+  "removed": "削除",
+  "added or changed": "追加・変更",
+  "Click a line to see it on the page.": "行をクリックするとページ上で確認できます。",
+  "Words are compared line by line (not pictures or layout).": "単語を行ごとに比較します（画像やレイアウトは対象外）。",
+  "Changed line": "変更された行",
+  "before:": "変更前：",
+  "Removed:": "削除："
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "{n} ページ"
   ],
   [
-   "{n} new or changed",
-   "新規または変更：{n} 件"
-  ],
-  [
    "{n} no longer here",
    "なくなった箇所：{n} 件"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "フィールド「{name}」を追加しました。どの PDF リーダーでも入力できます。"
+  ],
+  [
+   "{n} changed",
+   "{n} 件変更"
+  ],
+  [
+   "{n} new",
+   "{n} 件追加"
+  ],
+  [
+   "{n} more",
+   "ほか {n} 件"
   ]
  ]
 }

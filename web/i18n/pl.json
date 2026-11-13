@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "Wybierz hasło o długości co najmniej 4 znaków.",
   "Comparison": "Porównanie",
   "Close the comparison": "Zamknij porównanie",
-  "Highlighted on the pages: what is new or changed in this PDF.": "Wyróżnione na stronach: to, co jest nowe lub zmienione w tym pliku PDF.",
   "No difference in the text.": "Brak różnic w tekście.",
-  "Only the text is compared, line by line (not pictures or layout).": "Porównywany jest tylko tekst, wiersz po wierszu (bez obrazów i układu).",
   "New or changed:": "Nowe lub zmienione:",
   "This PDF has a form: click a field to fill it in.": "Ten plik PDF zawiera formularz: kliknij pole, aby je wypełnić.",
   "Click to fill in": "Kliknij, aby wypełnić",
@@ -491,7 +489,16 @@
   "watermarked": "znak wodny",
   "edited": "edytowany",
   "redacted": "zaczerniony",
-  "protected": "chroniony"
+  "protected": "chroniony",
+  "New": "Nowe",
+  "Removed": "Usunięte",
+  "removed": "usunięte",
+  "added or changed": "dodane lub zmienione",
+  "Click a line to see it on the page.": "Kliknij wiersz, aby zobaczyć go na stronie.",
+  "Words are compared line by line (not pictures or layout).": "Słowa są porównywane wiersz po wierszu (bez obrazów i układu).",
+  "Changed line": "Zmieniony wiersz",
+  "before:": "wcześniej:",
+  "Removed:": "Usunięte:"
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "Strona {n}"
   ],
   [
-   "{n} new or changed",
-   "Nowe lub zmienione: {n}"
-  ],
-  [
    "{n} no longer here",
    "Już nieobecne: {n}"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "Dodano pole „{name}”. Można je wypełnić w dowolnym czytniku PDF."
+  ],
+  [
+   "{n} changed",
+   "Zmienione: {n}"
+  ],
+  [
+   "{n} new",
+   "Nowe: {n}"
+  ],
+  [
+   "{n} more",
+   "Jeszcze: {n}"
   ]
  ]
 }

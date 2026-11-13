@@ -142,7 +142,7 @@ for (const [name, engine] of [["chromium", chromium], ["firefox", firefox], ["we
     ok(cfg.plans.map((x) => x.id + x.price).join(",") === "monthly5,yearly39" && !cfg.sales, "admin: new prices, lifetime turned off for new buyers: " + JSON.stringify(cfg.plans));
     ok(!(await activate(p4, "33333333-3333-4333-8333-333333333333")), "a lifetime key bought before still activates after the offer is turned off");
     for (const p of [p1, p2, p3, p4, p5]) ok(!p.__errs.length, "no script errors " + p.__errs.slice(0, 2).join(" | "));
-  } catch (x) { fails++; console.log(`  FAIL [${name}] exception: ${x.message.split("\n")[0]}`); }
+  } catch (x) { fails++; console.log(`  FAIL [${name}] exception: ${x.message.split("\n").slice(0, 12).join(" / ")}`); }
   await b.close();
   console.log(`  => ${name}: ${fails ? fails + " FAILED" : "ALL OK"}`);
   total += fails;

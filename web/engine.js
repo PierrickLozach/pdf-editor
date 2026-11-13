@@ -2079,42 +2079,93 @@ export class Engine {
     return { ...this.info(), changed: [pno], name: nm };
   }
 
-  /** Compare with another PDF: for each page of this one, the lines that are new or changed (with
-   *  their place) and the lines of the other one that are no longer here. -> {pages:[{page, added:[{text,bbox}],
-   *  removed:[text]}], otherPages, samePages} */
+  /** Compare with another PDF, word by word. For each page of this PDF:
+   *   changed: lines found in both with some words different: {old, new, ops:[{op:"same"|"del"|"ins", t}],
+   *            bbox (the line), ins:[bbox] (the new or changed words), del:[{x, y0, y1, text}] (where words went missing)}
+   *   added:   lines only in this PDF: {text, bbox};  removed: lines only in the other PDF: [text]
+   *  -> {pages:[{page, changed, added, removed, missing}], extra:[{page, removed}], otherPages, samePages} */
   compareWith(bytes) {
     const s = this._need();
     let other;
     try { other = mupdf.Document.openDocument(bytes, "application/pdf"); } catch (e) { throw new EditError("This file could not be read as a PDF"); }
     if (other.needsPassword()) throw new EditError("This PDF is protected by a password");
-    const norm = (t) => t.replace(/\s+/g, " ").trim();
+    // the lines of a page as words, each word with its box
     const linesOf = (doc, pno) => {
-      const out = [];
+      const lines = [];
       try {
         doc.loadPage(pno).toStructuredText("preserve-whitespace").walk({
-          beginLine() { out.push({ text: "", box: null }); },
-          onChar(c, o, f, sz, q) { const l = out[out.length - 1]; l.text += c; const b = [Math.min(q[0], q[4]), Math.min(q[1], q[3]), Math.max(q[2], q[6]), Math.max(q[5], q[7])]; l.box = l.box ? union(l.box, b) : b; },
+          beginLine() { lines.push({ words: [], cur: null }); },
+          onChar(c, o, f, sz, q) {
+            const l = lines[lines.length - 1];
+            if (/\s/.test(c)) { l.cur = null; return; }
+            const b = [Math.min(q[0], q[4]), Math.min(q[1], q[3]), Math.max(q[2], q[6]), Math.max(q[5], q[7])];
+            if (!l.cur) { l.cur = { t: "", box: b }; l.words.push(l.cur); }
+            l.cur.t += c; l.cur.box = union(l.cur.box, b);
+          },
         });
       } catch (e) {}
-      return out.map((l) => ({ text: norm(l.text), box: l.box })).filter((l) => l.text);
+      return lines.filter((l) => l.words.length).map((l) => ({ words: l.words, text: l.words.map((w) => w.t).join(" "), box: l.words.map((w) => w.box).reduce(union) }));
+    };
+    const lcs = (a, b) => {
+      const L = Array.from({ length: a.length + 1 }, () => new Uint16Array(b.length + 1));
+      for (let i = a.length - 1; i >= 0; i--) for (let j = b.length - 1; j >= 0; j--) L[i][j] = a[i] === b[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+      return L;
+    };
+    // the word-level difference of two lines
+    const wordDiff = (A, B) => {
+      const a = A.words.map((w) => w.t), b = B.words.map((w) => w.t), L = lcs(a, b), ops = [];
+      let i = 0, j = 0;
+      while (i < a.length || j < b.length) {
+        if (i < a.length && j < b.length && a[i] === b[j]) { ops.push({ op: "same", t: b[j], w: B.words[j] }); i++; j++; }
+        else if (i < a.length && (j >= b.length || L[i + 1][j] >= L[i][j + 1])) { ops.push({ op: "del", t: a[i] }); i++; }   // the old word first
+        else { ops.push({ op: "ins", t: b[j], w: B.words[j] }); j++; }
+      }
+      return { ops, common: L[0][0] };
     };
     const n = s.doc.countPages(), m = other.countPages(), pages = [];
     let same = 0;
     for (let p = 0; p < n; p++) {
       const [ox, oy] = this._offset(s.doc.loadPage(p));
+      const sh = (r) => [rd(r[0] - ox), rd(r[1] - oy), rd(r[2] - ox), rd(r[3] - oy)];
       const A = p < m ? linesOf(other, p) : [], B = linesOf(s.doc, p);
-      // longest common subsequence of the lines (pages have at most a few hundred)
-      const a = A.map((x) => x.text), b = B.map((x) => x.text), L = Array.from({ length: a.length + 1 }, () => new Uint16Array(b.length + 1));
-      for (let i = a.length - 1; i >= 0; i--) for (let j = b.length - 1; j >= 0; j--) L[i][j] = a[i] === b[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
-      const added = [], removed = [];
+      const L = lcs(A.map((x) => x.text), B.map((x) => x.text));
+      // lines found in both are matched in order; the others are paired afterwards with the old line they
+      // resemble most, anywhere on the page (an edited line is often drawn last, so it moves in the text order)
+      const changed = [], added = [], removed = [], onlyA = [], onlyB = [];
       let i = 0, j = 0;
-      while (i < a.length || j < b.length) {
-        if (i < a.length && j < b.length && a[i] === b[j]) { i++; j++; }
-        else if (j < b.length && (i >= a.length || L[i][j + 1] >= L[i + 1][j])) { const x = B[j++]; added.push({ text: x.text, bbox: [rd(x.box[0] - ox), rd(x.box[1] - oy), rd(x.box[2] - ox), rd(x.box[3] - oy)] }); }
-        else removed.push(A[i++].text);
+      while (i < A.length || j < B.length) {
+        if (i < A.length && j < B.length && A[i].text === B[j].text) { i++; j++; }
+        else if (j < B.length && (i >= A.length || L[i][j + 1] >= L[i + 1][j])) onlyB.push(B[j++]);
+        else onlyA.push(A[i++]);
       }
-      if (!added.length && !removed.length) same++;
-      pages.push({ page: p, added, removed, missing: p >= m });
+      const cands = [];
+      onlyB.forEach((nb, bi) => onlyA.forEach((na, ai) => {
+        const d = wordDiff(na, nb), sim = (2 * d.common) / (na.words.length + nb.words.length);
+        if (sim >= 0.4) cands.push({ ai, bi, d, na, nb, score: sim - Math.abs(na.box[1] - nb.box[1]) / 2000 });
+      }));
+      cands.sort((x, y) => y.score - x.score);
+      const usedA = new Set(), usedB = new Set(), pairs = [];
+      for (const c of cands) { if (usedA.has(c.ai) || usedB.has(c.bi)) continue; usedA.add(c.ai); usedB.add(c.bi); pairs.push(c); }
+      pairs.sort((x, y) => x.bi - y.bi);
+      for (const { d, na, nb } of pairs) {
+        const ins = [], del = [];
+        let run = null, lastRight = nb.box[0], open = false;
+        for (const o of d.ops) {
+          if (o.op === "ins") run = run ? union(run, o.w.box) : o.w.box;
+          else if (run) { ins.push(sh(run)); run = null; }
+          if (o.op === "del") {
+            if (open) del[del.length - 1].text += " " + o.t;
+            else { del.push({ x: lastRight, y0: nb.box[1], y1: nb.box[3], text: o.t }); open = true; }
+          } else { open = false; lastRight = o.w.box[2]; }
+        }
+        if (run) ins.push(sh(run));
+        changed.push({ old: na.text, new: nb.text, ops: d.ops.map((o) => ({ op: o.op, t: o.t })), bbox: sh(nb.box), ins,
+          del: del.map((x) => ({ x: rd(x.x - ox), y0: rd(x.y0 - oy), y1: rd(x.y1 - oy), text: x.text })) });
+      }
+      onlyB.forEach((nb, bi) => { if (!usedB.has(bi)) added.push({ text: nb.text, bbox: sh(nb.box) }); });
+      onlyA.forEach((na, ai) => { if (!usedA.has(ai)) removed.push(na.text); });
+      if (!changed.length && !added.length && !removed.length) same++;
+      pages.push({ page: p, changed, added, removed, missing: p >= m });
     }
     const extra = [];
     for (let p = n; p < m; p++) extra.push({ page: p, removed: linesOf(other, p).map((x) => x.text) });

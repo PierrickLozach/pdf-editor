@@ -443,9 +443,7 @@
   "Choose a password of at least 4 characters.": "اختر كلمة مرور من 4 أحرف على الأقل.",
   "Comparison": "المقارنة",
   "Close the comparison": "إغلاق المقارنة",
-  "Highlighted on the pages: what is new or changed in this PDF.": "مميَّز على الصفحات: ما هو جديد أو معدَّل في ملف PDF هذا.",
   "No difference in the text.": "لا يوجد اختلاف في النص.",
-  "Only the text is compared, line by line (not pictures or layout).": "تتم مقارنة النص فقط، سطرًا بسطر (لا الصور ولا التخطيط).",
   "New or changed:": "جديد أو معدَّل:",
   "This PDF has a form: click a field to fill it in.": "يحتوي ملف PDF هذا على نموذج: انقر على حقل لملئه.",
   "Click to fill in": "انقر للملء",
@@ -491,7 +489,16 @@
   "watermarked": "بعلامة مائية",
   "edited": "معدَّل",
   "redacted": "منقَّح",
-  "protected": "محمي"
+  "protected": "محمي",
+  "New": "جديد",
+  "Removed": "محذوف",
+  "removed": "محذوف",
+  "added or changed": "مضاف أو معدَّل",
+  "Click a line to see it on the page.": "انقر على سطر لرؤيته في الصفحة.",
+  "Words are compared line by line (not pictures or layout).": "تُقارن الكلمات سطرًا بسطر (وليس الصور أو التخطيط).",
+  "Changed line": "سطر معدَّل",
+  "before:": "قبل:",
+  "Removed:": "محذوف:"
  },
  "patterns": [
   [
@@ -791,10 +798,6 @@
    "الصفحة {n}"
   ],
   [
-   "{n} new or changed",
-   "{n} جديد أو معدَّل"
-  ],
-  [
    "{n} no longer here",
    "{n} لم يعد موجودًا"
   ],
@@ -809,6 +812,18 @@
   [
    "Field “{name}” added. People can fill it in with any PDF reader.",
    "تمت إضافة الحقل «{name}». يمكن ملؤه بأي قارئ PDF."
+  ],
+  [
+   "{n} changed",
+   "{n} معدَّل"
+  ],
+  [
+   "{n} new",
+   "{n} جديد"
+  ],
+  [
+   "{n} more",
+   "{n} أخرى"
   ]
  ]
 }
