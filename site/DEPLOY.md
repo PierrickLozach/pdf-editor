@@ -1,5 +1,7 @@
 # Putting PDF Editor online (free) and attaching a domain
 
+Full setup from scratch, Lemon Squeezy and the steps left before launch: see the [README](../README.md).
+
 The site is **only static files**: no server code, no database, no accounts, no cookies.
 It is hosted on Cloudflare's free plan (static files are free and unlimited there).
 
