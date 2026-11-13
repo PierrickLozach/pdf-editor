@@ -274,7 +274,19 @@
     }
     document.body.appendChild(m);
     const close = () => { m.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+    // alphabetical order in the language shown (the Pro items join the list; "PDF Editor Pro" stays last)
+    const sortItems = () => {
+      const lang = (window.I18N && I18N.lang) || document.documentElement.lang || "en";
+      const coll = new Intl.Collator(lang, { sensitivity: "base", numeric: true });
+      const name = (b) => { const x = b.querySelector("b"); return x ? [...x.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim() : ""; };
+      const items = [...m.querySelectorAll(":scope > button[data-k]")].filter((b) => b.dataset.k !== "pro");
+      items.sort((a, b) => coll.compare(name(a), name(b)));
+      const last = m.querySelector(':scope > button[data-k="pro"]');
+      for (const b of items) m.insertBefore(b, last);
+    };
+    TOOLS.sortMenu = sortItems;
     const open = () => {
+      sortItems();
       const r = btn.getBoundingClientRect(), rtl = document.documentElement.dir === "rtl";
       m.hidden = false;
       const w = m.offsetWidth;

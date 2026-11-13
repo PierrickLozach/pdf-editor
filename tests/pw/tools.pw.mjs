@@ -44,7 +44,9 @@ async function run(name, engine) {
     await openFresh();
     await page.click("#btnTools");
     const items = await page.evaluate(() => [...document.querySelectorAll("#toolsMenu [data-k]")].map((b) => b.dataset.k));
-    ok(items.join() === "sign,redact,ocr,split,convert,protect,numbers,watermark,reduce,batch,compare,addfield,pro", "Tools menu: " + items.join(", "));
+    const names = await page.evaluate(() => [...document.querySelectorAll("#toolsMenu > button[data-k]")].map((b) => [...b.querySelector("b").childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim()));
+    const sorted = names.slice(0, -1).slice().sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+    ok(items.length === 13 && items[items.length - 1] === "pro" && JSON.stringify(names.slice(0, -1)) === JSON.stringify(sorted), "Tools menu: all 13 tools, alphabetical, “PDF Editor Pro” last: " + names.join(", "));
     await page.keyboard.press("Escape");
     ok(await page.evaluate(() => document.querySelector("#toolsMenu").hidden), "Esc closes the menu");
 
