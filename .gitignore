@@ -42,3 +42,4 @@ __pycache__/
 !/tests/pw/pro.pw.mjs
 !/tests/pw/mock-ls.mjs
 !/tools/new_licence_key.mjs
+!/tests/pw/admin.pw.mjs

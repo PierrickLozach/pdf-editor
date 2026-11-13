@@ -128,11 +128,14 @@ ${grants.length ? `<table><tr><th>Code</th><th>For</th><th>Plan</th><th>Until</t
 
 export async function handleAdmin(request, env) {
   const url = new URL(request.url);
-  const headers = { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex", "Referrer-Policy": "no-referrer",
+  const headers = { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex", "Referrer-Policy": "same-origin",
     "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'" };
   let key = url.searchParams.get("key") || "", msg = "", f = null;
   if (request.method === "POST") {
-    if (request.headers.get("Origin") !== url.origin) return new Response("Forbidden", { status: 403 });
+    // only this page may post: same origin, or (browsers that hide it) the browser's own same-origin flag
+    const origin = request.headers.get("Origin"), site = request.headers.get("Sec-Fetch-Site");
+    const sameSite = origin === url.origin || ((!origin || origin === "null") && site === "same-origin");
+    if (!sameSite) return new Response("Forbidden", { status: 403 });
     f = await request.formData();
     key = f.get("key") || "";
   }
