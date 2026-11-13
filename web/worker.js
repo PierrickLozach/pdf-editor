@@ -3,9 +3,9 @@
  *           worker -> main: {req, type:"localFont", postscriptName}   main -> worker: {req, bytes|error}
  * The open document is also kept in IndexedDB (this browser only) so a reload or a
  * crash does not lose the edits. Nothing ever leaves the computer. */
-import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=651c7798f5";
+import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=fc5d7e383a";
 
-let engine = null;
+let engine = null, MANIFEST = null;
 let reqSeq = 0;
 const pending = new Map();
 
@@ -80,7 +80,7 @@ let recovery = true;
 const persist = (name, bytes, unsaved = true) => (recovery ? idbDo("readwrite", (st) => st.put({ name, bytes, time: Date.now(), unsaved }, "current")) : Promise.resolve());
 
 const ready = (async () => {
-  const manifest = await (await fetch(new URL("fonts/fonts.json?v=651c7798f5", import.meta.url))).json();
+  const manifest = MANIFEST = await (await fetch(new URL("fonts/fonts.json?v=fc5d7e383a", import.meta.url))).json();
   engine = new Engine({ manifest, fetchBytes, persist });
   // the catalogue of free fonts (Google Fonts...): small, loaded in the background
   fetch(new URL("fonts/free-fonts.json", import.meta.url)).then((r) => r.json()).then((c) => engine.setFreeCatalog(c)).catch(() => {});
@@ -165,6 +165,30 @@ const worker = {
     return true;
   },
   zip(files) { return makeZip(files); },
+  /** Pro - batch: one PDF at a time in a separate engine (the open PDF is never touched).
+   *  op: compress | numbers | watermark | replace | protect | redactpersonal ; returns {name, bytes, note} */
+  async batchOne(op, file, opts = {}) {
+    const e = new Engine({ manifest: MANIFEST, fetchBytes });
+    if (engine.fonts.free) e.setFreeCatalog(engine.fonts.free);
+    e.setUserFonts(engine.fonts.entries.filter((x) => x.source.type === "user").map((x) => ({ id: x.source.id, file: x.source.file, index: x.source.index, family: x.family, ps: x.psName, bold: x.bold, italic: x.italic, size: x.size })));
+    e.open(file.bytes, file.name, opts.password || undefined);
+    let note = "";
+    if (op === "compress") { const r = await e.reduceSize(opts.level === "smallest" ? "smallest" : "smaller"); note = Math.round(100 - (r.after / r.before) * 100) + "%"; }
+    else if (op === "numbers") await e.pageNumbers({ format: opts.format || "{n} / {total}", position: opts.position || "bottom-center" });
+    else if (op === "watermark") await e.watermark(String(opts.text || "CONFIDENTIAL").slice(0, 80), { opacity: 0.18 });
+    else if (op === "replace") { if (!opts.find) throw new EditError("Nothing to search for"); const r = await e.replaceAll(opts.find, opts.repl || "", !!opts.matchCase, !!opts.wholeWord); note = String(r.replaced); }
+    else if (op === "redactpersonal") { const h = e.findPersonal(); if (h.length) await e.redact(h.map((x) => ({ page: x.page, rect: [x.bbox[0] - 1, x.bbox[1] - 1, x.bbox[2] + 1, x.bbox[3] + 1] }))); note = String(h.length); }
+    else if (op === "protect") { if (!opts.newPassword) throw new EditError("Choose a password"); return { name: file.name, bytes: e.protect(opts.newPassword, true, false), note }; }
+    else throw new EditError("Unknown action");
+    return { name: file.name, bytes: e.export(), note };
+  },
+  /** Pro - batch: join several PDFs into one, in this order. */
+  async batchMerge(files) {
+    const e = new Engine({ manifest: MANIFEST, fetchBytes });
+    e.open(files[0].bytes, files[0].name);
+    for (const f of files.slice(1)) await e.merge(f.bytes);
+    return { name: "merged.pdf", bytes: e.export(), pages: e.info().pages.length };
+  },
   /** The PDF was saved or downloaded: its recovery copy no longer holds unsaved changes. */
   async markSaved() {
     await engine.flushPersist();                    // a copy still waiting to be written goes first

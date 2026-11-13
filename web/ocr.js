@@ -38,7 +38,8 @@
       <label class="opt"><input type="radio" name="which" value="all"${scans.length ? "" : " checked"}> <span>${esc(t("All pages"))}</span></label>
       <p class="small muted">${esc(t("Done in this browser: the pages are never uploaded. About 2 to 5 seconds per page; the language data (1 to 3 MB) is downloaded once."))}</p>`, t("Recognise text"));
     if (!v) return;
-    const pages = v.which === "all" || !scans.length ? [...Array(n).keys()] : scans;
+    let pages = v.which === "all" || !scans.length ? [...Array(n).keys()] : scans;
+    if (window.PROTOOLS) { pages = await PROTOOLS.ocrPages(pages); if (!pages) return; }      // free: a few pages per PDF
     const langs = [...new Set([v.lang, v.lang2].filter(Boolean))].join("+");
     await closeEditor(true);
     await run(pages, langs);

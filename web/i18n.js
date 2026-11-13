@@ -73,8 +73,10 @@
     for (const [src, dst] of d.patterns || []) {
       const names = [];
       const rx = new RegExp("^" + esc(src).replace(/\\\{(\w+)\\\}/g, (m, n) => { names.push(n); return "([\\s\\S]+?)"; }) + "$");
-      patterns.push({ rx, names, dst });
+      patterns.push({ rx, names, dst, src, fixed: src.replace(/\{\w+\}/g, "").length });
     }
+    // the most specific template first: "“{f}” is part of Pro." before a generic "{a} of {b}"
+    patterns.sort((a, b) => b.fixed - a.fixed);
   }
   function tr(text) {
     const lead = text.match(/^\s*/)[0], trail = text.match(/\s*$/)[0];
@@ -82,6 +84,7 @@
     if (!core || !/[A-Za-z]/.test(core)) return text;
     const one = (s) => {
       if (strings.has(s)) return strings.get(s);
+      for (const p of patterns) if (p.src === s) return p.dst;       // a template asked for as is (t("{n} files"))
       for (const p of patterns) {
         const m = s.match(p.rx);
         if (m) return p.dst.replace(/\{(\w+)\}/g, (x, n) => { const v = m[p.names.indexOf(n) + 1]; return v === undefined ? x : (strings.get(v) || v); });

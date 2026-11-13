@@ -19,5 +19,6 @@
   "date_format": "%B %-d, %Y",
   "language_auto": "Browser language",
   "footer_developers": "Developers",
-  "github": "Source code on GitHub"
+  "github": "Source code on GitHub",
+  "footer_sales": "Terms of sale"
 }

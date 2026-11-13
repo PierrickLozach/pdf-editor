@@ -29,10 +29,26 @@ def date_in(l):
     if t.get("months"): s = s.replace(d.strftime("%B"), t["months"][d.month - 1])
     return s
 
+def seller():
+    """The business that sells Pro: the registered business once site.json says so, else the publisher."""
+    b = cfg.get("business", {})
+    if b.get("registered"):
+        return {"name": b["name"], "status": b.get("status", ""), "siret": b["siret"], "address": b["address"], "email": b["email"],
+                "mediator": b["mediator"] + (" – " + b["mediator_url"] if b.get("mediator_url") else ""), "vat": b.get("vat", "")}
+    return {"name": cfg["publisher"]["name"], "status": "", "siret": "", "address": "", "email": cfg["publisher"]["email"],
+            "mediator": "(désigné à l'ouverture de la boutique)", "vat": ""}
+
+def blocks(text):
+    """<!-- business:on --> … <!-- /business:on --> is kept only once the business is registered; business:off the opposite."""
+    on = bool(cfg.get("business", {}).get("registered"))
+    text = re.sub(r"[ \t]*<!-- business:(on|off) -->\n?(.*?)[ \t]*<!-- /business:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == on else "", text, flags=re.S)
+    return text
+
 def fill(text, l):
     vals = {"name": T[l]["site_name"], "root": root_of(l), "updated": date_in(l), "url": cfg["url"], "source": cfg["source"], "host": cfg["host"],
-            "publisher.name": cfg["publisher"]["name"], "publisher.email": cfg["publisher"]["email"]}
-    return re.sub(r"\{\{([a-z.]+)\}\}", lambda m: html.escape(vals[m.group(1)]), text)
+            "publisher.name": cfg["publisher"]["name"], "publisher.email": cfg["publisher"]["email"],
+            **{"seller." + k: str(v) for k, v in seller().items()}}
+    return re.sub(r"\{\{([a-z.]+)\}\}", lambda m: html.escape(vals[m.group(1)]), blocks(text))
 
 # ---------------------------------------------------------------- editor
 subprocess.run([sys.executable, str(ROOT / "tools" / "vendor_lock.py")], check=True)        # stops on tampered files
@@ -48,6 +64,12 @@ shutil.move(str(LIB / "lib.js"), str(LIB / "pdf-editor.js"))
 shutil.copytree(WEB / "fonts", LIB / "fonts", ignore=shutil.ignore_patterns(".DS_Store"))
 shutil.copytree(WEB / "vendor" / "mupdf", LIB / "vendor" / "mupdf", ignore=shutil.ignore_patterns(".DS_Store"))
 (LIB / "LICENSE.txt").write_text((ROOT / "LICENSE").read_text())
+# Pro: is the publisher's business registered? (the admin page refuses to open the shop otherwise)
+BIZ = cfg.get("business", {})
+if BIZ.get("registered"):
+    missing = [k for k in ("name", "siret", "address", "email", "mediator") if not str(BIZ.get(k, "")).strip() or "example" in str(BIZ.get(k, "")).lower()]
+    if missing: sys.exit("site.json: business.registered is true but these are missing: " + ", ".join(missing))
+(PUB / "app" / "pro-site.json").write_text(json.dumps({"registered": bool(BIZ.get("registered"))}) + "\n")
 (LIB / "LICENSING.txt").write_text((ROOT / "LICENSING.md").read_text())
 (LIB / "README.txt").write_text(f"PDF Editor library {json.loads((WEB / 'package.json').read_text()).get('version', '')} — AGPL-3.0, or a commercial licence (see LICENSING.txt).\n"
     f"Documentation: {cfg['url']}/developers   Source: {cfg['source']}\n"
@@ -101,7 +123,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a><a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a><a href="{root}sales">{t_footer_sales}</a><a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>

@@ -44,7 +44,7 @@ async function run(name, engine) {
     await openFresh();
     await page.click("#btnTools");
     const items = await page.evaluate(() => [...document.querySelectorAll("#toolsMenu [data-k]")].map((b) => b.dataset.k));
-    ok(items.join() === "sign,redact,ocr,split,convert,protect,numbers,watermark,reduce", "Tools menu: " + items.join(", "));
+    ok(items.join() === "sign,redact,ocr,split,convert,protect,numbers,watermark,reduce,batch,compare,addfield,pro", "Tools menu: " + items.join(", "));
     await page.keyboard.press("Escape");
     ok(await page.evaluate(() => document.querySelector("#toolsMenu").hidden), "Esc closes the menu");
 

@@ -12,11 +12,14 @@
 // domain name, at most a few hundred distinct values per kind and day. Nothing is counted when the
 // browser asks not to be tracked (Do Not Track / Global Privacy Control) or the person opts out.
 
+import { handlePro } from "./pro.js";
+import { handleAdmin } from "./admin.js";
+
 const KINDS = {
   visit: 1, page: 1, source: 1, country: 1, lang: 1, device: 1, browser: 1, event: 1, tool: 1, size: 1,
 };
-const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded"]);
-const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete"]);
+const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded", "pro_shown", "pro_activated"]);
+const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete", "batch", "smartredact", "compare", "forms", "addfield"]);
 const SIZES = new Set(["<1MB", "1-10MB", "10-50MB", "50MB+"]);
 const MAX_VALUES_PER_KIND_AND_DAY = 400;
 
@@ -197,6 +200,14 @@ ${table("Size of the PDFs opened", f.sizes)}
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname.startsWith("/api/pro/")) {
+      try { return await handlePro(request, env, url.pathname); }
+      catch (e) { return new Response(JSON.stringify({ error: "The licence could not be checked just now. Try again in a moment." }), { status: 503, headers: { "Content-Type": "application/json" } }); }
+    }
+    if (url.pathname === "/api/admin") {
+      try { return await handleAdmin(request, env); }
+      catch (e) { return new Response("Error: " + (e && e.message), { status: 500, headers: { "Content-Type": "text/plain" } }); }
+    }
     try {
       if (url.pathname === "/api/hit") {
         if (request.method !== "POST") return new Response(null, { status: 405 });

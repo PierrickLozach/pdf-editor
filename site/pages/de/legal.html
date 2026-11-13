@@ -5,12 +5,21 @@ description: Herausgeber und Hoster von {{name}}.
 <main id="main" class="prose wrap narrow">
   <h1>Impressum</h1>
   <h2>Herausgeber</h2>
+  <!-- business:off -->
   <p>Diese Website wird nicht gewerblich von einer Privatperson herausgegeben: {{publisher.name}}. Wie es das französische Recht erlaubt (Gesetz Nr. 2004-575 vom 21. Juni 2004 über das Vertrauen in die digitale Wirtschaft), werden Anschrift und Kontaktdaten nicht veröffentlicht: Der Herausgeber hat seine Identifikationsdaten dem unten genannten Hoster mitgeteilt.</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET: {{seller.siret}}<br>Anschrift: {{seller.address}}<br>E-Mail: <a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>Verantwortlich für den Inhalt: {{publisher.name}}.</p>
+  <p>Verbraucherschlichtungsstelle: {{seller.mediator}}.</p>
+  <!-- /business:on -->
   <h2>Hoster</h2>
   <p>{{host}}</p>
   <h2>Geistiges Eigentum</h2>
   <p>Der Editor ist freie Software (GNU AGPL v3) auf Basis von MuPDF © Artifex Software. Mitgelieferte Schriften: Liberation, Carlito, Caladea (SIL Open Font License) und DejaVu. Quellcode: <a href="{{source}}">{{source}}</a>. Lizenzen: <a href="/app/LICENSE.txt">/app/LICENSE.txt</a>.</p>
+  <h2>Verkauf von Pro-Lizenzen</h2>
+  <p>Lizenzen für {{name}} Pro werden über Lemon Squeezy, LLC verkauft, den Wiederverkäufer und Merchant of Record, der die Zahlungen einzieht, die Mehrwertsteuer anwendet und die Rechnungen ausstellt. Siehe die <a href="{{root}}sales">Verkaufsbedingungen</a>.</p>
   <h2>Personenbezogene Daten</h2>
-  <p>Siehe die <a href="{{root}}privacy">Datenschutzseite</a>: Es werden keine erhoben.</p>
+  <p>Siehe die <a href="{{root}}privacy">Datenschutzseite</a>.</p>
   <p class="small-print">Diese Übersetzung dient nur der Information. Weicht sie von der englischen oder französischen Fassung ab, ist die französische Fassung maßgeblich.</p>
 </main>

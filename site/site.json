@@ -24,5 +24,16 @@
     "zh",
     "ja"
   ],
-  "default_language": "en"
+  "default_language": "en",
+  "business": {
+    "registered": false,
+    "name": "",
+    "status": "Entrepreneur individuel (EI)",
+    "siret": "",
+    "address": "",
+    "email": "",
+    "mediator": "",
+    "mediator_url": "",
+    "vat": "TVA non applicable, art. 293 B du CGI"
+  }
 }

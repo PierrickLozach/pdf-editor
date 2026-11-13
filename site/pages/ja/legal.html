@@ -5,12 +5,21 @@ description: {{name}} の発行者とホスティング事業者。
 <main id="main" class="prose wrap narrow">
   <h1>法的表示</h1>
   <h2>発行者</h2>
+  <!-- business:off -->
   <p>本サイトは個人（{{publisher.name}}）が非職業的に運営しています。フランス法（デジタル経済における信頼に関する2004年6月21日付法律第2004-575号）が認めるとおり、住所と連絡先は公開していません。運営者は本人確認情報を下記のホスティング事業者に提供しています。</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET：{{seller.siret}}<br>住所：{{seller.address}}<br>メール：<a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>発行責任者：{{publisher.name}}。</p>
+  <p>消費者調停機関：{{seller.mediator}}。</p>
+  <!-- /business:on -->
   <h2>ホスティング事業者</h2>
   <p>{{host}}</p>
   <h2>知的財産権</h2>
   <p>このエディタは、MuPDF © Artifex Software をベースにしたフリーソフトウェア（GNU AGPL v3）です。同梱フォント：Liberation、Carlito、Caladea（SIL Open Font License）、DejaVu。ソースコード：<a href="{{source}}">{{source}}</a>。ライセンス：<a href="/app/LICENSE.txt">/app/LICENSE.txt</a>。</p>
+  <h2>Pro ライセンスの販売</h2>
+  <p>{{name}} Pro のライセンスは、再販業者であり販売名義人（merchant of record）である Lemon Squeezy, LLC を通じて販売され、同社が代金の受領、付加価値税の適用、請求書の発行を行います。<a href="{{root}}sales">販売条件</a>をご覧ください。</p>
   <h2>個人データ</h2>
-  <p><a href="{{root}}privacy">プライバシーのページ</a>をご覧ください。個人データは一切収集していません。</p>
+  <p><a href="{{root}}privacy">プライバシーのページ</a>をご覧ください。</p>
   <p class="small-print">この翻訳は便宜のために提供するものです。英語版またはフランス語版と内容が異なる場合は、フランス語版が優先されます。</p>
 </main>

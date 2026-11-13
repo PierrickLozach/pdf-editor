@@ -385,7 +385,113 @@
   "Click to select this picture": "Cliquez pour sélectionner cette image",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Cette image recouvre une autre image : la supprimer effacerait les deux. Utilisez plutôt Masquer ou Caviarder.",
   "This picture could not be deleted": "Cette image n'a pas pu être supprimée",
-  "Nothing to delete": "Rien à supprimer"
+  "Nothing to delete": "Rien à supprimer",
+  "Pro is switched off on this computer.": "Pro est désactivé sur cet ordinateur.",
+  "Buy": "Acheter",
+  "PDF Editor Pro": "Éditeur PDF Pro",
+  "Pro is active on this computer.": "Pro est actif sur cet ordinateur.",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "Prix TTC. Après le paiement, vous recevez votre clé de licence par e-mail : saisissez-la ci-dessous. Une licence fonctionne sur un seul ordinateur à la fois.",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro n'est pas encore en vente. Si l'on vous a donné une clé de licence, saisissez-la ci-dessous.",
+  "Release this computer": "Libérer cet ordinateur",
+  "Releasing this computer lets you use your licence on another one.": "Libérer cet ordinateur vous permet d'utiliser votre licence sur un autre.",
+  "Licence key": "Clé de licence",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "ex. PDFE-ABCD-EFGH-JKLM",
+  "Activate": "Activer",
+  "Terms of sale": "Conditions de vente",
+  "Everyday editing stays free, without an account.": "L'édition au quotidien reste gratuite, sans compte.",
+  "Enter your licence key.": "Saisissez votre clé de licence.",
+  "Pro is active on this computer. Thank you!": "Pro est actif sur cet ordinateur. Merci !",
+  "Release this computer?": "Libérer cet ordinateur ?",
+  "Pro stops on this computer and your licence can be activated on another one.": "Pro s'arrête sur cet ordinateur et votre licence peut être activée sur un autre.",
+  "Release": "Libérer",
+  "This computer is released: you can activate your licence on another one.": "Cet ordinateur est libéré : vous pouvez activer votre licence sur un autre.",
+  "Batch processing": "Traitement par lots",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "Fusionner, compresser, numéroter, ajouter un filigrane, rechercher et remplacer ou protéger de nombreux PDF à la fois",
+  "Smart redaction": "Caviardage intelligent",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "Trouver et noircir les e-mails, numéros de téléphone, IBAN, numéros de carte et de sécurité sociale",
+  "Unlimited text recognition": "Reconnaissance de texte illimitée",
+  "Make scans searchable without a page limit": "Rendre les scans cherchables sans limite de pages",
+  "Compare two PDFs": "Comparer deux PDF",
+  "See what changed between two versions": "Voir ce qui a changé entre deux versions",
+  "Forms": "Formulaires",
+  "Fill in PDF forms and add your own fields": "Remplir des formulaires PDF et ajouter vos propres champs",
+  "Monthly": "Mensuel",
+  "per month": "par mois",
+  "Yearly": "Annuel",
+  "per year": "par an",
+  "Lifetime": "À vie",
+  "once – at least 2 years": "une fois – au moins 2 ans",
+  "Licence, prices, what is included": "Licence, prix, ce qui est inclus",
+  "Process several PDFs at once": "Traiter plusieurs PDF à la fois",
+  "Text recognition": "Reconnaissance de texte",
+  "Continue": "Continuer",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "Trouver et marquer les e-mails, numéros de téléphone, IBAN, numéros de carte et de sécurité sociale",
+  "Find personal data": "Trouver les données personnelles",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "Aucune donnée personnelle trouvée (e-mails, numéros de téléphone, IBAN, numéros de carte ou de sécurité sociale).",
+  "Choose PDFs…": "Choisir des PDF…",
+  "or drop them here": "ou déposez-les ici",
+  "What to do": "Action",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "Fait dans ce navigateur : les fichiers ne sont jamais envoyés. Les originaux ne sont pas modifiés : vous obtenez de nouveaux fichiers.",
+  "Run": "Lancer",
+  "Remove from the list": "Retirer de la liste",
+  "Smaller (good for printing)": "Plus léger (bon pour l'impression)",
+  "Smallest (for email)": "Le plus léger (pour l'e-mail)",
+  "Format": "Format",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "Les e-mails, numéros de téléphone, IBAN, numéros de carte et de sécurité sociale sont supprimés définitivement de chaque fichier. Vérifiez les résultats avant de les envoyer.",
+  "The PDFs are joined in the order of the list.": "Les PDF sont assemblés dans l'ordre de la liste.",
+  "Enter the text to find.": "Saisissez le texte à rechercher.",
+  "Choose a password of at least 4 characters.": "Choisissez un mot de passe d’au moins 4 caractères.",
+  "Comparison": "Comparaison",
+  "Close the comparison": "Fermer la comparaison",
+  "Highlighted on the pages: what is new or changed in this PDF.": "Surligné sur les pages : ce qui est nouveau ou modifié dans ce PDF.",
+  "No difference in the text.": "Aucune différence dans le texte.",
+  "Only the text is compared, line by line (not pictures or layout).": "Seul le texte est comparé, ligne par ligne (ni les images ni la mise en page).",
+  "New or changed:": "Nouveau ou modifié :",
+  "This PDF has a form: click a field to fill it in.": "Ce PDF contient un formulaire : cliquez sur un champ pour le remplir.",
+  "Click to fill in": "Cliquez pour remplir",
+  "Add a form field": "Ajouter un champ de formulaire",
+  "A box to type in": "Une zone de saisie",
+  "A checkbox": "Une case à cocher",
+  "Name (shown to people filling it in)": "Nom (affiché aux personnes qui le remplissent)",
+  "e.g. Full name": "ex. Nom complet",
+  "Draw it on the page": "Le tracer sur la page",
+  "Drag on the page where the field goes. Esc cancels.": "Faites glisser sur la page à l'endroit du champ. Échap pour annuler.",
+  "Several PDFs at once": "Plusieurs PDF à la fois",
+  "Compare with another PDF": "Comparer avec un autre PDF",
+  "See what changed": "Voir ce qui a changé",
+  "A box to fill in, or a checkbox": "Une zone à remplir ou une case à cocher",
+  "email address": "adresse e-mail",
+  "email addresses": "adresses e-mail",
+  "phone number": "numéro de téléphone",
+  "phone numbers": "numéros de téléphone",
+  "IBAN": "IBAN",
+  "IBANs": "IBAN",
+  "card number": "numéro de carte",
+  "card numbers": "numéros de carte",
+  "social security number": "numéro de sécurité sociale",
+  "social security numbers": "numéros de sécurité sociale",
+  "Merge into one PDF": "Fusionner en un seul PDF",
+  "Add page numbers": "Ajouter les numéros de page",
+  "Add a watermark": "Ajouter un filigrane",
+  "Find and replace text": "Rechercher et remplacer du texte",
+  "Black out personal data": "Caviarder les données personnelles",
+  "This licence key is not valid.": "Cette clé de licence n'est pas valide.",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "Cette licence est déjà utilisée sur un autre ordinateur. Libérez-la d'abord là-bas (fenêtre Pro, « Libérer cet ordinateur ») ou contactez-nous.",
+  "This licence has ended.": "Cette licence a expiré.",
+  "This licence was cancelled.": "Cette licence a été annulée.",
+  "The licence could not be checked just now. Try again in a moment.": "La licence n'a pas pu être vérifiée pour le moment. Réessayez dans un instant.",
+  "Draw a larger box for the field": "Tracez une zone plus grande pour le champ",
+  "This field no longer exists": "Ce champ n'existe plus",
+  "This field is read-only": "Ce champ est en lecture seule",
+  "This PDF is protected by a password": "Ce PDF est protégé par mot de passe",
+  "Unknown action": "Action inconnue",
+  "Choose a password": "Choisissez un mot de passe",
+  "smaller": "allégé",
+  "numbered": "numéroté",
+  "watermarked": "filigrané",
+  "edited": "modifié",
+  "redacted": "caviardé",
+  "protected": "protégé"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "Supprimé sur {n} pages. Vous pouvez annuler."
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "« {f} » fait partie de Pro."
+  ],
+  [
+   "until {d}",
+   "jusqu'au {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "Sans Pro, la reconnaissance de texte fonctionne sur {n} pages maximum par PDF."
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "Reconnaître les {k} pages avec Pro"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "Reconnaître seulement les {n} premières pages, gratuitement"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "Marqués : {list}. Vérifiez-les, démarquez ceux qui doivent rester, puis appliquez."
+  ],
+  [
+   "Merging {n} PDFs…",
+   "Fusion de {n} PDF…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "{n} PDF fusionnés en un seul de {p} pages."
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "Fichier {k} sur {n} : {name}"
+  ],
+  [
+   "{n} files done.",
+   "{n} fichiers traités."
+  ],
+  [
+   "Not done: {list}",
+   "Non traités : {list}"
+  ],
+  [
+   "Page {n}",
+   "Page {n}"
+  ],
+  [
+   "{n} new or changed",
+   "{n} nouveau(x) ou modifié(s)"
+  ],
+  [
+   "{n} no longer here",
+   "{n} disparu(s)"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "La page {n} n'existe que dans « {name} »"
+  ],
+  [
+   "Compared with “{name}”",
+   "Comparé avec « {name} »"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "Champ « {name} » ajouté. On peut le remplir avec n'importe quel lecteur PDF."
   ]
  ]
 }

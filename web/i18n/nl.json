@@ -385,7 +385,113 @@
   "Click to select this picture": "Klik om deze afbeelding te selecteren",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Deze afbeelding ligt over een andere: verwijderen zou beide wissen. Gebruik Afdekken of Zwartlakken.",
   "This picture could not be deleted": "Deze afbeelding kon niet worden verwijderd",
-  "Nothing to delete": "Niets te verwijderen"
+  "Nothing to delete": "Niets te verwijderen",
+  "Pro is switched off on this computer.": "Pro is uitgeschakeld op deze computer.",
+  "Buy": "Kopen",
+  "PDF Editor Pro": "PDF-editor Pro",
+  "Pro is active on this computer.": "Pro is actief op deze computer.",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "Prijzen inclusief btw. Na betaling ontvang je je licentiesleutel per e-mail: vul die hieronder in. Eén licentie werkt op één computer tegelijk.",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro is nog niet te koop. Heb je een licentiesleutel gekregen, vul die dan hieronder in.",
+  "Release this computer": "Deze computer vrijgeven",
+  "Releasing this computer lets you use your licence on another one.": "Als je deze computer vrijgeeft, kun je je licentie op een andere gebruiken.",
+  "Licence key": "Licentiesleutel",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "bijv. PDFE-ABCD-EFGH-JKLM",
+  "Activate": "Activeren",
+  "Terms of sale": "Verkoopvoorwaarden",
+  "Everyday editing stays free, without an account.": "Dagelijks bewerken blijft gratis, zonder account.",
+  "Enter your licence key.": "Vul je licentiesleutel in.",
+  "Pro is active on this computer. Thank you!": "Pro is actief op deze computer. Bedankt!",
+  "Release this computer?": "Deze computer vrijgeven?",
+  "Pro stops on this computer and your licence can be activated on another one.": "Pro stopt op deze computer en je licentie kan op een andere worden geactiveerd.",
+  "Release": "Vrijgeven",
+  "This computer is released: you can activate your licence on another one.": "Deze computer is vrijgegeven: je kunt je licentie op een andere activeren.",
+  "Batch processing": "Batchverwerking",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "Veel PDF's tegelijk samenvoegen, comprimeren, nummeren, van een watermerk voorzien, zoeken en vervangen of beveiligen",
+  "Smart redaction": "Slim zwartlakken",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "E-mailadressen, telefoonnummers, IBAN's, kaart- en burgerservicenummers vinden en zwartlakken",
+  "Unlimited text recognition": "Onbeperkte tekstherkenning",
+  "Make scans searchable without a page limit": "Scans doorzoekbaar maken zonder paginalimiet",
+  "Compare two PDFs": "Twee PDF's vergelijken",
+  "See what changed between two versions": "Zien wat er tussen twee versies is veranderd",
+  "Forms": "Formulieren",
+  "Fill in PDF forms and add your own fields": "PDF-formulieren invullen en je eigen velden toevoegen",
+  "Monthly": "Maandelijks",
+  "per month": "per maand",
+  "Yearly": "Jaarlijks",
+  "per year": "per jaar",
+  "Lifetime": "Levenslang",
+  "once – at least 2 years": "eenmalig – minstens 2 jaar",
+  "Licence, prices, what is included": "Licentie, prijzen, wat is inbegrepen",
+  "Process several PDFs at once": "Meerdere PDF's tegelijk verwerken",
+  "Text recognition": "Tekstherkenning",
+  "Continue": "Doorgaan",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "E-mailadressen, telefoonnummers, IBAN's, kaart- en burgerservicenummers vinden en markeren",
+  "Find personal data": "Persoonsgegevens zoeken",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "Geen persoonsgegevens gevonden (e-mailadressen, telefoonnummers, IBAN's, kaart- of burgerservicenummers).",
+  "Choose PDFs…": "PDF's kiezen…",
+  "or drop them here": "of zet ze hier neer",
+  "What to do": "Wat moet er gebeuren",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "Gebeurt in deze browser: de bestanden worden nooit geüpload. De originelen blijven ongewijzigd: je krijgt nieuwe bestanden.",
+  "Run": "Uitvoeren",
+  "Remove from the list": "Uit de lijst verwijderen",
+  "Smaller (good for printing)": "Kleiner (goed om af te drukken)",
+  "Smallest (for email)": "Kleinst (voor e-mail)",
+  "Format": "Formaat",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "E-mailadressen, telefoonnummers, IBAN's, kaart- en burgerservicenummers worden definitief uit elk bestand verwijderd. Controleer de resultaten voordat je ze verstuurt.",
+  "The PDFs are joined in the order of the list.": "De PDF's worden samengevoegd in de volgorde van de lijst.",
+  "Enter the text to find.": "Typ de tekst die je zoekt.",
+  "Choose a password of at least 4 characters.": "Kies een wachtwoord van minstens 4 tekens.",
+  "Comparison": "Vergelijking",
+  "Close the comparison": "Vergelijking sluiten",
+  "Highlighted on the pages: what is new or changed in this PDF.": "Gemarkeerd op de pagina's: wat nieuw of gewijzigd is in deze PDF.",
+  "No difference in the text.": "Geen verschil in de tekst.",
+  "Only the text is compared, line by line (not pictures or layout).": "Alleen de tekst wordt vergeleken, regel voor regel (geen afbeeldingen of opmaak).",
+  "New or changed:": "Nieuw of gewijzigd:",
+  "This PDF has a form: click a field to fill it in.": "Deze PDF bevat een formulier: klik op een veld om het in te vullen.",
+  "Click to fill in": "Klik om in te vullen",
+  "Add a form field": "Formulierveld toevoegen",
+  "A box to type in": "Een invoervak",
+  "A checkbox": "Een selectievakje",
+  "Name (shown to people filling it in)": "Naam (zichtbaar voor wie het invult)",
+  "e.g. Full name": "bijv. Volledige naam",
+  "Draw it on the page": "Teken het op de pagina",
+  "Drag on the page where the field goes. Esc cancels.": "Sleep op de pagina waar het veld moet komen. Esc annuleert.",
+  "Several PDFs at once": "Meerdere PDF's tegelijk",
+  "Compare with another PDF": "Vergelijken met een andere PDF",
+  "See what changed": "Zien wat er is veranderd",
+  "A box to fill in, or a checkbox": "Een invulvak of een selectievakje",
+  "email address": "e-mailadres",
+  "email addresses": "e-mailadressen",
+  "phone number": "telefoonnummer",
+  "phone numbers": "telefoonnummers",
+  "IBAN": "IBAN",
+  "IBANs": "IBAN's",
+  "card number": "kaartnummer",
+  "card numbers": "kaartnummers",
+  "social security number": "burgerservicenummer",
+  "social security numbers": "burgerservicenummers",
+  "Merge into one PDF": "Samenvoegen tot één PDF",
+  "Add page numbers": "Paginanummers toevoegen",
+  "Add a watermark": "Een watermerk toevoegen",
+  "Find and replace text": "Tekst zoeken en vervangen",
+  "Black out personal data": "Persoonsgegevens zwartlakken",
+  "This licence key is not valid.": "Deze licentiesleutel is ongeldig.",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "Deze licentie wordt al op een andere computer gebruikt. Geef hem daar eerst vrij (Pro-venster, ‘Deze computer vrijgeven’) of neem contact met ons op.",
+  "This licence has ended.": "Deze licentie is verlopen.",
+  "This licence was cancelled.": "Deze licentie is opgezegd.",
+  "The licence could not be checked just now. Try again in a moment.": "De licentie kon nu niet worden gecontroleerd. Probeer het zo meteen opnieuw.",
+  "Draw a larger box for the field": "Teken een groter vak voor het veld",
+  "This field no longer exists": "Dit veld bestaat niet meer",
+  "This field is read-only": "Dit veld is alleen-lezen",
+  "This PDF is protected by a password": "Deze PDF is beveiligd met een wachtwoord",
+  "Unknown action": "Onbekende actie",
+  "Choose a password": "Kies een wachtwoord",
+  "smaller": "verkleind",
+  "numbered": "genummerd",
+  "watermarked": "met watermerk",
+  "edited": "bewerkt",
+  "redacted": "zwartgelakt",
+  "protected": "beveiligd"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "Verwijderd op {n} pagina's. Je kunt het ongedaan maken."
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "‘{f}’ hoort bij Pro."
+  ],
+  [
+   "until {d}",
+   "tot {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "Zonder Pro werkt tekstherkenning op maximaal {n} pagina's per PDF."
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "Alle {k} pagina's herkennen met Pro"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "Alleen de eerste {n} pagina's herkennen, gratis"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "Gemarkeerd: {list}. Controleer ze, haal de markering weg bij wat moet blijven en pas daarna toe."
+  ],
+  [
+   "Merging {n} PDFs…",
+   "{n} PDF's samenvoegen…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "{n} PDF's samengevoegd tot één van {p} pagina's."
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "Bestand {k} van {n}: {name}"
+  ],
+  [
+   "{n} files done.",
+   "{n} bestanden klaar."
+  ],
+  [
+   "Not done: {list}",
+   "Niet gelukt: {list}"
+  ],
+  [
+   "Page {n}",
+   "Pagina {n}"
+  ],
+  [
+   "{n} new or changed",
+   "{n} nieuw of gewijzigd"
+  ],
+  [
+   "{n} no longer here",
+   "{n} niet meer aanwezig"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "Pagina {n} staat alleen in ‘{name}’"
+  ],
+  [
+   "Compared with “{name}”",
+   "Vergeleken met ‘{name}’"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "Veld ‘{name}’ toegevoegd. Het kan met elke PDF-lezer worden ingevuld."
   ]
  ]
 }

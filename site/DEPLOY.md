@@ -34,6 +34,30 @@ created with `wrangler d1 execute pdf-editor-stats --remote --file worker/schema
 `/api/stats?key=…` (JSON: `/api/stats.json?days=30&key=…`); set or change its key with `wrangler secret put STATS_KEY`.
 If the free daily limit is ever reached, only counting stops: the site keeps working.
 
+## Pro (paid features)
+
+Pro is sold through **Lemon Squeezy** (merchant of record: it takes payments, VAT, invoices, refunds). The shop
+**stays closed** until the business details are filled in: the admin page refuses to open it otherwise.
+
+**Secrets** (never in the code; set once on Cloudflare with `./node_modules/.bin/wrangler secret put NAME`):
+- `LICENCE_KEY` – the private key that signs licences (JSON, made by `tools/new_licence_key.mjs`; its public half
+  is in `web/pro.js`). Changing it invalidates every licence in use: keep it.
+- `ADMIN_KEY` – opens the admin page `/api/admin?key=…` (at least 24 characters).
+- `LS_API_KEY` – a Lemon Squeezy API key (Settings › API), used for discount codes.
+
+**Lemon Squeezy setup**: create a store and one product "PDF Editor Pro" with 3 variants (monthly subscription,
+yearly subscription, lifetime single payment). On each variant, turn on **License keys** with **activation limit 1**
+(and "license length" = the subscription for monthly/yearly, unlimited for lifetime). In the checkout, enable the
+customer's consent to immediate supply (loss of the right of withdrawal) and link the terms of sale page.
+
+**Admin page** (`/api/admin?key=…`): prices shown, checkout link and variant ID of each plan, store ID, the lifetime
+offer (on/off for new buyers), the OCR pages allowed without Pro, opening the shop, free licences (codes PDFE-…,
+with duration and number of computers; cancel, release their computers), discount codes (created in your store).
+
+**Opening the shop**: in `site/site.json` fill `business` (registered: true, name, SIRET, address, email, consumer
+mediator), rebuild and deploy; the legal notice switches to the professional version by itself. Then tick "Shop
+open" on the admin page.
+
 ## Languages
 
 The site and the editor are in English, French, Spanish, Portuguese (Brazil), German, Dutch, Italian,

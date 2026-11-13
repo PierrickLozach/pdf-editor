@@ -257,3 +257,15 @@ details.change .form { max-width: 420px; }
 .stats-choice { padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg2); }
 .stats-choice label { display: flex; gap: 10px; align-items: center; cursor: pointer; }
 .stats-choice input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+/* ---------- Free vs Pro ---------- */
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; max-width: 900px; margin: 0 auto; }
+.plan { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 22px 18px; display: flex; flex-direction: column; }
+.plan h3 { margin: 0; font-size: 20px; }
+.plan-price { font-size: 28px; font-weight: 800; margin: 6px 0 12px; }
+.plan-price small { font-size: 14px; font-weight: 500; color: var(--muted); }
+.plan ul { padding-inline-start: 20px; margin: 0 0 12px; line-height: 1.5; flex: 1; }
+.plan li { margin: 5px 0; }
+.plan-pro { border: 2px solid var(--accent); box-shadow: 0 10px 30px rgba(229,50,45,.12); position: relative; }
+.plan-pro h3::after { content: "PRO"; margin-inline-start: 8px; font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #fff; background: var(--accent); border-radius: 4px; padding: 2px 6px; vertical-align: 3px; }
+.center { text-align: center; }

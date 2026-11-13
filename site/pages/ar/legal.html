@@ -5,12 +5,21 @@ description: ناشر {{name}} والجهة المستضيفة له.
 <main id="main" class="prose wrap narrow">
   <h1>الإشعار القانوني</h1>
   <h2>الناشر</h2>
+  <!-- business:off -->
   <p>ينشر هذا الموقع شخص طبيعي بصفة غير مهنية، هو {{publisher.name}}. وكما يسمح القانون الفرنسي (القانون رقم 2004-575 المؤرخ في 21 يونيو 2004 بشأن الثقة في الاقتصاد الرقمي)، لا يُنشر عنوانه ولا بيانات الاتصال به: فقد قدّم الناشر بيانات هويته إلى مزوّد الاستضافة المذكور أدناه.</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET: {{seller.siret}}<br>العنوان: {{seller.address}}<br>البريد الإلكتروني: <a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>مدير النشر: {{publisher.name}}.</p>
+  <p>وسيط الاستهلاك: {{seller.mediator}}.</p>
+  <!-- /business:on -->
   <h2>الاستضافة</h2>
   <p>{{host}}</p>
   <h2>الملكية الفكرية</h2>
   <p>المحرر برنامج حر (GNU AGPL v3) مبني على MuPDF © Artifex Software. الخطوط المرفقة: Liberation وCarlito وCaladea (SIL Open Font License) وDejaVu. الشيفرة المصدرية: <a href="{{source}}">{{source}}</a>. التراخيص: <a href="/app/LICENSE.txt">/app/LICENSE.txt</a>.</p>
+  <h2>بيع تراخيص Pro</h2>
+  <p>تُباع تراخيص {{name}} Pro عبر شركة Lemon Squeezy, LLC، وهي المعيد للبيع والتاجر المسجّل للعمليات (merchant of record)، التي تتولى تحصيل المدفوعات وتطبيق ضريبة القيمة المضافة وإصدار الفواتير. راجع <a href="{{root}}sales">شروط البيع</a>.</p>
   <h2>البيانات الشخصية</h2>
-  <p>راجع <a href="{{root}}privacy">صفحة الخصوصية</a>: لا يُجمع أي منها.</p>
+  <p>راجع <a href="{{root}}privacy">صفحة الخصوصية</a>.</p>
   <p class="small-print">هذه الترجمة مقدَّمة للتيسير فقط. وفي حال اختلافها عن النسخة الإنجليزية أو الفرنسية، تكون النسخة الفرنسية هي المعتمدة.</p>
 </main>

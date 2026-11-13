@@ -385,7 +385,113 @@
   "Click to select this picture": "انقر لتحديد هذه الصورة",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "هذه الصورة فوق صورة أخرى: حذفها سيمحو الاثنتين. استخدم «تبييض» أو «تنقيح» بدلًا من ذلك.",
   "This picture could not be deleted": "تعذّر حذف هذه الصورة",
-  "Nothing to delete": "لا شيء للحذف"
+  "Nothing to delete": "لا شيء للحذف",
+  "Pro is switched off on this computer.": "تم إيقاف Pro على هذا الكمبيوتر.",
+  "Buy": "شراء",
+  "PDF Editor Pro": "محرر PDF Pro",
+  "Pro is active on this computer.": "Pro مفعَّل على هذا الكمبيوتر.",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "الأسعار شاملة الضرائب. بعد الدفع تتلقى مفتاح الترخيص عبر البريد الإلكتروني: أدخله أدناه. يعمل الترخيص الواحد على كمبيوتر واحد في كل مرة.",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro غير معروض للبيع بعد. إذا حصلت على مفتاح ترخيص، فأدخله أدناه.",
+  "Release this computer": "فكّ ارتباط هذا الكمبيوتر",
+  "Releasing this computer lets you use your licence on another one.": "يتيح لك فكّ ارتباط هذا الكمبيوتر استخدام ترخيصك على كمبيوتر آخر.",
+  "Licence key": "مفتاح الترخيص",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "مثال: PDFE-ABCD-EFGH-JKLM",
+  "Activate": "تفعيل",
+  "Terms of sale": "شروط البيع",
+  "Everyday editing stays free, without an account.": "يبقى التحرير اليومي مجانيًا، دون حساب.",
+  "Enter your licence key.": "أدخل مفتاح الترخيص.",
+  "Pro is active on this computer. Thank you!": "Pro مفعَّل على هذا الكمبيوتر. شكرًا لك!",
+  "Release this computer?": "هل تريد فكّ ارتباط هذا الكمبيوتر؟",
+  "Pro stops on this computer and your licence can be activated on another one.": "سيتوقف Pro على هذا الكمبيوتر، ويمكن تفعيل ترخيصك على كمبيوتر آخر.",
+  "Release": "فكّ الارتباط",
+  "This computer is released: you can activate your licence on another one.": "تم فكّ ارتباط هذا الكمبيوتر: يمكنك تفعيل ترخيصك على كمبيوتر آخر.",
+  "Batch processing": "المعالجة المجمّعة",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "دمج ملفات PDF عديدة أو ضغطها أو ترقيمها أو إضافة علامة مائية إليها أو البحث والاستبدال فيها أو حمايتها دفعة واحدة",
+  "Smart redaction": "التنقيح الذكي",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "البحث عن عناوين البريد الإلكتروني وأرقام الهواتف وأرقام IBAN وأرقام البطاقات وأرقام الضمان الاجتماعي وتنقيحها",
+  "Unlimited text recognition": "التعرّف على النص بلا حدود",
+  "Make scans searchable without a page limit": "جعل المستندات الممسوحة ضوئيًا قابلة للبحث دون حد لعدد الصفحات",
+  "Compare two PDFs": "مقارنة ملفّي PDF",
+  "See what changed between two versions": "معرفة ما تغيّر بين نسختين",
+  "Forms": "النماذج",
+  "Fill in PDF forms and add your own fields": "ملء نماذج PDF وإضافة حقولك الخاصة",
+  "Monthly": "شهري",
+  "per month": "شهريًا",
+  "Yearly": "سنوي",
+  "per year": "سنويًا",
+  "Lifetime": "مدى الحياة",
+  "once – at least 2 years": "مرة واحدة – لمدة سنتين على الأقل",
+  "Licence, prices, what is included": "الترخيص والأسعار وما يشمله",
+  "Process several PDFs at once": "معالجة عدة ملفات PDF دفعة واحدة",
+  "Text recognition": "التعرّف على النص",
+  "Continue": "متابعة",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "البحث عن عناوين البريد الإلكتروني وأرقام الهواتف وأرقام IBAN وأرقام البطاقات وأرقام الضمان الاجتماعي وتحديدها",
+  "Find personal data": "البحث عن البيانات الشخصية",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "لم يُعثر على بيانات شخصية (عناوين بريد إلكتروني أو أرقام هواتف أو أرقام IBAN أو أرقام بطاقات أو أرقام ضمان اجتماعي).",
+  "Choose PDFs…": "اختر ملفات PDF…",
+  "or drop them here": "أو أفلتها هنا",
+  "What to do": "ما المطلوب",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "تتم المعالجة في هذا المتصفح: لا تُرفع الملفات أبدًا. لا تتغير الملفات الأصلية: تحصل على ملفات جديدة.",
+  "Run": "تنفيذ",
+  "Remove from the list": "إزالة من القائمة",
+  "Smaller (good for printing)": "أصغر (مناسب للطباعة)",
+  "Smallest (for email)": "الأصغر (للبريد الإلكتروني)",
+  "Format": "الصيغة",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "تُزال عناوين البريد الإلكتروني وأرقام الهواتف وأرقام IBAN وأرقام البطاقات وأرقام الضمان الاجتماعي نهائيًا من كل ملف. تحقّق من النتائج قبل إرسالها.",
+  "The PDFs are joined in the order of the list.": "تُدمج ملفات PDF بترتيب القائمة.",
+  "Enter the text to find.": "أدخل النص المراد البحث عنه.",
+  "Choose a password of at least 4 characters.": "اختر كلمة مرور من 4 أحرف على الأقل.",
+  "Comparison": "المقارنة",
+  "Close the comparison": "إغلاق المقارنة",
+  "Highlighted on the pages: what is new or changed in this PDF.": "مميَّز على الصفحات: ما هو جديد أو معدَّل في ملف PDF هذا.",
+  "No difference in the text.": "لا يوجد اختلاف في النص.",
+  "Only the text is compared, line by line (not pictures or layout).": "تتم مقارنة النص فقط، سطرًا بسطر (لا الصور ولا التخطيط).",
+  "New or changed:": "جديد أو معدَّل:",
+  "This PDF has a form: click a field to fill it in.": "يحتوي ملف PDF هذا على نموذج: انقر على حقل لملئه.",
+  "Click to fill in": "انقر للملء",
+  "Add a form field": "إضافة حقل نموذج",
+  "A box to type in": "مربع للكتابة",
+  "A checkbox": "مربع اختيار",
+  "Name (shown to people filling it in)": "الاسم (يظهر لمن يملأ النموذج)",
+  "e.g. Full name": "مثال: الاسم الكامل",
+  "Draw it on the page": "ارسمه على الصفحة",
+  "Drag on the page where the field goes. Esc cancels.": "اسحب على الصفحة حيث تريد وضع الحقل. Esc للإلغاء.",
+  "Several PDFs at once": "عدة ملفات PDF دفعة واحدة",
+  "Compare with another PDF": "المقارنة مع ملف PDF آخر",
+  "See what changed": "معرفة ما تغيّر",
+  "A box to fill in, or a checkbox": "مربع للملء أو مربع اختيار",
+  "email address": "عنوان بريد إلكتروني",
+  "email addresses": "عناوين بريد إلكتروني",
+  "phone number": "رقم هاتف",
+  "phone numbers": "أرقام هواتف",
+  "IBAN": "IBAN",
+  "IBANs": "أرقام IBAN",
+  "card number": "رقم بطاقة",
+  "card numbers": "أرقام بطاقات",
+  "social security number": "رقم ضمان اجتماعي",
+  "social security numbers": "أرقام ضمان اجتماعي",
+  "Merge into one PDF": "دمج في ملف PDF واحد",
+  "Add page numbers": "إضافة أرقام الصفحات",
+  "Add a watermark": "إضافة علامة مائية",
+  "Find and replace text": "البحث عن نص واستبداله",
+  "Black out personal data": "تنقيح البيانات الشخصية",
+  "This licence key is not valid.": "مفتاح الترخيص هذا غير صالح.",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "هذا الترخيص مستخدم بالفعل على كمبيوتر آخر. فكّ ارتباطه هناك أولًا (نافذة Pro، «فكّ ارتباط هذا الكمبيوتر»)، أو تواصل معنا.",
+  "This licence has ended.": "انتهى هذا الترخيص.",
+  "This licence was cancelled.": "أُلغي هذا الترخيص.",
+  "The licence could not be checked just now. Try again in a moment.": "تعذّر التحقق من الترخيص الآن. حاول مرة أخرى بعد قليل.",
+  "Draw a larger box for the field": "ارسم مربعًا أكبر للحقل",
+  "This field no longer exists": "هذا الحقل لم يعد موجودًا",
+  "This field is read-only": "هذا الحقل للقراءة فقط",
+  "This PDF is protected by a password": "ملف PDF هذا محمي بكلمة مرور",
+  "Unknown action": "إجراء غير معروف",
+  "Choose a password": "اختر كلمة مرور",
+  "smaller": "مصغَّر",
+  "numbered": "مرقَّم",
+  "watermarked": "بعلامة مائية",
+  "edited": "معدَّل",
+  "redacted": "منقَّح",
+  "protected": "محمي"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "تم الحذف في {n} صفحات. يمكنك التراجع."
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "«{f}» جزء من Pro."
+  ],
+  [
+   "until {d}",
+   "حتى {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "بدون Pro، يعمل التعرّف على النص على {n} صفحات كحد أقصى لكل ملف PDF."
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "التعرّف على جميع الصفحات ({k}) مع Pro"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "التعرّف على أول {n} صفحات فقط، مجانًا"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "تم تحديد: {list}. تحقّق منها، وألغِ تحديد ما يجب أن يبقى، ثم طبّق."
+  ],
+  [
+   "Merging {n} PDFs…",
+   "جارٍ دمج {n} من ملفات PDF…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "تم دمج {n} من ملفات PDF في ملف واحد من {p} صفحات."
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "الملف {k} من {n}: {name}"
+  ],
+  [
+   "{n} files done.",
+   "اكتملت معالجة {n} من الملفات."
+  ],
+  [
+   "Not done: {list}",
+   "لم تكتمل: {list}"
+  ],
+  [
+   "Page {n}",
+   "الصفحة {n}"
+  ],
+  [
+   "{n} new or changed",
+   "{n} جديد أو معدَّل"
+  ],
+  [
+   "{n} no longer here",
+   "{n} لم يعد موجودًا"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "الصفحة {n} موجودة فقط في «{name}»"
+  ],
+  [
+   "Compared with “{name}”",
+   "تمت المقارنة مع «{name}»"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "تمت إضافة الحقل «{name}». يمكن ملؤه بأي قارئ PDF."
   ]
  ]
 }

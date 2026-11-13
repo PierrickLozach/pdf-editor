@@ -1935,6 +1935,192 @@ export class Engine {
 
 
 
+
+  /* -------------------------------------------------- Pro: smart redaction, forms, comparison */
+  /** Personal data in the text: email addresses, phone numbers, IBANs (checked), card numbers (checked),
+   *  French social security numbers (checked). kinds: subset of those. -> [{page, kind, text, bbox}] */
+  findPersonal(kinds) {
+    const s = this._need();
+    const want = new Set(kinds && kinds.length ? kinds : ["email", "phone", "iban", "card", "nir"]);
+    const digits = (t) => t.replace(/\D/g, "");
+    const luhn = (n) => { let sum = 0, alt = false; for (let i = n.length - 1; i >= 0; i--) { let d = +n[i]; if (alt) { d *= 2; if (d > 9) d -= 9; } sum += d; alt = !alt; } return sum % 10 === 0; };
+    const ibanOk = (t) => {
+      const x = t.replace(/\s+/g, "").toUpperCase();
+      if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(x)) return false;
+      const r = (x.slice(4) + x.slice(0, 4)).replace(/[A-Z]/g, (c) => c.charCodeAt(0) - 55);
+      let m = 0; for (const ch of r) m = (m * 10 + +ch) % 97;
+      return m === 1;
+    };
+    const nirOk = (t) => {
+      const x = t.replace(/\s+/g, "").toUpperCase();
+      if (!/^[12]\d{4}(\d{2}|2A|2B)\d{6}(\d{2})?$/.test(x)) return false;
+      if (x.length < 15) return true;
+      const body = x.slice(0, 13).replace("2A", "19").replace("2B", "18");
+      return 97 - (Number(BigInt(body) % 97n)) === +x.slice(13);
+    };
+    const RX = [
+      ["email", /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, () => true],
+      ["iban", /\b[A-Z]{2}\d{2}(?:\s?[A-Z0-9]{4}){2,7}(?:\s?[A-Z0-9]{1,3})?\b/g, ibanOk],
+      ["nir", /\b[12]\s?\d{2}\s?(?:0[1-9]|1[0-2]|[2-9]\d)\s?(?:\d{2}|2[AB])\s?\d{3}\s?\d{3}(?:\s?\d{2})?\b/g, nirOk],
+      ["card", /\b(?:\d[ -]?){12,18}\d\b/g, (t) => { const d = digits(t); return d.length >= 13 && d.length <= 19 && luhn(d); }],
+      ["phone", /(?<![\w.,])(?:\+\d{1,3}[\s.-]?)?(?:\(0\)[\s.-]?)?\(?\d{1,4}\)?(?:[\s.-]?\d{2,4}){2,5}(?![\w,])/g,
+        (t) => { const d = digits(t); return d.length >= 9 && d.length <= 15 && /[\s.\-()+]/.test(t) && !/^\d{1,2}[./-]\d{1,2}[./-]\d{2,4}$/.test(t.trim()); }],
+    ];
+    const hits = [], taken = new Set();
+    for (let pno = 0; pno < s.doc.countPages(); pno++) {
+      const [ox, oy] = this._offset(s.doc.loadPage(pno));
+      for (const l of this._lines(pno)) {
+        const chars = l.spans.flatMap((sp) => sp.chars);
+        const text = l.spans.map((sp) => sp.text).join("");
+        const used = [];                               // a card number is not also a phone number
+        for (const [kind, rx, ok] of RX) {
+          if (!want.has(kind)) continue;
+          for (const m of text.matchAll(rx)) {
+            const a = m.index, z = a + m[0].length;
+            if (!m[0].trim() || !ok(m[0]) || used.some(([u, v]) => a < v && z > u)) continue;
+            used.push([a, z]);
+            let r = chars[a].bbox;
+            for (const c of chars.slice(a, z)) r = union(r, c.bbox);
+            const bbox = [rd(r[0] - ox), rd(r[1] - oy), rd(r[2] - ox), rd(r[3] - oy)], key = pno + ":" + bbox.join(",");
+            if (taken.has(key)) continue;
+            taken.add(key);
+            hits.push({ page: pno, kind, text: m[0].trim(), bbox });
+          }
+        }
+      }
+    }
+    return hits;
+  }
+
+  /** The form fields of a page: [{id, type, name, value, options, bbox, readOnly, multiline, checked}]. */
+  formFields(pno) {
+    const s = this._need(), page = s.doc.loadPage(pno), [ox, oy] = this._offset(page);
+    const out = [];
+    page.getWidgets().forEach((w, id) => {
+      const type = w.getFieldType();
+      if (!["text", "checkbox", "radiobutton", "combobox", "listbox"].includes(type)) return;
+      const r = w.getRect();
+      if (!(r[2] > r[0] && r[3] > r[1])) return;
+      const value = w.getValue() || "";
+      out.push({ id, type, name: (() => { try { return w.getName(); } catch (e) { return ""; } })(), value,
+        options: type === "combobox" || type === "listbox" ? w.getOptions() : [],
+        bbox: [rd(r[0] - ox), rd(r[1] - oy), rd(r[2] - ox), rd(r[3] - oy)], readOnly: w.isReadOnly(),
+        multiline: type === "text" && w.isMultiline(), checked: (type === "checkbox" || type === "radiobutton") && !!value && value !== "Off" });
+    });
+    return out;
+  }
+  hasForm() {
+    const s = this._need();
+    for (let p = 0; p < s.doc.countPages(); p++) if (this.formFields(p).length) return true;
+    return false;
+  }
+  /** Fill one field: text or choice value, or checked true/false for a box. One undo step. */
+  async setField(pno, id, value) {
+    const s = this._need();
+    const w = s.doc.loadPage(pno).getWidgets()[id];
+    if (!w) throw new EditError("This field no longer exists");
+    if (w.isReadOnly()) throw new EditError("This field is read-only");
+    this._checkpoint();
+    const type = w.getFieldType();
+    if (type === "checkbox" || type === "radiobutton") {
+      const on = !!w.getValue() && w.getValue() !== "Off";
+      if (on !== !!value) w.toggle();
+    } else if (type === "combobox" || type === "listbox") w.setChoiceValue(String(value));
+    else w.setTextValue(String(value));
+    try { w.update(); } catch (e) {}
+    await this._changed([pno]);
+    return { ...this.info(), changed: [pno] };
+  }
+  /** Add a form field: type "text" or "checkbox", rect in page points (like pageText), a unique name. */
+  async addField(pno, rect, type, name) {
+    const s = this._need(), doc = s.doc, page = doc.loadPage(pno), [ox, oy] = this._offset(page);
+    const [x0, y0, x1, y1] = rect, H = page.getBounds()[3];
+    if (!(x1 - x0 >= 6 && y1 - y0 >= 6)) throw new EditError("Draw a larger box for the field");
+    this._checkpoint();
+    const root = doc.getTrailer().get("Root");
+    let acro = root.get("AcroForm");
+    if (!acro || acro.isNull()) { acro = doc.addObject(doc.newDictionary()); root.put("AcroForm", acro); }
+    let fields = acro.get("Fields");
+    if (!fields || fields.isNull()) { fields = doc.newArray(); acro.put("Fields", fields); }
+    let dr = acro.get("DR");
+    if (!dr || dr.isNull()) { dr = doc.newDictionary(); acro.put("DR", dr); }
+    let fonts = dr.get("Font");
+    if (!fonts || fonts.isNull()) { fonts = doc.newDictionary(); dr.put("Font", fonts); }
+    if (fonts.get("Helv").isNull()) {
+      const f = doc.newDictionary();
+      f.put("Type", doc.newName("Font")); f.put("Subtype", doc.newName("Type1")); f.put("BaseFont", doc.newName("Helvetica")); f.put("Encoding", doc.newName("WinAnsiEncoding"));
+      fonts.put("Helv", doc.addObject(f));
+    }
+    if (acro.get("DA").isNull()) acro.put("DA", doc.newString("/Helv 0 Tf 0 g"));
+    acro.put("NeedAppearances", true);
+    const taken = new Set(); for (let p = 0; p < doc.countPages(); p++) for (const f of this.formFields(p)) taken.add(f.name);
+    let nm = String(name || (type === "checkbox" ? "Checkbox" : "Field")).replace(/[.\s]+/g, "_").slice(0, 60) || "Field", n = 1, base = nm;
+    while (taken.has(nm)) nm = base + "_" + ++n;
+    const w = doc.addObject(doc.newDictionary());
+    w.put("Type", doc.newName("Annot")); w.put("Subtype", doc.newName("Widget"));
+    w.put("FT", doc.newName(type === "checkbox" ? "Btn" : "Tx")); w.put("T", doc.newString(nm)); w.put("F", 4);
+    // PDF coordinates: from the bottom of the page
+    w.put("Rect", [x0 + ox, H - (y1 + oy), x1 + ox, H - (y0 + oy)]);
+    w.put("DA", doc.newString(type === "checkbox" ? "/ZaDb 0 Tf 0 g" : `/Helv ${Math.min(12, Math.max(6, (y1 - y0) * 0.6)).toFixed(1)} Tf 0 g`));
+    const mk = doc.newDictionary(); mk.put("BC", [0.55, 0.6, 0.7]); mk.put("BG", [1, 1, 1]);
+    if (type === "checkbox") mk.put("CA", doc.newString("4"));
+    w.put("MK", mk);
+    const bs = doc.newDictionary(); bs.put("W", 1); bs.put("S", doc.newName("S")); w.put("BS", bs);
+    if (type === "checkbox") { w.put("V", doc.newName("Off")); w.put("AS", doc.newName("Off")); }
+    w.put("P", page.getObject());
+    fields.push(w);
+    let annots = page.getObject().get("Annots");
+    if (!annots || annots.isNull()) { annots = doc.newArray(); page.getObject().put("Annots", annots); }
+    annots.push(w);
+    this._reload(doc.saveToBuffer("regenerate-id=no").asUint8Array().slice());    // the page sees its new widget
+    const made = this.formFields(pno).find((f) => f.name === nm);
+    if (made) { const ww = this.s.doc.loadPage(pno).getWidgets()[made.id]; try { if (type !== "checkbox") ww.setTextValue(""); ww.update(); } catch (e) {} }
+    await this._changed([pno]);
+    return { ...this.info(), changed: [pno], name: nm };
+  }
+
+  /** Compare with another PDF: for each page of this one, the lines that are new or changed (with
+   *  their place) and the lines of the other one that are no longer here. -> {pages:[{page, added:[{text,bbox}],
+   *  removed:[text]}], otherPages, samePages} */
+  compareWith(bytes) {
+    const s = this._need();
+    let other;
+    try { other = mupdf.Document.openDocument(bytes, "application/pdf"); } catch (e) { throw new EditError("This file could not be read as a PDF"); }
+    if (other.needsPassword()) throw new EditError("This PDF is protected by a password");
+    const norm = (t) => t.replace(/\s+/g, " ").trim();
+    const linesOf = (doc, pno) => {
+      const out = [];
+      try {
+        doc.loadPage(pno).toStructuredText("preserve-whitespace").walk({
+          beginLine() { out.push({ text: "", box: null }); },
+          onChar(c, o, f, sz, q) { const l = out[out.length - 1]; l.text += c; const b = [Math.min(q[0], q[4]), Math.min(q[1], q[3]), Math.max(q[2], q[6]), Math.max(q[5], q[7])]; l.box = l.box ? union(l.box, b) : b; },
+        });
+      } catch (e) {}
+      return out.map((l) => ({ text: norm(l.text), box: l.box })).filter((l) => l.text);
+    };
+    const n = s.doc.countPages(), m = other.countPages(), pages = [];
+    let same = 0;
+    for (let p = 0; p < n; p++) {
+      const [ox, oy] = this._offset(s.doc.loadPage(p));
+      const A = p < m ? linesOf(other, p) : [], B = linesOf(s.doc, p);
+      // longest common subsequence of the lines (pages have at most a few hundred)
+      const a = A.map((x) => x.text), b = B.map((x) => x.text), L = Array.from({ length: a.length + 1 }, () => new Uint16Array(b.length + 1));
+      for (let i = a.length - 1; i >= 0; i--) for (let j = b.length - 1; j >= 0; j--) L[i][j] = a[i] === b[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+      const added = [], removed = [];
+      let i = 0, j = 0;
+      while (i < a.length || j < b.length) {
+        if (i < a.length && j < b.length && a[i] === b[j]) { i++; j++; }
+        else if (j < b.length && (i >= a.length || L[i][j + 1] >= L[i + 1][j])) { const x = B[j++]; added.push({ text: x.text, bbox: [rd(x.box[0] - ox), rd(x.box[1] - oy), rd(x.box[2] - ox), rd(x.box[3] - oy)] }); }
+        else removed.push(A[i++].text);
+      }
+      if (!added.length && !removed.length) same++;
+      pages.push({ page: p, added, removed, missing: p >= m });
+    }
+    const extra = [];
+    for (let p = n; p < m; p++) extra.push({ page: p, removed: linesOf(other, p).map((x) => x.text) });
+    return { pages, extra, otherPages: m, samePages: same };
+  }
+
   /* -------------------------------------------------- deleting items: lines of text (stamps, watermarks), pictures */
   /** The glyphs that draw a line of text (pageText id), as the glyph snapshot sees them. */
   _spanGlyphs(pno, id, snap) {

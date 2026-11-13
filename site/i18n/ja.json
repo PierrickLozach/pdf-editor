@@ -19,5 +19,6 @@
   "date_format": "%Y年%-m月%-d日",
   "language_auto": "ブラウザの言語",
   "footer_developers": "開発者向け",
-  "github": "GitHub のソースコード"
+  "github": "GitHub のソースコード",
+  "footer_sales": "販売条件"
 }

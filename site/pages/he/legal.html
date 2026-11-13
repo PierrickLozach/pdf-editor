@@ -5,12 +5,21 @@ description: המפרסם וספק האחסון של {{name}}.
 <main id="main" class="prose wrap narrow">
   <h1>הודעה משפטית</h1>
   <h2>מפרסם</h2>
+  <!-- business:off -->
   <p>האתר מתפרסם שלא במסגרת מקצועית על ידי אדם פרטי, {{publisher.name}}. כפי שהחוק הצרפתי מתיר (חוק מס' 2004-575 מיום 21 ביוני 2004 בדבר אמון בכלכלה הדיגיטלית), הכתובת ופרטי הקשר אינם מתפרסמים: המפרסם מסר את פרטי הזיהוי שלו לספק האחסון המופיע להלן.</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET: {{seller.siret}}<br>כתובת: {{seller.address}}<br>דוא"ל: <a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>אחראי הפרסום: {{publisher.name}}.</p>
+  <p>מגשר צרכנות: {{seller.mediator}}.</p>
+  <!-- /business:on -->
   <h2>אחסון</h2>
   <p>{{host}}</p>
   <h2>קניין רוחני</h2>
   <p>העורך הוא תוכנה חופשית (GNU AGPL v3) המבוססת על MuPDF © Artifex Software. גופנים כלולים: Liberation, Carlito, Caladea (SIL Open Font License) ו-DejaVu. קוד מקור: <a href="{{source}}">{{source}}</a>. רישיונות: <a href="/app/LICENSE.txt">/app/LICENSE.txt</a>.</p>
+  <h2>מכירת רישיונות Pro</h2>
+  <p>רישיונות {{name}} Pro נמכרים דרך Lemon Squeezy, LLC, המשווקת ובעלת העסקה (merchant of record), הגובה את התשלומים, מחילה מע"מ ומפיקה את החשבוניות. ראו את <a href="{{root}}sales">תנאי המכירה</a>.</p>
   <h2>מידע אישי</h2>
-  <p>ראו <a href="{{root}}privacy">דף הפרטיות</a>: לא נאסף מידע כזה.</p>
+  <p>ראו <a href="{{root}}privacy">דף הפרטיות</a>.</p>
   <p class="small-print">תרגום זה ניתן לנוחות בלבד. במקרה של סתירה בינו לבין הגרסה האנגלית או הצרפתית, הגרסה הצרפתית היא הקובעת.</p>
 </main>

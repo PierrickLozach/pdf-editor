@@ -385,7 +385,113 @@
   "Click to select this picture": "クリックしてこの画像を選択",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "この画像は別の画像に重なっています。削除すると両方消えます。「白塗り」か「墨消し」を使ってください。",
   "This picture could not be deleted": "この画像を削除できませんでした",
-  "Nothing to delete": "削除するものがありません"
+  "Nothing to delete": "削除するものがありません",
+  "Pro is switched off on this computer.": "このコンピュータでは Pro がオフになっています。",
+  "Buy": "購入",
+  "PDF Editor Pro": "PDF エディタ Pro",
+  "Pro is active on this computer.": "このコンピュータで Pro が有効です。",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "価格は税込みです。お支払い後、ライセンスキーがメールで届きます。下に入力してください。1 つのライセンスは同時に 1 台のコンピュータで使用できます。",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro はまだ販売していません。ライセンスキーをお持ちの場合は、下に入力してください。",
+  "Release this computer": "このコンピュータを解除",
+  "Releasing this computer lets you use your licence on another one.": "このコンピュータを解除すると、別のコンピュータでライセンスを使用できます。",
+  "Licence key": "ライセンスキー",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "例：PDFE-ABCD-EFGH-JKLM",
+  "Activate": "有効化",
+  "Terms of sale": "販売条件",
+  "Everyday editing stays free, without an account.": "普段の編集はアカウントなしで無料のままです。",
+  "Enter your licence key.": "ライセンスキーを入力してください。",
+  "Pro is active on this computer. Thank you!": "このコンピュータで Pro が有効になりました。ありがとうございます！",
+  "Release this computer?": "このコンピュータを解除しますか？",
+  "Pro stops on this computer and your licence can be activated on another one.": "このコンピュータでは Pro が停止し、ライセンスを別のコンピュータで有効化できるようになります。",
+  "Release": "解除",
+  "This computer is released: you can activate your licence on another one.": "このコンピュータを解除しました。別のコンピュータでライセンスを有効化できます。",
+  "Batch processing": "一括処理",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "複数の PDF をまとめて結合、圧縮、番号付け、透かし追加、検索と置換、保護",
+  "Smart redaction": "スマート墨消し",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "メールアドレス、電話番号、IBAN、カード番号、社会保障番号を検出して墨消し",
+  "Unlimited text recognition": "テキスト認識が無制限",
+  "Make scans searchable without a page limit": "スキャンをページ数の制限なく検索可能に",
+  "Compare two PDFs": "2 つの PDF を比較",
+  "See what changed between two versions": "2 つのバージョン間の変更を確認",
+  "Forms": "フォーム",
+  "Fill in PDF forms and add your own fields": "PDF フォームに入力し、独自のフィールドを追加",
+  "Monthly": "月払い",
+  "per month": "月額",
+  "Yearly": "年払い",
+  "per year": "年額",
+  "Lifetime": "買い切り",
+  "once – at least 2 years": "1 回払い – 最低 2 年間",
+  "Licence, prices, what is included": "ライセンス、価格、含まれる内容",
+  "Process several PDFs at once": "複数の PDF をまとめて処理",
+  "Text recognition": "テキスト認識",
+  "Continue": "続行",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "メールアドレス、電話番号、IBAN、カード番号、社会保障番号を検出してマーク",
+  "Find personal data": "個人情報を検出",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "個人情報（メールアドレス、電話番号、IBAN、カード番号、社会保障番号）は見つかりませんでした。",
+  "Choose PDFs…": "PDF を選択…",
+  "or drop them here": "またはここにドロップ",
+  "What to do": "処理内容",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "このブラウザ内で処理します。ファイルがアップロードされることはありません。元のファイルは変更されず、新しいファイルが作成されます。",
+  "Run": "実行",
+  "Remove from the list": "リストから削除",
+  "Smaller (good for printing)": "小（印刷向け）",
+  "Smallest (for email)": "最小（メール向け）",
+  "Format": "形式",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "すべてのファイルからメールアドレス、電話番号、IBAN、カード番号、社会保障番号が完全に削除されます。送信前に結果を確認してください。",
+  "The PDFs are joined in the order of the list.": "PDF はリストの順番で結合されます。",
+  "Enter the text to find.": "検索する文字列を入力してください。",
+  "Choose a password of at least 4 characters.": "4 文字以上のパスワードを設定してください。",
+  "Comparison": "比較",
+  "Close the comparison": "比較を閉じる",
+  "Highlighted on the pages: what is new or changed in this PDF.": "ページ上の強調表示：この PDF で新しく追加または変更された部分です。",
+  "No difference in the text.": "テキストに違いはありません。",
+  "Only the text is compared, line by line (not pictures or layout).": "テキストのみを 1 行ずつ比較します（画像やレイアウトは対象外）。",
+  "New or changed:": "新規または変更：",
+  "This PDF has a form: click a field to fill it in.": "この PDF にはフォームがあります。フィールドをクリックして入力してください。",
+  "Click to fill in": "クリックして入力",
+  "Add a form field": "フォームフィールドを追加",
+  "A box to type in": "テキスト入力欄",
+  "A checkbox": "チェックボックス",
+  "Name (shown to people filling it in)": "名前（入力する人に表示）",
+  "e.g. Full name": "例：氏名",
+  "Draw it on the page": "ページ上に描画",
+  "Drag on the page where the field goes. Esc cancels.": "フィールドを置く位置をページ上でドラッグしてください。Esc でキャンセル。",
+  "Several PDFs at once": "複数の PDF をまとめて",
+  "Compare with another PDF": "別の PDF と比較",
+  "See what changed": "変更を確認",
+  "A box to fill in, or a checkbox": "入力欄またはチェックボックス",
+  "email address": "メールアドレス",
+  "email addresses": "メールアドレス",
+  "phone number": "電話番号",
+  "phone numbers": "電話番号",
+  "IBAN": "IBAN",
+  "IBANs": "IBAN",
+  "card number": "カード番号",
+  "card numbers": "カード番号",
+  "social security number": "社会保障番号",
+  "social security numbers": "社会保障番号",
+  "Merge into one PDF": "1 つの PDF に結合",
+  "Add page numbers": "ページ番号を追加",
+  "Add a watermark": "透かしを追加",
+  "Find and replace text": "テキストを検索して置換",
+  "Black out personal data": "個人情報を墨消し",
+  "This licence key is not valid.": "このライセンスキーは無効です。",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "このライセンスは別のコンピュータで使用中です。先にそちらで解除する（Pro ウインドウの「このコンピュータを解除」）か、お問い合わせください。",
+  "This licence has ended.": "このライセンスは期限切れです。",
+  "This licence was cancelled.": "このライセンスはキャンセルされました。",
+  "The licence could not be checked just now. Try again in a moment.": "現在ライセンスを確認できません。しばらくしてからもう一度お試しください。",
+  "Draw a larger box for the field": "フィールドの枠をもっと大きく描いてください",
+  "This field no longer exists": "このフィールドはもう存在しません",
+  "This field is read-only": "このフィールドは読み取り専用です",
+  "This PDF is protected by a password": "この PDF はパスワードで保護されています",
+  "Unknown action": "不明な操作",
+  "Choose a password": "パスワードを設定",
+  "smaller": "縮小",
+  "numbered": "番号付き",
+  "watermarked": "透かし入り",
+  "edited": "編集済み",
+  "redacted": "墨消し済み",
+  "protected": "保護済み"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "{n} ページで削除しました。元に戻せます。"
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "「{f}」は Pro の機能です。"
+  ],
+  [
+   "until {d}",
+   "{d} まで"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "Pro がない場合、テキスト認識は PDF 1 つにつき最大 {n} ページまでです。"
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "Pro で全 {k} ページを認識"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "最初の {n} ページだけ無料で認識"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "マークしました：{list}。確認し、残すもののマークを解除してから適用してください。"
+  ],
+  [
+   "Merging {n} PDFs…",
+   "{n} 個の PDF を結合しています…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "{n} 個の PDF を {p} ページの 1 つの PDF に結合しました。"
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "ファイル {k} / {n}：{name}"
+  ],
+  [
+   "{n} files done.",
+   "{n} 個のファイルを処理しました。"
+  ],
+  [
+   "Not done: {list}",
+   "未処理：{list}"
+  ],
+  [
+   "Page {n}",
+   "{n} ページ"
+  ],
+  [
+   "{n} new or changed",
+   "新規または変更：{n} 件"
+  ],
+  [
+   "{n} no longer here",
+   "なくなった箇所：{n} 件"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "{n} ページは「{name}」にのみあります"
+  ],
+  [
+   "Compared with “{name}”",
+   "「{name}」と比較"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "フィールド「{name}」を追加しました。どの PDF リーダーでも入力できます。"
   ]
  ]
 }

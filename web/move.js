@@ -400,7 +400,7 @@ function mvAfterSpans(pg) {
   $("#viewer").addEventListener("pointerdown", (e) => { if (MV.sel.length && !e.target.closest(".page")) mvClear(); });
   $("#pages").addEventListener("pointerdown", (e) => {
     if (S.tool !== "edit" || e.button !== 0 || !S.doc) return;
-    if (e.target.closest(".editbox, .edgrip, .notext")) return;   // typing in the box, or its handle
+    if (e.target.closest(".editbox, .edgrip, .notext, .ffield, .ff-input")) return;   // typing in the box, its handle, a form field
     const el = e.target.closest(".page");
     if (!el) return;
     if (e.pointerType !== "touch") e.preventDefault();   // touch: let the finger scroll

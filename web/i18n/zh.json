@@ -385,7 +385,113 @@
   "Click to select this picture": "点击选中此图片",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "此图片叠在另一张图片上：删除会把两张都去掉。请改用“涂白”或“涂黑”。",
   "This picture could not be deleted": "无法删除此图片",
-  "Nothing to delete": "没有可删除的内容"
+  "Nothing to delete": "没有可删除的内容",
+  "Pro is switched off on this computer.": "本机上的 Pro 已关闭。",
+  "Buy": "购买",
+  "PDF Editor Pro": "PDF 编辑器 Pro",
+  "Pro is active on this computer.": "Pro 已在本机激活。",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "价格含税。付款后，您将通过电子邮件收到许可证密钥：请在下方输入。一个许可证同一时间只能在一台电脑上使用。",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro 尚未开售。如果您已获得许可证密钥，请在下方输入。",
+  "Release this computer": "释放本机",
+  "Releasing this computer lets you use your licence on another one.": "释放本机后，即可在另一台电脑上使用您的许可证。",
+  "Licence key": "许可证密钥",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "例如：PDFE-ABCD-EFGH-JKLM",
+  "Activate": "激活",
+  "Terms of sale": "销售条款",
+  "Everyday editing stays free, without an account.": "日常编辑始终免费，无需账户。",
+  "Enter your licence key.": "请输入许可证密钥。",
+  "Pro is active on this computer. Thank you!": "Pro 已在本机激活。谢谢！",
+  "Release this computer?": "释放本机？",
+  "Pro stops on this computer and your licence can be activated on another one.": "本机将停用 Pro，您的许可证可以在另一台电脑上激活。",
+  "Release": "释放",
+  "This computer is released: you can activate your licence on another one.": "本机已释放：您可以在另一台电脑上激活许可证。",
+  "Batch processing": "批量处理",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "一次合并、压缩、编号、加水印、查找替换或加密保护多个 PDF",
+  "Smart redaction": "智能涂黑",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "查找并涂黑电子邮件地址、电话号码、IBAN、银行卡号和社会保障号码",
+  "Unlimited text recognition": "无限制文本识别",
+  "Make scans searchable without a page limit": "让扫描件可搜索，不限页数",
+  "Compare two PDFs": "比较两个 PDF",
+  "See what changed between two versions": "查看两个版本之间的变化",
+  "Forms": "表单",
+  "Fill in PDF forms and add your own fields": "填写 PDF 表单并添加自己的字段",
+  "Monthly": "按月",
+  "per month": "每月",
+  "Yearly": "按年",
+  "per year": "每年",
+  "Lifetime": "终身",
+  "once – at least 2 years": "一次性付费 – 至少 2 年",
+  "Licence, prices, what is included": "许可证、价格、包含内容",
+  "Process several PDFs at once": "一次处理多个 PDF",
+  "Text recognition": "文本识别",
+  "Continue": "继续",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "查找并标记电子邮件地址、电话号码、IBAN、银行卡号和社会保障号码",
+  "Find personal data": "查找个人数据",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "未找到个人数据（电子邮件地址、电话号码、IBAN、银行卡号或社会保障号码）。",
+  "Choose PDFs…": "选择 PDF…",
+  "or drop them here": "或拖放到此处",
+  "What to do": "操作",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "在此浏览器中完成：文件从不上传。原文件不会更改：您会得到新文件。",
+  "Run": "运行",
+  "Remove from the list": "从列表中移除",
+  "Smaller (good for printing)": "较小（适合打印）",
+  "Smallest (for email)": "最小（适合电子邮件）",
+  "Format": "格式",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "每个文件中的电子邮件地址、电话号码、IBAN、银行卡号和社会保障号码将被永久删除。发送前请检查结果。",
+  "The PDFs are joined in the order of the list.": "PDF 按列表顺序合并。",
+  "Enter the text to find.": "请输入要查找的文本。",
+  "Choose a password of at least 4 characters.": "请设置至少 4 个字符的密码。",
+  "Comparison": "比较",
+  "Close the comparison": "关闭比较",
+  "Highlighted on the pages: what is new or changed in this PDF.": "页面上高亮显示的是此 PDF 中新增或更改的内容。",
+  "No difference in the text.": "文本没有差异。",
+  "Only the text is compared, line by line (not pictures or layout).": "仅逐行比较文本（不比较图片或版式）。",
+  "New or changed:": "新增或更改：",
+  "This PDF has a form: click a field to fill it in.": "此 PDF 包含表单：点击字段即可填写。",
+  "Click to fill in": "点击填写",
+  "Add a form field": "添加表单字段",
+  "A box to type in": "文本框",
+  "A checkbox": "复选框",
+  "Name (shown to people filling it in)": "名称（向填写者显示）",
+  "e.g. Full name": "例如：姓名",
+  "Draw it on the page": "在页面上绘制",
+  "Drag on the page where the field goes. Esc cancels.": "在页面上要放置字段的位置拖动。按 Esc 取消。",
+  "Several PDFs at once": "一次处理多个 PDF",
+  "Compare with another PDF": "与另一个 PDF 比较",
+  "See what changed": "查看变化",
+  "A box to fill in, or a checkbox": "文本框或复选框",
+  "email address": "电子邮件地址",
+  "email addresses": "电子邮件地址",
+  "phone number": "电话号码",
+  "phone numbers": "电话号码",
+  "IBAN": "IBAN",
+  "IBANs": "IBAN",
+  "card number": "银行卡号",
+  "card numbers": "银行卡号",
+  "social security number": "社会保障号码",
+  "social security numbers": "社会保障号码",
+  "Merge into one PDF": "合并为一个 PDF",
+  "Add page numbers": "添加页码",
+  "Add a watermark": "添加水印",
+  "Find and replace text": "查找和替换文本",
+  "Black out personal data": "涂黑个人数据",
+  "This licence key is not valid.": "此许可证密钥无效。",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "此许可证已在另一台电脑上使用。请先在那台电脑上释放（Pro 窗口，“释放本机”），或联系我们。",
+  "This licence has ended.": "此许可证已到期。",
+  "This licence was cancelled.": "此许可证已被取消。",
+  "The licence could not be checked just now. Try again in a moment.": "暂时无法验证许可证。请稍后重试。",
+  "Draw a larger box for the field": "请为字段绘制更大的框",
+  "This field no longer exists": "此字段已不存在",
+  "This field is read-only": "此字段为只读",
+  "This PDF is protected by a password": "此 PDF 受密码保护",
+  "Unknown action": "未知操作",
+  "Choose a password": "设置密码",
+  "smaller": "已压缩",
+  "numbered": "已编号",
+  "watermarked": "已加水印",
+  "edited": "已编辑",
+  "redacted": "已涂黑",
+  "protected": "已保护"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "已在 {n} 个页面删除。可以撤销。"
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "“{f}”是 Pro 功能。"
+  ],
+  [
+   "until {d}",
+   "有效期至 {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "没有 Pro 时，文本识别每个 PDF 最多 {n} 页。"
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "使用 Pro 识别全部 {k} 页"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "免费识别前 {n} 页"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "已标记：{list}。请检查，取消标记需要保留的内容，然后应用。"
+  ],
+  [
+   "Merging {n} PDFs…",
+   "正在合并 {n} 个 PDF…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "已将 {n} 个 PDF 合并为一个 {p} 页的文件。"
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "第 {k} 个文件，共 {n} 个：{name}"
+  ],
+  [
+   "{n} files done.",
+   "已完成 {n} 个文件。"
+  ],
+  [
+   "Not done: {list}",
+   "未完成：{list}"
+  ],
+  [
+   "Page {n}",
+   "第 {n} 页"
+  ],
+  [
+   "{n} new or changed",
+   "{n} 处新增或更改"
+  ],
+  [
+   "{n} no longer here",
+   "{n} 处已不存在"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "第 {n} 页仅在“{name}”中"
+  ],
+  [
+   "Compared with “{name}”",
+   "已与“{name}”比较"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "已添加字段“{name}”。任何 PDF 阅读器都可以填写。"
   ]
  ]
 }

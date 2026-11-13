@@ -5,11 +5,20 @@ description: Éditeur et hébergeur de {{name}}.
 <main id="main" class="prose wrap narrow">
   <h1>Mentions légales</h1>
   <h2>Éditeur du site</h2>
+  <!-- business:off -->
   <p>Ce site est édité à titre non professionnel par une personne physique, {{publisher.name}}. Comme le permet la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, son adresse et ses coordonnées ne sont pas publiées : l'éditeur a communiqué ses éléments d'identification personnelle à l'hébergeur ci-dessous.</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET : {{seller.siret}}<br>Adresse : {{seller.address}}<br>E-mail : <a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>Directeur de la publication : {{publisher.name}}.</p>
+  <p>Médiateur de la consommation : {{seller.mediator}}.</p>
+  <!-- /business:on -->
   <h2>Hébergeur</h2>
   <p>{{host}}</p>
   <h2>Propriété intellectuelle</h2>
   <p>L'éditeur est un logiciel libre (GNU AGPL v3) basé sur MuPDF © Artifex Software. Polices incluses : Liberation, Carlito, Caladea (SIL Open Font License) et DejaVu. Code source : <a href="{{source}}">{{source}}</a>. Licences : <a href="/app/LICENSE.txt">/app/LICENSE.txt</a>.</p>
+  <h2>Vente des licences Pro</h2>
+  <p>Les licences {{name}} Pro sont vendues par l'intermédiaire de Lemon Squeezy, LLC, revendeur et marchand officiel (« Merchant of Record »), qui encaisse les paiements, applique la TVA et émet les factures. Voir les <a href="{{root}}sales">conditions générales de vente</a>.</p>
   <h2>Données personnelles</h2>
-  <p>Voir la page <a href="{{root}}privacy">confidentialité</a> : aucune n'est collectée.</p>
+  <p>Voir la page <a href="{{root}}privacy">confidentialité</a>.</p>
 </main>

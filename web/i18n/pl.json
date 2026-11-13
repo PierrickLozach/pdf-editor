@@ -385,7 +385,113 @@
   "Click to select this picture": "Kliknij, aby zaznaczyć ten obraz",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "Ten obraz leży na innym: usunięcie skasowałoby oba. Użyj narzędzia „Korektor” lub „Zaczernij”.",
   "This picture could not be deleted": "Nie udało się usunąć tego obrazu",
-  "Nothing to delete": "Nic do usunięcia"
+  "Nothing to delete": "Nic do usunięcia",
+  "Pro is switched off on this computer.": "Wersja Pro jest wyłączona na tym komputerze.",
+  "Buy": "Kup",
+  "PDF Editor Pro": "Edytor PDF Pro",
+  "Pro is active on this computer.": "Wersja Pro jest aktywna na tym komputerze.",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "Ceny zawierają podatki. Po zapłacie otrzymasz klucz licencyjny e-mailem: wpisz go poniżej. Jedna licencja działa jednocześnie na jednym komputerze.",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Wersja Pro nie jest jeszcze w sprzedaży. Jeśli masz już klucz licencyjny, wpisz go poniżej.",
+  "Release this computer": "Zwolnij ten komputer",
+  "Releasing this computer lets you use your licence on another one.": "Zwolnienie tego komputera pozwala używać licencji na innym.",
+  "Licence key": "Klucz licencyjny",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "np. PDFE-ABCD-EFGH-JKLM",
+  "Activate": "Aktywuj",
+  "Terms of sale": "Warunki sprzedaży",
+  "Everyday editing stays free, without an account.": "Codzienna edycja pozostaje darmowa, bez konta.",
+  "Enter your licence key.": "Wpisz klucz licencyjny.",
+  "Pro is active on this computer. Thank you!": "Wersja Pro jest aktywna na tym komputerze. Dziękujemy!",
+  "Release this computer?": "Zwolnić ten komputer?",
+  "Pro stops on this computer and your licence can be activated on another one.": "Wersja Pro przestanie działać na tym komputerze, a licencję będzie można aktywować na innym.",
+  "Release": "Zwolnij",
+  "This computer is released: you can activate your licence on another one.": "Ten komputer został zwolniony: możesz aktywować licencję na innym.",
+  "Batch processing": "Przetwarzanie wsadowe",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "Scalaj, kompresuj, numeruj, dodawaj znak wodny, znajduj i zamieniaj lub zabezpieczaj wiele plików PDF naraz",
+  "Smart redaction": "Inteligentne zaczernianie",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "Znajdź i zaczernij adresy e-mail, numery telefonów, IBAN-y, numery kart i numery ubezpieczenia społecznego",
+  "Unlimited text recognition": "Nieograniczone rozpoznawanie tekstu",
+  "Make scans searchable without a page limit": "Umożliw wyszukiwanie w skanach bez limitu stron",
+  "Compare two PDFs": "Porównaj dwa pliki PDF",
+  "See what changed between two versions": "Zobacz, co zmieniło się między dwiema wersjami",
+  "Forms": "Formularze",
+  "Fill in PDF forms and add your own fields": "Wypełniaj formularze PDF i dodawaj własne pola",
+  "Monthly": "Miesięczny",
+  "per month": "miesięcznie",
+  "Yearly": "Roczny",
+  "per year": "rocznie",
+  "Lifetime": "Bezterminowy",
+  "once – at least 2 years": "jednorazowo – co najmniej 2 lata",
+  "Licence, prices, what is included": "Licencja, ceny, co obejmuje",
+  "Process several PDFs at once": "Przetwarzaj kilka plików PDF naraz",
+  "Text recognition": "Rozpoznawanie tekstu",
+  "Continue": "Dalej",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "Znajdź i zaznacz adresy e-mail, numery telefonów, IBAN-y, numery kart i numery ubezpieczenia społecznego",
+  "Find personal data": "Znajdź dane osobowe",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "Nie znaleziono danych osobowych (adresów e-mail, numerów telefonów, IBAN-ów, numerów kart ani numerów ubezpieczenia społecznego).",
+  "Choose PDFs…": "Wybierz pliki PDF…",
+  "or drop them here": "lub upuść je tutaj",
+  "What to do": "Co zrobić",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "Wykonywane w tej przeglądarce: pliki nigdy nie są wysyłane. Oryginały się nie zmieniają: otrzymujesz nowe pliki.",
+  "Run": "Uruchom",
+  "Remove from the list": "Usuń z listy",
+  "Smaller (good for printing)": "Mniejszy (dobry do druku)",
+  "Smallest (for email)": "Najmniejszy (do e-maila)",
+  "Format": "Format",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "Adresy e-mail, numery telefonów, IBAN-y, numery kart i numery ubezpieczenia społecznego zostaną trwale usunięte z każdego pliku. Sprawdź wyniki przed wysłaniem.",
+  "The PDFs are joined in the order of the list.": "Pliki PDF są łączone w kolejności z listy.",
+  "Enter the text to find.": "Wpisz tekst do znalezienia.",
+  "Choose a password of at least 4 characters.": "Wybierz hasło o długości co najmniej 4 znaków.",
+  "Comparison": "Porównanie",
+  "Close the comparison": "Zamknij porównanie",
+  "Highlighted on the pages: what is new or changed in this PDF.": "Wyróżnione na stronach: to, co jest nowe lub zmienione w tym pliku PDF.",
+  "No difference in the text.": "Brak różnic w tekście.",
+  "Only the text is compared, line by line (not pictures or layout).": "Porównywany jest tylko tekst, wiersz po wierszu (bez obrazów i układu).",
+  "New or changed:": "Nowe lub zmienione:",
+  "This PDF has a form: click a field to fill it in.": "Ten plik PDF zawiera formularz: kliknij pole, aby je wypełnić.",
+  "Click to fill in": "Kliknij, aby wypełnić",
+  "Add a form field": "Dodaj pole formularza",
+  "A box to type in": "Pole tekstowe",
+  "A checkbox": "Pole wyboru",
+  "Name (shown to people filling it in)": "Nazwa (widoczna dla osób wypełniających)",
+  "e.g. Full name": "np. Imię i nazwisko",
+  "Draw it on the page": "Narysuj je na stronie",
+  "Drag on the page where the field goes. Esc cancels.": "Przeciągnij na stronie w miejscu, gdzie ma być pole. Esc anuluje.",
+  "Several PDFs at once": "Kilka plików PDF naraz",
+  "Compare with another PDF": "Porównaj z innym plikiem PDF",
+  "See what changed": "Zobacz, co się zmieniło",
+  "A box to fill in, or a checkbox": "Pole do wypełnienia lub pole wyboru",
+  "email address": "adres e-mail",
+  "email addresses": "adresy e-mail",
+  "phone number": "numer telefonu",
+  "phone numbers": "numery telefonów",
+  "IBAN": "IBAN",
+  "IBANs": "IBAN-y",
+  "card number": "numer karty",
+  "card numbers": "numery kart",
+  "social security number": "numer ubezpieczenia społecznego",
+  "social security numbers": "numery ubezpieczenia społecznego",
+  "Merge into one PDF": "Scal w jeden plik PDF",
+  "Add page numbers": "Dodaj numery stron",
+  "Add a watermark": "Dodaj znak wodny",
+  "Find and replace text": "Znajdź i zamień tekst",
+  "Black out personal data": "Zaczernij dane osobowe",
+  "This licence key is not valid.": "Ten klucz licencyjny jest nieprawidłowy.",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "Ta licencja jest już używana na innym komputerze. Najpierw zwolnij ją tam (okno Pro, „Zwolnij ten komputer”) lub skontaktuj się z nami.",
+  "This licence has ended.": "Ta licencja wygasła.",
+  "This licence was cancelled.": "Ta licencja została anulowana.",
+  "The licence could not be checked just now. Try again in a moment.": "Nie udało się teraz sprawdzić licencji. Spróbuj ponownie za chwilę.",
+  "Draw a larger box for the field": "Narysuj większy obszar dla pola",
+  "This field no longer exists": "To pole już nie istnieje",
+  "This field is read-only": "To pole jest tylko do odczytu",
+  "This PDF is protected by a password": "Ten plik PDF jest chroniony hasłem",
+  "Unknown action": "Nieznana czynność",
+  "Choose a password": "Wybierz hasło",
+  "smaller": "mniejszy",
+  "numbered": "numerowany",
+  "watermarked": "znak wodny",
+  "edited": "edytowany",
+  "redacted": "zaczerniony",
+  "protected": "chroniony"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "Usunięto na stronach: {n}. Możesz cofnąć."
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "„{f}” jest częścią wersji Pro."
+  ],
+  [
+   "until {d}",
+   "do {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "Bez wersji Pro rozpoznawanie tekstu działa maksymalnie dla {n} str. w pliku PDF."
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "Rozpoznaj wszystkie strony ({k}) w wersji Pro"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "Rozpoznaj za darmo tylko pierwsze strony ({n})"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "Zaznaczono: {list}. Sprawdź je, odznacz te, które mają zostać, a następnie zastosuj."
+  ],
+  [
+   "Merging {n} PDFs…",
+   "Scalanie plików PDF: {n}…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "Scalone pliki PDF: {n} – jeden plik, liczba stron: {p}."
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "Plik {k} z {n}: {name}"
+  ],
+  [
+   "{n} files done.",
+   "Gotowe pliki: {n}."
+  ],
+  [
+   "Not done: {list}",
+   "Nie wykonano: {list}"
+  ],
+  [
+   "Page {n}",
+   "Strona {n}"
+  ],
+  [
+   "{n} new or changed",
+   "Nowe lub zmienione: {n}"
+  ],
+  [
+   "{n} no longer here",
+   "Już nieobecne: {n}"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "Strona {n} jest tylko w „{name}”"
+  ],
+  [
+   "Compared with “{name}”",
+   "Porównano z „{name}”"
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "Dodano pole „{name}”. Można je wypełnić w dowolnym czytniku PDF."
   ]
  ]
 }

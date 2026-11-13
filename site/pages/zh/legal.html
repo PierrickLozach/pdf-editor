@@ -5,12 +5,21 @@ description: {{name}} 的发布者和托管方。
 <main id="main" class="prose wrap narrow">
   <h1>法律声明</h1>
   <h2>发布者</h2>
+  <!-- business:off -->
   <p>本网站由个人 {{publisher.name}} 以非职业身份发布。根据法国法律（2004年6月21日关于数字经济信任的第2004-575号法律）的允许，地址和联系方式不予公开：发布者已将其身份信息提供给下列托管服务商。</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET：{{seller.siret}}<br>地址：{{seller.address}}<br>电子邮件：<a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>出版负责人：{{publisher.name}}。</p>
+  <p>消费调解员：{{seller.mediator}}。</p>
+  <!-- /business:on -->
   <h2>托管方</h2>
   <p>{{host}}</p>
   <h2>知识产权</h2>
   <p>本编辑器是基于 MuPDF © Artifex Software 的自由软件（GNU AGPL v3）。内置字体：Liberation、Carlito、Caladea（SIL Open Font License）和 DejaVu。源代码：<a href="{{source}}">{{source}}</a>。许可证：<a href="/app/LICENSE.txt">/app/LICENSE.txt</a>。</p>
+  <h2>Pro 许可证的销售</h2>
+  <p>{{name}} Pro 许可证通过转售商和记录商户（merchant of record）Lemon Squeezy, LLC 销售，由其收取款项、计算增值税并开具发票。请参阅<a href="{{root}}sales">销售条款</a>。</p>
   <h2>个人数据</h2>
-  <p>请参阅<a href="{{root}}privacy">隐私页面</a>：我们不收集任何个人数据。</p>
+  <p>请参阅<a href="{{root}}privacy">隐私页面</a>。</p>
   <p class="small-print">本译文仅供参考。如与英文或法文版本有出入，以法文版本为准。</p>
 </main>

@@ -385,7 +385,113 @@
   "Click to select this picture": "לחיצה לבחירת התמונה הזו",
   "This picture lies over another one: deleting it would remove both. Use Whiteout or Redact instead.": "התמונה הזו מונחת מעל תמונה אחרת: מחיקתה תמחק את שתיהן. עדיף להשתמש ב\"מחיקה בלבן\" או ב\"השחרה\".",
   "This picture could not be deleted": "לא ניתן היה למחוק את התמונה הזו",
-  "Nothing to delete": "אין מה למחוק"
+  "Nothing to delete": "אין מה למחוק",
+  "Pro is switched off on this computer.": "Pro כבוי במחשב הזה.",
+  "Buy": "קנייה",
+  "PDF Editor Pro": "עורך PDF Pro",
+  "Pro is active on this computer.": "Pro פעיל במחשב הזה.",
+  "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "המחירים כוללים מסים. אחרי התשלום מפתח הרישיון יישלח אליך בדוא\"ל: יש להזין אותו למטה. רישיון אחד פועל במחשב אחד בכל פעם.",
+  "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro עדיין לא נמכר. אם קיבלת מפתח רישיון, יש להזין אותו למטה.",
+  "Release this computer": "שחרור המחשב הזה",
+  "Releasing this computer lets you use your licence on another one.": "שחרור המחשב הזה מאפשר להשתמש ברישיון במחשב אחר.",
+  "Licence key": "מפתח רישיון",
+  "e.g. PDFE-ABCD-EFGH-JKLM": "לדוגמה: PDFE-ABCD-EFGH-JKLM",
+  "Activate": "הפעלה",
+  "Terms of sale": "תנאי מכירה",
+  "Everyday editing stays free, without an account.": "העריכה היומיומית נשארת חינמית, בלי חשבון.",
+  "Enter your licence key.": "יש להזין את מפתח הרישיון.",
+  "Pro is active on this computer. Thank you!": "Pro פעיל במחשב הזה. תודה!",
+  "Release this computer?": "לשחרר את המחשב הזה?",
+  "Pro stops on this computer and your licence can be activated on another one.": "Pro יפסיק לפעול במחשב הזה, ואפשר יהיה להפעיל את הרישיון במחשב אחר.",
+  "Release": "שחרור",
+  "This computer is released: you can activate your licence on another one.": "המחשב הזה שוחרר: אפשר להפעיל את הרישיון במחשב אחר.",
+  "Batch processing": "עיבוד באצווה",
+  "Merge, compress, number, watermark, find & replace or protect many PDFs at once": "מיזוג, דחיסה, מספור, סימן מים, חיפוש והחלפה או הגנה של קובצי PDF רבים בבת אחת",
+  "Smart redaction": "השחרה חכמה",
+  "Find and black out emails, phone numbers, IBANs, card and social security numbers": "איתור והשחרה של כתובות דוא\"ל, מספרי טלפון, מספרי IBAN, מספרי כרטיסים ומספרי ביטוח לאומי",
+  "Unlimited text recognition": "זיהוי טקסט ללא הגבלה",
+  "Make scans searchable without a page limit": "הפיכת סריקות לניתנות לחיפוש בלי הגבלת עמודים",
+  "Compare two PDFs": "השוואה בין שני קובצי PDF",
+  "See what changed between two versions": "לראות מה השתנה בין שתי גרסאות",
+  "Forms": "טפסים",
+  "Fill in PDF forms and add your own fields": "מילוי טופסי PDF והוספת שדות משלך",
+  "Monthly": "חודשי",
+  "per month": "לחודש",
+  "Yearly": "שנתי",
+  "per year": "לשנה",
+  "Lifetime": "לכל החיים",
+  "once – at least 2 years": "תשלום חד-פעמי – לפחות שנתיים",
+  "Licence, prices, what is included": "רישיון, מחירים, מה כלול",
+  "Process several PDFs at once": "עיבוד כמה קובצי PDF בבת אחת",
+  "Text recognition": "זיהוי טקסט",
+  "Continue": "המשך",
+  "Find and mark emails, phone numbers, IBANs, card and social security numbers": "איתור וסימון של כתובות דוא\"ל, מספרי טלפון, מספרי IBAN, מספרי כרטיסים ומספרי ביטוח לאומי",
+  "Find personal data": "איתור מידע אישי",
+  "No personal data found (emails, phone numbers, IBANs, card or social security numbers).": "לא נמצא מידע אישי (כתובות דוא\"ל, מספרי טלפון, מספרי IBAN, מספרי כרטיסים או מספרי ביטוח לאומי).",
+  "Choose PDFs…": "בחירת קובצי PDF…",
+  "or drop them here": "או לגרור אותם לכאן",
+  "What to do": "מה לעשות",
+  "Done in this browser: the files are never uploaded. The originals are not changed: you get new files.": "מתבצע בדפדפן הזה: הקבצים אף פעם לא מועלים. הקבצים המקוריים לא משתנים: מתקבלים קבצים חדשים.",
+  "Run": "הרצה",
+  "Remove from the list": "הסרה מהרשימה",
+  "Smaller (good for printing)": "קטן יותר (מתאים להדפסה)",
+  "Smallest (for email)": "הכי קטן (לדוא\"ל)",
+  "Format": "פורמט",
+  "Emails, phone numbers, IBANs, card and social security numbers are removed for good from every file. Check the results before sending them.": "כתובות דוא\"ל, מספרי טלפון, מספרי IBAN, מספרי כרטיסים ומספרי ביטוח לאומי יוסרו לצמיתות מכל קובץ. כדאי לבדוק את התוצאות לפני השליחה.",
+  "The PDFs are joined in the order of the list.": "קובצי ה-PDF מאוחדים לפי סדר הרשימה.",
+  "Enter the text to find.": "יש להזין את הטקסט לחיפוש.",
+  "Choose a password of at least 4 characters.": "יש לבחור סיסמה בת 4 תווים לפחות.",
+  "Comparison": "השוואה",
+  "Close the comparison": "סגירת ההשוואה",
+  "Highlighted on the pages: what is new or changed in this PDF.": "מודגש בעמודים: מה חדש או השתנה ב-PDF הזה.",
+  "No difference in the text.": "אין הבדל בטקסט.",
+  "Only the text is compared, line by line (not pictures or layout).": "רק הטקסט מושווה, שורה אחר שורה (לא תמונות ולא פריסה).",
+  "New or changed:": "חדש או השתנה:",
+  "This PDF has a form: click a field to fill it in.": "ב-PDF הזה יש טופס: לוחצים על שדה כדי למלא אותו.",
+  "Click to fill in": "לחיצה למילוי",
+  "Add a form field": "הוספת שדה טופס",
+  "A box to type in": "תיבה להקלדה",
+  "A checkbox": "תיבת סימון",
+  "Name (shown to people filling it in)": "שם (מוצג למי שממלא את הטופס)",
+  "e.g. Full name": "לדוגמה: שם מלא",
+  "Draw it on the page": "ציור על העמוד",
+  "Drag on the page where the field goes. Esc cancels.": "גוררים על העמוד במקום שבו יהיה השדה. Esc מבטל.",
+  "Several PDFs at once": "כמה קובצי PDF בבת אחת",
+  "Compare with another PDF": "השוואה עם PDF אחר",
+  "See what changed": "לראות מה השתנה",
+  "A box to fill in, or a checkbox": "תיבה למילוי או תיבת סימון",
+  "email address": "כתובת דוא\"ל",
+  "email addresses": "כתובות דוא\"ל",
+  "phone number": "מספר טלפון",
+  "phone numbers": "מספרי טלפון",
+  "IBAN": "IBAN",
+  "IBANs": "מספרי IBAN",
+  "card number": "מספר כרטיס",
+  "card numbers": "מספרי כרטיסים",
+  "social security number": "מספר ביטוח לאומי",
+  "social security numbers": "מספרי ביטוח לאומי",
+  "Merge into one PDF": "מיזוג לקובץ PDF אחד",
+  "Add page numbers": "הוספת מספרי עמודים",
+  "Add a watermark": "הוספת סימן מים",
+  "Find and replace text": "חיפוש והחלפה של טקסט",
+  "Black out personal data": "השחרת מידע אישי",
+  "This licence key is not valid.": "מפתח הרישיון הזה אינו תקף.",
+  "This licence is already used on another computer. Release it there first (Pro window, “Release this computer”), or contact us.": "הרישיון הזה כבר בשימוש במחשב אחר. יש לשחרר אותו שם קודם (חלון Pro, \"שחרור המחשב הזה\"), או ליצור איתנו קשר.",
+  "This licence has ended.": "תוקף הרישיון הזה הסתיים.",
+  "This licence was cancelled.": "הרישיון הזה בוטל.",
+  "The licence could not be checked just now. Try again in a moment.": "לא ניתן היה לבדוק את הרישיון כרגע. אפשר לנסות שוב בעוד רגע.",
+  "Draw a larger box for the field": "יש לצייר תיבה גדולה יותר לשדה",
+  "This field no longer exists": "השדה הזה כבר לא קיים",
+  "This field is read-only": "השדה הזה לקריאה בלבד",
+  "This PDF is protected by a password": "ה-PDF הזה מוגן בסיסמה",
+  "Unknown action": "פעולה לא ידועה",
+  "Choose a password": "בחירת סיסמה",
+  "smaller": "מוקטן",
+  "numbered": "ממוספר",
+  "watermarked": "סימן מים",
+  "edited": "ערוך",
+  "redacted": "מושחר",
+  "protected": "מוגן"
  },
  "patterns": [
   [
@@ -635,6 +741,74 @@
   [
    "Deleted on {n} pages. You can undo it.",
    "נמחק ב-{n} דפים. אפשר לבטל."
+  ],
+  [
+   "“{f}” is part of Pro.",
+   "\"{f}\" הוא חלק מ-Pro."
+  ],
+  [
+   "until {d}",
+   "עד {d}"
+  ],
+  [
+   "Without Pro, text recognition works on up to {n} pages per PDF.",
+   "בלי Pro, זיהוי הטקסט פועל על עד {n} עמודים בכל PDF."
+  ],
+  [
+   "Recognise all {k} pages with Pro",
+   "זיהוי כל {k} העמודים עם Pro"
+  ],
+  [
+   "Recognise only the first {n} pages, for free",
+   "זיהוי {n} העמודים הראשונים בלבד, בחינם"
+  ],
+  [
+   "Marked: {list}. Check them, unmark any that should stay, then apply.",
+   "סומנו: {list}. יש לבדוק אותם, לבטל את הסימון של מה שצריך להישאר, ואז להחיל."
+  ],
+  [
+   "Merging {n} PDFs…",
+   "מיזוג {n} קובצי PDF…"
+  ],
+  [
+   "{n} PDFs merged into one of {p} pages.",
+   "{n} קובצי PDF מוזגו לקובץ אחד בן {p} עמודים."
+  ],
+  [
+   "File {k} of {n}: {name}",
+   "קובץ {k} מתוך {n}: {name}"
+  ],
+  [
+   "{n} files done.",
+   "{n} קבצים הושלמו."
+  ],
+  [
+   "Not done: {list}",
+   "לא הושלמו: {list}"
+  ],
+  [
+   "Page {n}",
+   "עמוד {n}"
+  ],
+  [
+   "{n} new or changed",
+   "{n} חדשים או ששונו"
+  ],
+  [
+   "{n} no longer here",
+   "{n} כבר לא קיימים"
+  ],
+  [
+   "Page {n} is only in “{name}”",
+   "עמוד {n} נמצא רק ב-\"{name}\""
+  ],
+  [
+   "Compared with “{name}”",
+   "הושווה עם \"{name}\""
+  ],
+  [
+   "Field “{name}” added. People can fill it in with any PDF reader.",
+   "השדה \"{name}\" נוסף. אפשר למלא אותו בכל קורא PDF."
   ]
  ]
 }

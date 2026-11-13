@@ -5,12 +5,21 @@ description: Uitgever en hostingprovider van {{name}}.
 <main id="main" class="prose wrap narrow">
   <h1>Juridische informatie</h1>
   <h2>Uitgever</h2>
+  <!-- business:off -->
   <p>Deze site wordt op niet-professionele basis uitgegeven door een particulier, {{publisher.name}}. Zoals de Franse wet toestaat (wet nr. 2004-575 van 21 juni 2004 over het vertrouwen in de digitale economie), worden adres en contactgegevens niet gepubliceerd: de uitgever heeft zijn identificatiegegevens verstrekt aan de hieronder vermelde hostingprovider.</p>
+  <!-- /business:off -->
+  <!-- business:on -->
+  <p>{{seller.name}} – {{seller.status}}<br>SIRET: {{seller.siret}}<br>Adres: {{seller.address}}<br>E-mail: <a href="mailto:{{seller.email}}">{{seller.email}}</a><br>{{seller.vat}}</p>
+  <p>Verantwoordelijke uitgever: {{publisher.name}}.</p>
+  <p>Consumentenbemiddelaar: {{seller.mediator}}.</p>
+  <!-- /business:on -->
   <h2>Hostingprovider</h2>
   <p>{{host}}</p>
   <h2>Intellectueel eigendom</h2>
   <p>De editor is vrije software (GNU AGPL v3) gebaseerd op MuPDF © Artifex Software. Meegeleverde lettertypen: Liberation, Carlito, Caladea (SIL Open Font License) en DejaVu. Broncode: <a href="{{source}}">{{source}}</a>. Licenties: <a href="/app/LICENSE.txt">/app/LICENSE.txt</a>.</p>
+  <h2>Verkoop van Pro-licenties</h2>
+  <p>Licenties voor {{name}} Pro worden verkocht via Lemon Squeezy, LLC, wederverkoper en merchant of record, dat de betalingen int, btw toepast en de facturen opstelt. Zie de <a href="{{root}}sales">verkoopvoorwaarden</a>.</p>
   <h2>Persoonsgegevens</h2>
-  <p>Zie de <a href="{{root}}privacy">privacypagina</a>: er worden er geen verzameld.</p>
+  <p>Zie de <a href="{{root}}privacy">privacypagina</a>.</p>
   <p class="small-print">Deze vertaling is bedoeld voor het gemak. Als ze afwijkt van de Engelse of Franse versie, heeft de Franse versie voorrang.</p>
 </main>
