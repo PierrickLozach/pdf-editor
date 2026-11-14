@@ -498,7 +498,8 @@
   "Changed line": "已修改的行",
   "before:": "修改前：",
   "Removed:": "已删除：",
-  "Shown in the text on the page. Click a line to go to it.": "直接显示在页面文字中。点击一行即可跳转到该处。"
+  "Shown in the text on the page. Click a line to go to it.": "直接显示在页面文字中。点击一行即可跳转到该处。",
+  "Your PDF stays open. The undo history starts again.": "PDF 保持打开。撤销记录将重新开始。"
  },
  "patterns": [
   [

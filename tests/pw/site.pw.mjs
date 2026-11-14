@@ -63,8 +63,9 @@ async function run(name) {
     await p.goto(BASE + "/app/");
     await p.waitForFunction(() => document.body.classList.contains("engine-ready") && !document.documentElement.classList.contains("i18n-wait"), null, { timeout: 60000 });
     ok((await p.textContent("#toolbar")).includes("Modifier le texte"), "…and the editor follows it");
-    await p.selectOption("#langPick", "en");
-    await p.waitForFunction(() => document.body.classList.contains("engine-ready") && document.documentElement.lang === "en", null, { timeout: 60000 });
+    await p.click("#btnLang");
+    await Promise.all([p.waitForNavigation(), p.click('#langMenu button[data-code="en"]')]);
+    await p.waitForFunction(() => document.body && document.body.classList.contains("engine-ready") && document.documentElement.lang === "en", null, { timeout: 60000 });
     await p.goto(BASE + "/");
     ok(/Edit any PDF/.test(await p.textContent("h1")) && !/\/fr\//.test(p.url()), "switching back to English in the editor applies to the site too");
     await en.close();

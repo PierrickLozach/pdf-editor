@@ -126,7 +126,7 @@ async function run(name) {
       await waitFn(g, `S.doc && S.spans[S.doc.pages[0].v] && pageEl(0).dataset.rkey`);
       left = left.concat(await g.evaluate(untranslated, dict));
       const fits = await g.evaluate(() => { const tb = document.querySelector("#toolbar"); return tb.scrollWidth <= tb.clientWidth + 1; });
-      const picker = await g.evaluate(() => { const o = document.querySelector("#langPick option"); return o && o.value === "auto" && o.selected; });
+      const picker = await g.evaluate(() => { const o = document.querySelector('#langMenu button[data-code="auto"]'); return !!o && o.getAttribute("aria-checked") === "true"; });
       ok(lang === L.code && dir === L.dir && !left.length && fits, `${L.name} (${L.code}, ${L.dir}): chosen from the browser, nothing left in English, toolbar fits` + (left.length ? " – " + left.slice(0, 3).join(" | ") : ""));
       if (!picker) ok(false, `${L.code}: the language menu shows “browser language”`);
       if (L.dir === "rtl" && name === "chromium") await g.screenshot({ path: `/tmp/pdfe-site/editor-${L.code}.png` });
@@ -140,12 +140,12 @@ async function run(name) {
       await g.goto(URL0);
       await waitFn(g, `document.body.classList.contains('engine-ready')`, 60000);
       ok((await g.getAttribute("html", "lang")) === "de" && (await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === null, "German browser: German, and nothing stored (it keeps following the browser)");
-      await g.selectOption("#langPick", "it");
+      await g.click("#btnLang"); await g.click('#langMenu button[data-code="it"]');
       await waitFn(g, `document.documentElement.lang === "it" && document.body.classList.contains('engine-ready')`, 60000);
       ok((await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === "it", "choosing Italian: remembered");
       await g.reload(); await waitFn(g, `document.body.classList.contains('engine-ready')`, 60000);
       ok((await g.getAttribute("html", "lang")) === "it", "…and kept after a reload");
-      await g.selectOption("#langPick", "auto");
+      await g.click("#btnLang"); await g.click('#langMenu button[data-code="auto"]');
       await waitFn(g, `document.documentElement.lang === "de" && document.body.classList.contains('engine-ready')`, 60000);
       ok((await g.evaluate(() => localStorage.getItem("pdfe.lang"))) === null, "“Browser language”: back to German, choice forgotten");
       await c.close();

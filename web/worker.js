@@ -3,7 +3,7 @@
  *           worker -> main: {req, type:"localFont", postscriptName}   main -> worker: {req, bytes|error}
  * The open document is also kept in IndexedDB (this browser only) so a reload or a
  * crash does not lose the edits. Nothing ever leaves the computer. */
-import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=c4ca92d2f2";
+import { Engine, EditError, readFontFile, makeZip } from "./engine.js?v=dc2c16e2ce";
 
 let engine = null, MANIFEST = null;
 let reqSeq = 0;
@@ -80,7 +80,7 @@ let recovery = true;
 const persist = (name, bytes, unsaved = true) => (recovery ? idbDo("readwrite", (st) => st.put({ name, bytes, time: Date.now(), unsaved }, "current")) : Promise.resolve());
 
 const ready = (async () => {
-  const manifest = MANIFEST = await (await fetch(new URL("fonts/fonts.json?v=c4ca92d2f2", import.meta.url))).json();
+  const manifest = MANIFEST = await (await fetch(new URL("fonts/fonts.json?v=dc2c16e2ce", import.meta.url))).json();
   engine = new Engine({ manifest, fetchBytes, persist });
   // the catalogue of free fonts (Google Fonts...): small, loaded in the background
   fetch(new URL("fonts/free-fonts.json", import.meta.url)).then((r) => r.json()).then((c) => engine.setFreeCatalog(c)).catch(() => {});
@@ -194,6 +194,14 @@ const worker = {
     await engine.flushPersist();                    // a copy still waiting to be written goes first
     const rec = await idbDo("readonly", (st) => st.get("current"));
     if (rec && rec.unsaved !== false) await idbDo("readwrite", (st) => st.put({ ...rec, unsaved: false }, "current"));
+  },
+  /** Before the page reloads (language changed): write the open PDF now, unsaved only if it really is. */
+  async keepForReload(unsaved) {
+    const s = engine.s;
+    if (!s) return false;
+    clearTimeout(engine._pt); engine._pt = null;
+    await idbDo("readwrite", (st) => st.put({ name: s.name, bytes: s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice(), time: Date.now(), unsaved: !!unsaved }, "current"));
+    return true;
   },
   async discard() { await idbDo("readwrite", (st) => st.delete("current")); engine.s = null; return true; },
 };

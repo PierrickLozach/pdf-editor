@@ -498,7 +498,8 @@
   "Changed line": "Geänderte Zeile",
   "before:": "vorher:",
   "Removed:": "Entfernt:",
-  "Shown in the text on the page. Click a line to go to it.": "Im Text der Seite angezeigt. Klicken Sie auf eine Zeile, um dorthin zu springen."
+  "Shown in the text on the page. Click a line to go to it.": "Im Text der Seite angezeigt. Klicken Sie auf eine Zeile, um dorthin zu springen.",
+  "Your PDF stays open. The undo history starts again.": "Ihr PDF bleibt geöffnet. Der Rückgängig-Verlauf beginnt neu."
  },
  "patterns": [
   [

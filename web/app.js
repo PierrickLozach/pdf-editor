@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=c4ca92d2f2", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=dc2c16e2ce", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -1198,6 +1198,7 @@ function init() {
     if (localFontsPossible() && navigator.permissions) {
       try { const p = await navigator.permissions.query({ name: "local-fonts" }); if (p.state === "granted") useLocalFonts(false); } catch (e) {}
     }
+    if (await reopenAfterLanguage()) return;              // the language was changed with a PDF open
     const rec = await call("restoreInfo").catch(() => null);
     if (rec && !S.doc) showResume(rec);
   }).catch(async (e) => {
@@ -1422,13 +1423,84 @@ function showResume(rec) {
   $("#btnDiscard").onclick = async () => { await call("discard"); box.hidden = true; };
 }
 
+/* Language: the toolbar button opens a menu; choosing reloads the page in that language. A PDF that is
+ * open is kept and reopened at the same place (zoom, scroll), with the link to its file. */
+const REOPEN = "pdfe.reopen";
+async function changeLanguage(code) {
+  if (S.doc) {
+    await closeEditor(true);
+    const ok = await call("keepForReload", !!S.dirty).catch(() => false);
+    if (ok) try { sessionStorage.setItem(REOPEN, JSON.stringify({ name: S.doc.name, zoom: S.zoom, top: $("#viewer").scrollTop, left: $("#viewer").scrollLeft, dirty: !!S.dirty })); } catch (e) {}
+  }
+  I18N.set(code);
+}
+async function reopenAfterLanguage() {
+  let r = null;
+  try { r = JSON.parse(sessionStorage.getItem(REOPEN) || "null"); sessionStorage.removeItem(REOPEN); } catch (e) {}
+  if (!r) return false;
+  try {
+    const info = await call("restore");
+    if (info.name !== r.name) return false;
+    S.zoom = r.zoom;
+    loadDoc(info, false);
+    if (window.FILES && FILES.reattach) await FILES.reattach(r.dirty); else S.dirty = r.dirty;
+    requestAnimationFrame(() => { $("#viewer").scrollTop = r.top; $("#viewer").scrollLeft = r.left; });
+    return true;
+  } catch (e) { return false; }
+}
+function bindLangMenu() {
+  const btn = $("#btnLang");
+  if (!btn || !window.I18N) return;
+  const cur = I18N.languages.find((l) => l.code === I18N.lang);
+  $("#btnLangName").textContent = cur ? cur.name : "English";
+  btn.title = I18N.t("Language");
+  const m = document.createElement("div");
+  m.id = "langMenu"; m.className = "tools-menu lang-menu"; m.setAttribute("role", "menu"); m.hidden = true;
+  const bl = I18N.languages.find((l) => l.code === I18N.browser);
+  const items = [["auto", `${I18N.t("Browser language")} (${bl ? bl.name : "English"})`, I18N.auto], ...I18N.languages.map((l) => [l.code, l.name, !I18N.auto && l.code === I18N.lang, l])];
+  for (const [code, name, on, l] of items) {
+    const b = document.createElement("button");
+    b.setAttribute("role", "menuitemradio"); b.setAttribute("aria-checked", on ? "true" : "false"); b.dataset.code = code;
+    b.innerHTML = `<span class="lm-check">${on ? "✓" : ""}</span><span class="lm-name"></span>`;
+    const nm = b.querySelector(".lm-name");
+    nm.textContent = name;
+    if (l) { nm.lang = l.code; nm.dir = l.dir; }                // each name in its own script, all aligned the same way
+    b.onclick = () => { close(); if (!on) busy(() => changeLanguage(code)); };
+    m.appendChild(b);
+  }
+  const note = document.createElement("p");
+  note.className = "lm-note"; note.hidden = true;
+  note.textContent = I18N.t("Your PDF stays open. The undo history starts again.");
+  m.appendChild(note);
+  document.body.appendChild(m);
+  const close = () => { m.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+  const open = () => {
+    note.hidden = !(S.doc && S.doc.canUndo);
+    m.hidden = false;
+    const r = btn.getBoundingClientRect(), w = m.offsetWidth, rtl = document.documentElement.dir === "rtl";
+    const x = rtl ? Math.max(8, r.left) : Math.min(r.right - w, innerWidth - w - 8);
+    Object.assign(m.style, { top: r.bottom + 6 + "px", left: Math.max(8, x) + "px" });
+    btn.setAttribute("aria-expanded", "true");
+    (m.querySelector('[aria-checked="true"]') || m.querySelector("button")).focus();
+  };
+  btn.onclick = (e) => { e.stopPropagation(); m.hidden ? open() : close(); };
+  document.addEventListener("pointerdown", (e) => { if (!m.hidden && !m.contains(e.target) && !btn.contains(e.target)) close(); }, true);
+  m.addEventListener("keydown", (e) => {
+    const bs = [...m.querySelectorAll("button")], i = bs.indexOf(document.activeElement);
+    if (e.key === "Escape") { e.preventDefault(); close(); btn.focus(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); bs[(i + 1) % bs.length].focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); bs[(i - 1 + bs.length) % bs.length].focus(); }
+  });
+}
+
 function bindWebExtras() {
+  bindLangMenu();
   const lp = $("#langPick");
   if (lp && window.I18N) {
     const bl = I18N.languages.find((l) => l.code === I18N.browser);
     lp.add(new Option(`${I18N.t("Browser language")} (${bl ? bl.name : "English"})`, "auto", false, I18N.auto));
     for (const l of I18N.languages) lp.add(new Option(l.name, l.code, false, !I18N.auto && l.code === I18N.lang));
-    lp.onchange = () => I18N.set(lp.value);
+    lp.onchange = () => changeLanguage(lp.value);
   }
   bindFonts();
   $("#btnClose").onclick = async () => {

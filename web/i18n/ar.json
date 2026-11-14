@@ -498,7 +498,8 @@
   "Changed line": "سطر معدَّل",
   "before:": "قبل:",
   "Removed:": "محذوف:",
-  "Shown in the text on the page. Click a line to go to it.": "تظهر في نص الصفحة. انقر على سطر للانتقال إليه."
+  "Shown in the text on the page. Click a line to go to it.": "تظهر في نص الصفحة. انقر على سطر للانتقال إليه.",
+  "Your PDF stays open. The undo history starts again.": "يبقى ملف PDF مفتوحًا. يبدأ سجل التراجع من جديد."
  },
  "patterns": [
   [

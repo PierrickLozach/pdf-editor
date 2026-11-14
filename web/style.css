@@ -555,3 +555,9 @@ html[dir="rtl"] .cmp-del-t { left: auto; right: -2px; }
   .cmp-panel ins, .cmp-tag.add { background: rgba(74,222,128,.18); color: #86efac; text-decoration-color: #4ade80; }
 }
 @media (prefers-reduced-motion: reduce) { .cmp-line.flash { animation: none; box-shadow: 0 0 0 3px rgba(37,99,235,.4); } }
+
+/* language menu (toolbar) */
+.lang-menu { width: 250px; min-width: 220px; max-height: min(70vh, 520px); overflow: auto; }
+.lang-menu button { display: flex; align-items: center; gap: 8px; }
+.lang-menu .lm-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; flex: none; }
+.lang-menu .lm-note { margin: 6px 10px 4px; font-size: 12px; color: var(--muted); max-width: 240px; line-height: 1.35; }

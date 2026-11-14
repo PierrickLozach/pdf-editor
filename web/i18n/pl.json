@@ -498,7 +498,8 @@
   "Changed line": "Zmieniony wiersz",
   "before:": "wcześniej:",
   "Removed:": "Usunięte:",
-  "Shown in the text on the page. Click a line to go to it.": "Pokazane w tekście na stronie. Kliknij wiersz, aby do niego przejść."
+  "Shown in the text on the page. Click a line to go to it.": "Pokazane w tekście na stronie. Kliknij wiersz, aby do niego przejść.",
+  "Your PDF stays open. The undo history starts again.": "PDF pozostaje otwarty. Historia cofania zaczyna się od nowa."
  },
  "patterns": [
   [

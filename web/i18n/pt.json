@@ -498,7 +498,8 @@
   "Changed line": "Linha alterada",
   "before:": "antes:",
   "Removed:": "Removido:",
-  "Shown in the text on the page. Click a line to go to it.": "Mostrado no texto da página. Clique em uma linha para ir até ela."
+  "Shown in the text on the page. Click a line to go to it.": "Mostrado no texto da página. Clique em uma linha para ir até ela.",
+  "Your PDF stays open. The undo history starts again.": "Seu PDF continua aberto. O histórico de desfazer recomeça."
  },
  "patterns": [
   [

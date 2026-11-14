@@ -498,7 +498,8 @@
   "Changed line": "Gewijzigde regel",
   "before:": "eerst:",
   "Removed:": "Verwijderd:",
-  "Shown in the text on the page. Click a line to go to it.": "Getoond in de tekst op de pagina. Klik op een regel om erheen te gaan."
+  "Shown in the text on the page. Click a line to go to it.": "Getoond in de tekst op de pagina. Klik op een regel om erheen te gaan.",
+  "Your PDF stays open. The undo history starts again.": "Je pdf blijft open. De geschiedenis voor ongedaan maken begint opnieuw."
  },
  "patterns": [
   [

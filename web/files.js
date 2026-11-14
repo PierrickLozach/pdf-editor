@@ -171,6 +171,19 @@
   };
   F.closed = () => { F.handle = null; askedFor = null; try { localStorage.removeItem(CUR); } catch (e) {} mark(); renderRecent(); };
   F.afterChange = () => mark();
+  /** After a reload (language changed): the reopened PDF is still the file it came from, so Save writes into it. */
+  F.reattach = async (dirty) => {
+    try {
+      const id = localStorage.getItem(CUR);
+      const x = id && (await store("readonly", (st) => new Promise((r) => { const q = st.get(id); q.onsuccess = () => r(q.result); q.onerror = () => r(null); })));
+      F.handle = x && x.name === (S.doc && S.doc.name) ? x.handle : null;
+    } catch (e) { F.handle = null; }
+    S.dirty = !!dirty;
+    mark(); renderRecent();
+    // the page was just reloaded: refresh the note once the translations are in, and after the page settles
+    if (window.I18N && I18N.ready) I18N.ready.then(() => { S.dirty = !!dirty || S.dirty; mark(); });
+    setTimeout(() => { S.dirty = !!dirty || S.dirty; mark(); }, 600);
+  };
 
   /* ---------------------------------------------------------------- save */
   /** Save into the file that was opened. Returns false when that is not possible (the caller

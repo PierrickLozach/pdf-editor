@@ -498,7 +498,8 @@
   "Changed line": "変更された行",
   "before:": "変更前：",
   "Removed:": "削除：",
-  "Shown in the text on the page. Click a line to go to it.": "ページの本文上に表示されます。行をクリックするとその場所へ移動します。"
+  "Shown in the text on the page. Click a line to go to it.": "ページの本文上に表示されます。行をクリックするとその場所へ移動します。",
+  "Your PDF stays open. The undo history starts again.": "PDF は開いたままです。元に戻す履歴はリセットされます。"
  },
  "patterns": [
   [

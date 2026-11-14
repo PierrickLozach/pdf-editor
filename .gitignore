@@ -44,3 +44,4 @@ __pycache__/
 !/tools/new_licence_key.mjs
 !/tests/pw/admin.pw.mjs
 !/tests/pw/compare.pw.mjs
+!/tests/pw/langmenu.pw.mjs
