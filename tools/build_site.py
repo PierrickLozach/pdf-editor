@@ -38,8 +38,12 @@ def seller():
     return {"name": cfg["publisher"]["name"], "status": "", "siret": "", "address": "", "email": cfg["publisher"]["email"],
             "mediator": "(désigné à l'ouverture de la boutique)", "vat": ""}
 
+PRO_VISIBLE = bool(cfg.get("pro", {}).get("visible"))
+
 def blocks(text):
-    """<!-- business:on --> … <!-- /business:on --> is kept only once the business is registered; business:off the opposite."""
+    """<!-- pro:on --> … <!-- /pro:on --> is kept only while Pro is shown on the site (site.json pro.visible), pro:off the
+    opposite; then <!-- business:on --> … is kept only once the business is registered, business:off the opposite."""
+    text = re.sub(r"[ \t]*<!-- pro:(on|off) -->\n?(.*?)[ \t]*<!-- /pro:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == PRO_VISIBLE else "", text, flags=re.S)
     on = bool(cfg.get("business", {}).get("registered"))
     text = re.sub(r"[ \t]*<!-- business:(on|off) -->\n?(.*?)[ \t]*<!-- /business:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == on else "", text, flags=re.S)
     return text
@@ -69,7 +73,7 @@ BIZ = cfg.get("business", {})
 if BIZ.get("registered"):
     missing = [k for k in ("name", "siret", "address", "email", "mediator") if not str(BIZ.get(k, "")).strip() or "example" in str(BIZ.get(k, "")).lower()]
     if missing: sys.exit("site.json: business.registered is true but these are missing: " + ", ".join(missing))
-(PUB / "app" / "pro-site.json").write_text(json.dumps({"registered": bool(BIZ.get("registered"))}) + "\n")
+(PUB / "app" / "pro-site.json").write_text(json.dumps({"registered": bool(BIZ.get("registered")), "visible": PRO_VISIBLE}) + "\n")
 (LIB / "LICENSING.txt").write_text((ROOT / "LICENSING.md").read_text())
 (LIB / "README.txt").write_text(f"PDF Editor library {json.loads((WEB / 'package.json').read_text()).get('version', '')} — AGPL-3.0, or a commercial licence (see LICENSING.txt).\n"
     f"Documentation: {cfg['url']}/developers   Source: {cfg['source']}\n"
@@ -123,7 +127,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a><a href="{root}sales">{t_footer_sales}</a><a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>
@@ -133,6 +137,7 @@ LAYOUT = """<!doctype html>
 
 ENGLISH_ONLY = {"developers"}                     # pages for developers: in English, at one address
 slugs = sorted(p.stem for p in (PAGES / DEFAULT).glob("*.html"))
+if not PRO_VISIBLE: slugs.remove("sales")                    # Pro hidden: no terms of sale page
 sitemap = []
 for l in LANGS:
     out = PUB if l == DEFAULT else PUB / l
@@ -156,7 +161,8 @@ for l in LANGS:
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",
                              url=cfg["url"], path=path, alternates=alternates, ver=ver, name=html.escape(T[l]["site_name"]), locale=T[l].get("locale", l),
                              page=slug, root=root_of(l), globe=GLOBE, options=options, body=fill(body, l), source=html.escape(cfg["source"]),
-                             publisher=html.escape(cfg["publisher"]["name"]), **words)
+                             publisher=html.escape(cfg["publisher"]["name"]),
+                             sales_link=f'<a href="{root_of(l)}sales">{words["t_footer_sales"]}</a>' if PRO_VISIBLE else "", **words)
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
         (out / f"{slug}.html").write_text(page)
         if slug != "404" and not meta.get("noindex"): sitemap.append(path)

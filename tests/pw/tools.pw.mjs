@@ -45,8 +45,10 @@ async function run(name, engine) {
     await page.click("#btnTools");
     const items = await page.evaluate(() => [...document.querySelectorAll("#toolsMenu [data-k]")].map((b) => b.dataset.k));
     const names = await page.evaluate(() => [...document.querySelectorAll("#toolsMenu > button[data-k]")].map((b) => [...b.querySelector("b").childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim()));
-    const sorted = names.slice(0, -1).slice().sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
-    ok(items.length === 13 && items[items.length - 1] === "pro" && JSON.stringify(names.slice(0, -1)) === JSON.stringify(sorted), "Tools menu: all 13 tools, alphabetical, “PDF Editor Pro” last: " + names.join(", "));
+    const sorted = names.slice().sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+    ok(items.length === 9 && !items.some((k) => ["pro", "batch", "compare", "addfield"].includes(k)) && JSON.stringify(names) === JSON.stringify(sorted), "Tools menu: the 9 free tools, alphabetical, nothing of Pro (hidden on this site): " + names.join(", "));
+    ok(await page.evaluate(async () => !document.querySelector(".pro-badge, #btnBatch, .rb-smart, #proDlg") && (await PROTOOLS.ocrPages([0, 1, 2, 3, 4, 5, 6])).length === 7 && !(await PRO.require("batch")) && !document.querySelector("#proDlg")),
+      "Pro hidden: no badge, no batch link, no smart redaction, OCR without a page limit, a Pro feature asked for opens nothing");
     await page.keyboard.press("Escape");
     ok(await page.evaluate(() => document.querySelector("#toolsMenu").hidden), "Esc closes the menu");
 

@@ -10,7 +10,7 @@ for (const [name, engine] of [["chromium", chromium], ["firefox", firefox], ["we
   if (which !== "all" && which !== name) continue;
   let fails = 0; const ok = (c, m) => { console.log(`  ${c ? "ok  " : "FAIL"} [${name}] ${m}`); if (!c) fails++; };
   const b = await engine.launch(); const c = await b.newContext({ viewport: { width: 1400, height: 900 }, locale: "en-US" });
-  await c.addInitScript(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); localStorage.setItem("pdfe.coachSeen", "1"); });
+  await c.addInitScript(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); localStorage.setItem("pdfe.coachSeen", "1"); localStorage.setItem("pdfe.proPreview", "1"); });
   await c.route("**/api/hit", (r) => r.fulfill({ status: 204, body: "" }));
   const p = await c.newPage(); const errs = []; p.on("pageerror", (e) => errs.push(e.message));
   try {

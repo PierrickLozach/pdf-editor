@@ -11,6 +11,14 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const el = (h) => { const d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstElementChild; };
   const P = (window.PRO = { state: null, config: null });
+  /* Is Pro shown on this site? site/site.json "pro.visible", published as pro-site.json by the build. While it is
+   * off nothing of Pro appears (menus, windows, limits). localStorage pdfe.proPreview = "1" shows it anyway in one
+   * browser: for the publisher and the tests (the shop stays closed, a licence is still needed). */
+  P.visible = (async () => {
+    try { if (localStorage.getItem("pdfe.proPreview") === "1") return true; } catch (e) {}
+    try { const r = await fetch("pro-site.json", { credentials: "omit", cache: "no-store" }); return r.ok && !!(await r.json()).visible; } catch (e) { return false; }
+  })();
+  P.visible.then((v) => document.documentElement.classList.toggle("pro-hidden", !v));
   const FEATURE = {
     batch: ["Batch processing", "Merge, compress, number, watermark, find & replace or protect many PDFs at once"],
     smartredact: ["Smart redaction", "Find and black out emails, phone numbers, IBANs, card and social security numbers"],
@@ -78,6 +86,7 @@
   })();
   P.has = (f) => !!(P.state && (P.state.feats || []).includes(f));
   P.require = async (f) => {
+    if (!(await P.visible)) return false;
     await P.ready;
     if (P.has(f)) return true;
     window.PDFE_STATS && PDFE_STATS.event("pro_shown", { tool: f });

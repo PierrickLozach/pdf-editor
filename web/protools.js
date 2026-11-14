@@ -49,7 +49,7 @@
   /* ---------------------------------------------------------------- the OCR page limit (free: a few pages per PDF) */
   /** Returns the pages to recognise, or null when the person cancels. */
   PT.ocrPages = async (pages) => {
-    if (!window.PRO) return pages;
+    if (!window.PRO || !(await PRO.visible)) return pages;          // Pro hidden: no page limit
     await PRO.ready;
     if (PRO.has("ocr")) return pages;
     const lim = (await PRO.getConfig()).freeOcrPages ?? 3;
@@ -81,7 +81,11 @@
       window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "smartredact" });
     };
   }
-  new MutationObserver(() => { smartButton(); addMenu(); startScreen(); }).observe(document.body, { childList: true });
+  // nothing of Pro is added while it is hidden on this site (pro-site.json)
+  let SHOW = false;
+  const add = () => { if (SHOW) { smartButton(); addMenu(); startScreen(); } };
+  (window.PRO ? PRO.visible : Promise.resolve(false)).then((v) => { SHOW = v; add(); });
+  new MutationObserver(add).observe(document.body, { childList: true });
 
   /* ---------------------------------------------------------------- batch processing */
   const ACTIONS = [
@@ -247,6 +251,7 @@
   let formHint = null;
   PT.decorate = async (i, el, layer) => {
     if (PT.cmp) drawCompare(i, el, layer);
+    if (!SHOW) return;                                               // form fields are a Pro feature
     const p = S.doc.pages[i], v = p.v;
     let list = fieldCache.get(v);
     if (!list) {
@@ -349,4 +354,4 @@
   PT.docChanged = () => { PT.cmp = null; const p = document.getElementById("cmpPanel"); if (p) p.remove(); fieldCache.clear(); stopDrawing(); };
 })();
 // arriving from the landing page's "See Pro in the editor" (/app/#pro): show the Pro window
-if (location.hash === "#pro") window.addEventListener("load", () => setTimeout(() => { if (window.PRO) { history.replaceState(null, "", location.pathname); PRO.open(); } }, 600));
+if (location.hash === "#pro") window.addEventListener("load", () => setTimeout(async () => { if (window.PRO && (await PRO.visible)) { history.replaceState(null, "", location.pathname); PRO.open(); } }, 600));

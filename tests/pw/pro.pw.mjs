@@ -27,7 +27,7 @@ for (const [name, engine] of [["chromium", chromium], ["firefox", firefox], ["we
   const b = await engine.launch();
   const newPage = async () => {
     const c = await b.newContext({ viewport: { width: 1300, height: 900 }, locale: "en-US", acceptDownloads: true });
-    await c.addInitScript(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); localStorage.setItem("pdfe.coachSeen", "1"); });
+    await c.addInitScript(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); localStorage.setItem("pdfe.coachSeen", "1"); localStorage.setItem("pdfe.proPreview", "1"); });
     await c.route("**/api/hit", (r) => r.fulfill({ status: 204, body: "" }));
     const p = await c.newPage(); p.__errs = []; p.on("pageerror", (e) => p.__errs.push(e.message));
     await p.goto(B + "/app/");

@@ -35,5 +35,8 @@
     "mediator": "",
     "mediator_url": "",
     "vat": "TVA non applicable, art. 293 B du CGI"
+  },
+  "pro": {
+    "visible": false
   }
 }

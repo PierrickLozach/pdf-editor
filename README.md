@@ -2,15 +2,16 @@
 
 A PDF editor that runs entirely in the browser: change text in its original font, move it, find and replace,
 white-out, add images and signatures, redact, OCR, split, merge, convert, compress, protect, rearrange pages.
-PDFs never leave the device. Everyday editing is free; optional **Pro** features (batch processing, smart
-redaction, unlimited OCR, comparing PDFs, forms) are sold through Lemon Squeezy.
+PDFs never leave the device. It is free. **Pro** features (batch processing, smart redaction, unlimited OCR,
+comparing PDFs, forms) are built and tested but **hidden** for the free launch: see [Showing Pro](#showing-pro-later).
 
 Live: https://pdf-editor.pierrick35.workers.dev · Source: https://github.com/PierrickLozach/pdf-editor
 
 - [What is where](#what-is-where)
 - [Set up and deploy from scratch](#set-up-and-deploy-from-scratch)
 - [Lemon Squeezy (selling Pro)](#lemon-squeezy-selling-pro)
-- [Remaining steps before launch](#remaining-steps-before-launch)
+- [Launch (free)](#launch-free) · [Showing Pro later](#showing-pro-later)
+- [Remaining steps before selling Pro](#remaining-steps-before-selling-pro)
 - [Day-to-day](#day-to-day)
 - [Licence](#licence) · [For developers](#for-developers)
 
@@ -174,9 +175,42 @@ dashboard. Free licences (codes `PDFE-…`) and discount codes for specific peop
 
 ---
 
-## Remaining steps before launch
+## Launch (free)
 
-In order. The site is online and works; the shop stays closed until step 4.
+Pro is hidden (`site/site.json`: `"pro": {"visible": false}`): the site and the editor show nothing of Pro, OCR has
+no page limit, there is no terms of sale page. Before posting:
+
+1. **Domain** (recommended before advertising, see step 6 below), and a real contact address in `publisher.email`.
+2. **Genesys**: a written OK for the side project, and the project on a personal computer.
+3. **Post** — one site per day, answer the comments. Hacker News text:
+
+Title: `Show HN: A PDF editor that runs in the browser and edits text in its original font`
+
+> I needed to fix dates and amounts in PDFs and didn't want to pay for Acrobat or upload documents to an
+> online editor. This runs entirely in the browser (MuPDF compiled to WebAssembly): files are never uploaded.
+>
+> Editing text removes the original glyphs and writes the new text with the PDF's own embedded font when it
+> has the letters, otherwise the closest match. It also does find & replace, redaction, OCR, split/merge,
+> signatures and compression, plus a JavaScript library for developers.
+>
+> Limits: text is edited line by line (no paragraph reflow), and Word-to-PDF isn't supported. Free, no account,
+> AGPL, in 12 languages. Feedback welcome, especially PDFs that break it.
+
+Watch the statistics page: visits, PDFs opened, which tools are used, where visitors come from.
+
+## Showing Pro later
+
+- **Try it yourself first**: in your browser's console on the editor, `localStorage.setItem("pdfe.proPreview", "1")`,
+  then reload: Pro appears in that browser only (the shop stays closed; a free licence code from the admin page
+  activates it). `localStorage.removeItem("pdfe.proPreview")` hides it again.
+- **Show it to everyone**: `site/site.json` → `"pro": {"visible": true}`, then `cd site && npm run deploy`. The
+  landing page, FAQ, privacy, terms and legal notice switch to their Pro versions (marked `<!-- pro:on -->` /
+  `<!-- pro:off -->` in `site/pages/`), the terms of sale page and its footer link come back.
+- **Selling** still needs the steps below; the admin page refuses to open the shop before the business details exist.
+
+## Remaining steps before selling Pro
+
+In order. The shop stays closed until step 4.
 
 1. **Register a business** (for example a French micro-entreprise, free, online at
    https://formalites.entreprises.gouv.fr). You receive a SIRET number. Selling regularly without it is not
@@ -203,21 +237,7 @@ In order. The site is online and works; the shop stays closed until step 4.
 8. **Native-speaker check** of the translations, especially the terms of sale in Arabic, Hebrew, Chinese and
    Japanese, and the words flagged in the commit history ("merchant of record", "lifetime", "goodwill",
    "social security number", "Release this computer").
-9. **Launch**: the Hacker News text is below. Post on one site per day and answer the comments.
-
-**Hacker News** — title: `Show HN: A PDF editor that runs in the browser and edits text in its original font`
-— first comment:
-
-> I needed to fix dates and amounts in PDFs and didn't want to pay for Acrobat or upload documents to an
-> online editor. This runs entirely in the browser (MuPDF compiled to WebAssembly): files are never uploaded.
->
-> Editing text removes the original glyphs and writes the new text with the PDF's own embedded font when it
-> has the letters, otherwise the closest match. It also does find & replace, redaction, OCR, split/merge,
-> signatures and compression, plus a JavaScript library for developers.
->
-> Limits: text is edited line by line (no paragraph reflow), and Word-to-PDF isn't supported. Everyday
-> editing is free with no account; a Pro plan adds batch processing, automatic redaction, unlimited OCR, PDF
-> comparison and forms. AGPL, in 12 languages. Feedback welcome, especially PDFs that break it.
+9. **Show Pro** (above), then open the shop.
 
 ---
 
