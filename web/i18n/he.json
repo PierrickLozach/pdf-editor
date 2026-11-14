@@ -494,11 +494,11 @@
   "Removed": "הוסר",
   "removed": "הוסר",
   "added or changed": "נוסף או שונה",
-  "Click a line to see it on the page.": "לחיצה על שורה מציגה אותה בדף.",
   "Words are compared line by line (not pictures or layout).": "המילים מושוות שורה אחר שורה (לא תמונות או פריסה).",
   "Changed line": "שורה ששונתה",
   "before:": "לפני:",
-  "Removed:": "הוסר:"
+  "Removed:": "הוסר:",
+  "Shown in the text on the page. Click a line to go to it.": "מוצג בטקסט שבדף. לחיצה על שורה מעבירה אליה."
  },
  "patterns": [
   [

@@ -494,11 +494,11 @@
   "Removed": "محذوف",
   "removed": "محذوف",
   "added or changed": "مضاف أو معدَّل",
-  "Click a line to see it on the page.": "انقر على سطر لرؤيته في الصفحة.",
   "Words are compared line by line (not pictures or layout).": "تُقارن الكلمات سطرًا بسطر (وليس الصور أو التخطيط).",
   "Changed line": "سطر معدَّل",
   "before:": "قبل:",
-  "Removed:": "محذوف:"
+  "Removed:": "محذوف:",
+  "Shown in the text on the page. Click a line to go to it.": "تظهر في نص الصفحة. انقر على سطر للانتقال إليه."
  },
  "patterns": [
   [

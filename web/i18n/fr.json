@@ -494,11 +494,11 @@
   "Removed": "Supprimé",
   "removed": "supprimé",
   "added or changed": "ajouté ou modifié",
-  "Click a line to see it on the page.": "Cliquez sur une ligne pour la voir sur la page.",
   "Words are compared line by line (not pictures or layout).": "Les mots sont comparés ligne par ligne (pas les images ni la mise en page).",
   "Changed line": "Ligne modifiée",
   "before:": "avant :",
-  "Removed:": "Supprimé :"
+  "Removed:": "Supprimé :",
+  "Shown in the text on the page. Click a line to go to it.": "Affiché dans le texte de la page. Cliquez sur une ligne pour y aller."
  },
  "patterns": [
   [

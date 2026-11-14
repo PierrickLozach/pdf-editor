@@ -194,7 +194,7 @@
     }).join("") + c.res.extra.map((p) => `<li class="cmp-page">${esc(t("Page {n} is only in “{name}”").replace("{n}", p.page + 1).replace("{name}", c.name))}</li>`).join("");
     const d = el(`<aside id="cmpPanel" class="cmp-panel" role="region" aria-label="${esc(t("Comparison"))}">
       <div class="cmp-head"><b>${esc(t("Compared with “{name}”").replace("{name}", c.name))}</b><button class="icon cmp-x" title="${esc(t("Close the comparison"))}">✕</button></div>
-      ${diff.length || c.res.extra.length ? `<p class="small"><del>${esc(t("removed"))}</del> <ins>${esc(t("added or changed"))}</ins> · ${esc(t("Click a line to see it on the page."))}</p><ul class="cmp-list">${rows}</ul>`
+      ${diff.length || c.res.extra.length ? `<p class="small"><del>${esc(t("removed"))}</del> <ins>${esc(t("added or changed"))}</ins> · ${esc(t("Shown in the text on the page. Click a line to go to it."))}</p><ul class="cmp-list">${rows}</ul>`
         : `<p>${esc(t("No difference in the text."))}</p>`}
       <p class="small muted">${esc(t("Words are compared line by line (not pictures or layout)."))}</p></aside>`);
     document.body.appendChild(d);
@@ -206,7 +206,7 @@
     }));
   }
   PT.redrawCompare = () => {
-    document.querySelectorAll(".cmp-hl, .cmp-line, .cmp-del").forEach((x) => x.remove());
+    document.querySelectorAll(".cmp-hl, .cmp-ins, .cmp-line, .cmp-del").forEach((x) => x.remove());
     if (!PT.cmp) return;
     S.doc.pages.forEach((p, i) => { const el = pageEl(i); if (el) drawCompare(i, el, el.querySelector(".spans")); });
   };
@@ -214,25 +214,33 @@
     const c = PT.cmp, p = c && c.res.pages[i];
     if (!p || !layer || c.v[i] !== S.doc.pages[i].v) return;           // the page was edited since: not shown
     const z = S.zoom;
-    const box = (cls, r, title, k) => {
+    const add = (cls, r, k) => {
       const d = document.createElement("div");
-      d.className = cls; if (title) d.title = title; if (k) d.dataset.k = k;
-      Object.assign(d.style, { left: (r[0] - 2) * z + "px", top: (r[1] - 1) * z + "px", width: (r[2] - r[0] + 4) * z + "px", height: (r[3] - r[1] + 2) * z + "px" });
+      d.className = cls; if (k) d.dataset.k = k;
+      Object.assign(d.style, { left: (r[0] - 1) * z + "px", top: (r[1] - 0.5) * z + "px", width: (r[2] - r[0] + 2) * z + "px", height: (r[3] - r[1] + 1) * z + "px" });
+      layer.appendChild(d);
+      return d;
+    };
+    // a removed word or line, in red and crossed out: a caret where it was, the text just above the line
+    const gone = (x, y0, y1, text, whole) => {
+      const h = (y1 - y0) * z, fs = Math.max(9, Math.min(15, h * 0.72));
+      const d = document.createElement("div");
+      d.className = "cmp-del" + (whole ? " whole" : "");
+      Object.assign(d.style, { left: x * z + "px", top: y0 * z + "px", height: h + "px" });
+      const tx = document.createElement("span");
+      tx.className = "cmp-del-t"; tx.textContent = text; tx.style.fontSize = fs + "px";
+      d.appendChild(tx);
       layer.appendChild(d);
     };
     p.changed.forEach((x, k) => {
-      box("cmp-line", x.bbox, t("Changed line") + " – " + t("before:") + " " + x.old, "c" + k);
-      for (const r of x.ins) box("cmp-hl", r, t("New or changed:") + " " + x.new);
-      for (const m of x.del) {
-        const d = document.createElement("div");
-        d.className = "cmp-del"; d.title = t("Removed:") + " " + m.text;
-        Object.assign(d.style, { left: (m.x + 1) * z - 2 + "px", top: (m.y0 - 2) * z + "px", height: (m.y1 - m.y0 + 4) * z + "px" });
-        d.innerHTML = `<span>${esc(m.text)}</span>`;
-        layer.appendChild(d);
-      }
+      add("cmp-line", x.bbox, "c" + k);
+      for (const r of x.ins) add("cmp-ins", r);
+      for (const m of x.del) gone(m.x, m.y0, m.y1, m.text, false);
     });
-    p.added.forEach((x, k) => { box("cmp-line", x.bbox, "", "a" + k); box("cmp-hl", x.bbox, t("New or changed:") + " " + x.text); });
+    p.added.forEach((x, k) => { add("cmp-line", x.bbox, "a" + k); add("cmp-ins", x.bbox); });
+    for (const x of p.removedAt || []) gone(x.bbox[0], x.bbox[1], x.bbox[3], x.text, true);
   }
+
 
   /* ---------------------------------------------------------------- forms: fill in */
   const fieldCache = new Map();

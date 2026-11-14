@@ -2163,9 +2163,12 @@ export class Engine {
           del: del.map((x) => ({ x: rd(x.x - ox), y0: rd(x.y0 - oy), y1: rd(x.y1 - oy), text: x.text })) });
       }
       onlyB.forEach((nb, bi) => { if (!usedB.has(bi)) added.push({ text: nb.text, bbox: sh(nb.box) }); });
-      onlyA.forEach((na, ai) => { if (!usedA.has(ai)) removed.push(na.text); });
+      // lines only in the other PDF, with their place there (same page, its own coordinates)
+      const [aox, aoy] = p < m ? this._offset(other.loadPage(p)) : [0, 0];
+      const removedAt = [];
+      onlyA.forEach((na, ai) => { if (!usedA.has(ai)) { removed.push(na.text); removedAt.push({ text: na.text, bbox: [rd(na.box[0] - aox), rd(na.box[1] - aoy), rd(na.box[2] - aox), rd(na.box[3] - aoy)] }); } });
       if (!changed.length && !added.length && !removed.length) same++;
-      pages.push({ page: p, changed, added, removed, missing: p >= m });
+      pages.push({ page: p, changed, added, removed, removedAt, missing: p >= m });
     }
     const extra = [];
     for (let p = n; p < m; p++) extra.push({ page: p, removed: linesOf(other, p).map((x) => x.text) });

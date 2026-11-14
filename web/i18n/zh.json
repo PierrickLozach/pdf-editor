@@ -494,11 +494,11 @@
   "Removed": "已删除",
   "removed": "已删除",
   "added or changed": "新增或修改",
-  "Click a line to see it on the page.": "点击一行即可在页面上查看。",
   "Words are compared line by line (not pictures or layout).": "按行逐词比较（不比较图片或版式）。",
   "Changed line": "已修改的行",
   "before:": "修改前：",
-  "Removed:": "已删除："
+  "Removed:": "已删除：",
+  "Shown in the text on the page. Click a line to go to it.": "直接显示在页面文字中。点击一行即可跳转到该处。"
  },
  "patterns": [
   [

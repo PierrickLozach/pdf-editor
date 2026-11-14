@@ -494,11 +494,11 @@
   "Removed": "削除",
   "removed": "削除",
   "added or changed": "追加・変更",
-  "Click a line to see it on the page.": "行をクリックするとページ上で確認できます。",
   "Words are compared line by line (not pictures or layout).": "単語を行ごとに比較します（画像やレイアウトは対象外）。",
   "Changed line": "変更された行",
   "before:": "変更前：",
-  "Removed:": "削除："
+  "Removed:": "削除：",
+  "Shown in the text on the page. Click a line to go to it.": "ページの本文上に表示されます。行をクリックするとその場所へ移動します。"
  },
  "patterns": [
   [

@@ -25,17 +25,20 @@ for (const [name, engine] of [["chromium", chromium], ["firefox", firefox], ["we
     }, b64);
     await p.waitForSelector("#cmpPanel"); await p.waitForFunction(() => document.querySelectorAll("#pages .cmp-del").length >= 2, null, { timeout: 10000 }).catch(() => {});
     const r = await p.evaluate(() => ({ del: [...document.querySelectorAll("#cmpPanel .cmp-item del")].map((x) => x.textContent), ins: [...document.querySelectorAll("#cmpPanel .cmp-item ins")].map((x) => x.textContent),
-      items: document.querySelectorAll("#cmpPanel .cmp-item").length, marks: document.querySelectorAll("#pages .cmp-del").length, hl: document.querySelectorAll("#pages .cmp-hl").length,
-      markTitles: [...document.querySelectorAll("#pages .cmp-del")].map((x) => x.title) }));
+      items: document.querySelectorAll("#cmpPanel .cmp-item").length, marks: document.querySelectorAll("#pages .cmp-del").length, hl: document.querySelectorAll("#pages .cmp-ins").length,
+      markTitles: [...document.querySelectorAll("#pages .cmp-del .cmp-del-t")].map((x) => x.textContent),
+      look: (() => { const d = document.querySelector("#pages .cmp-del-t"), g = document.querySelector("#pages .cmp-ins"); if (!d || !g) return null; const cd = getComputedStyle(d), cg = getComputedStyle(g);
+        return { delLine: /line-through/.test(cd.textDecorationLine || cd.textDecoration), delRed: /^rgb\(185, 28, 28/.test(cd.color), insGreen: /22, 163, 74/.test(cg.borderBottomColor), above: d.getBoundingClientRect().bottom <= d.parentElement.getBoundingClientRect().top + 2 }; })() }));
     ok(r.items === 2, "panel: 2 changed lines (no “no longer here” for a deleted word)");
     ok(r.del.includes("design,") && r.del.includes("Harbor"), "panel: the removed words are named, crossed out: " + r.del.join(", "));
     ok(r.ins.length === 1 && r.ins[0] === "Lake", "panel: the new word is marked: " + r.ins.join(", "));
-    ok(r.marks === 2 && r.markTitles.some((x) => /design,/.test(x)), "page: a red mark where each word was removed: " + r.markTitles.join(" | "));
-    ok(r.hl === 1, "page: only the new word is highlighted");
+    ok(r.marks === 2 && r.markTitles.includes("design,") && r.markTitles.includes("Harbor"), "page: each removed word is written in the text, at its place: " + r.markTitles.join(" | "));
+    ok(r.look && r.look.delLine && r.look.delRed && r.look.above, "page: removed words in red, crossed out, just above the line (redline) " + JSON.stringify(r.look));
+    ok(r.hl === 1 && r.look && r.look.insGreen, "page: only the new word is highlighted, in green (greenline)");
     await p.click("#cmpPanel .cmp-go");
     ok(await p.waitForFunction(() => document.querySelector("#pages .cmp-line.flash"), null, { timeout: 5000 }).then(() => true, () => false), "clicking a line in the panel shows it on the page");
     await p.click("#cmpPanel .cmp-x");
-    ok(await p.evaluate(() => !document.querySelector("#cmpPanel") && !document.querySelector("#pages .cmp-del, #pages .cmp-hl")), "closing the comparison removes the marks");
+    ok(await p.evaluate(() => !document.querySelector("#cmpPanel") && !document.querySelector("#pages .cmp-del, #pages .cmp-ins")), "closing the comparison removes the marks");
     ok(!errs.length, "no script errors " + errs.slice(0, 2).join(" | "));
   } catch (x) { fails++; console.log(`  FAIL [${name}] exception: ${x.message.split("\n")[0]}`); }
   await b.close(); console.log(`  => ${name}: ${fails ? fails + " FAILED" : "ALL OK"}`); total += fails;

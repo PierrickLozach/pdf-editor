@@ -494,11 +494,11 @@
   "Removed": "Rimosso",
   "removed": "rimosso",
   "added or changed": "aggiunto o modificato",
-  "Click a line to see it on the page.": "Fai clic su una riga per vederla nella pagina.",
   "Words are compared line by line (not pictures or layout).": "Le parole sono confrontate riga per riga (non immagini né impaginazione).",
   "Changed line": "Riga modificata",
   "before:": "prima:",
-  "Removed:": "Rimosso:"
+  "Removed:": "Rimosso:",
+  "Shown in the text on the page. Click a line to go to it.": "Mostrato nel testo della pagina. Fai clic su una riga per andarci."
  },
  "patterns": [
   [
