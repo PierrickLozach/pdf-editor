@@ -3,7 +3,7 @@
 (function () {
   const tb = document.getElementById("toolbar");
   if (!tb) return;
-  const STEPS = ["fit1", "fit2", "fit3", "fit4"];
+  const STEPS = ["fit1", "fit2", "fit3", "fit4", "fit5", "fit6"];    // fit6: the zoom buttons go (⌘+ / ⌘− and pinch still zoom)      // fit5: very narrow: the name goes (it stays in the tab title), the note stays
   let busy = false;
   function fit() {
     if (busy) return;

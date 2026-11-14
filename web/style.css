@@ -23,7 +23,7 @@ body:not(.has-doc) .brand { flex: none; }        /* start screen: the name is sh
 body.has-doc .brand { flex-shrink: 0.3; }
 .brand .logo { width: 26px; height: 26px; border-radius: 6px; background: var(--accent); color: #fff; font-weight: 700;
   display: grid; place-items: center; flex: none; }
-#docName { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 3em; flex: 0 1 auto; }
+#docName { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 3em; flex: 0 1 auto; }   /* a long name is cut, never the note after it */
 .group { display: flex; align-items: center; gap: 2px; padding: 0 6px; border-left: 1px solid var(--border); }
 .group.zoom { margin-left: auto; }
 #toolbar button { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px; border: 0;
@@ -248,7 +248,7 @@ html.i18n-wait body { visibility: hidden; }
 [dir="rtl"] #toast { direction: rtl; }
 
 /* ---------- saved / not saved, recent files, size note ---------- */
-.save-state { font-size: 12px; color: var(--muted); white-space: nowrap; flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.save-state { font-size: 12px; color: var(--muted); white-space: nowrap; flex: none; }
 .save-state.dirty { color: #b45309; }
 .save-state[hidden] { display: none; }
 #recentFiles { text-align: start; margin: 0 0 22px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); }
@@ -269,8 +269,11 @@ html.i18n-wait body { visibility: hidden; }
 /* toolbar labels: hidden step by step (fit.js) until everything fits, in any language */
 #toolbar.fit1 .group:not(.tools) button:not(#btnFind) span { display: none; }
 #toolbar.fit2 button span { display: none; }
-#toolbar.fit3 .save-state { display: none; }
-#toolbar.fit4 .brand { flex: 0 1 140px; } #toolbar.fit4 #docName { min-width: 0; }
+#toolbar.fit3 #docName { min-width: 1.5em; }
+#toolbar.fit4 .brand { flex: 0 1 230px; } #toolbar.fit4 #docName { min-width: 1.5em; }
+/* with a PDF open: logo | name (cut with "…", at least 1.5em) | the whole "Saved / Not saved" note, always */
+body.has-doc .brand { display: grid; grid-auto-flow: column; grid-template-columns: auto minmax(1.5em, max-content) auto; justify-content: start; min-width: min-content; }
+body.has-doc #docName { min-width: 0; }
 #toolbar.fit4 #btnZoomLabel, #toolbar.fit4 #btnFit { display: none; }
 
 /* ---------- reduce file size ---------- */
@@ -561,3 +564,7 @@ html[dir="rtl"] .cmp-del-t { left: auto; right: -2px; }
 .lang-menu button { display: flex; align-items: center; gap: 8px; }
 .lang-menu .lm-check { width: 14px; color: var(--accent); font-weight: 700; text-align: center; flex: none; }
 .lang-menu .lm-note { margin: 6px 10px 4px; font-size: 12px; color: var(--muted); max-width: 240px; line-height: 1.35; }
+#toolbar.fit5 #docName { display: none; }
+body.has-doc #toolbar.fit5 .brand { grid-template-columns: auto auto; }
+#toolbar.fit6 .group.zoom { display: none; }
+#toolbar.fit6 .save-state { white-space: normal; max-width: 6.5em; line-height: 1.1; font-size: 11.5px; }
