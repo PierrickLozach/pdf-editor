@@ -2089,22 +2089,67 @@ export class Engine {
     let other;
     try { other = mupdf.Document.openDocument(bytes, "application/pdf"); } catch (e) { throw new EditError("This file could not be read as a PDF"); }
     if (other.needsPassword()) throw new EditError("This PDF is protected by a password");
-    // the lines of a page as words, each word with its box
+    // the lines of a page as words, each word with its box. Slanted text (a watermark, a stamp) is kept apart,
+    // one line per run; horizontal text is rebuilt into whole lines: a watermark crossing a line, or letters
+    // redrawn after one was removed, cut the PDF's own lines into pieces drawn in another order.
     const linesOf = (doc, pno) => {
-      const lines = [];
+      const runs = [];
+      let cur = null;
       try {
         doc.loadPage(pno).toStructuredText("preserve-whitespace").walk({
-          beginLine() { lines.push({ words: [], cur: null }); },
+          beginLine() { cur = { h: [], t: [] }; runs.push(cur); },
           onChar(c, o, f, sz, q) {
-            const l = lines[lines.length - 1];
-            if (/\s/.test(c)) { l.cur = null; return; }
-            const b = [Math.min(q[0], q[4]), Math.min(q[1], q[3]), Math.max(q[2], q[6]), Math.max(q[5], q[7])];
-            if (!l.cur) { l.cur = { t: "", box: b }; l.words.push(l.cur); }
-            l.cur.t += c; l.cur.box = union(l.cur.box, b);
+            if (!cur) { cur = { h: [], t: [] }; runs.push(cur); }
+            const dx = q[6] - q[4], dy = q[7] - q[5];
+            const box = [Math.min(q[0], q[4]), Math.min(q[1], q[3]), Math.max(q[2], q[6]), Math.max(q[5], q[7])];
+            (dx > 0 && Math.abs(dy) <= dx * 0.08 ? cur.h : cur.t).push({ c, box, base: o[1], size: sz || box[3] - box[1] });
           },
         });
       } catch (e) {}
-      return lines.filter((l) => l.words.length).map((l) => ({ words: l.words, text: l.words.map((w) => w.t).join(" "), box: l.words.map((w) => w.box).reduce(union) }));
+      const ink = (ch) => !/\s/.test(ch.c);
+      const toWords = (chars) => {           // spaces, or a wide gap between letters, end a word
+        const words = [];
+        let w = null, prev = null;
+        for (const ch of chars) {
+          if (!ink(ch)) { w = null; prev = null; continue; }
+          if (w && prev && ch.box[0] - prev.box[2] > Math.max(1, prev.size * 0.3)) w = null;
+          if (!w) { w = { t: "", box: ch.box }; words.push(w); }
+          w.t += ch.c; w.box = union(w.box, ch.box); prev = ch;
+        }
+        return words;
+      };
+      const out = [];
+      // horizontal pieces -> rows (same baseline) -> whole lines (pieces side by side)
+      const trim = (h) => { let a = 0, z = h.length; while (a < z && !ink(h[a])) a++; while (z > a && !ink(h[z - 1])) z--; return h.slice(a, z); };
+      const pieces = runs.map((r) => trim(r.h)).filter((h) => h.length).map((h) => {     // spaces at the ends of a piece: the gap decides
+        const k = h.filter(ink);
+        return { chars: h, base: k[0].base, x0: Math.min(...k.map((c) => c.box[0])), x1: Math.max(...k.map((c) => c.box[2])), size: Math.max(...k.map((c) => c.size)) };
+      }).sort((a, b) => a.base - b.base);
+      const rows = [];
+      for (const pc of pieces) {
+        const row = rows[rows.length - 1];
+        if (row && Math.abs(pc.base - row.base) <= Math.max(0.6, 0.3 * Math.min(pc.size, row.size))) row.items.push(pc);
+        else rows.push({ base: pc.base, size: pc.size, items: [pc] });
+      }
+      for (const row of rows) {
+        row.items.sort((a, b) => a.x0 - b.x0);
+        let line = null;
+        for (const pc of row.items) {
+          const gap = line ? pc.x0 - line.x1 : 0;
+          if (line && gap >= -1.5 && gap < 2.5 * Math.max(pc.size, line.size)) {
+            if (gap > 0.2 * pc.size) line.chars.push({ c: " " });
+            line.chars.push(...pc.chars); line.x1 = Math.max(line.x1, pc.x1); line.size = Math.max(line.size, pc.size);
+          } else { line = { chars: [...pc.chars], x0: pc.x0, x1: pc.x1, size: pc.size, key: row.base }; out.push(line); }
+        }
+      }
+      // slanted runs: one line each, where they start
+      for (const r of runs) if (r.t.some(ink)) out.push({ chars: r.t, key: Math.min(...r.t.filter(ink).map((c) => c.box[1])), x0: Math.min(...r.t.filter(ink).map((c) => c.box[0])), slanted: true });
+      out.sort((a, b) => a.key - b.key || a.x0 - b.x0);
+      return out.map((l) => {
+        // slanted letters are not side by side: only spaces split their words
+        const ws = l.slanted ? (() => { const r = []; let w = null; for (const ch of l.chars) { if (!ink(ch)) { w = null; continue; } if (!w) { w = { t: "", box: ch.box }; r.push(w); } w.t += ch.c; w.box = union(w.box, ch.box); } return r; })() : toWords(l.chars);
+        return { words: ws, text: ws.map((w) => w.t).join(" "), box: ws.map((w) => w.box).reduce(union), slanted: !!l.slanted };
+      }).filter((l) => l.words.length);
     };
     const lcs = (a, b) => {
       const L = Array.from({ length: a.length + 1 }, () => new Uint16Array(b.length + 1));

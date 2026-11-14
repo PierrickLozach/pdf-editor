@@ -87,6 +87,33 @@ const c1 = r1.changed[0];
 ok(r1.changed.length === 1 && !r1.added.length && !r1.removed.length, "one word deleted: one changed line, nothing else (" + JSON.stringify(ln.text.trim()) + ")");
 ok(c1 && c1.ops.filter((o) => o.op === "del").map((o) => o.t).join(" ") === gone && !c1.ops.some((o) => o.op === "ins"), "…the deleted word is named: " + gone);
 ok(c1 && c1.del.length === 1 && c1.del[0].x > c1.bbox[0] && c1.del[0].x < c1.bbox[2], "…and its place on the line is marked");
+// a slanted watermark across the text, then the watermark removed and one word deleted: the comparison
+// shows that word and the watermark, nothing else (the watermark cut the lines, its removal redrew letters)
+{
+  const a = mk(); a.open(invoice, "a.pdf");
+  const L = ["The purpose of this document is to provide customers with full transparency on the",
+    "artificial intelligence systems used within the forecasting service. It sets out to explain",
+    "how decisions are made, why specific results are produced and what data they are using.",
+    "Any changes after the revision date will not be reflected in this documentation and may vary",
+    "from these descriptions. More information about the forecasting services is available here.",
+    "The forecasting service uses AI to plan the number of interactions to expect in future weeks.",
+    "Each of these AI systems is explained further in the chapters below."];
+  for (const [i, t] of L.entries()) await a.addText(0, 50, 470 + i * 16, t, { size: 10 });
+  await a.watermark("NDA PROTECTED jane.doe@example.com", { opacity: 0.3 });
+  const original = a.export();
+  const b = mk(); b.open(original, "b.pdf");
+  const wm = b.pageText(0).filter((x) => !x.editable);
+  await b.removeText([{ page: 0, ids: b.similarText(0, wm[0].id).group }]);
+  const ln = b.pageText(0).find((x) => x.editable && /artificial intelligence systems/.test(x.text));
+  await b.editSpan(0, ln.id, ln.text, ln.text.replace("systems ", ""));
+  const r = b.compareWith(original).pages[0];
+  const diffs = r.changed.map((x) => x.ops.filter((o) => o.op !== "same").map((o) => o.op + ":" + o.t).join(" "));
+  ok(diffs.length === 1 && diffs[0] === "del:systems", "watermark removed + one word deleted: only that word is reported as changed: " + JSON.stringify(diffs));
+  ok(!r.added.length, "…no line wrongly reported as new: " + JSON.stringify(r.added.map((x) => x.text)));
+  ok(r.removed.length === 1 && /NDA PROTECTED/.test(r.removed[0]), "…and the watermark is reported once as removed: " + JSON.stringify(r.removed));
+  const back = a.compareWith(original).pages[0];
+  ok(!back.changed.length && !back.added.length && !back.removed.length, "a PDF with a watermark compared with itself: no difference");
+}
 ok(c.compareWith(c.export()).pages.every((p) => !p.added.length && !p.removed.length), "compare with itself: no difference");
 const two = mk(); two.open(invoice, "t.pdf"); await two.pageOp("duplicate", 0);
 const r2 = c.compareWith(two.export());
