@@ -168,7 +168,37 @@ for l in LANGS:
         if slug != "404" and not meta.get("noindex"): sitemap.append(path)
 
 # ---------------------------------------------------------------- site files
-(PUB / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {cfg['url']}/sitemap.xml\n")
+(PUB / "robots.txt").write_text(f"""# {cfg['url']}/robots.txt
+#
+# Search engines are welcome. Not indexed: the editor's engine, fonts and text-recognition
+# data (large binary files), the counter, the private pages and the developer library.
+# Content signals (contentsignals.org): search=yes, ai-train=no, use=reference, i.e. index,
+# excerpt and link, but no AI training and no reproduction: a reservation of rights under
+# Article 4 of EU Directive 2019/790.
+
+User-agent: *
+Disallow: /app/vendor/
+Disallow: /app/fonts/
+Disallow: /app/*.js$
+Disallow: /app/*.json$
+Disallow: /app/*.wasm$
+Disallow: /api/
+Disallow: /lib/
+Content-signal: search=yes, ai-train=no, use=reference
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: PerplexityBot
+Disallow: /
+
+Sitemap: {cfg['url']}/sitemap.xml
+""")
 today = datetime.date.today().isoformat()
 (PUB / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"  <url><loc>{cfg['url']}{p}</loc><lastmod>{today}</lastmod></url>\n" for p in sitemap + ["/app/"]) + "</urlset>\n")
