@@ -39,6 +39,14 @@ def seller():
             "mediator": "(désigné à l'ouverture de la boutique)", "vat": ""}
 
 PRO_VISIBLE = bool(cfg.get("pro", {}).get("visible"))
+# Ads: on once an AdSense publisher id is set in site.json (ads.client = "ca-pub-…"); the pages switch with <!-- ads:on/off -->
+ADS = cfg.get("ads", {})
+import os
+if os.environ.get("PDFE_ADS_CLIENT"): ADS = {**ADS, "client": os.environ["PDFE_ADS_CLIENT"], "consent": os.environ.get("PDFE_ADS_CONSENT", ADS.get("consent", "open-source"))}   # tests only
+ADS_ON = bool(ADS.get("client"))
+if ADS_ON and not re.fullmatch(r"ca-pub-\d{10,20}", ADS["client"]): sys.exit("site.json: ads.client must look like ca-pub-1234567890123456")
+if ADS_ON and ADS.get("consent", "open-source") not in ("open-source", "google"): sys.exit('site.json: ads.consent must be "open-source" or "google"')
+ADS_TEXT = json.loads((ROOT / "site" / "i18n" / "ads.json").read_text())
 
 def blocks(text):
     """<!-- pro:on --> … <!-- /pro:on --> is kept only while Pro is shown on the site (site.json pro.visible), pro:off the
@@ -46,7 +54,16 @@ def blocks(text):
     text = re.sub(r"[ \t]*<!-- pro:(on|off) -->\n?(.*?)[ \t]*<!-- /pro:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == PRO_VISIBLE else "", text, flags=re.S)
     on = bool(cfg.get("business", {}).get("registered"))
     text = re.sub(r"[ \t]*<!-- business:(on|off) -->\n?(.*?)[ \t]*<!-- /business:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == on else "", text, flags=re.S)
+    text = re.sub(r"[ \t]*<!-- ads:(on|off) -->\n?(.*?)[ \t]*<!-- /ads:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == ADS_ON else "", text, flags=re.S)
     return text
+
+def ads_head(l):
+    if not ADS_ON: return ""
+    if ADS.get("consent", "open-source") == "google":
+        return f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="google"></script>\n'
+    return (f'<link rel="stylesheet" href="/assets/vendor/cookieconsent/cookieconsent.css?v={ver}">\n'
+            f'<script src="/assets/vendor/cookieconsent/cookieconsent.umd.js?v={ver}" defer></script>\n'
+            f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="open-source"></script>\n')
 
 def fill(text, l):
     vals = {"name": T[l]["site_name"], "root": root_of(l), "updated": date_in(l), "url": cfg["url"], "source": cfg["source"], "host": cfg["host"],
@@ -110,7 +127,7 @@ LAYOUT = """<!doctype html>
 <link rel="stylesheet" href="/assets/site.css?v={ver}">
 <script type="module" src="/assets/site.js?v={ver}"></script>
 <script src="/assets/stats.js?v={ver}" defer></script>
-</head>
+{ads_head}</head>
 <body data-page="{page}">
 <a class="skip" href="#main">{t_skip}</a>
 <header class="site-header"><div class="wrap">
@@ -127,7 +144,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a><a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a>{ads_settings}<a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>
@@ -162,12 +179,25 @@ for l in LANGS:
                              url=cfg["url"], path=path, alternates=alternates, ver=ver, name=html.escape(T[l]["site_name"]), locale=T[l].get("locale", l),
                              page=slug, root=root_of(l), globe=GLOBE, options=options, body=fill(body, l), source=html.escape(cfg["source"]),
                              publisher=html.escape(cfg["publisher"]["name"]),
-                             sales_link=f'<a href="{root_of(l)}sales">{words["t_footer_sales"]}</a>' if PRO_VISIBLE else "", **words)
+                             sales_link=f'<a href="{root_of(l)}sales">{words["t_footer_sales"]}</a>' if PRO_VISIBLE else "",
+                             ads_head=ads_head(l), ads_settings=f'<a href="{root_of(l)}cookies" id="ccSettings">{html.escape(ADS_TEXT[l]["cookie_settings"])}</a>' if ADS_ON else "", **words)
+        if ADS_ON and slug == "index":                    # the one ad: on the home page, between the toolbox and the developers section
+            ad = (f'<aside class="ad-slot wrap" aria-label="{html.escape(ADS_TEXT[l]["ad_label"])}"><p class="ad-label">{html.escape(ADS_TEXT[l]["ad_label"])}</p>'
+                  f'<ins class="adsbygoogle" style="display:block" data-ad-client="{ADS["client"]}" data-ad-slot="{html.escape(ADS.get("slot", ""))}" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>\n')
+            i = page.find('<section class="wrap" id="developers"')
+            if i < 0: i = page.find('id="developers"'); i = page.rfind("<section", 0, i)
+            page = page[:i] + ad + page[i:]
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
         (out / f"{slug}.html").write_text(page)
         if slug != "404" and not meta.get("noindex"): sitemap.append(path)
 
 # ---------------------------------------------------------------- site files
+if ADS_ON:   # the banner's texts per language, and ads.txt (AdSense requires it at the site's root)
+    (PUB / "assets" / "consent").mkdir(parents=True, exist_ok=True)
+    for l in LANGS:
+        t = {k: v.replace("{root}", root_of(l)).replace("href='", 'href="').replace("'>", '">') for k, v in ADS_TEXT[l].items() if k[:2] in ("b_", "p_") or k in ("nec_title", "nec_desc", "ads_title", "ads_desc")}
+        (PUB / "assets" / "consent" / f"{l}.json").write_text(json.dumps(t, ensure_ascii=False))
+    (PUB / "ads.txt").write_text(f"google.com, {ADS['client'].replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n")
 (PUB / "robots.txt").write_text(f"""# {cfg['url']}/robots.txt
 #
 # Search engines are welcome. Not indexed: the editor's engine, fonts and text-recognition
@@ -219,6 +249,9 @@ common = ("  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-w
           "  Strict-Transport-Security: max-age=63072000; includeSubDomains\n"
           "  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), interest-cohort=(), local-fonts=(self)\n"
           "  Cross-Origin-Opener-Policy: same-origin\n  Cross-Origin-Resource-Policy: same-origin\n  X-Permitted-Cross-Domain-Policies: none\n")
+if ADS_ON:   # Google's ads come from many changing hosts: scripts and frames over https only, inline styles for the ad itself
+    SITE_CSP = ("default-src 'self'; script-src 'self' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; "
+                "connect-src 'self' https:; frame-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
 rules = [f"/*\n  Content-Security-Policy: {SITE_CSP}\n{common}"]
 rules.append(f"/app/*\n  ! Content-Security-Policy\n  Content-Security-Policy: {APP_CSP}\n")
 rules.append("/app/vendor/*\n  Cache-Control: public, max-age=31536000, immutable\n")

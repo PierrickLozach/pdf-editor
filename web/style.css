@@ -568,3 +568,11 @@ html[dir="rtl"] .cmp-del-t { left: auto; right: -2px; }
 body.has-doc #toolbar.fit5 .brand { grid-template-columns: auto auto; }
 #toolbar.fit6 .group.zoom { display: none; }
 #toolbar.fit6 .save-state { white-space: normal; max-width: 6.5em; line-height: 1.1; font-size: 11.5px; }
+
+/* close the open PDF: a round button at the top right of the document, under the zoom controls */
+#btnClose.doc-close { position: absolute; top: 10px; inset-inline-end: 22px; z-index: 30; width: 32px; height: 32px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer;
+  background: var(--panel); color: var(--fg); border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+#btnClose.doc-close svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
+#btnClose.doc-close:hover { background: var(--hover); }
+body:not(.has-doc) #btnClose.doc-close { display: none; }

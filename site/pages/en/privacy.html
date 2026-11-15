@@ -1,16 +1,21 @@
 <!--
 title: Privacy – {{name}}
-description: {{name}} never sees your documents and collects nothing that identifies you: only anonymous visit totals.
+description: How {{name}} handles your data: your documents never leave your device.
 -->
 <main id="main" class="prose wrap narrow">
   <h1>Privacy</h1>
   <p class="updated">Last updated: {{updated}}</p>
+  <!-- ads:off -->
   <!-- pro:off -->
   <p><b>In short:</b> we do not collect, store or share any personal data. There are no accounts, no cookies and no ads, and no analytics company is involved. We only count visits anonymously, in daily totals, to know how much the site is used.</p>
   <!-- /pro:off -->
   <!-- pro:on -->
   <p><b>In short:</b> to use the editor, we do not collect, store or share any personal data. There are no accounts, no cookies and no ads, and no analytics company is involved. We only count visits anonymously, in daily totals. If you buy or activate a Pro licence, a few data are processed to manage it: see “Pro licences” below.</p>
   <!-- /pro:on -->
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p><b>In short:</b> your documents never leave your device and, to use the editor, we hold no data that identifies you: we only count visits anonymously, in daily totals. To cover the site's costs, the home page shows one ad from Google; it is loaded only if you accept advertising cookies, and Google then receives data about your visit (see “Advertising” below). The editor never shows ads.</p>
+  <!-- /ads:on -->
   <h2>Your documents</h2>
   <p>The editor runs entirely in your web browser. PDF files you open are read, edited and saved on your device; they are never sent to us or to anyone else.</p>
   <h2>What your browser keeps</h2>
@@ -27,8 +32,16 @@ description: {{name}} never sees your documents and collects nothing that identi
   <p><b>Activating.</b> When you enter a key, the site records this computer's random identifier (made by your browser, it says nothing about you) and the kind of browser (for example “Chrome · Mac”), so that a licence works on one computer at a time. They are deleted when you release the computer or when the licence ends. Your browser keeps the key and a signed proof of the licence, renewed every few days.</p>
   <p>Order data may be transferred to the United States (Lemon Squeezy, Cloudflare), under the safeguards of the GDPR (standard contractual clauses or the EU–US framework).</p>
   <!-- /pro:on -->
+  <!-- ads:on -->
+  <h2>Advertising</h2>
+  <p>To cover the site's costs, the home page shows one ad served by Google AdSense (Google Ireland Limited). It is loaded only if you accept advertising cookies in the banner shown on your first visit; if you refuse, nothing from Google is loaded. The editor never shows ads, and your documents are never sent to Google or to anyone else.</p>
+  <p>When the ad is loaded, Google receives your IP address, information about your browser and the page you are reading, and may store cookies to show, measure and personalise ads. Google is responsible for that data, which may be transferred to the United States under the EU–US Data Privacy Framework; see <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites that use its services</a>. The legal basis is your consent, which you can withdraw at any time with “Cookie settings” at the bottom of every page.</p>
+  <!-- /ads:on -->
   <h2>Hosting</h2>
   <p>The site is hosted by Cloudflare, Inc., which processes technical data (such as IP addresses) to deliver the pages and protect them against attacks, under its own privacy policy. We do not receive or keep these records.</p>
   <h2>Your rights</h2>
   <p>As we hold no data about you (the statistics are anonymous totals), there is nothing for us to give you, correct or delete. For any question, write to <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. You can also contact the CNIL (www.cnil.fr) or the data protection authority of your country.</p>
+  <!-- ads:on -->
+  <p>For the data Google collects through the ad, you can manage your ad settings at <a href="https://myadcenter.google.com">myadcenter.google.com</a> or contact Google directly.</p>
+  <!-- /ads:on -->
 </main>

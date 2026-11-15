@@ -38,5 +38,10 @@
   },
   "pro": {
     "visible": false
+  },
+  "ads": {
+    "client": "",
+    "slot": "",
+    "consent": "open-source"
   }
 }

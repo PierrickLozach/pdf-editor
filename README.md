@@ -175,14 +175,68 @@ dashboard. Free licences (codes `PDFE-…`) and discount codes for specific peop
 
 ---
 
-## Launch (free)
+## Ads (Google AdSense)
 
-Pro is hidden (`site/site.json`: `"pro": {"visible": false}`): the site and the editor show nothing of Pro, OCR has
-no page limit, there is no terms of sale page. Before posting:
+One ad, on the home page only, to cover the site's costs. The editor never shows ads and never loads anything
+from Google. Until `ads.client` is set in `site/site.json`, there is no ad, no banner and the pages keep their
+"no cookies, no tracking" wording; once it is set, the build switches every page in the 12 languages (privacy,
+cookies, home page) to the wording that describes the ad, adds the consent banner, the "Cookie settings" footer
+link and `ads.txt`, and opens the site pages' security policy to Google's ad servers (the editor keeps its own).
 
-1. **Domain** (recommended before advertising, see step 6 below), and a real contact address in `publisher.email`.
-2. **Genesys**: a written OK for the side project, and the project on a personal computer.
-3. **Post** — one site per day, answer the comments. Hacker News text:
+```json
+"ads": { "client": "ca-pub-1234567890123456", "slot": "1234567890", "consent": "open-source" }
+```
+
+**Steps**
+
+1. **AdSense account**: <https://adsense.google.com>, with your personal Google account (not Genesys). Add the site
+   `quicktou.ch`. Google asks for your name, postal address and, before the first payment, tax details.
+2. **Verify the site with the ads.txt method** (Sites › your site › "ads.txt snippet"). Put your publisher id
+   in `ads.client`, deploy, then click Verify: the build serves `https://quicktou.ch/ads.txt`. Do not paste
+   Google's `<script>` into the pages — the site loads it itself, and only after consent.
+3. **Wait for Google's review**: a few days to a few weeks. It can be refused for "low-value content"; a site with
+   little text is a common reason. The landing page, FAQ and legal pages help.
+4. **Create one ad unit**: Ads › By ad unit › Display ads, responsive. Copy its `data-ad-slot` into `ads.slot`.
+5. **Choose the consent banner** (`ads.consent`):
+   - `"open-source"` (default): the vendored [cookieconsent](https://github.com/orestbida/cookieconsent) banner
+     (MIT). Nothing from Google is requested before the visitor clicks Accept; Refuse is as visible as Accept.
+     **Limit:** since January 2024 Google requires a *Google-certified* consent banner (IAB TCF) to serve ads to
+     visitors in the EEA, the UK and Switzerland. This banner is not certified, so Google will show few or no ads
+     to European visitors.
+   - `"google"`: Google's own free certified message (AdSense › Privacy & messaging › European regulations ›
+     Create message). Ads are then served in Europe. Google's script is loaded on the home page to show the
+     message, before the visitor chooses; that is how certified banners work. "Cookie settings" in the footer
+     reopens Google's message.
+6. **Deploy**: `cd site && npm run deploy`. Check the home page in a private window: the banner, Refuse,
+   Accept, the ad box labelled "Advertisement · it covers this site's costs".
+7. **Payments**: Google pays once the balance reaches about €70. Advertising income is taxable; regular income
+   means registering the activity (see "Remaining steps before selling Pro").
+
+Test without a real account: `cd tests/pw && node ads.pw.mjs all` (builds with a test id, stubs Google, checks
+that nothing loads before consent, that withdrawing works and that the editor is untouched, then rebuilds the
+site as configured).
+
+## Launch: announcements
+
+Before posting anything:
+
+1. **Domain active** and a real contact address in `publisher.email` (the pages still show contact@example.com).
+2. **Genesys**: a written OK for the side project, and the project on a personal computer. Your name is on it.
+3. **Read each site's rules the day you post**: they change, and several communities remove self-promotion.
+4. **One site per day**, so you can answer every comment in the first hours. Have the statistics page open.
+5. **Say who you are**: "I built this". Never ask for upvotes, never post from several accounts.
+
+The ads line is the same everywhere: one ad on the home page, shown only if you accept cookies, to cover the
+costs; the editor has no ads and files never leave the device. If ads are not switched on yet when you post,
+remove that sentence.
+
+### Day 0 — Hacker News (Show HN)
+
+- Where: <https://news.ycombinator.com/submit>. An account with a little history helps; a brand-new account's
+  Show HN is more likely to be flagged.
+- When: Tuesday to Thursday, 14:00–16:00 Paris time (morning in the US).
+- How: title + URL `https://quicktou.ch`, then post the text below **as the first comment** right away.
+- Rules: <https://news.ycombinator.com/showhn.html> (it must be something people can try now, without sign-up).
 
 Title: `Show HN: A PDF editor that runs in the browser and edits text in its original font`
 
@@ -191,12 +245,106 @@ Title: `Show HN: A PDF editor that runs in the browser and edits text in its ori
 >
 > Editing text removes the original glyphs and writes the new text with the PDF's own embedded font when it
 > has the letters, otherwise the closest match. It also does find & replace, redaction, OCR, split/merge,
-> signatures and compression, plus a JavaScript library for developers.
+> signatures, compression, Markdown/EPUB export, plus a JavaScript library for developers.
 >
 > Limits: text is edited line by line (no paragraph reflow), and Word-to-PDF isn't supported. Free, no account,
-> AGPL, in 12 languages. Feedback welcome, especially PDFs that break it.
+> AGPL, in 12 languages. There is one ad on the home page, only if you accept cookies, just to cover the costs;
+> the editor itself has no ads. Feedback welcome, especially PDFs that break it.
 
-Watch the statistics page: visits, PDFs opened, which tools are used, where visitors come from.
+Expect: "how is this different from Sejda / Stirling-PDF?" (free, in the browser, nothing installed, no upload,
+no usage limit, open source), "why ads on a privacy tool?" (only on the home page, only after consent, editor
+untouched, it covers the domain), MuPDF licensing (AGPL, source published).
+
+### Day 1 — Reddit r/SideProject
+
+- Where: <https://www.reddit.com/r/SideProject/submit>. Text post with the link; add a GIF of a text edit.
+
+Title: `I built a free PDF editor that changes existing text in its original font, without uploading your file`
+
+> Most free PDF editors either upload your file or paste a white box over the old text. This one runs entirely
+> in your browser (MuPDF in WebAssembly): it removes the original text and rewrites it with the PDF's own font.
+> Also: find & replace, redaction, OCR, split/merge, sign, compress, Markdown/EPUB export. No account, 12
+> languages, open source (AGPL). One ad on the home page, only if you accept cookies, covers the costs; the
+> editor has none. https://quicktou.ch — I'd love PDFs that break it.
+
+### Day 1 — Reddit r/opensource
+
+- Where: <https://www.reddit.com/r/opensource/submit>. Lead with the code.
+
+Title: `Open-source (AGPL) in-browser PDF editor built on MuPDF/WebAssembly`
+
+> Source: https://github.com/PierrickLozach/pdf-editor — live: https://quicktou.ch
+> Text edits keep the PDF's embedded font (it reads the PDF's own glyph tables), everything runs client-side,
+> and there's a JS library (`npm install github:PierrickLozach/pdf-editor`). Feedback on the code welcome.
+> (The home page has one consented ad to cover the costs; the editor has none.)
+
+### Day 2 — Journal du Hacker (French)
+
+- Where: <https://www.journalduhacker.net> — submit a link (account required, often by invitation).
+
+Titre : `Un éditeur PDF libre qui tourne dans le navigateur et modifie le texte dans sa police d'origine`
+
+> Ouvrez un PDF, cliquez sur un texte, tapez : l'ancien texte est retiré et le nouveau écrit avec la police du PDF.
+> Tout se passe dans le navigateur (MuPDF en WebAssembly), aucun fichier n'est envoyé. Libre (AGPL), sans
+> compte, en 12 langues. Une seule publicité, sur la page d'accueil et seulement si vous acceptez les cookies,
+> sert à couvrir les frais ; l'éditeur n'en a aucune.
+
+### Day 2 — LinuxFr.org (French, "journal")
+
+- Where: <https://linuxfr.org> › Écrire un journal (account required). A journal is a personal post; keep the tone
+  factual, mention the licence and the code first.
+
+Titre : `Un éditeur PDF libre (AGPL) dans le navigateur`
+
+> Bonjour,
+>
+> J'avais besoin de corriger des dates et des montants dans des PDF sans payer Acrobat ni envoyer mes documents
+> à un service en ligne. J'ai donc écrit un éditeur qui tourne entièrement dans le navigateur, basé sur MuPDF
+> compilé en WebAssembly : https://quicktou.ch (code : https://github.com/PierrickLozach/pdf-editor, AGPL).
+>
+> Ce qu'il fait : modifier le texte existant dans la police d'origine du PDF, rechercher-remplacer, caviarder,
+> OCR (tesseract.js), découper, fusionner, signer, compresser, exporter en Markdown ou EPUB. Les fichiers ne
+> quittent jamais la machine. Limites : le texte se modifie ligne par ligne, pas de conversion Word vers PDF.
+>
+> Transparence : la page d'accueil affiche une seule publicité, uniquement si vous acceptez les cookies, pour
+> couvrir les frais ; l'éditeur n'en a aucune. Les retours sont bienvenus, surtout les PDF qui le mettent en échec.
+
+### Day 3 — Product Hunt
+
+- Where: <https://www.producthunt.com/posts/new>. Prepare beforehand: logo (240×240), 3 screenshots
+  (start screen, a text edit, the Tools menu), a 30-second video, and launch at 00:01 Pacific time (09:01 Paris).
+- Name: `quicktou.ch` · Tagline (60 characters max): `Edit PDF text in its original font, right in your browser`
+- Description (260 characters max):
+
+> Click any text in a PDF and change it: the editor rewrites it in the PDF's own font. Redact, OCR, sign, split,
+> compress, export to Markdown or EPUB. Everything runs in your browser — your files are never uploaded. Free,
+> open source, 12 languages.
+
+- First comment (maker): the Hacker News text above, shortened, ending with "one consented ad on the home page
+  covers the costs; the editor has none".
+
+### Day 4 — Reddit r/privacy and r/webdev
+
+- **r/privacy** (<https://www.reddit.com/r/privacy>): self-promotion is often removed; read the rules, and if
+  allowed, post the privacy angle only: "a PDF editor that never uploads your file", how to check it (open the
+  browser's network tab while editing), the ad disclosed in the first lines.
+- **r/webdev** (<https://www.reddit.com/r/webdev>): self-promotion only on **Showoff Saturday**. Technical angle:
+  MuPDF in a Web Worker, glyph-level font matching, strict Content Security Policy, tests in three browser engines.
+
+### Week 2 — long-term listings and write-ups
+
+- **AlternativeTo** (<https://alternativeto.net>): add the app as an alternative to Adobe Acrobat, Smallpdf,
+  Sejda, iLovePDF. Licence: open source; platforms: online, any browser; tags: pdf-editor, privacy, ocr, redact.
+  Description: the Product Hunt description above.
+- **DEV.to / Indie Hackers**: one article, "How I edit PDF text in its original font in the browser" (reading the
+  PDF's ToUnicode and widths tables, falling back font by font, testing on real PDFs). Link to the site at the end.
+- **LinkedIn** (personal account): only after Genesys's OK. A short post with the GIF and the link.
+
+### After each post
+
+- Answer comments for the first 3–4 hours; fix reported bugs quickly and say so in the thread.
+- Note in the statistics page which source brought visitors (`?utm_source=hn`, `?utm_source=reddit`… in links you
+  share outside the main post).
 
 ## Showing Pro later
 

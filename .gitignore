@@ -47,3 +47,4 @@ __pycache__/
 !/tests/pw/langmenu.pw.mjs
 !/tests/pw/longname.pw.mjs
 tools/finish_domain.sh
+!/tests/pw/ads.pw.mjs
