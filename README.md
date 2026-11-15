@@ -189,7 +189,7 @@ link and `ads.txt`, and opens the site pages' security policy to Google's ad ser
 
 **Steps**
 
-1. **AdSense account**: <https://adsense.google.com>, with your personal Google account (not Genesys). Add the site
+1. **AdSense account**: <https://adsense.google.com>, with your personal Google account. Add the site
    `quicktou.ch`. Google asks for your name, postal address and, before the first payment, tax details.
 2. **Verify the site with the ads.txt method** (Sites › your site › "ads.txt snippet"). Put your publisher id
    in `ads.client`, deploy, then click Verify: the build serves `https://quicktou.ch/ads.txt`. Do not paste
@@ -221,7 +221,7 @@ site as configured).
 Before posting anything:
 
 1. **Domain active** and a real contact address in `publisher.email` (the pages still show contact@example.com).
-2. **Genesys**: a written OK for the side project, and the project on a personal computer. Your name is on it.
+2. **Your employer's agreement**, if your contract requires one for side projects.
 3. **Read each site's rules the day you post**: they change, and several communities remove self-promotion.
 4. **One site per day**, so you can answer every comment in the first hours. Have the statistics page open.
 5. **Say who you are**: "I built this". Never ask for upvotes, never post from several accounts.
@@ -338,7 +338,7 @@ Titre : `Un éditeur PDF libre (AGPL) dans le navigateur`
   Description: the Product Hunt description above.
 - **DEV.to / Indie Hackers**: one article, "How I edit PDF text in its original font in the browser" (reading the
   PDF's ToUnicode and widths tables, falling back font by font, testing on real PDFs). Link to the site at the end.
-- **LinkedIn** (personal account): only after Genesys's OK. A short post with the GIF and the link.
+- **LinkedIn** (personal account): a short post with the GIF and the link.
 
 ### After each post
 
