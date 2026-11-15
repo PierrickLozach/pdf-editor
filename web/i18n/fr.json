@@ -499,7 +499,10 @@
   "before:": "avant :",
   "Removed:": "Supprimé :",
   "Shown in the text on the page. Click a line to go to it.": "Affiché dans le texte de la page. Cliquez sur une ligne pour y aller.",
-  "Your PDF stays open. The undo history starts again.": "Votre PDF reste ouvert. L'historique d'annulation repart de zéro."
+  "Your PDF stays open. The undo history starts again.": "Votre PDF reste ouvert. L'historique d'annulation repart de zéro.",
+  "headings, lists, bold and italic; the pictures as files": "titres, listes, gras et italique ; les images en fichiers",
+  "Ebook": "Livre numérique",
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "à lire dans Apple Books, Kobo ou Calibre ; chapitres d'après les titres"
  },
  "patterns": [
   [

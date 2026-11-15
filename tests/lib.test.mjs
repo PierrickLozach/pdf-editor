@@ -17,7 +17,7 @@ ok(/^1\.\d+\.\d+$/.test(VERSION), "VERSION " + VERSION);
 // open: Buffer, ArrayBuffer, a file path
 let pdf = await PDF.open(fx("demo-invoice.pdf"));
 ok(pdf.pageCount === 1 && Math.round(pdf.pages[0].width) === 595, "open a Buffer: 1 page, A4");
-ok((await PDF.open(path.join(here, "fixtures", "demo-invoice.pdf"))).pageCount === 1, "open a file path (Node.js)");
+ok((await PDF.open(FX)).pageCount === 1, "open a file path (Node.js)");
 ok(await throws(() => PDF.open(Buffer.from("hello")), /could not be read as a PDF/), "not a PDF: PDFError with a clear message");
 // reading
 ok(/NORTHWIND STUDIO/.test(await pdf.text()) && /Total due/.test(await pdf.text(0)), "text() of the document and of a page");
@@ -114,5 +114,19 @@ else {
   const res = await scan.ocr({ languages: ["eng"] });
   ok(res.pages === 1 && (await scan.find("Harbour Street")).length === 1, "ocr(): the scan is searchable");
 }
+// ---- Markdown and EPUB (added 11/2026)
+{
+  const d = await PDF.open(path.join(here, "fixtures", "demo-invoice.pdf"));
+  const md = await d.toMarkdown();
+  ok(/^# INVOICE/m.test(md.text) && /\*\*Blue Harbor Consulting\*\*/.test(md.text) && md.title === "INVOICE", "toMarkdown: heading from the biggest text, bold kept, title");
+  const epub = await d.toEpub({ language: "en", author: "Test" });
+  const txt = new TextDecoder().decode(epub);
+  ok(epub[0] === 0x50 && epub[1] === 0x4b && txt.slice(30, 38) === "mimetype" && txt.includes("application/epub+zip"), "toEpub: a zip whose first entry is the uncompressed mimetype");
+  ok(/<dc:title>INVOICE<\/dc:title>/.test(txt) && /<dc:creator>Test<\/dc:creator>/.test(txt) && /epub:type="toc"/.test(txt), "toEpub: title, author and a table of contents");
+  const ph = await PDF.open(path.join(here, "fixtures", "photo.pdf"));
+  const m2 = await ph.toMarkdown();
+  ok(m2.files.length === 1 && /\.jpg$/.test(m2.files[0].name) && m2.files[0].bytes.length < 1_500_000 && /!\[\]\(image-1\.jpg\)/.test(m2.text), `toMarkdown: a photo comes out as a JPEG file (${m2.files[0] && m2.files[0].bytes.length} bytes) linked from the text`);
+}
+
 console.log(fails ? `${fails} FAILED` : "ALL OK");
 process.exit(fails ? 1 : 0);

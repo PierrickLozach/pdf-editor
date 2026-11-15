@@ -499,7 +499,10 @@
   "before:": "eerst:",
   "Removed:": "Verwijderd:",
   "Shown in the text on the page. Click a line to go to it.": "Getoond in de tekst op de pagina. Klik op een regel om erheen te gaan.",
-  "Your PDF stays open. The undo history starts again.": "Je pdf blijft open. De geschiedenis voor ongedaan maken begint opnieuw."
+  "Your PDF stays open. The undo history starts again.": "Je pdf blijft open. De geschiedenis voor ongedaan maken begint opnieuw.",
+  "headings, lists, bold and italic; the pictures as files": "koppen, lijsten, vet en cursief; de afbeeldingen als bestanden",
+  "Ebook": "E-boek",
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "om te lezen in Apple Books, Kobo of Calibre; hoofdstukken uit de koppen"
  },
  "patterns": [
   [

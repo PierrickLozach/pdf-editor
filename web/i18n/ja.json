@@ -499,7 +499,10 @@
   "before:": "変更前：",
   "Removed:": "削除：",
   "Shown in the text on the page. Click a line to go to it.": "ページの本文上に表示されます。行をクリックするとその場所へ移動します。",
-  "Your PDF stays open. The undo history starts again.": "PDF は開いたままです。元に戻す履歴はリセットされます。"
+  "Your PDF stays open. The undo history starts again.": "PDF は開いたままです。元に戻す履歴はリセットされます。",
+  "headings, lists, bold and italic; the pictures as files": "見出し・リスト・太字・斜体。画像はファイルとして保存",
+  "Ebook": "電子書籍",
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "Apple Books、Kobo、Calibre で読めます。見出しから章を作成"
  },
  "patterns": [
   [

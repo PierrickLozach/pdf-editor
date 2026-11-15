@@ -374,12 +374,13 @@ export function makeZip(files) {
   for (const f of files) {
     const name = enc.encode(f.name), data = f.bytes instanceof Uint8Array ? f.bytes : enc.encode(String(f.bytes)), c = crc(data);
     const h = new DataView(new ArrayBuffer(30));
-    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true);
+    const flags = f.store ? 0 : 0x0800;                                   // EPUB: the mimetype entry must carry no flags
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, flags, true); h.setUint16(8, 0, true);
     h.setUint32(10, stamp, true); h.setUint32(14, c, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true);
     h.setUint16(26, name.length, true); h.setUint16(28, 0, true);
     local.push(new Uint8Array(h.buffer), name, data);
     const ch = new DataView(new ArrayBuffer(46));
-    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, flags, true); ch.setUint16(10, 0, true);
     ch.setUint32(12, stamp, true); ch.setUint32(16, c, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true);
     ch.setUint16(28, name.length, true); ch.setUint32(42, off, true);
     central.push(new Uint8Array(ch.buffer), name);
@@ -2454,6 +2455,176 @@ export class Engine {
       { name: "_rels/.rels", bytes: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>` },
       { name: "word/document.xml", bytes: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W}><w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="567" w:footer="567" w:gutter="0"/></w:sectPr></w:body></w:document>` },
     ]);
+  }
+
+  /** The document as structure, for Markdown, EPUB and Word: in reading order, per page, a list of
+   *  {kind: "heading", level 1-3, text} | {kind: "para", runs:[{text, bold, italic}]} | {kind: "list", items:[runs]}
+   *  | {kind: "image", name, bytes (PNG), w, h}. Headings: the lines whose size stands out from the body size
+   *  (the most common size by amount of text). Lists: lines starting with a bullet or "1." style numbers.
+   *  Repeated header/footer lines (the same text at the same place on most pages) and page numbers are dropped. */
+  structure(opts = {}) {
+    const s = this._need(), n = s.doc.countPages();
+    const pages = [];
+    for (let p = 0; p < n; p++) {
+      const page = s.doc.loadPage(p);
+      const j = JSON.parse(page.toStructuredText("preserve-whitespace,preserve-images").asJSON());
+      const H = page.getBounds()[3] - page.getBounds()[1];
+      pages.push({ blocks: j.blocks || [], H, page });
+    }
+    // body size: the size covering the most characters
+    const sizeCount = new Map();
+    for (const pg of pages) for (const b of pg.blocks) if (b.type === "text") for (const l of b.lines || []) {
+      const sz = Math.round((l.font && l.font.size) || 0); if (!sz) continue;
+      sizeCount.set(sz, (sizeCount.get(sz) || 0) + String(l.text || "").length);
+    }
+    const body = [...sizeCount.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || 11;
+    // heading levels: distinct sizes clearly above the body, largest = level 1 (at most 3)
+    const big = [...sizeCount.keys()].filter((z) => z >= body * 1.15 && z - body >= 1.5).sort((a, b) => b - a).slice(0, 3);
+    const levelOf = (sz) => { const i = big.indexOf(sz); return i < 0 ? 0 : i + 1; };
+    // repeated lines: same normalised text on ≥ 60 % of the pages (≥ 3 pages) and near the top or bottom
+    const seen = new Map();
+    if (n >= 3) for (const pg of pages) {
+      const here = new Set();
+      for (const b of pg.blocks) if (b.type === "text") for (const l of b.lines || []) {
+        const y = l.bbox.y / pg.H;
+        if (y > 0.12 && y < 0.88) continue;
+        const k = String(l.text || "").replace(/\d+/g, "#").replace(/\s+/g, " ").trim();
+        if (k.length > 1) here.add(k);
+      }
+      for (const k of here) seen.set(k, (seen.get(k) || 0) + 1);
+    }
+    const repeated = new Set([...seen.entries()].filter(([, c]) => c >= Math.max(3, Math.ceil(n * 0.6))).map(([k]) => k));
+    const isPageNo = (t) => /^\s*(page\s*)?\d{1,4}(\s*(\/|of|sur|de|von)\s*\d{1,4})?\s*$/i.test(t);
+    const bullet = /^\s*([•·▪■◦●\-–—*]|\d{1,3}[.)]|[a-z][.)]|[ivx]{1,4}[.)])\s+/i;
+    const out = [];
+    let imgNo = 0;
+    for (const [pi, pg] of pages.entries()) {
+      const items = [];
+      const blocks = pg.blocks.slice().sort((a, b) => (a.bbox.y - b.bbox.y) || (a.bbox.x - b.bbox.x));
+      for (const b of blocks) {
+        if (b.type === "image") {
+          if (!opts.images) continue;
+          if (b.bbox.w < 24 || b.bbox.h < 24) continue;                     // rules, bullets, hairlines
+          try {
+            const pix = pg.page.toPixmap(mupdf.Matrix.scale(2, 2), mupdf.ColorSpace.DeviceRGB, false, true);
+            const r = [b.bbox.x * 2, b.bbox.y * 2, (b.bbox.x + b.bbox.w) * 2, (b.bbox.y + b.bbox.h) * 2].map(Math.round);
+            const pb = pg.page.getBounds(), W = Math.round((pb[2] - pb[0]) * 2);
+            const sub = new mupdf.Pixmap(mupdf.ColorSpace.DeviceRGB, [0, 0, r[2] - r[0], r[3] - r[1]], false);
+            const src = pix.getPixels(), dst = sub.getPixels(), ws = r[2] - r[0];
+            for (let y = 0; y < r[3] - r[1]; y++) dst.set(src.subarray(((r[1] + y) * W + r[0]) * 3, ((r[1] + y) * W + r[2]) * 3), y * ws * 3);
+            imgNo++;
+            // photographs (many colours) as JPEG, drawings and screenshots (few colours) as PNG
+            const px = sub.getPixels(), colours = new Set(); for (let i = 0; i < px.length && colours.size <= 64; i += 3 * 97) colours.add((px[i] << 16) | (px[i + 1] << 8) | px[i + 2]);
+            const jpeg = colours.size > 64 && (r[2] - r[0]) * (r[3] - r[1]) > 40000;
+            items.push({ kind: "image", name: `image-${imgNo}.${jpeg ? "jpg" : "png"}`, mime: jpeg ? "image/jpeg" : "image/png", bytes: jpeg ? sub.asJPEG(85, false) : sub.asPNG(), w: r[2] - r[0], h: r[3] - r[1] });
+            sub.destroy(); pix.destroy();
+          } catch (e) { /* an image that cannot be drawn is left out */ }
+          continue;
+        }
+        if (b.type !== "text" || !b.lines) continue;
+        // merge the block's lines into runs; a size jump or a bullet starts a new paragraph
+        let cur = null;
+        const flush = () => { if (cur && (cur.kind === "list" ? cur.items.length : cur.runs.some((r) => r.text.trim()))) items.push(cur); cur = null; };
+        let prevLine = null;
+        for (const l of b.lines) {
+          let t = String(l.text || "").replace(/\s+$/, "");
+          if (!t.trim()) continue;
+          if (prevLine && l.bbox && prevLine.bbox && l.bbox.y - (prevLine.bbox.y + prevLine.bbox.h) > Math.max(prevLine.bbox.h, l.bbox.h) * 0.8 && !(cur && cur.kind === "list" && bullet.test(t))) flush();   // a blank gap: new paragraph
+          prevLine = l;
+          const key = t.replace(/\d+/g, "#").replace(/\s+/g, " ").trim();
+          if (repeated.has(key) || isPageNo(t)) continue;
+          const f = l.font || {}, sz = Math.round(f.size || body);
+          const bold = f.weight === "bold" || /bold|black|heavy/i.test(f.name || ""), italic = f.style === "italic" || /italic|oblique/i.test(f.name || "");
+          const lvl = levelOf(sz);
+          if (lvl) { flush(); items.push({ kind: "heading", level: lvl, text: t.trim() }); continue; }
+          const m = bullet.exec(t);
+          if (m) {
+            const ordered = /\d|[a-z]\)|[ivx]/i.test(m[1]);
+            if (cur && cur.kind === "list" && cur.ordered === ordered) cur.items.push([{ text: t.slice(m[0].length), bold, italic }]);
+            else { flush(); cur = { kind: "list", items: [[{ text: t.slice(m[0].length), bold, italic }]], ordered }; }
+            continue;
+          }
+          if (cur && cur.kind === "list") {                                   // continuation of the last item
+            const last = cur.items[cur.items.length - 1];
+            last.push({ text: (/[-\u00ad]$/.test(last[last.length - 1].text) ? "" : " ") + t.trim(), bold, italic }); continue;
+          }
+          if (!cur) cur = { kind: "para", runs: [] };
+          const prev = cur.runs[cur.runs.length - 1];
+          if (prev && /[-\u00ad]$/.test(prev.text)) prev.text = prev.text.replace(/[-\u00ad]$/, "");
+          else if (prev) t = " " + t.trim();
+          if (prev && prev.bold === bold && prev.italic === italic) prev.text += t; else cur.runs.push({ text: t, bold, italic });
+        }
+        flush();
+      }
+      out.push({ page: pi, items });
+    }
+    const title = (out.flatMap((p) => p.items).find((i) => i.kind === "heading" && i.level === 1) || {}).text
+      || (s.doc.getMetaData("info:Title") || "").trim() || s.name.replace(/\.pdf$/i, "");
+    return { title, pages: out, bodySize: body };
+  }
+
+  /** Markdown (.md) of the whole document, plus its images as files: {text, files:[{name, bytes}]}. */
+  toMarkdown() {
+    const st = this.structure({ images: true });
+    const esc = (t) => t.replace(/([\\`*_{}\[\]#+!|<>])/g, "\\$1");
+    const runs = (rs) => rs.map((r) => { const t = esc(r.text); return !t.trim() ? t : r.bold && r.italic ? ` ***${t.trim()}*** ` : r.bold ? ` **${t.trim()}** ` : r.italic ? ` *${t.trim()}* ` : t; }).join("").replace(/\s+/g, " ").replace(/ ([,.;:!?)])/g, "$1").trim();
+    const lines = [], files = [];
+    for (const pg of st.pages) {
+      for (const it of pg.items) {
+        if (it.kind === "heading") lines.push("#".repeat(it.level) + " " + it.text, "");
+        else if (it.kind === "para") lines.push(runs(it.runs), "");
+        else if (it.kind === "list") { it.items.forEach((rs, i) => lines.push((it.ordered ? `${i + 1}. ` : "- ") + runs(rs))); lines.push(""); }
+        else if (it.kind === "image") { files.push({ name: it.name, bytes: it.bytes }); lines.push(`![](${it.name})`, ""); }
+      }
+    }
+    while (lines.length && lines[lines.length - 1] === "") lines.pop();
+    return { text: lines.join("\n") + "\n", files, title: st.title };
+  }
+
+  /** An EPUB 3 ebook: one chapter per level-1 heading (or per page group when there is none), a table of
+   *  contents, the images; opens in Apple Books, Kobo, Calibre (Kindle after conversion). */
+  toEpub(opts = {}) {
+    const st = this.structure({ images: true });
+    const esc = (t) => String(t).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\ufffe\uffff]/g, "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const runs = (rs) => rs.map((r) => { const t = esc(r.text); return r.bold && r.italic ? `<strong><em>${t}</em></strong>` : r.bold ? `<strong>${t}</strong>` : r.italic ? `<em>${t}</em>` : t; }).join("");
+    const title = esc(opts.title || st.title || "Document"), author = esc(opts.author || this.s.doc.getMetaData("info:Author") || "");
+    const lang = opts.language || "en";
+    // chapters: split at level-1 headings; without any, one chapter per 20 pages
+    const chapters = []; let cur = null, images = [];
+    const start = (name) => { cur = { name, parts: [] }; chapters.push(cur); };
+    const all = st.pages.flatMap((p) => p.items);
+    const h1s = all.filter((i) => i.kind === "heading" && i.level === 1).length;
+    st.pages.forEach((pg, pi) => {
+      if (!h1s && pi % 20 === 0) start(h1s ? "" : `${pi + 1}`);
+      for (const it of pg.items) {
+        if (it.kind === "heading" && it.level === 1 && h1s) start(it.text);
+        if (!cur) start(title);
+        if (it.kind === "heading") cur.parts.push(`<h${it.level}>${esc(it.text)}</h${it.level}>`);
+        else if (it.kind === "para") cur.parts.push(`<p>${runs(it.runs)}</p>`);
+        else if (it.kind === "list") cur.parts.push(`<${it.ordered ? "ol" : "ul"}>${it.items.map((rs) => `<li>${runs(rs)}</li>`).join("")}</${it.ordered ? "ol" : "ul"}>`);
+        else if (it.kind === "image") { images.push(it); cur.parts.push(`<figure><img src="images/${it.name}" alt=""/></figure>`); }
+      }
+    });
+    if (!chapters.length) start(title);
+    const uid = "urn:uuid:" + [...crypto.getRandomValues(new Uint8Array(16))].map((b, i) => b.toString(16).padStart(2, "0") + ([3, 5, 7, 9].includes(i) ? "-" : "")).join("");
+    const xhtml = (t, body) => `<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="${lang}" lang="${lang}"><head><title>${esc(t)}</title><link rel="stylesheet" type="text/css" href="style.css"/></head><body>${body}</body></html>`;
+    const files = [
+      { name: "mimetype", bytes: "application/epub+zip", store: true },
+      { name: "META-INF/container.xml", bytes: `<?xml version="1.0" encoding="UTF-8"?><container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>` },
+      { name: "OEBPS/style.css", bytes: `body{font-family:serif;line-height:1.45;margin:1em}h1,h2,h3{font-family:sans-serif;line-height:1.2}figure{margin:1em 0;text-align:center}img{max-width:100%;height:auto}` },
+    ];
+    const items = [], spine = [], navLis = [];
+    chapters.forEach((c, i) => {
+      const id = `ch${i + 1}`, f = `${id}.xhtml`;
+      files.push({ name: `OEBPS/${f}`, bytes: xhtml(c.name || title, c.parts.join("\n")) });
+      items.push(`<item id="${id}" href="${f}" media-type="application/xhtml+xml"/>`); spine.push(`<itemref idref="${id}"/>`);
+      navLis.push(`<li><a href="${f}">${esc(c.name || `${i + 1}`)}</a></li>`);
+    });
+    images.forEach((im, i) => { files.push({ name: `OEBPS/images/${im.name}`, bytes: im.bytes }); items.push(`<item id="img${i + 1}" href="images/${im.name}" media-type="${im.mime || "image/png"}"/>`); });
+    files.push({ name: "OEBPS/nav.xhtml", bytes: xhtml(title, `<nav epub:type="toc" id="toc"><h1>${title}</h1><ol>${navLis.join("")}</ol></nav>`) });
+    const date = new Date().toISOString().replace(/\.\d+Z$/, "Z");
+    files.push({ name: "OEBPS/content.opf", bytes: `<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="${lang}"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:identifier id="uid">${uid}</dc:identifier><dc:title>${title}</dc:title><dc:language>${lang}</dc:language>${author ? `<dc:creator>${author}</dc:creator>` : ""}<meta property="dcterms:modified">${date}</meta></metadata><manifest><item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/><item id="css" href="style.css" media-type="text/css"/>${items.join("")}</manifest><spine>${spine.join("")}</spine></package>` });
+    return makeZip(files);
   }
 
   /** A copy that needs a password to open (AES-256). The open document is not changed. */

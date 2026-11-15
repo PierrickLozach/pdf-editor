@@ -499,7 +499,10 @@
   "before:": "לפני:",
   "Removed:": "הוסר:",
   "Shown in the text on the page. Click a line to go to it.": "מוצג בטקסט שבדף. לחיצה על שורה מעבירה אליה.",
-  "Your PDF stays open. The undo history starts again.": "קובץ ה-PDF נשאר פתוח. היסטוריית הביטול מתחילה מחדש."
+  "Your PDF stays open. The undo history starts again.": "קובץ ה-PDF נשאר פתוח. היסטוריית הביטול מתחילה מחדש.",
+  "headings, lists, bold and italic; the pictures as files": "כותרות, רשימות, מודגש ונטוי; התמונות כקבצים",
+  "Ebook": "ספר דיגיטלי",
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "לקריאה ב-Apple Books, Kobo או Calibre; פרקים לפי הכותרות"
  },
  "patterns": [
   [
