@@ -65,6 +65,8 @@ console.log(await scan.text());</code></pre>
   <h3>Convert, compress, protect</h3>
   <pre><code>const fromPhotos = await PDF.fromImages([photo1, photo2]);       // JPEG, PNG… one page each
 const word = await pdf.toWord();                                  // .docx with the text
+const md = await pdf.toMarkdown();                                // {text, files, title}
+const epub = await pdf.toEpub({ language: "en" });                // EPUB 3 bytes
 const jpegs = await pdf.toImages({ format: "jpg", dpi: 150 });    // [{page, bytes}]
 const { before, after } = await pdf.compress("smaller");          // re-encodes heavy photos and scans
 const locked = await pdf.protect("a long password");              // AES-256 copy</code></pre>
@@ -99,7 +101,7 @@ const locked = await pdf.protect("a long password");              // AES-256 cop
       <tr><td><code>undo()</code>, <code>redo()</code>, <code>canUndo</code>, <code>canRedo</code></td><td>History of changes.</td></tr>
       <tr><td><code>save()</code></td><td>The PDF → <code>Uint8Array</code>.</td></tr>
       <tr><td><code>protect(password, {allowPrint, allowCopy})</code></td><td>An encrypted copy (AES-256).</td></tr>
-      <tr><td><code>toImages({format, dpi, pages})</code>, <code>toWord()</code>, <code>render(page, scale)</code></td><td>Pictures, a .docx, or RGBA pixels for display.</td></tr>
+      <tr><td><code>toImages({format, dpi, pages})</code>, <code>toWord()</code>, <code>toMarkdown()</code>, <code>toEpub({title, author, language})</code>, <code>render(page, scale)</code></td><td>Pictures, a .docx, Markdown (<code>{text, files, title}</code>: headings from the text sizes, lists, bold/italic, pictures as files), an EPUB 3 ebook (chapters from the level-1 headings, table of contents), or RGBA pixels for display.</td></tr>
       <tr><td><code>zip([{name, bytes}])</code></td><td>A .zip of several files (e.g. the result of <code>split</code>).</td></tr>
     </tbody>
   </table>

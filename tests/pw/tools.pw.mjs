@@ -137,6 +137,14 @@ async function run(name, engine) {
     await page.check('#convertDlg [value="txt"]');
     f = await download(() => page.click("#convertDlg .td-ok"));
     ok(/NORTHWIND STUDIO/.test(f.bytes.toString()), "PDF → text");
+    await tool("convert"); await page.waitForSelector("#convertDlg");
+    await page.check('#convertDlg [value="md"]');
+    f = await download(() => page.click("#convertDlg .td-ok"));
+    ok(f.name === "demo-invoice.md" && /^# INVOICE/m.test(f.bytes.toString()) && /\*\*Blue Harbor Consulting\*\*/.test(f.bytes.toString()), "PDF → Markdown (heading, bold)");
+    await tool("convert"); await page.waitForSelector("#convertDlg");
+    await page.check('#convertDlg [value="epub"]');
+    f = await download(() => page.click("#convertDlg .td-ok"));
+    ok(f.name === "demo-invoice.epub" && f.bytes[0] === 0x50 && f.bytes.slice(30, 38).toString() === "mimetype" && unzip(f.bytes).includes("OEBPS/content.opf") && /<dc:title>INVOICE/.test(f.bytes.toString("latin1")), "PDF → EPUB (mimetype first, table of contents, title)");
 
     // ---------------------------------------------------------------- protect
     await tool("protect"); await page.waitForSelector("#protectDlg");

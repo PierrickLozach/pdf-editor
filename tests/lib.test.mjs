@@ -17,7 +17,7 @@ ok(/^1\.\d+\.\d+$/.test(VERSION), "VERSION " + VERSION);
 // open: Buffer, ArrayBuffer, a file path
 let pdf = await PDF.open(fx("demo-invoice.pdf"));
 ok(pdf.pageCount === 1 && Math.round(pdf.pages[0].width) === 595, "open a Buffer: 1 page, A4");
-ok((await PDF.open(FX)).pageCount === 1, "open a file path (Node.js)");
+ok((await PDF.open(path.join(here, "fixtures", "demo-invoice.pdf"))).pageCount === 1, "open a file path (Node.js)");
 ok(await throws(() => PDF.open(Buffer.from("hello")), /could not be read as a PDF/), "not a PDF: PDFError with a clear message");
 // reading
 ok(/NORTHWIND STUDIO/.test(await pdf.text()) && /Total due/.test(await pdf.text(0)), "text() of the document and of a page");

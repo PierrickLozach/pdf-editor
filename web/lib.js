@@ -269,6 +269,10 @@ export class PDF {
   async toImages(options = {}) { return wrap(() => this._e.toImages(options.format === "jpg" || options.format === "jpeg" ? "jpg" : "png", options.dpi || 150, options.pages || null)); }
   /** A Word document (.docx) with the text (paragraphs, size, bold, italic; not the layout). */
   async toWord() { return this._e.toDocx(); }
+  /** Markdown: {text, files:[{name, bytes}], title}: headings from the text sizes, lists, bold/italic, the pictures as files. */
+  async toMarkdown() { return this._e.toMarkdown(); }
+  /** An EPUB 3 ebook (Uint8Array): chapters from the level-1 headings, a table of contents, the pictures. opts: {title, author, language}. */
+  async toEpub(opts = {}) { return this._e.toEpub(opts); }
   /** One page as a picture for display: {width, height, pixels: RGBA Uint8ClampedArray}. */
   async render(page, scale = 1) { const r = await wrap(() => this._e.render(page, scale)); return { width: r.w, height: r.h, pixels: r.pixels }; }
 }
