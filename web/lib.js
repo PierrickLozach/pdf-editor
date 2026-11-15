@@ -1,9 +1,9 @@
-/* PDF Editor library — the engine of https://pdf-editor.pierrick35.workers.dev as a JavaScript API.
+/* PDF Editor library — the engine of https://quicktou.ch as a JavaScript API.
  * Licence: GNU AGPL v3, or a commercial licence negotiated with the author (see LICENSING.md).
  * Runs where it is called — a web page or Node.js —
  * so documents are never sent to a server.
  *
- *   import { PDF } from "https://pdf-editor.pierrick35.workers.dev/lib/v1/pdf-editor.js";   // browsers
+ *   import { PDF } from "https://quicktou.ch/lib/v1/pdf-editor.js";   // browsers
  *   import { PDF } from "./web/lib.js";                                                      // Node.js (repository)
  *
  *   const pdf = await PDF.open(bytes);              // Uint8Array | ArrayBuffer | Blob | Node Buffer

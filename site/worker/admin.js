@@ -134,7 +134,10 @@ export async function handleAdmin(request, env) {
   if (request.method === "POST") {
     // only this page may post: same origin, or (browsers that hide it) the browser's own same-origin flag
     const origin = request.headers.get("Origin"), site = request.headers.get("Sec-Fetch-Site");
-    const sameSite = origin === url.origin || ((!origin || origin === "null") && site === "same-origin");
+    const OURS = new Set(["quicktou.ch", "www.quicktou.ch", "pdf-editor.pierrick35.workers.dev"]);
+    const host = (o) => { try { return new URL(o).hostname; } catch (e) { return ""; } };
+    const sameSite = (origin && (host(origin) === url.hostname || OURS.has(host(origin)) || (env.LOCAL_DEV === "1" && /^(localhost|127\.0\.0\.1)$/.test(host(origin)))))
+      || ((!origin || origin === "null") && site === "same-origin");
     if (!sameSite) return new Response("Forbidden", { status: 403 });
     f = await request.formData();
     key = f.get("key") || "";

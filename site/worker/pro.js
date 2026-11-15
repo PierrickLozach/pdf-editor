@@ -165,7 +165,9 @@ async function release(env, b) {
 export async function handlePro(request, env, path) {
   const url = new URL(request.url);
   const origin = request.headers.get("Origin");
-  if (origin && origin !== url.origin) return new Response(null, { status: 403 });         // this site's pages only
+  const OURS = new Set(["quicktou.ch", "www.quicktou.ch", "pdf-editor.pierrick35.workers.dev"]);
+  const ours = (o) => { try { const h = new URL(o).hostname; return h === url.hostname || OURS.has(h) || (env.LOCAL_DEV === "1" && (h === "localhost" || h === "127.0.0.1")); } catch (e) { return false; } };
+  if (origin && !ours(origin)) return new Response(null, { status: 403 });                 // this site's pages only
   if (path === "/api/pro/config" && request.method === "GET") {
     const r = json(await publicConfig(env));
     r.headers.set("Cache-Control", "public, max-age=60");

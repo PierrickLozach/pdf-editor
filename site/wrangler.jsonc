@@ -9,17 +9,21 @@
   // no public address for each past version: only the current site is online
   "preview_urls": false,
   "workers_dev": true,
+  "routes": [
+    { "pattern": "quicktou.ch", "custom_domain": true },
+    { "pattern": "www.quicktou.ch", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
     // only the statistics run code; every page and file is served directly
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": true
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "pdf-editor-stats", "database_id": "8d17301c-9ffe-4701-906e-1ed4cac2159b", "migrations_dir": "worker" }
   ],
-  "vars": { "LANGS": "en,fr,es,pt,de,nl,it,pl,ar,he,zh,ja" },
+  "vars": { "LANGS": "en,fr,es,pt,de,nl,it,pl,ar,he,zh,ja", "REDIRECT_OLD": "0" },
   "observability": { "enabled": false }
 }

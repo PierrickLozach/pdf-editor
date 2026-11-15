@@ -46,3 +46,4 @@ __pycache__/
 !/tests/pw/compare.pw.mjs
 !/tests/pw/langmenu.pw.mjs
 !/tests/pw/longname.pw.mjs
+tools/finish_domain.sh

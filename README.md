@@ -5,7 +5,7 @@ white-out, add images and signatures, redact, OCR, split, merge, convert, compre
 PDFs never leave the device. It is free. **Pro** features (batch processing, smart redaction, unlimited OCR,
 comparing PDFs, forms) are built and tested but **hidden** for the free launch: see [Showing Pro](#showing-pro-later).
 
-Live: https://pdf-editor.pierrick35.workers.dev · Source: https://github.com/PierrickLozach/pdf-editor
+Live: https://quicktou.ch · Source: https://github.com/PierrickLozach/pdf-editor
 
 - [What is where](#what-is-where)
 - [Set up and deploy from scratch](#set-up-and-deploy-from-scratch)
@@ -287,10 +287,10 @@ fonts under open licences (Liberation, Carlito, Caladea, DejaVu, Dancing Script 
 
 ## For developers
 
-The engine is also a JavaScript library, for web pages and Node.js — documentation: https://pdf-editor.pierrick35.workers.dev/developers
+The engine is also a JavaScript library, for web pages and Node.js — documentation: https://quicktou.ch/developers
 
 ```js
-import { PDF } from "https://pdf-editor.pierrick35.workers.dev/lib/v1/pdf-editor.js";   // or: npm install github:PierrickLozach/pdf-editor
+import { PDF } from "https://quicktou.ch/lib/v1/pdf-editor.js";   // or: npm install github:PierrickLozach/pdf-editor
 const pdf = await PDF.open(bytes);
 await pdf.redact({ text: "Jane Doe" });
 const out = await pdf.save();

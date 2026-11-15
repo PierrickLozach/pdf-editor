@@ -16,7 +16,7 @@ If you want to use it **in a commercial product or service without the AGPL's ob
 inside software whose source code you do not publish, or as part of a paid service — a commercial licence is
 available. Its terms (scope, duration, price, support) are **negotiated case by case** with the author:
 
-**Pierrick Lozach** — see the contact address on the website's legal notice: https://pdf-editor.pierrick35.workers.dev/legal
+**Pierrick Lozach** — see the contact address on the website's legal notice: https://quicktou.ch/legal
 
 ### Third-party components
 

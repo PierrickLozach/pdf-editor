@@ -75,8 +75,11 @@ function browser(ua) {
 async function hit(request, env) {
   const url = new URL(request.url);
   // only from this site's own pages, never cross-site; honour the browser's privacy signals
+  // the local server rewrites the request's host to the site's domain: compare by hostname, and accept
+  // localhost/127.0.0.1 only there (the deployed site never sees those)
   const origin = request.headers.get("Origin");
-  if (origin && origin !== url.origin) return new Response(null, { status: 403 });
+  const sameSite = (o) => { try { const h = new URL(o).hostname; return h === url.hostname || h === "quicktou.ch" || h === "www.quicktou.ch" || h === "pdf-editor.pierrick35.workers.dev" || ((h === "localhost" || h === "127.0.0.1") && url.hostname !== "quicktou.ch" ? true : (h === "localhost" || h === "127.0.0.1") && env.LOCAL_DEV === "1"); } catch (e) { return false; } };
+  if (origin && !sameSite(origin)) return new Response(null, { status: 403 });
   if (request.headers.get("DNT") === "1" || request.headers.get("Sec-GPC") === "1") return new Response(null, { status: 204 });
   const ua = request.headers.get("User-Agent") || "";
   if (/bot|crawl|spider|slurp|preview|headless|lighthouse|pingdom|monitor/i.test(ua) || /PDFE-Test/.test(ua)) return new Response(null, { status: 204 });
@@ -197,9 +200,17 @@ ${table("Size of the PDFs opened", f.sizes)}
 </div><p class="small">JSON: <code>/api/stats.json?days=${f.days}</code> with the same key.</p></main></body></html>`;
 }
 
+const CANONICAL_HOST = "quicktou.ch";
+// the old workers.dev address and www: one permanent redirect to the same page on the domain
+const OLD_HOSTS = new Set(["pdf-editor.pierrick35.workers.dev", "www." + CANONICAL_HOST]);
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (env.REDIRECT_OLD === "1" && OLD_HOSTS.has(url.hostname) && !url.pathname.startsWith("/api/")) {   // switched on once the domain is active
+      url.hostname = CANONICAL_HOST;
+      return Response.redirect(url.href, 301);
+    }
     if (url.pathname.startsWith("/api/pro/")) {
       try { return await handlePro(request, env, url.pathname); }
       catch (e) { return new Response(JSON.stringify({ error: "The licence could not be checked just now. Try again in a moment." }), { status: 503, headers: { "Content-Type": "application/json" } }); }
