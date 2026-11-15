@@ -14,6 +14,7 @@
 
 import { handlePro } from "./pro.js";
 import { handleAdmin } from "./admin.js";
+import { same, hasSession, signIn, signOut } from "./session.js";
 
 const KINDS = {
   visit: 1, page: 1, source: 1, country: 1, lang: 1, device: 1, browser: 1, event: 1, tool: 1, size: 1,
@@ -129,15 +130,12 @@ async function hit(request, env) {
 }
 
 /* ---------------------------------------------------------------- the statistics */
-function authorised(request, env) {
+// the key, given once in ?key= (then a session cookie) or, for scripts, as "Authorization: Bearer <key>"
+function keyGiven(request, env) {
   const key = env.STATS_KEY;
   if (!key || key.length < 16) return false;
   const url = new URL(request.url);
-  const given = url.searchParams.get("key") || (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
-  if (given.length !== key.length) return false;
-  let diff = 0;
-  for (let i = 0; i < key.length; i++) diff |= key.charCodeAt(i) ^ given.charCodeAt(i);   // constant time
-  return diff === 0;
+  return same(key, url.searchParams.get("key") || (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, ""));
 }
 async function figures(env, days) {
   days = Math.max(1, Math.min(Number(days) || 30, 400));
@@ -169,7 +167,7 @@ function page(f, key) {
   const table = (title, rows, label = (v) => v) => `<section><h2>${esc(title)}</h2>${rows.length ? `<table>${rows.map(([v, n]) => `<tr><td>${esc(label(v))}</td><td>${n.toLocaleString("en")}</td></tr>`).join("")}</table>` : `<p class="none">Nothing yet.</p>`}</section>`;
   const sum = (k) => f.series.reduce((a, s) => a + s[k], 0);
   const today = f.series[f.series.length - 1];
-  const opts = [7, 30, 90, 365].map((d) => `<a href="?key=${encodeURIComponent(key)}&days=${d}"${d === f.days ? ' aria-current="page"' : ""}>${d} days</a>`).join("");
+  const opts = [7, 30, 90, 365].map((d) => `<a href="?days=${d}"${d === f.days ? ' aria-current="page"' : ""}>${d} days</a>`).join("");
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>Statistics – PDF Editor</title><style>
 :root{color-scheme:light dark;--bg:#fff;--fg:#1d2129;--muted:#6b7280;--line:#e3e6ea;--card:#f7f8fa;--accent:#e5322d}
@@ -197,7 +195,7 @@ ${table("Languages", f.languages)}
 ${table("Devices", f.devices)}
 ${table("Browsers", f.browsers)}
 ${table("Size of the PDFs opened", f.sizes)}
-</div><p class="small">JSON: <code>/api/stats.json?days=${f.days}</code> with the same key.</p></main></body></html>`;
+</div><p class="small">JSON: <code>/api/stats.json?days=${f.days}</code> (signed in, or with <code>Authorization: Bearer &lt;key&gt;</code>). <a href="?signout">Sign out</a></p></main></body></html>`;
 }
 
 const CANONICAL_HOST = "quicktou.ch";
@@ -225,10 +223,16 @@ export default {
         return await hit(request, env);
       }
       if (url.pathname === "/api/stats" || url.pathname === "/api/stats.json") {
-        if (!authorised(request, env)) return new Response("Not found", { status: 404 });   // looks absent without the key
+        const notFound = () => env.ASSETS.fetch(new Request(new URL("/__not_found__", request.url)));   // the site's ordinary 404 page, as for any missing address   // looks absent
+        const bearer = /^Bearer\s/i.test(request.headers.get("Authorization") || "");
+        if (url.searchParams.has("key")) {
+          if (!keyGiven(request, env)) return notFound();
+          if (url.pathname === "/api/stats") return signIn(request, "stats", env.STATS_KEY);   // once: then the address has no key
+        } else if (bearer ? !keyGiven(request, env) : !(await hasSession(request, "stats", env.STATS_KEY))) return notFound();
+        if (url.searchParams.has("signout")) return signOut(request, "stats");
         const f = await figures(env, url.searchParams.get("days"));
-        if (url.pathname.endsWith(".json")) return json(f);
-        return new Response(page(f, url.searchParams.get("key") || ""), { headers: {
+        if (url.pathname.endsWith(".json")) { const r = json(f); r.headers.set("Cache-Control", "no-store"); return r; }
+        return new Response(page(f), { headers: {
           "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex",
           "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
           "Referrer-Policy": "no-referrer" } });

@@ -57,10 +57,11 @@ sent = await run({ locale: "en-US" }, async (p) => {
 });
 ok(sent.length === 1, "after opting out, nothing more is sent (only the privacy page itself had been counted): " + sent.length);
 // 5. the statistics page
-const r1 = await fetch(B + "/api/stats"), r2 = await fetch(B + "/api/stats?key=" + "x".repeat(KEY.length)), r3 = await fetch(B + "/api/stats?key=" + encodeURIComponent(KEY));
-ok(r1.status === 404 && r2.status === 404 && r3.status === 200, `stats page: 404 without the key or with a wrong one, 200 with it (${r1.status}/${r2.status}/${r3.status})`);
-const h = await r3.text();
-ok(/visits/.test(h) && /noindex/.test(r3.headers.get("x-robots-tag") || ""), "the stats page shows the figures and is hidden from search engines");
+const r1 = await fetch(B + "/api/stats"), r2 = await fetch(B + "/api/stats?key=" + "x".repeat(KEY.length)), r3 = await fetch(B + "/api/stats?key=" + encodeURIComponent(KEY), { redirect: "manual" });
+const cookie = (r3.headers.get("set-cookie") || "").split(";")[0];
+ok(r1.status === 404 && r2.status === 404 && r3.status === 303 && !/key=/.test(r3.headers.get("location") || "") && cookie, `stats page: 404 without the key or with a wrong one; with it, a sign-in redirect to the address without the key (${r1.status}/${r2.status}/${r3.status})`);
+const r4 = await fetch(B + "/api/stats", { headers: { Cookie: cookie } }), h = await r4.text();
+ok(r4.status === 200 && /visits/.test(h) && /noindex/.test(r4.headers.get("x-robots-tag") || "") && !h.includes(KEY), "signed in: the page shows the figures, is hidden from search engines and never contains the key");
 await b.close();
 console.log(fails ? `${fails} FAILED` : "ALL OK");
 process.exit(fails ? 1 : 0);

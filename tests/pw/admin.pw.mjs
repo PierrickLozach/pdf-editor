@@ -44,11 +44,12 @@ for (const [name, engine] of [["chromium", chromium], ["firefox", firefox], ["we
     await Promise.all([p.waitForNavigation(), p.click('form:has(input[value="shop"]) button.primary')]);
     ok(/Saved/.test(await p.textContent("body")), "settings put back as they were");
     // another website submitting the form: refused
-    if (local) {
+    if (local && name !== "webkit") {   // Playwright's WebKit crashes on this cross-site navigation; the refusal is server-side (also in private.pw.mjs)
       const e = await (await b.newContext()).newPage();
       await e.goto("http://127.0.0.1:8797/"); await e.waitForLoadState("load").catch(() => {});
       await new Promise((r) => setTimeout(r, 1500));
-      ok(/Forbidden/.test(await e.textContent("body").catch(() => "")), "a form on another website is refused (Forbidden)");
+      const eb = await e.textContent("body").catch(() => "");
+      ok(!/Saved|Shop and prices/.test(eb) && /not found|404|doesn.t exist|introuvable/i.test(eb), "a form on another website is refused, with the ordinary “not found” page");
       const c2 = await (await fetch(B + "/api/pro/config")).json();
       ok(!c2.plans.some((x) => x.id === "yearly" && x.price === 1), "…and changed nothing");
     }

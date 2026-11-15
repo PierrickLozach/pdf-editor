@@ -1,17 +1,17 @@
-// PDF Editor - the publisher's admin page: /api/admin?key=ADMIN_KEY (404 without the key).
+// PDF Editor - the publisher's admin page. Open /api/admin?key=ADMIN_KEY once: the key is checked, a 12-hour session
+// cookie is set and the address becomes /api/admin without the key. Without a valid key or session: the same
+// "Not found" as any missing page.
 // Prices, plans, the lifetime offer, opening the shop, free licences, discount codes. Plain HTML forms,
 // no script; every change is a POST from this page (other origins are refused).
 import { getSettings, saveSettings, PLANS, newGrantCode } from "./pro.js";
+import { same, hasSession, signIn, signOut } from "./session.js";
 
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const PLAN_NAME = { monthly: "Monthly", yearly: "Yearly", lifetime: "Lifetime (at least 2 years)" };
 
 function keyOk(env, given) {
   const key = env.ADMIN_KEY || "";
-  if (key.length < 24 || !given || given.length !== key.length) return false;
-  let d = 0;
-  for (let i = 0; i < key.length; i++) d |= key.charCodeAt(i) ^ given.charCodeAt(i);
-  return d === 0;
+  return key.length >= 24 && same(key, given);
 }
 /** Is the publisher's business registered (site/site.json, published with the site)? Selling needs it. */
 async function business(env, request) {
@@ -76,7 +76,7 @@ async function act(env, request, f, s, biz) {
 }
 
 function page(s, biz, key, msg, grants) {
-  const k = `<input type="hidden" name="key" value="${esc(key)}">`;
+  const k = "";                                         // the key is never written into the page: the session cookie signs the forms
   const plansRows = PLANS.map((p) => `<tr><th>${esc(PLAN_NAME[p])}</th>
     <td><input name="${p}_price" value="${esc(s.plans[p].price)}" inputmode="decimal" size="6"> ${esc(s.currency)}${p === "monthly" ? " / month" : p === "yearly" ? " / year" : " once"}</td>
     <td><input name="${p}_checkout" value="${esc(s.plans[p].checkout)}" placeholder="https://yourstore.lemonsqueezy.com/buy/…" size="44"></td>
@@ -96,7 +96,7 @@ input,select,button{font:inherit;padding:5px 8px;border-radius:7px;border:1px so
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff}.msg{padding:10px 14px;border-radius:10px;background:#fef3c7;color:#713f12;font-weight:600}
 .small{color:var(--muted);font-size:13px}.off td{opacity:.5}label{margin-right:16px}.warn{color:#b45309}
 </style></head><body><main>
-<h1>PDF Editor Pro – admin</h1><p class="small">Only you can open this page (keep its link private). Prices and switches take effect on the site within a minute.</p>
+<h1>PDF Editor Pro – admin</h1><p class="small"><a href="?signout">Sign out</a> · the session ends by itself after 12 hours.</p><p class="small">Only you can open this page (keep its link private). Prices and switches take effect on the site within a minute.</p>
 ${msg ? `<p class="msg">${esc(msg)}</p>` : ""}
 <section><h2>Shop and prices</h2><form method="post">${k}<input type="hidden" name="do" value="shop">
 <p><label><input type="checkbox" name="sales"${s.sales ? " checked" : ""}${biz.registered ? "" : " disabled"}> <b>Shop open</b> (Buy buttons on the site)</label>
@@ -130,7 +130,7 @@ export async function handleAdmin(request, env) {
   const url = new URL(request.url);
   const headers = { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex", "Referrer-Policy": "same-origin",
     "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'" };
-  let key = url.searchParams.get("key") || "", msg = "", f = null;
+  const notFound = () => env.ASSETS.fetch(new Request(new URL("/__not_found__", request.url)));   // the site's ordinary 404 page, as for any missing address
   if (request.method === "POST") {
     // only this page may post: same origin, or (browsers that hide it) the browser's own same-origin flag
     const origin = request.headers.get("Origin"), site = request.headers.get("Sec-Fetch-Site");
@@ -138,11 +138,13 @@ export async function handleAdmin(request, env) {
     const host = (o) => { try { return new URL(o).hostname; } catch (e) { return ""; } };
     const sameSite = (origin && (host(origin) === url.hostname || OURS.has(host(origin)) || (env.LOCAL_DEV === "1" && /^(localhost|127\.0\.0\.1)$/.test(host(origin)))))
       || ((!origin || origin === "null") && site === "same-origin");
-    if (!sameSite) return new Response("Forbidden", { status: 403 });
-    f = await request.formData();
-    key = f.get("key") || "";
+    if (!sameSite) return notFound();                       // refused, and indistinguishable from a missing page
   }
-  if (!keyOk(env, key)) return new Response("Not found", { status: 404 });
+  if (request.method === "GET" && url.searchParams.has("key")) return keyOk(env, url.searchParams.get("key")) ? signIn(request, "admin", env.ADMIN_KEY) : notFound();
+  if (!(await hasSession(request, "admin", env.ADMIN_KEY))) return notFound();
+  if (url.searchParams.has("signout")) return signOut(request, "admin");
+  let key = "", msg = "", f = null;
+  if (request.method === "POST") f = await request.formData();
   const s = await getSettings(env), biz = await business(env, request);
   if (f) msg = await act(env, request, f, s, biz);
   const grants = (await env.DB.prepare(`SELECT g.*, (SELECT COUNT(*) FROM grant_devices d WHERE d.code = g.code) AS n FROM grants g ORDER BY created DESC LIMIT 200`).all()).results;

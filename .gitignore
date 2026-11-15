@@ -48,3 +48,4 @@ __pycache__/
 !/tests/pw/longname.pw.mjs
 tools/finish_domain.sh
 !/tests/pw/ads.pw.mjs
+!/tests/pw/private.pw.mjs

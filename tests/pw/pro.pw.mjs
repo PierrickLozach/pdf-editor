@@ -11,9 +11,11 @@ const ADMIN = env.match(/^ADMIN_KEY=(.+)$/m)[1].trim();
 const which = process.argv[2] || "chromium";
 const pdf = new URL("../fixtures/demo-invoice.pdf", import.meta.url).pathname;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const admin = async (fields) => {
-  const body = new URLSearchParams({ key: ADMIN, ...fields });
-  const r = await fetch(B + "/api/admin", { method: "POST", headers: { Origin: B, "Content-Type": "application/x-www-form-urlencoded" }, body });
+let adminCookie = "";
+const admin = async (fields) => {           // signs in once with the key (session cookie), then posts the form like the page does
+  if (!adminCookie) adminCookie = ((await fetch(B + "/api/admin?key=" + encodeURIComponent(ADMIN), { redirect: "manual" })).headers.get("set-cookie") || "").split(";")[0];
+  const body = new URLSearchParams(fields);
+  const r = await fetch(B + "/api/admin", { method: "POST", headers: { Origin: B, Cookie: adminCookie, "Content-Type": "application/x-www-form-urlencoded" }, body });
   return r.text();
 };
 const grant = async (note) => { const h = await admin({ do: "grant", note, plan: "yearly", months: "12", devices: "1" }); return (h.match(/PDFE-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}/) || [])[0]; };
