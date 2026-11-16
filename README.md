@@ -178,43 +178,46 @@ dashboard. Free licences (codes `PDFE-…`) and discount codes for specific peop
 ## Ads (Google AdSense)
 
 One ad, on the home page only, to cover the site's costs. The editor never shows ads and never loads anything
-from Google. Until `ads.client` is set in `site/site.json`, there is no ad, no banner and the pages keep their
-"no cookies, no tracking" wording; once it is set, the build switches every page in the 12 languages (privacy,
-cookies, home page) to the wording that describes the ad, adds the consent banner, the "Cookie settings" footer
-link and `ads.txt`, and opens the site pages' security policy to Google's ad servers (the editor keeps its own).
+from Google. It is switched on in two steps, in `site/site.json`:
 
 ```json
-"ads": { "client": "ca-pub-1234567890123456", "slot": "1234567890", "consent": "open-source" }
+"ads": { "client": "ca-pub-8712505359897234", "slot": "", "consent": "google" }
 ```
+
+- **Publisher id only** (`client` set, `slot` empty) — the current state: the site serves `ads.txt` and a
+  `<meta name="google-adsense-account">` tag so AdSense can verify the site. Nothing is loaded from Google, no
+  cookie, no banner, and the pages keep their "no cookies, no tracking" wording.
+- **Publisher id and ad slot**: the ad is served. The build switches every page in the 12 languages (privacy,
+  cookies, home page) to the wording that describes the ad and the chosen consent banner, adds the "Cookie
+  settings" footer link, and opens the site pages' security policy to Google's ad servers (the editor keeps its own).
+
+**Consent banner** (`ads.consent`):
+- `"google"` (chosen): Google's own free consent message, certified under the IAB TCF — required since January 2024
+  for Google to serve ads in the EEA, the UK and Switzerland. Google's script loads on the home page (only there)
+  to show it, before the visitor chooses; visitors who refuse may still see a limited ad without cookies. "Cookie
+  settings" in the footer reopens Google's message (from other pages it leads to the home page, where it lives).
+- `"open-source"`: the vendored [cookieconsent](https://github.com/orestbida/cookieconsent) banner (MIT). Nothing from
+  Google is requested before the visitor clicks Accept, but Google serves few or no ads in Europe with it.
 
 **Steps**
 
-1. **AdSense account**: <https://adsense.google.com>, with your personal Google account. Add the site
-   `quicktou.ch`. Google asks for your name, postal address and, before the first payment, tax details.
-2. **Verify the site with the ads.txt method** (Sites › your site › "ads.txt snippet"). Put your publisher id
-   in `ads.client`, deploy, then click Verify: the build serves `https://quicktou.ch/ads.txt`. Do not paste
-   Google's `<script>` into the pages — the site loads it itself, and only after consent.
-3. **Wait for Google's review**: a few days to a few weeks. It can be refused for "low-value content"; a site with
-   little text is a common reason. The landing page, FAQ and legal pages help.
-4. **Create one ad unit**: Ads › By ad unit › Display ads, responsive. Copy its `data-ad-slot` into `ads.slot`.
-5. **Choose the consent banner** (`ads.consent`):
-   - `"open-source"` (default): the vendored [cookieconsent](https://github.com/orestbida/cookieconsent) banner
-     (MIT). Nothing from Google is requested before the visitor clicks Accept; Refuse is as visible as Accept.
-     **Limit:** since January 2024 Google requires a *Google-certified* consent banner (IAB TCF) to serve ads to
-     visitors in the EEA, the UK and Switzerland. This banner is not certified, so Google will show few or no ads
-     to European visitors.
-   - `"google"`: Google's own free certified message (AdSense › Privacy & messaging › European regulations ›
-     Create message). Ads are then served in Europe. Google's script is loaded on the home page to show the
-     message, before the visitor chooses; that is how certified banners work. "Cookie settings" in the footer
-     reopens Google's message.
-6. **Deploy**: `cd site && npm run deploy`. Check the home page in a private window: the banner, Refuse,
-   Accept, the ad box labelled "Advertisement · it covers this site's costs".
+1. **AdSense account** with your personal Google account; add the site `quicktou.ch`. *(done)*
+2. **Verify the site**: Sites › quicktou.ch › choose "ads.txt snippet" or "Meta tag" › Verify. Both are already
+   live. Do not paste Google's `<script>` into the pages — the site loads it itself.
+3. **Wait for Google's review**: a few days to a few weeks. It can be refused for "low-value content"; the landing
+   page, FAQ and legal pages help.
+4. **Publish Google's consent message — before the ad goes live**: Privacy & messaging › European regulations ›
+   Create message › site quicktou.ch, languages (English plus the site's languages), buttons "Consent", "Manage
+   options" and "Do not consent" › Publish. Optional: the US state regulations message.
+5. **Create one ad unit**: Ads › By ad unit › Display ads, responsive. Send its `data-ad-slot` number (or put it in
+   `ads.slot`) and deploy: `cd site && npm run deploy`.
+6. **Check** in a private window: Google's message, the ad box labelled "Advertisement · it covers this site's
+   costs", and "Cookie settings" in the footer.
 7. **Payments**: Google pays once the balance reaches about €70. Advertising income is taxable; regular income
    means registering the activity (see "Remaining steps before selling Pro").
 
-Test without a real account: `cd tests/pw && node ads.pw.mjs all` (builds with a test id, stubs Google, checks
-that nothing loads before consent, that withdrawing works and that the editor is untouched, then rebuilds the
-site as configured).
+Test without a real account: `cd tests/pw && node ads.pw.mjs all` (both banners, and the verification-only step;
+builds with a test id, stubs Google, then rebuilds the site as configured).
 
 ## Launch: announcements
 

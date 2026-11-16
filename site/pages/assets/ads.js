@@ -20,12 +20,17 @@
   const settings = document.getElementById("ccSettings");
 
   if (mode === "google") {                                  // Google's certified message asks for consent itself
-    loadAds();
-    if (settings) settings.addEventListener("click", (e) => {
-      e.preventDefault();
+    const reopen = () => {
       window.googlefc = window.googlefc || {}; window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
       window.googlefc.callbackQueue.push(() => window.googlefc.showRevocationMessage());
+    };
+    if (settings) settings.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (hasAd) reopen(); else location.href = (me.dataset.home || "/") + "#consent";   // Google's message lives on the page with the ad
     });
+    if (!hasAd) return;                                     // other pages load nothing from Google
+    loadAds();
+    if (location.hash === "#consent") reopen();
     return;
   }
 

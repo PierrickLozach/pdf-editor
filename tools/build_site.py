@@ -42,10 +42,15 @@ PRO_VISIBLE = bool(cfg.get("pro", {}).get("visible"))
 # Ads: on once an AdSense publisher id is set in site.json (ads.client = "ca-pub-…"); the pages switch with <!-- ads:on/off -->
 ADS = cfg.get("ads", {})
 import os
-if os.environ.get("PDFE_ADS_CLIENT"): ADS = {**ADS, "client": os.environ["PDFE_ADS_CLIENT"], "consent": os.environ.get("PDFE_ADS_CONSENT", ADS.get("consent", "open-source"))}   # tests only
-ADS_ON = bool(ADS.get("client"))
-if ADS_ON and not re.fullmatch(r"ca-pub-\d{10,20}", ADS["client"]): sys.exit("site.json: ads.client must look like ca-pub-1234567890123456")
-if ADS_ON and ADS.get("consent", "open-source") not in ("open-source", "google"): sys.exit('site.json: ads.consent must be "open-source" or "google"')
+if os.environ.get("PDFE_ADS_CLIENT"): ADS = {**ADS, "client": os.environ["PDFE_ADS_CLIENT"], "slot": os.environ.get("PDFE_ADS_SLOT", ""), "consent": os.environ.get("PDFE_ADS_CONSENT", ADS.get("consent", "open-source"))}   # tests only
+# two steps: the publisher id alone = AdSense site verification only (ads.txt + a meta tag; nothing loaded, no cookie,
+# pages unchanged); the publisher id and an ad slot = the ad is served, with the consent banner and the ad wording
+ADS_VERIFY = bool(ADS.get("client"))
+ADS_ON = ADS_VERIFY and bool(ADS.get("slot"))
+ADS_MODE = ADS.get("consent", "open-source")
+if ADS_VERIFY and not re.fullmatch(r"ca-pub-\d{10,20}", ADS["client"]): sys.exit("site.json: ads.client must look like ca-pub-1234567890123456")
+if ADS_VERIFY and ADS_MODE not in ("open-source", "google"): sys.exit('site.json: ads.consent must be "open-source" or "google"')
+if ADS_ON and not re.fullmatch(r"\d{6,20}", str(ADS["slot"])): sys.exit("site.json: ads.slot must be the ad unit's number (data-ad-slot)")
 ADS_TEXT = json.loads((ROOT / "site" / "i18n" / "ads.json").read_text())
 
 def blocks(text):
@@ -55,13 +60,16 @@ def blocks(text):
     on = bool(cfg.get("business", {}).get("registered"))
     text = re.sub(r"[ \t]*<!-- business:(on|off) -->\n?(.*?)[ \t]*<!-- /business:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == on else "", text, flags=re.S)
     text = re.sub(r"[ \t]*<!-- ads:(on|off) -->\n?(.*?)[ \t]*<!-- /ads:\1 -->\n?", lambda m: m.group(2) if (m.group(1) == "on") == ADS_ON else "", text, flags=re.S)
+    text = re.sub(r"<!-- consent:(open-source|google) -->(.*?)<!-- /consent:\1 -->", lambda m: m.group(2) if m.group(1) == ADS_MODE else "", text, flags=re.S)
     return text
 
 def ads_head(l):
-    if not ADS_ON: return ""
-    if ADS.get("consent", "open-source") == "google":
-        return f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="google"></script>\n'
-    return (f'<link rel="stylesheet" href="/assets/vendor/cookieconsent/cookieconsent.css?v={ver}">\n'
+    if not ADS_VERIFY: return ""
+    meta = f'<meta name="google-adsense-account" content="{ADS["client"]}">\n'      # AdSense site verification: loads nothing
+    if not ADS_ON: return meta
+    if ADS_MODE == "google":                              # Google's certified consent message, set up in AdSense › Privacy & messaging
+        return meta + f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="google" data-home="{root_of(l)}"></script>\n'
+    return meta + (f'<link rel="stylesheet" href="/assets/vendor/cookieconsent/cookieconsent.css?v={ver}">\n'
             f'<script src="/assets/vendor/cookieconsent/cookieconsent.umd.js?v={ver}" defer></script>\n'
             f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="open-source"></script>\n')
 
@@ -192,12 +200,12 @@ for l in LANGS:
         if slug != "404" and not meta.get("noindex"): sitemap.append(path)
 
 # ---------------------------------------------------------------- site files
-if ADS_ON:   # the banner's texts per language, and ads.txt (AdSense requires it at the site's root)
+if ADS_VERIFY: (PUB / "ads.txt").write_text(f"google.com, {ADS['client'].replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n")   # AdSense requires it at the site's root
+if ADS_ON:   # the banner's texts per language
     (PUB / "assets" / "consent").mkdir(parents=True, exist_ok=True)
     for l in LANGS:
         t = {k: v.replace("{root}", root_of(l)).replace("href='", 'href="').replace("'>", '">') for k, v in ADS_TEXT[l].items() if k[:2] in ("b_", "p_") or k in ("nec_title", "nec_desc", "ads_title", "ads_desc")}
         (PUB / "assets" / "consent" / f"{l}.json").write_text(json.dumps(t, ensure_ascii=False))
-    (PUB / "ads.txt").write_text(f"google.com, {ADS['client'].replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n")
 (PUB / "robots.txt").write_text(f"""# {cfg['url']}/robots.txt
 #
 # Search engines are welcome. Not indexed: the editor's engine, fonts and text-recognition

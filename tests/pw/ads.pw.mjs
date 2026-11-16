@@ -5,7 +5,7 @@ import { execFileSync } from "node:child_process";
 import { chromium, firefox, webkit } from "playwright";
 const which = process.argv[2] || "all", B = "http://localhost:8787", SITE = new URL("../../site/", import.meta.url).pathname;
 const build = (env) => execFileSync("python3", ["../tools/build_site.py"], { cwd: SITE, env: { ...process.env, ...env }, stdio: "pipe" });
-build({ PDFE_ADS_CLIENT: "ca-pub-1234567890123456" });
+build({ PDFE_ADS_CLIENT: "ca-pub-1234567890123456", PDFE_ADS_SLOT: "1234567890", PDFE_ADS_CONSENT: "open-source" });
 await new Promise((r) => setTimeout(r, 2500));                       // the local server picks up the new files
 let total = 0;
 try {
@@ -77,6 +77,43 @@ try {
       await c.close();
     } catch (x) { fails++; console.log(`  FAIL [${name}] exception: ${x.message.split("\n")[0]}`); }
     await b.close(); console.log(`  => ${name}: ${fails ? fails + " FAILED" : "ALL OK"}`); total += fails;
+  }
+  // ---- Google's certified consent message (ads.consent = "google"), in Chromium
+  if (which === "all" || which === "chromium") {
+    build({ PDFE_ADS_CLIENT: "ca-pub-1234567890123456", PDFE_ADS_SLOT: "1234567890", PDFE_ADS_CONSENT: "google" });
+    await new Promise((r) => setTimeout(r, 2500));
+    let fails = 0; const ok = (c, m) => { console.log(`  ${c ? "ok  " : "FAIL"} [google mode] ${m}`); if (!c) fails++; };
+    const b = await chromium.launch();
+    try {
+      const c = await b.newContext({ locale: "en-US" }); c.google = [];
+      await c.route(/googlesyndication\.com|doubleclick\.net|fundingchoicesmessages|google\.com\/(pagead|adsid)/, (r) => { c.google.push(r.request().url()); r.fulfill({ status: 200, contentType: "text/javascript", body: "window.__adsLoaded = (window.__adsLoaded || 0) + 1;" }); });
+      await c.route("**/api/hit", (r) => r.fulfill({ status: 204, body: "" }));
+      const p = await c.newPage();
+      await p.goto(B + "/privacy"); await new Promise((r) => setTimeout(r, 1500));
+      ok(c.google.length === 0 && !(await p.$("#cc-main")), "privacy page: no banner of ours and nothing from Google");
+      const priv = await p.textContent("main");
+      ok(/Google's own consent message/.test(priv) && /loads on the home page before you choose/.test(priv) && /limited, non-personalised ad/.test(priv), "the privacy page describes Google's message, the script loading before the choice, and limited ads");
+      ok(!/only if you accept advertising cookies in the banner/.test(priv), "…and not the open-source banner's wording");
+      await Promise.all([p.waitForURL(/#consent$/), p.click("#ccSettings")]);
+      ok(new URL(p.url()).pathname === "/" && p.url().endsWith("#consent"), "Cookie settings on another page leads to the home page, where Google's message lives: " + p.url());
+      await p.waitForFunction(() => window.__adsLoaded >= 1, null, { timeout: 10000 });
+      ok(c.google.some((u) => /adsbygoogle\.js\?client=ca-pub-1234567890123456/.test(u)) && await p.isVisible(".ad-slot"), "home page: Google's script loads (it shows Google's message) and the ad box is there");
+      ok(await p.evaluate(() => Array.isArray(window.googlefc && window.googlefc.callbackQueue) && window.googlefc.callbackQueue.length === 1), "#consent: Google's message is asked to reopen (showRevocationMessage queued)");
+      await p.goto(B + "/cookies");
+      ok(/FCCDCF/.test(await p.textContent("main")), "the cookies page lists the cookies of Google's message");
+      await p.goto(B + "/app/"); const before = c.google.length; await new Promise((r) => setTimeout(r, 2500));
+      ok(c.google.length === before && !(await p.$('script[src*="ads.js"]')), "the editor: nothing from Google");
+      await c.close();
+    } catch (x) { fails++; console.log(`  FAIL [google mode] exception: ${x.message.split("\n")[0]}`); }
+    await b.close(); console.log(`  => google mode: ${fails ? fails + " FAILED" : "ALL OK"}`); total += fails;
+  }
+  // ---- verification only (publisher id, no ad slot yet): ads.txt and the meta tag, nothing loaded, wording unchanged
+  {
+    build({ PDFE_ADS_CLIENT: "ca-pub-1234567890123456", PDFE_ADS_CONSENT: "google" });
+    await new Promise((r) => setTimeout(r, 2500));
+    const home = await (await fetch(B + "/")).text(), txt = await (await fetch(B + "/ads.txt")).text();
+    const v = /<meta name="google-adsense-account" content="ca-pub-1234567890123456">/.test(home) && !/ads\.js|cookieconsent|adsbygoogle/.test(home) && /no ads, no tracking/.test(home) && /pub-1234567890123456/.test(txt);
+    console.log(`  ${v ? "ok  " : "FAIL"} [verification] publisher id without a slot: ads.txt and the meta tag only, no script, pages unchanged`); if (!v) total++;
   }
 } finally { build({}); }
 console.log(total ? `${total} FAILED` : "ALL BROWSERS OK"); process.exit(total ? 1 : 0);

@@ -40,8 +40,8 @@
     "visible": false
   },
   "ads": {
-    "client": "",
+    "client": "ca-pub-8712505359897234",
     "slot": "",
-    "consent": "open-source"
+    "consent": "google"
   }
 }
