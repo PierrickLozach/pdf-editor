@@ -595,6 +595,50 @@ function appendContent(doc, page, ops) {
   pobj.put("Contents", arr);
 }
 
+/** Some PDFs (generated certificates, scanned-then-annotated letters) put their visible text in Stamp
+ *  annotations: a layer drawn above the page. Text editing, whiteout and redaction work on the page itself, so
+ *  that text could not be edited, and a whiteout box ended up hidden under it. On opening, such stamps (a Stamp
+ *  whose appearance draws text) are merged into the page content: the page looks exactly the same, and its text
+ *  becomes ordinary page text. Other annotations (comments, highlights, links, form fields) are left alone. */
+export function flattenTextStamps(pdf) {
+  const n = pdf.countPages(), keep = [];
+  let any = false;
+  for (let i = 0; i < n; i++) {
+    const pobj = pdf.loadPage(i).getObject();
+    const annots = pobj.get("Annots");
+    if (!annots || !annots.isArray() || !annots.length) continue;
+    const targets = [], others = [];
+    for (let k = 0; k < annots.length; k++) {
+      const a = annots.get(k);
+      let isText = false;
+      try {
+        if (a.get("Subtype").asName() === "Stamp" && !(a.get("F").isNumber() && (a.get("F").asNumber() & 2))) {   // not hidden
+          const ap = a.get("AP"), nrm = ap && ap.isDictionary() ? ap.get("N") : null;
+          isText = !!(nrm && nrm.isStream() && /\bBT\b/.test(nrm.readStream().asString()));
+        }
+      } catch (e) { isText = false; }
+      (isText ? targets : others).push(a);
+    }
+    if (!targets.length) continue;
+    any = true;
+    const gone = new Set(targets.map((t) => t.isIndirect() ? t.asIndirect() : -1));
+    const rest = others.filter((o) => {             // a pop-up note that belonged to a merged stamp goes with it
+      try { const par = o.get("Parent"); return !(par && par.isIndirect() && gone.has(par.asIndirect())); } catch (e) { return true; }
+    });
+    const only = pdf.newArray(); for (const t of targets) only.push(t);
+    pobj.put("Annots", only);
+    keep.push([pobj, rest]);
+  }
+  if (!any) return false;
+  pdf.bake(true, false);                            // merges what is left in each page's Annots: the text stamps only
+  for (const [pobj, rest] of keep) {
+    if (!rest.length) { pobj.delete("Annots"); continue; }
+    const arr = pdf.newArray(); for (const o of rest) arr.push(o);
+    pobj.put("Annots", arr);
+  }
+  return true;
+}
+
 /* ------------------------------------------------------------------ the engine */
 
 export class Engine {
@@ -623,11 +667,19 @@ export class Engine {
       data = doc.asPDF().saveToBuffer("decrypt,regenerate-id=no").asUint8Array().slice();
       doc = mupdf.Document.openDocument(data, "application/pdf");
     }
-    const pdf = doc.asPDF();
+    let pdf = doc.asPDF();
     if (!pdf) throw new EditError("Not a PDF file");
+    const head = new TextDecoder("latin1").decode(data.subarray(0, 16)).match(/^%PDF-(\d\.\d)/);   // the original's version, kept on save
+    // text drawn in Stamp annotations becomes page text; the document is then reloaded, because MuPDF keeps the
+    // pages it has loaded (with their old annotations) in memory
+    try {
+      if (flattenTextStamps(pdf)) {
+        const merged = pdf.saveToBuffer("regenerate-id=no").asUint8Array().slice();
+        pdf = mupdf.Document.openDocument(merged, "application/pdf").asPDF();
+      }
+    } catch (e) { /* left as they are: the page is still shown as it is */ }
     // check the new document fully before it replaces the open one (a broken PDF must not
     // leave the editor half-switched: OWASP A10)
-    const head = new TextDecoder("latin1").decode(data.subarray(0, 16)).match(/^%PDF-(\d\.\d)/);
     let fileId = null;                       // the original file ID, put back on every save
     try {
       const id = pdf.getTrailer().get("ID");

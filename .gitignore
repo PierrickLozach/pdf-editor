@@ -50,3 +50,6 @@ tools/finish_domain.sh
 !/tests/pw/ads.pw.mjs
 !/tests/pw/private.pw.mjs
 !/tests/pw/demo-gif.mjs
+!/tests/pw/stamps.pw.mjs
+!/tests/stamps.test.mjs
+!/tests/fixtures/stamp-text.pdf
