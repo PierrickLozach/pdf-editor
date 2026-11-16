@@ -196,6 +196,7 @@ for l in LANGS:
             if i < 0: i = page.find('id="developers"'); i = page.rfind("<section", 0, i)
             page = page[:i] + ad + page[i:]
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
+        page = page.replace('src="/assets/demo.gif"', f'src="/assets/demo.gif?v={ver}"')
         (out / f"{slug}.html").write_text(page)
         if slug != "404" and not meta.get("noindex"): sitemap.append(path)
 

@@ -108,6 +108,7 @@ input:focus { outline: 2px solid color-mix(in srgb, var(--blue) 60%, transparent
 .hero .small-print { color: var(--muted); font-size: 14px; margin-top: 16px; }
 .shot { margin: 48px auto 0; max-width: 980px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; background: var(--bg2); }
 .shot img { display: block; width: 100%; height: auto; }
+.section .shot { margin-top: 28px; }
 .section { padding-top: 72px; }
 .section h2 { font-size: clamp(26px, 3.5vw, 36px); text-align: center; }
 .section .intro { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 36px; }
