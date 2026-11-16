@@ -57,7 +57,7 @@ try {
   await page.goto(URL0);
   await ready();
   ok(await page.evaluate(() => FILES.supported), "this browser can save into files (File System Access)");
-  ok(/250 MB/.test(await page.textContent("#sizeNote")) && /replace your file or save a new one/.test(await page.textContent("#sizeNote")), "start screen: “" + (await page.textContent("#sizeNote")) + "”");
+  ok(/250 MB/.test(await page.textContent("#sizeNote")) && !/replace your file|Save downloads/.test(await page.textContent("#sizeNote")), "start screen: “" + (await page.textContent("#sizeNote")) + "”");
   ok(await page.evaluate(() => { const a = document.querySelector("#toolbar .brand a.logo"); return a && a.getAttribute("href") === "/"; }), "the logo in the toolbar links to the home page");
   ok(await page.evaluate(() => { const a = document.querySelector("#homeLink a"); return a && a.getAttribute("href") === "/" && /Home page/.test(a.textContent); }), "the start screen has a link back to the home page");
   ok(await page.evaluate(() => !document.querySelector("#btnSignIn, #acctArea, #myPdfs, #acctHint")), "no account interface left");

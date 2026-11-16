@@ -305,8 +305,8 @@
     if (drop && !document.getElementById("sizeNote")) {
       const note = el(`<p id="sizeNote" class="small muted"></p>`);
       // written once the translations are loaded (the page watcher does not split sentences)
-      const fill = () => { note.textContent = t("PDFs up to {max}.").replace("{max}", F.size(F.maxBytes)) + " " +
-        (F.supported ? t("Save lets you replace your file or save a new one.") : t("Save downloads the edited PDF.")); };
+      const fill = () => { note.textContent = t("PDFs up to {max}.").replace("{max}", F.size(F.maxBytes)) +
+        (F.supported ? "" : " " + t("Save downloads the edited PDF.")); };
       fill();
       if (window.I18N && I18N.ready) I18N.ready.then(fill);
       const lic = drop.querySelector("p.muted.small");
