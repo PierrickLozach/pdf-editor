@@ -394,6 +394,10 @@ In order. The shop stays closed until step 4.
 
 ## Day-to-day
 
+**Demo GIF** (for the announcements; fictional invoice): with the local server running,
+`cd tests/pw && node demo-gif.mjs && cd ../.. && python3 tools/make_gif.py /tmp/demo-frames ~/Desktop/quicktou-demo.gif 960 12`
+(a 22-second GIF, about 0.4 MB, plus a still `.png` next to it).
+
 **Change and deploy**
 ```sh
 python3 tools/stamp.py                     # after changing files in web/ (new version numbers, no stale cache)
