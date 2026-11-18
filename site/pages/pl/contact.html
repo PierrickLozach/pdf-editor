@@ -1,0 +1,29 @@
+<!--
+title: Kontakt – {{name}}
+description: Jak skontaktować się z twórcą {{name}}: pytania, opinie, zgłoszenia błędów, problemy z bezpieczeństwem i prośby o licencję.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Kontakt</h1>
+  <p class="lead">{{name}} tworzy jedna osoba, {{publisher.name}}. Czytam każdą wiadomość.</p>
+
+  <h2>E-mail</h2>
+  <p>W sprawie pytań, opinii, zapytań prasowych lub propozycji współpracy napisz na <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Najłatwiej mi odpowiadać na wiadomości po angielsku lub po francusku; odpowiedź może zająć kilka dni.</p>
+
+  <h2>Zgłoś problem</h2>
+  <p>Jeśli plik PDF nie wyświetla się lub nie daje się poprawnie edytować, zgłoś problem na <a href="{{source}}/issues">GitHubie</a> albo wyślij e-mail. Warto podać:</p>
+  <ul>
+    <li>co zrobiłeś i co się stało zamiast tego;</li>
+    <li>swoją przeglądarkę i urządzenie, na przykład Chrome na Windows albo Safari na iPhonie;</li>
+    <li>jeśli to możliwe, plik PDF, na którym widać problem.</li>
+  </ul>
+  <p class="tip"><b>Nigdy nie wysyłaj poufnego dokumentu.</b> Edytor działa bez przesyłania Twoich plików i tak powinno pozostać również wtedy, gdy prosisz o pomoc. Jeśli problem występuje tylko z prywatnym plikiem PDF, opisz go albo spróbuj odtworzyć go na podobnym dokumencie, który nie zawiera nic osobistego.</p>
+
+  <h2>Bezpieczeństwo</h2>
+  <p>Aby zgłosić lukę w zabezpieczeniach, skorzystaj z <a href="{{source}}/security/advisories/new">prywatnego zgłaszania na GitHubie</a> zamiast publicznego zgłoszenia. Plik <a href="/.well-known/security.txt">security.txt</a> zawiera te same informacje.</p>
+
+  <h2>Programiści i firmy</h2>
+  <p><a href="/developers">Biblioteka JavaScript</a>, na której opiera się edytor, jest darmowa na licencji AGPL. W sprawie licencji komercyjnej napisz na <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>.</p>
+
+  <h2>Wydawca</h2>
+  <p>Dane prawne wydawcy znajdują się w <a href="{{root}}legal">informacjach prawnych</a>. Sposób przetwarzania Twoich danych wyjaśnia <a href="{{root}}privacy">polityka prywatności</a>.</p>
+</main>

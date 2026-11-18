@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "يبقى ملف PDF مفتوحًا. يبدأ سجل التراجع من جديد.",
   "headings, lists, bold and italic; the pictures as files": "عناوين وقوائم وخط عريض ومائل؛ الصور كملفات",
   "Ebook": "كتاب إلكتروني",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "للقراءة في Apple Books أو Kobo أو Calibre؛ فصول من العناوين"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "للقراءة في Apple Books أو Kobo أو Calibre؛ فصول من العناوين",
+  "Rotate 90° clockwise": "تدوير 90° باتجاه عقارب الساعة",
+  "Duplicate page": "تكرار الصفحة",
+  "Insert a blank page after": "إدراج صفحة فارغة بعدها",
+  "Delete page": "حذف الصفحة"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "{n} أخرى"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "لا يمكن كتابة هذا الحرف بالخطوط المتاحة: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "لا يمكن كتابة هذه الحروف بالخطوط المتاحة: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "لا يمكن كتابة هذا الحرف بالخطوط المتاحة: {chars}. تعذّر تنزيل خطوط المحرّر: تحقّق من الاتصال بالإنترنت وحاول مرة أخرى."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "لا يمكن كتابة هذه الحروف بالخطوط المتاحة: {chars}. تعذّر تنزيل خطوط المحرّر: تحقّق من الاتصال بالإنترنت وحاول مرة أخرى."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "تم تحديد «{word}» مرة واحدة. تحقّق من الصفحة ثم طبّق."
   ]
  ]
 }

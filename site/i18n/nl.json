@@ -34,5 +34,11 @@
   "language_auto": "Browsertaal",
   "footer_developers": "Ontwikkelaars",
   "github": "Broncode op GitHub",
-  "footer_sales": "Verkoopvoorwaarden"
+  "footer_sales": "Verkoopvoorwaarden",
+  "nav_guides": "Handleidingen",
+  "nav_about": "Over",
+  "footer_about": "Over",
+  "footer_contact": "Contact",
+  "footer_guides": "Handleidingen",
+  "footer_whatsnew": "Wat is er nieuw"
 }

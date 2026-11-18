@@ -1,0 +1,41 @@
+<!--
+title: Rendre un PDF numérisé cherchable (OCR) – {{name}}
+description: Un PDF numérisé est une image de page. La reconnaissance de texte (OCR) permet d'y chercher et d'en copier le texte. Comment le faire dans votre navigateur, et comment obtenir de bons résultats.
+type: article
+published: 2026-11-18
+image: /assets/guides/ocr-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Rendre un PDF numérisé cherchable</h1>
+  <p class="lead">Vous avez numérisé un contrat ou un reçu, et vous ne pouvez ni y chercher ni en copier un seul mot. La reconnaissance de texte, appelée OCR, règle ce problème.</p>
+
+  <h2>Pourquoi un scan n'a pas de texte</h2>
+  <p>Un scanner ou l'appareil photo d'un téléphone produit une image de la page. Enregistrée en PDF, elle ressemble à un document, mais pour l'ordinateur ce n'est qu'une photo : il n'y a aucune lettre à chercher, sélectionner ou copier. L'OCR (reconnaissance optique de caractères) lit l'image, reconnaît les lettres et ajoute une couche de texte invisible exactement par-dessus.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> et ouvrez le PDF numérisé.</li>
+    <li>Cliquez sur <b>Outils</b>, puis sur <b>Rendre cherchable (OCR)</b>.</li>
+    <li>Choisissez la <b>langue du document</b>, et une seconde langue si le document en mélange deux.</li>
+    <li>Lancez la reconnaissance. Elle prend environ 2 à 5 secondes par page, dans votre navigateur. La première fois, les données de la langue (1 à 3 Mo) sont téléchargées une fois pour toutes.</li>
+    <li>Enregistrez le PDF. Les pages ont exactement le même aspect, mais vous pouvez maintenant y chercher (⌘F ou Ctrl+F dans n'importe quel lecteur PDF), sélectionner et copier leur texte.</li>
+  </ol>
+  <figure><img src="/assets/guides/ocr-fr.webp" width="1440" height="900" loading="lazy" alt="La fenêtre Rendre cherchable avec la langue du document"><figcaption>Choisissez la langue du document pour une meilleure reconnaissance.</figcaption></figure>
+  <p>Les pages sont reconnues sur votre appareil. Elles ne sont pas envoyées à un service en ligne, ce qui compte pour une pièce d'identité, une fiche de paie ou un dossier médical.</p>
+
+  <h2>Obtenir de bons résultats</h2>
+  <ul>
+    <li><b>Résolution</b> : 300 dpi est idéal pour les documents ; 200 dpi suffit en général. Les très petits caractères gagnent à être numérisés en 300 dpi noir et blanc.</li>
+    <li><b>Pages droites</b> : numérisez la page à plat et bien droite. Faites d'abord pivoter les pages couchées avec le bouton de rotation de la vignette.</li>
+    <li><b>Contraste</b> : un texte foncé sur un fond clair. Les ombres et les plis des photos prises au téléphone causent la plupart des erreurs.</li>
+    <li><b>La bonne langue</b> : elle aide la reconnaissance des accents et des caractères spéciaux.</li>
+  </ul>
+
+  <h2>Ce que l'OCR ne fait pas</h2>
+  <p>Le texte reconnu est invisible et sert à chercher et copier. Il ne transforme pas le scan en texte modifiable : pour changer un mot sur une page numérisée, masquez-le et tapez le nouveau avec <b>Ajouter du texte</b>. L'écriture manuscrite est rarement bien reconnue.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}reduce-pdf-size">Réduire la taille d'un PDF</a></li><li><a href="{{root}}organise-pdf-pages">Fusionner, découper et réorganiser les pages d'un PDF</a></li></ul>
+</main>

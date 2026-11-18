@@ -1,0 +1,42 @@
+<!--
+title: How to make a scanned PDF searchable (OCR) – {{name}}
+description: A scanned PDF is a picture of a page. Text recognition (OCR) makes it searchable and lets you copy its text. How to do it in your browser, and how to get good results.
+langs: en, fr
+type: article
+published: 2026-11-18
+image: /assets/guides/ocr-en.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to make a scanned PDF searchable</h1>
+  <p class="lead">You scanned a contract or a receipt, and now you cannot search it or copy a single word. Text recognition, called OCR, fixes that.</p>
+
+  <h2>Why a scan has no text</h2>
+  <p>A scanner or a phone camera produces a picture of the page. Saved as a PDF, it looks like a document, but for the computer it is still a photo: there are no letters to search, select or copy. OCR (optical character recognition) reads the picture, recognises the letters and adds an invisible text layer exactly on top of them.</p>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><a href="/app/">Open the editor</a> and open the scanned PDF.</li>
+    <li>Click <b>Tools</b>, then <b>Make searchable (OCR)</b>.</li>
+    <li>Choose the <b>language of the document</b>, and a second language if the document mixes two.</li>
+    <li>Start the recognition. It takes about 2 to 5 seconds per page, in your browser. The first time, the language data (1 to 3 MB) is downloaded once.</li>
+    <li>Save the PDF. The pages look exactly the same, but you can now search them (⌘F or Ctrl+F in any PDF reader), select and copy their text.</li>
+  </ol>
+  <figure><img src="/assets/guides/ocr-en.webp" width="1440" height="900" loading="lazy" alt="The Make searchable window with the language of the document"><figcaption>Choose the document's language for the best recognition.</figcaption></figure>
+  <p>The pages are recognised on your device. They are not sent to an online service, which matters for identity documents, payslips or medical records.</p>
+
+  <h2>Getting good results</h2>
+  <ul>
+    <li><b>Resolution</b>: 300 dpi is ideal for documents; 200 dpi is usually enough. Very small print benefits from 300 dpi in black and white.</li>
+    <li><b>Straight pages</b>: scan the page flat and straight. Rotate sideways pages first with the rotate button on the page thumbnail.</li>
+    <li><b>Contrast</b>: dark text on a light background. Shadows and creases from phone photos cause most errors.</li>
+    <li><b>The right language</b>: it helps the recogniser with accents and special characters.</li>
+  </ul>
+
+  <h2>What OCR does not do</h2>
+  <p>The recognised text is invisible and serves for searching and copying. It does not turn the scan into editable text: to change a word on a scanned page, white it out and type the new word with <b>Add text</b>. Handwriting is rarely recognised well.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}reduce-pdf-size">How to make a PDF smaller</a></li><li><a href="{{root}}organise-pdf-pages">How to merge, split and reorder PDF pages</a></li></ul>
+</main>

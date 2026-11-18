@@ -1,0 +1,45 @@
+<!--
+title: How to check that an online PDF tool does not upload your file – {{name}}
+description: Many online PDF tools send your document to their servers. Three simple tests to find out what a tool really does with your file before you trust it with a confidential document.
+langs: en, fr
+type: article
+published: 2026-11-18
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to check that an online PDF tool does not upload your file</h1>
+  <p class="lead">“Your files are safe with us” and “your files never leave your device” are two very different promises. Here is how to tell which one a tool keeps, in a few minutes and without being an expert.</p>
+
+  <h2>Two kinds of online tools</h2>
+  <p>Most online PDF tools work on their servers: your browser sends the document, the server processes it and sends the result back. The file then exists, at least for a while, on a computer you do not control. Many services delete files after an hour or two, and that may be acceptable for a menu or a flyer, but rarely for a payslip, a passport scan or a medical report.</p>
+  <p>Other tools, such as this editor, do the processing in your browser. The page downloads the program once, and then works on the document locally: there is nothing to delete afterwards, because the document was never sent.</p>
+
+  <h2>Test 1: watch the network</h2>
+  <ol>
+    <li>Open the tool's page in Chrome, Edge or Firefox.</li>
+    <li>Open the developer tools: F12 on Windows, ⌥⌘I on a Mac. Choose the <b>Network</b> tab and clear the list.</li>
+    <li>Open or drop a PDF, edit it and save it.</li>
+    <li>Look at the requests that appear. A request whose size is close to your file's size, often of type <code>POST</code> or <i>upload</i>, means the document was sent. A few small requests (icons, fonts, statistics) are normal.</li>
+  </ol>
+
+  <h2>Test 2: go offline</h2>
+  <ol>
+    <li>Open the tool's page and wait until it has fully loaded.</li>
+    <li>Disconnect from the internet: turn off Wi-Fi, or unplug the network cable.</li>
+    <li>Open a PDF and edit it. If it still works, the processing happens on your device. If the tool shows an error or keeps spinning, it needs its server.</li>
+  </ol>
+  <p class="tip">This test is the easiest one to do, and the most convincing.</p>
+
+  <h2>Test 3: read the policy and the code</h2>
+  <ul>
+    <li>Read the privacy policy: look for how long files are kept and where the servers are. Vague answers are a warning sign.</li>
+    <li>If the tool is open source, its code can be read by anyone, and claims can be verified. The code of this editor is on <a href="{{source}}">GitHub</a>.</li>
+  </ul>
+
+  <h2>What this editor does</h2>
+  <p>Your documents are opened, edited and saved in your browser, on your device. The site does count visits anonymously, in daily totals, and downloads free fonts by name when a document needs them, but it never receives your documents or their content. The <a href="{{root}}privacy">privacy policy</a> lists exactly what is sent.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}redact-pdf">How to redact a PDF so the hidden text is really gone</a></li><li><a href="{{root}}ocr-pdf">How to make a scanned PDF searchable</a></li></ul>
+</main>

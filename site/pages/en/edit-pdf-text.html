@@ -1,0 +1,46 @@
+<!--
+title: How to change the text of a PDF without changing its font – {{name}}
+description: Fix a date, an amount or a name in a PDF so the page looks untouched: how PDF text works, how to keep the original font, and what to do when letters are missing.
+langs: en, fr
+type: article
+published: 2026-11-18
+image: /assets/guides/edit-text-en.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to change the text of a PDF without changing its font</h1>
+  <p class="lead">A wrong date on an invoice, a typo in a name, an amount to update: here is how to correct the text of a PDF so that nobody can tell it was edited.</p>
+
+  <h2>Why editing a PDF is harder than editing a document</h2>
+  <p>A PDF is not a word-processing file. It does not store paragraphs, but instructions such as “draw these letters, in this font, at this exact position”. There are no line breaks to adjust and no text that flows from one line to the next.</p>
+  <p>The font is usually not stored completely either. To keep files small, most PDFs embed only the letters they use, a <i>subset</i> of the font. If the original invoice never used a capital Q, the PDF has no capital Q to draw.</p>
+  <p>That is why many tools take a shortcut: they paste a white rectangle over the old text and type the new text on top, in a standard font. The result looks patched, and the old text is still in the file underneath.</p>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><a href="/app/">Open the editor</a> and drop your PDF on the page, or click <b>Choose a PDF</b>. The file is opened in your browser; it is not uploaded.</li>
+    <li>The <b>Edit text</b> tool is active by default. Click the line you want to change: an editing box opens on it, showing the font and size that will be used.</li>
+    <li>Type your correction. Press <b>Enter</b> to apply it, or <b>Esc</b> to cancel.</li>
+    <li>If the line must stay aligned on its right edge, as amounts and totals often are, use the <b>Align right</b> button in the editing bar, so the text grows to the left.</li>
+    <li>Save. In Chrome and Edge, <b>Save</b> writes the changes back into your file; in other browsers it downloads the edited PDF.</li>
+  </ol>
+  <figure><img src="/assets/guides/edit-text-en.webp" width="1440" height="900" loading="lazy" alt="The editor with a line of an invoice open for editing, showing the font and size it will use"><figcaption>Click a line to edit it: the bar shows which font will be used.</figcaption></figure>
+
+  <h2>Where the font comes from</h2>
+  <p>The editor tries, in this order: the font embedded in the PDF itself; the same font installed on your computer, if you allow it with the <b>Fonts</b> button (Chrome and Edge); a free font of the same family; and, only for letters that are still missing, a similar-looking font. In most PDFs the first two cover everything.</p>
+  <p class="tip">Office documents often use Calibri, Cambria or Aptos. Browsers cannot see those fonts on their own: in the <b>Fonts</b> window, <b>Add Office fonts</b> adds them once, and your browser keeps them.</p>
+
+  <h2>Changing the same thing everywhere</h2>
+  <p>To replace a name, a reference or a year on every page, use <b>Find &amp; replace</b> (⌘F on a Mac, Ctrl+F elsewhere) instead of editing each line.</p>
+
+  <h2>Limits worth knowing</h2>
+  <ul>
+    <li>Text is edited line by line. A much longer sentence does not reflow into the next line: shorten it, or edit the following line too.</li>
+    <li>A scanned page is a picture without text. Use Whiteout and Add text, or first <a href="{{root}}ocr-pdf">make it searchable</a>.</li>
+    <li>The saved PDF keeps the original's properties (title, author, dates). Only the file's modification date on your computer changes.</li>
+  </ul>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}redact-pdf">How to redact a PDF so the hidden text is really gone</a></li><li><a href="{{root}}sign-pdf">How to sign a PDF without printing it</a></li></ul>
+</main>

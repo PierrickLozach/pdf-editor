@@ -1,0 +1,39 @@
+<!--
+title: À propos de {{name}} – qui le fait et pourquoi
+description: {{name}} est un éditeur PDF gratuit qui fonctionne entièrement dans votre navigateur, créé par un développeur indépendant en France. Pourquoi il existe, comment il fonctionne et comment il est financé.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>À propos de {{name}}</h1>
+  <p class="lead">Un éditeur PDF gratuit qui modifie le texte existant d'un PDF dans sa police d'origine, entièrement dans votre navigateur. Vos documents ne quittent jamais votre appareil.</p>
+
+  <h2>Pourquoi il existe</h2>
+  <p>Tout est parti d'une facture et d'un montant erroné. Les éditeurs en ligne gratuits que j'ai essayés voulaient soit que j'envoie le document sur leurs serveurs, soit collaient simplement un rectangle blanc sur l'ancien chiffre et tapaient le nouveau par-dessus, dans une autre police. Ni l'un ni l'autre n'est acceptable pour une facture, un contrat, une attestation ou un courrier médical.</p>
+  <p>{{name}} a été conçu pour faire ce travail correctement : cliquer sur un mot, taper, et obtenir un PDF qui semble avoir toujours été ainsi. Il est ensuite devenu une boîte à outils complète pour ce que l'on fait couramment avec des PDF.</p>
+
+  <h2>Qui le fait</h2>
+  <p>{{name}} est un projet indépendant de {{publisher.name}}, développeur logiciel installé en France. Il n'est affilié ni à Adobe ni à aucun autre éditeur de logiciels PDF. Questions, signalements de bugs et idées sont les bienvenus : voir la <a href="{{root}}contact">page de contact</a>.</p>
+
+  <h2>Ce qu'il défend</h2>
+  <ul>
+    <li><b>Vos documents restent à vous.</b> Tout l'éditeur fonctionne dans votre navigateur, sur votre ordinateur, votre tablette ou votre téléphone. Aucun document n'est envoyé, ni à nous ni à personne. Vous pouvez le vérifier vous-même : le <a href="{{guidesroot}}check-pdf-privacy">guide pour vérifier un outil PDF en ligne</a> explique comment.</li>
+    <li><b>Des modifications invisibles.</b> L'ancien texte est retiré, pas caché, et le nouveau utilise la police, la taille et la couleur du PDF chaque fois que le document le permet.</li>
+    <li><b>Gratuit pour l'usage courant.</b> Pas de compte, pas de filigrane, pas de limite de pages ni de documents.</li>
+    <li><b>Libre.</b> Tout le code est public sur <a href="{{source}}">GitHub</a> sous licence AGPL : chacun peut lire exactement ce qu'il fait.</li>
+  </ul>
+
+  <h2>Comment il fonctionne</h2>
+  <p>L'éditeur repose sur MuPDF, le moteur PDF d'Artifex, compilé en WebAssembly pour tourner presque aussi vite qu'un logiciel installé, à l'intérieur du navigateur. La reconnaissance du texte des pages numérisées utilise Tesseract. Les polices viennent du PDF lui-même, de votre ordinateur si vous l'autorisez, ou de polices libres. Le site est hébergé par Cloudflare. Chaque modification est testée dans Chrome, Firefox et Safari avant d'être mise en ligne.</p>
+
+  <h2>Comment il est financé</h2>
+  <!-- ads:off -->
+  <p>Le site coûte très peu à faire fonctionner : les modifications se font sur votre appareil, il n'y a donc pas de serveurs de traitement à payer. Il n'y a aujourd'hui ni publicité ni offre payante. Les visites sont comptées anonymement, sans cookies, uniquement pour savoir quels outils sont utilisés.</p>
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p>Le site coûte très peu à faire fonctionner : les modifications se font sur votre appareil, il n'y a donc pas de serveurs de traitement à payer. Une publicité, uniquement sur la page d'accueil et seulement si vous l'acceptez, couvre les frais restants. L'éditeur lui-même n'affiche jamais de publicité. Les visites sont comptées anonymement, sans cookies.</p>
+  <!-- /ads:on -->
+
+  <h2>Langues</h2>
+  <p>Le site et l'éditeur existent en 12 langues, dont l'arabe et l'hébreu, qui s'écrivent de droite à gauche. Les corrections de locuteurs natifs sont les bienvenues.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+</main>

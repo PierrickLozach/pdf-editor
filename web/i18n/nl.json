@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "Je pdf blijft open. De geschiedenis voor ongedaan maken begint opnieuw.",
   "headings, lists, bold and italic; the pictures as files": "koppen, lijsten, vet en cursief; de afbeeldingen als bestanden",
   "Ebook": "E-boek",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "om te lezen in Apple Books, Kobo of Calibre; hoofdstukken uit de koppen"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "om te lezen in Apple Books, Kobo of Calibre; hoofdstukken uit de koppen",
+  "Rotate 90° clockwise": "90° rechtsom draaien",
+  "Duplicate page": "Pagina dupliceren",
+  "Insert a blank page after": "Lege pagina erna invoegen",
+  "Delete page": "Pagina verwijderen"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "nog {n}"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Dit teken kan niet worden geschreven met de beschikbare lettertypen: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Deze tekens kunnen niet worden geschreven met de beschikbare lettertypen: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Dit teken kan niet worden geschreven met de beschikbare lettertypen: {chars}. De lettertypen van de editor konden niet worden gedownload: controleer de internetverbinding en probeer het opnieuw."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Deze tekens kunnen niet worden geschreven met de beschikbare lettertypen: {chars}. De lettertypen van de editor konden niet worden gedownload: controleer de internetverbinding en probeer het opnieuw."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "‘{word}’ één keer gemarkeerd. Controleer de pagina en pas daarna toe."
   ]
  ]
 }

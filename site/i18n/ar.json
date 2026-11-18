@@ -34,5 +34,11 @@
   "language_auto": "لغة المتصفح",
   "footer_developers": "للمطورين",
   "github": "الشيفرة المصدرية على GitHub",
-  "footer_sales": "شروط البيع"
+  "footer_sales": "شروط البيع",
+  "nav_guides": "الأدلة",
+  "nav_about": "من نحن",
+  "footer_about": "من نحن",
+  "footer_contact": "اتصل بنا",
+  "footer_guides": "الأدلة",
+  "footer_whatsnew": "ما الجديد"
 }

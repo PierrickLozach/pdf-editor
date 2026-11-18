@@ -1,0 +1,44 @@
+<!--
+title: How to make a PDF smaller – {{name}}
+description: Why some PDFs weigh tens of megabytes, and how to reduce their size for email or an upload form without blurring the text.
+langs: en, fr
+type: article
+published: 2026-11-18
+image: /assets/guides/reduce-en.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to make a PDF smaller</h1>
+  <p class="lead">An online form accepts 5 MB, your email client refuses attachments over 20 MB, and your PDF weighs 40. Here is why, and how to fix it.</p>
+
+  <h2>What makes a PDF heavy</h2>
+  <p>Text and drawings take very little space: a hundred pages of text often fit in less than 1 MB. What makes PDFs heavy is pictures: scanned pages, photos taken with a phone, or images inserted at full camera resolution. A single page scanned in colour at 600 dpi can weigh 5 to 10 MB on its own.</p>
+  <p>Shrinking a PDF therefore mostly means storing its pictures at a reasonable resolution, with good JPEG compression.</p>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><a href="/app/">Open the editor</a> and open the PDF.</li>
+    <li>Click <b>Tools</b>, then <b>Reduce file size</b>, or use the button under the page thumbnails.</li>
+    <li>Choose a level:
+      <ul>
+        <li><b>Smaller</b>: about 200 dpi, still good for printing.</li>
+        <li><b>Smallest</b>: about 120 dpi, for email and screens.</li>
+      </ul>
+    </li>
+    <li>The editor tells you the size before and after. If it is fine, save the PDF; otherwise undo with ⌘Z or Ctrl+Z.</li>
+  </ol>
+  <figure><img src="/assets/guides/reduce-en.webp" width="1440" height="900" loading="lazy" alt="The Reduce file size window with the Smaller and Smallest options"><figcaption>Two levels: for printing, or for email.</figcaption></figure>
+  <p>Text stays sharp, searchable and editable: only pictures are recompressed. As an example, an 18 MB scanned document typically drops to about 1.3 MB at the Smaller level.</p>
+
+  <h2>Other ways to save space</h2>
+  <ul>
+    <li><b>Remove pages you do not need</b>, such as blank pages or appendices, with the delete button on each thumbnail.</li>
+    <li><b>Split the document</b> into two PDFs if the limit is per file: <b>Tools › Split or extract pages</b>.</li>
+    <li><b>Scan at the right resolution</b>: 150 to 200 dpi in colour is enough for most documents; 300 dpi in black and white for small print.</li>
+  </ul>
+  <p class="tip">The editor opens PDFs of up to 250 MB. Beyond that, browsers run out of memory: reduce the file with another tool first, for example Preview on a Mac (File › Export, Quartz filter “Reduce File Size”).</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}ocr-pdf">How to make a scanned PDF searchable</a></li><li><a href="{{root}}organise-pdf-pages">How to merge, split and reorder PDF pages</a></li></ul>
+</main>

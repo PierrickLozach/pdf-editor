@@ -1,0 +1,39 @@
+<!--
+title: O {{name}} – kto go tworzy i dlaczego
+description: {{name}} to darmowy edytor PDF działający w całości w przeglądarce, tworzony przez niezależnego programistę z Francji. Dlaczego powstał, jak działa i z czego jest finansowany.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>O {{name}}</h1>
+  <p class="lead">Darmowy edytor PDF, który zmienia istniejący tekst pliku PDF w jego oryginalnej czcionce, w całości w przeglądarce. Twoje dokumenty nigdy nie opuszczają Twojego urządzenia.</p>
+
+  <h2>Dlaczego powstał</h2>
+  <p>Wszystko zaczęło się od faktury i jednej błędnej kwoty. Darmowe edytory online, które wypróbowałem, albo chciały, żebym przesłał dokument na ich serwery, albo po prostu wklejały biały prostokąt na starą liczbę i wpisywały na nim nową, inną czcionką. Żadne z tych rozwiązań nie nadaje się do faktury, umowy, zaświadczenia czy listu od lekarza.</p>
+  <p>{{name}} powstał, żeby porządnie wykonywać właśnie to jedno zadanie: kliknij słowo, wpisz nowe i otrzymaj PDF, który wygląda, jakby zawsze taki był. Potem rozrósł się w kompletny zestaw narzędzi do codziennych czynności, które wykonuje się na plikach PDF.</p>
+
+  <h2>Kto go tworzy</h2>
+  <p>{{name}} to niezależny projekt, który prowadzi {{publisher.name}}, programista mieszkający we Francji. Nie jest powiązany z Adobe ani z żadną inną firmą tworzącą oprogramowanie PDF. Pytania, zgłoszenia błędów i pomysły są mile widziane: zajrzyj na <a href="{{root}}contact">stronę kontaktową</a>.</p>
+
+  <h2>Czym się kieruje</h2>
+  <ul>
+    <li><b>Twoje dokumenty pozostają Twoje.</b> Cały edytor działa w przeglądarce, na Twoim komputerze, tablecie lub telefonie. Żaden dokument nie jest przesyłany, ani do nas, ani nikomu innemu. Możesz to sprawdzić sam: <a href="{{guidesroot}}check-pdf-privacy">poradnik o sprawdzaniu narzędzia PDF online</a> pokazuje, jak to zrobić.</li>
+    <li><b>Zmiany, których nie widać.</b> Stary tekst jest usuwany, a nie ukrywany, a nowy ma czcionkę, rozmiar i kolor samego pliku PDF, o ile dokument na to pozwala.</li>
+    <li><b>Za darmo do codziennego użytku.</b> Bez konta, bez znaku wodnego, bez limitu liczby stron czy dokumentów.</li>
+    <li><b>Otwarty kod.</b> Cały kod jest publicznie dostępny na <a href="{{source}}">GitHubie</a> na licencji AGPL, więc każdy może dokładnie sprawdzić, co robi.</li>
+  </ul>
+
+  <h2>Jak działa</h2>
+  <p>Edytor jest zbudowany na MuPDF, silniku PDF firmy Artifex, skompilowanym do WebAssembly, dzięki czemu działa w przeglądarce niemal z szybkością natywnego programu. Rozpoznawanie tekstu na zeskanowanych stronach korzysta z Tesseract. Czcionki pochodzą z samego pliku PDF, z Twojego komputera, jeśli na to pozwolisz, albo z darmowych czcionek na otwartej licencji. Strona jest hostowana przez Cloudflare. Każda zmiana jest testowana w Chrome, Firefox i Safari, zanim trafi do sieci.</p>
+
+  <h2>Z czego jest finansowany</h2>
+  <!-- ads:off -->
+  <p>Utrzymanie strony kosztuje bardzo niewiele: edycja odbywa się na Twoim urządzeniu, więc nie trzeba płacić za serwery przetwarzające pliki. Obecnie nie ma reklam ani płatnego planu. Odwiedziny są liczone anonimowo, bez plików cookie, tylko po to, by wiedzieć, z których narzędzi ludzie korzystają.</p>
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p>Utrzymanie strony kosztuje bardzo niewiele: edycja odbywa się na Twoim urządzeniu, więc nie trzeba płacić za serwery przetwarzające pliki. Jedna reklama, tylko na stronie głównej i tylko jeśli ją zaakceptujesz, pokrywa pozostałe koszty. Sam edytor nigdy nie wyświetla reklam. Odwiedziny są liczone anonimowo, bez plików cookie.</p>
+  <!-- /ads:on -->
+
+  <h2>Języki</h2>
+  <p>Strona i edytor są dostępne w 12 językach, w tym po arabsku i hebrajsku, czyli w językach pisanych od prawej do lewej. Poprawki od rodzimych użytkowników języka są bardzo mile widziane.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Otwórz edytor</a></p>
+</main>

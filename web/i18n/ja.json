@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "PDF は開いたままです。元に戻す履歴はリセットされます。",
   "headings, lists, bold and italic; the pictures as files": "見出し・リスト・太字・斜体。画像はファイルとして保存",
   "Ebook": "電子書籍",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "Apple Books、Kobo、Calibre で読めます。見出しから章を作成"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "Apple Books、Kobo、Calibre で読めます。見出しから章を作成",
+  "Rotate 90° clockwise": "時計回りに 90° 回転",
+  "Duplicate page": "ページを複製",
+  "Insert a blank page after": "後ろに白紙のページを挿入",
+  "Delete page": "ページを削除"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "ほか {n} 件"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "この文字は利用できるフォントでは書けません：{chars}。"
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "これらの文字は利用できるフォントでは書けません：{chars}。"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "この文字は利用できるフォントでは書けません：{chars}。エディターのフォントをダウンロードできませんでした。インターネット接続を確認して、もう一度お試しください。"
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "これらの文字は利用できるフォントでは書けません：{chars}。エディターのフォントをダウンロードできませんでした。インターネット接続を確認して、もう一度お試しください。"
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "「{word}」を 1 か所マークしました。ページを確認してから適用してください。"
   ]
  ]
 }

@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "קובץ ה-PDF נשאר פתוח. היסטוריית הביטול מתחילה מחדש.",
   "headings, lists, bold and italic; the pictures as files": "כותרות, רשימות, מודגש ונטוי; התמונות כקבצים",
   "Ebook": "ספר דיגיטלי",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "לקריאה ב-Apple Books, Kobo או Calibre; פרקים לפי הכותרות"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "לקריאה ב-Apple Books, Kobo או Calibre; פרקים לפי הכותרות",
+  "Rotate 90° clockwise": "סיבוב ב-90° עם כיוון השעון",
+  "Duplicate page": "שכפול העמוד",
+  "Insert a blank page after": "הוספת עמוד ריק אחריו",
+  "Delete page": "מחיקת העמוד"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "עוד {n}"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "לא ניתן לכתוב את התו הזה בגופנים הזמינים: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "לא ניתן לכתוב את התווים האלה בגופנים הזמינים: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "לא ניתן לכתוב את התו הזה בגופנים הזמינים: {chars}. לא ניתן היה להוריד את הגופנים של העורך: בדקו את החיבור לאינטרנט ונסו שוב."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "לא ניתן לכתוב את התווים האלה בגופנים הזמינים: {chars}. לא ניתן היה להוריד את הגופנים של העורך: בדקו את החיבור לאינטרנט ונסו שוב."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "„{word}” סומן פעם אחת. בדקו את העמוד ואז החילו."
   ]
  ]
 }

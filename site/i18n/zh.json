@@ -20,5 +20,11 @@
   "language_auto": "浏览器语言",
   "footer_developers": "开发者",
   "github": "GitHub 上的源代码",
-  "footer_sales": "销售条款"
+  "footer_sales": "销售条款",
+  "nav_guides": "使用指南",
+  "nav_about": "关于",
+  "footer_about": "关于我们",
+  "footer_contact": "联系我们",
+  "footer_guides": "使用指南",
+  "footer_whatsnew": "更新日志"
 }

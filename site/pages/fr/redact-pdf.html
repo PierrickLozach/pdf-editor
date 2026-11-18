@@ -1,0 +1,42 @@
+<!--
+title: Caviarder un PDF pour que le texte masqué disparaisse vraiment – {{name}}
+description: Un rectangle noir sur un texte ne le supprime pas. Comment fonctionne vraiment le caviardage, la différence avec le masquage, et comment vérifier que les informations confidentielles ont disparu avant de partager un PDF.
+type: article
+published: 2026-11-18
+image: /assets/guides/redact-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Caviarder un PDF pour que le texte masqué disparaisse vraiment</h1>
+  <p class="lead">Avant de partager un contrat, une fiche de paie ou un compte rendu médical, vous devez parfois cacher un nom, un numéro de compte ou une adresse. Le recouvrir ne suffit pas : il faut le supprimer du fichier.</p>
+
+  <h2>Pourquoi un rectangle noir ne suffit pas</h2>
+  <p>Dessiner un rectangle noir sur un texte, dans un lecteur PDF ou avant d'imprimer en PDF, ajoute seulement une forme par-dessus. Le texte reste dans le fichier : n'importe qui peut le sélectionner, le copier ou le retrouver par une recherche. Des informations confidentielles ont fuité de nombreuses fois exactement de cette façon.</p>
+  <p>Un vrai caviardage supprime le contenu lui-même, les lettres, les parties d'images et les dessins situés sous la zone marquée, puis dessine le rectangle noir à leur place.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> et ouvrez le PDF.</li>
+    <li>Cliquez sur <b>Outils</b>, puis sur <b>Caviarder</b>. Une barre apparaît en haut de la page.</li>
+    <li>Marquez ce qui doit disparaître : tracez un cadre sur une zone, ou tapez un mot ou un nombre dans la barre pour le marquer partout dans le document.</li>
+    <li>Vérifiez les zones marquées. Cliquez sur une marque pour la retirer si vous en avez trop marqué.</li>
+    <li>Cliquez sur <b>Appliquer le caviardage</b>. Le texte, les images et les dessins sous les marques sont supprimés pour de bon ; enregistrez ensuite le PDF.</li>
+  </ol>
+  <figure><img src="/assets/guides/redact-fr.webp" width="1440" height="900" loading="lazy" alt="Des zones d'une facture marquées pour le caviardage, avec la barre Caviarder en haut"><figcaption>Les zones marquées ne sont supprimées que lorsque vous cliquez sur Appliquer le caviardage.</figcaption></figure>
+  <p>Vous pouvez encore annuler tant que le PDF est ouvert. Dans le fichier enregistré, le contenu a disparu, pour tous les lecteurs et tous les logiciels.</p>
+
+  <h2>Masquer ou caviarder ?</h2>
+  <p><b>Masquer</b> supprime le texte sous le rectangle blanc mais laisse les images et les dessins dans le fichier, simplement recouverts. Il sert aux corrections, par exemple effacer une ligne avant d'en écrire une nouvelle. <b>Caviarder</b> supprime tout ce qui se trouve sous la marque, images comprises, et laisse un rectangle noir visible. Pour tout ce qui est confidentiel, utilisez Caviarder.</p>
+
+  <h2>Vérifier avant de partager</h2>
+  <ul>
+    <li>Ouvrez le PDF enregistré dans un autre lecteur et cherchez les mots supprimés. Rien ne doit être trouvé.</li>
+    <li>Sélectionnez le texte autour du rectangle noir et collez-le ailleurs : la partie supprimée ne doit pas apparaître.</li>
+    <li>Regardez les propriétés du document (titre, auteur, sujet) dans votre lecteur PDF. Le caviardage ne les modifie pas ; si elles contiennent un nom, corrigez-le à la source.</li>
+    <li>Les fichiers joints au PDF ne sont pas couverts par les rectangles noirs. Si le PDF en contient, l'éditeur vous le signale à l'ouverture et les retire à l'enregistrement, sauf si vous choisissez de les garder.</li>
+  </ul>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}check-pdf-privacy">Vérifier qu'un outil PDF en ligne n'envoie pas votre fichier</a></li><li><a href="{{root}}edit-pdf-text">Modifier le texte d'un PDF sans changer sa police</a></li></ul>
+</main>

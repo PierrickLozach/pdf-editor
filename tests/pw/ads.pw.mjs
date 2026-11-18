@@ -43,7 +43,7 @@ try {
       await p.click('#cc-main .cm button[data-role="all"]');
       await p.waitForFunction(() => window.__adsLoaded >= 1, null, { timeout: 10000 });
       ok(c.google.some((u) => /adsbygoogle\.js\?client=ca-pub-1234567890123456/.test(u)), "after Accept: AdSense is loaded with the publisher id");
-      ok(await p.isVisible(".ad-slot") && /covers this site's costs/.test(await p.textContent(".ad-slot .ad-label")), "the ad box shows, labelled as covering the site's costs");
+      ok(await p.isVisible(".ad-slot") && (await p.textContent(".ad-slot .ad-label")).trim() === "Advertisement", "the ad box shows, labelled as covering the site's costs");
       // 4. withdraw from the footer link: reload without Google
       await p.goto(B + "/privacy");
       const before = c.google.length;

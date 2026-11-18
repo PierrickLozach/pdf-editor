@@ -73,11 +73,53 @@ def ads_head(l):
             f'<script src="/assets/vendor/cookieconsent/cookieconsent.umd.js?v={ver}" defer></script>\n'
             f'<script src="/assets/ads.js?v={ver}" defer data-client="{ADS["client"]}" data-mode="open-source"></script>\n')
 
-def fill(text, l):
+def page_info(slug):
+    """A page's header comment (title, description, langs, type, published) read from its English version."""
+    raw = (PAGES / DEFAULT / f"{slug}.html").read_text()
+    m = re.match(r"\s*<!--(.*?)-->\s*", raw, re.S)
+    return dict(re.findall(r"^\s*([a-z]+):\s*(.*?)\s*$", m.group(1), re.M)) if m else {}
+
+def langs_of(slug):
+    """The languages a page exists in: 'langs: en, fr' in its header, else every language."""
+    v = page_info(slug).get("langs") if (PAGES / DEFAULT / f"{slug}.html").exists() else None
+    return [x.strip() for x in v.split(",") if x.strip() in LANGS] if v else list(LANGS)
+
+def local_root(l, slug):
+    """The root to link to a page from language l: its own when the page exists in l, else the default language's."""
+    return root_of(l) if l in langs_of(slug) else root_of(DEFAULT)
+
+def jsonld(l, slug, meta, path):
+    url, name, pub = cfg["url"], T[l]["site_name"], cfg["publisher"]["name"]
+    author = {"@type": "Person", "name": pub, "url": url + url_of(DEFAULT if l not in langs_of("about") else l, "about")}
+    items = []
+    if slug == "index":
+        items.append({"@context": "https://schema.org", "@type": "WebSite", "name": name, "url": url + root_of(l), "inLanguage": l})
+        items.append({"@context": "https://schema.org", "@type": "WebApplication", "name": name, "url": url + "/app/",
+                      "description": fill(meta.get("description", ""), l, raw=True), "applicationCategory": "UtilitiesApplication",
+                      "operatingSystem": "Any (web browser)", "browserRequirements": "Chrome, Edge, Firefox or Safari",
+                      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "isAccessibleForFree": True,
+                      "inLanguage": LANGS, "author": author, "image": url + "/assets/og.png",
+                      "screenshot": url + "/assets/editor.webp", "license": cfg["source"] + "/blob/main/LICENSE"})
+    if meta.get("type") == "article":
+        title = re.sub(r"\s+–\s+[^–]*$", "", fill(meta.get("title", ""), l, raw=True))
+        items.append({"@context": "https://schema.org", "@type": "Article", "headline": title,
+                      "description": fill(meta.get("description", ""), l, raw=True), "inLanguage": l, "author": author,
+                      "publisher": {"@type": "Organization", "name": name, "logo": {"@type": "ImageObject", "url": url + "/icon.png"}},
+                      "datePublished": meta.get("published", ""), "dateModified": meta.get("modified", meta.get("published", "")),
+                      "image": url + meta.get("image", "/assets/og.png"), "mainEntityOfPage": url + path})
+        g = local_root(l, "guides")
+        items.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": name, "item": url + root_of(l)},
+            {"@type": "ListItem", "position": 2, "name": T[l].get("nav_guides", "Guides"), "item": url + g + "guides"},
+            {"@type": "ListItem", "position": 3, "name": title, "item": url + path}]})
+    return "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>\n" for x in items)
+
+def fill(text, l, raw=False):
     vals = {"name": T[l]["site_name"], "root": root_of(l), "updated": date_in(l), "url": cfg["url"], "source": cfg["source"], "host": cfg["host"],
+            "guidesroot": local_root(l, "guides"),
             "publisher.name": cfg["publisher"]["name"], "publisher.email": cfg["publisher"]["email"],
             **{"seller." + k: str(v) for k, v in seller().items()}}
-    return re.sub(r"\{\{([a-z.]+)\}\}", lambda m: html.escape(vals[m.group(1)]), blocks(text))
+    return re.sub(r"\{\{([a-z.]+)\}\}", lambda m: vals[m.group(1)] if raw else html.escape(vals[m.group(1)]), text if raw else blocks(text))
 
 # ---------------------------------------------------------------- editor
 subprocess.run([sys.executable, str(ROOT / "tools" / "vendor_lock.py")], check=True)        # stops on tampered files
@@ -119,7 +161,7 @@ LAYOUT = """<!doctype html>
 {robots}<link rel="canonical" href="{url}{path}">
 {alternates}
 <script src="/assets/lang.js?v={ver}"></script>
-<meta property="og:type" content="website">
+<meta property="og:type" content="{ogtype}">
 <meta property="og:site_name" content="{name}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
@@ -135,13 +177,13 @@ LAYOUT = """<!doctype html>
 <link rel="stylesheet" href="/assets/site.css?v={ver}">
 <script type="module" src="/assets/site.js?v={ver}"></script>
 <script src="/assets/stats.js?v={ver}" defer></script>
-{ads_head}</head>
+{jsonld}{ads_head}</head>
 <body data-page="{page}">
 <a class="skip" href="#main">{t_skip}</a>
 <header class="site-header"><div class="wrap">
   <a class="brand" href="{root}"><span class="logo">P</span>{name}</a>
   <nav class="site-nav" aria-label="{t_nav_editor}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}#features">{t_nav_features}</a><a href="{root}#privacy">{t_nav_privacy}</a><a href="{root}#faq">{t_nav_faq}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}#features">{t_nav_features}</a><a href="{guidesroot}guides">{t_nav_guides}</a><a href="{root}about">{t_nav_about}</a><a href="{root}#faq">{t_nav_faq}</a>
   </nav>
   <div id="userArea">
     <a class="gh-link" href="{source}" title="{t_github}" aria-label="{t_github}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
@@ -152,7 +194,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a>{ads_settings}<a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="{root}about">{t_footer_about}</a><a href="{root}contact">{t_footer_contact}</a><a href="{guidesroot}guides">{t_footer_guides}</a><a href="{guidesroot}whats-new">{t_footer_whatsnew}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a>{ads_settings}<a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>
@@ -160,15 +202,15 @@ LAYOUT = """<!doctype html>
 </html>
 """
 
-ENGLISH_ONLY = {"developers"}                     # pages for developers: in English, at one address
 slugs = sorted(p.stem for p in (PAGES / DEFAULT).glob("*.html"))
+ONLY = {s: langs_of(s) for s in slugs}                # e.g. developers: English; guides: English and French
 if not PRO_VISIBLE: slugs.remove("sales")                    # Pro hidden: no terms of sale page
 sitemap = []
 for l in LANGS:
     out = PUB if l == DEFAULT else PUB / l
     out.mkdir(parents=True, exist_ok=True)
     for slug in slugs:
-        if slug in ENGLISH_ONLY and l != DEFAULT: continue
+        if l not in ONLY[slug]: continue
         src = PAGES / l / f"{slug}.html"
         if not src.exists(): src = PAGES / DEFAULT / f"{slug}.html"      # not translated yet: default language
         raw = src.read_text()
@@ -176,11 +218,11 @@ for l in LANGS:
         meta = dict(re.findall(r"^\s*([a-z]+):\s*(.*?)\s*$", m.group(1), re.M)) if m else {}
         body = raw[m.end():] if m else raw
         path = url_of(l, slug)
-        alts = [DEFAULT] if slug in ENGLISH_ONLY else LANGS
+        alts = ONLY[slug]
         alternates = "\n".join(f'<link rel="alternate" hreflang="{x}" href="{cfg["url"]}{url_of(x, slug)}">' for x in alts)
         alternates += f'\n<link rel="alternate" hreflang="x-default" href="{cfg["url"]}{url_of(DEFAULT, slug)}">'
         options = f'<option value="auto">{html.escape(T[l].get("language_auto", "Browser language"))}</option>' + \
-                  "".join(f'<option value="{x}" data-href="{url_of(x, "index" if slug in ENGLISH_ONLY and x != DEFAULT else slug)}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
+                  "".join(f'<option value="{x}" data-href="{url_of(x, slug if x in ONLY[slug] else "index")}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
         words = {f"t_{k}": html.escape(v) for k, v in T[l].items() if isinstance(v, str)}
         page = LAYOUT.format(lang=l, dir=T[l].get("dir", "ltr"), title=fill(meta.get("title", T[l]["site_name"]), l),
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",
@@ -188,17 +230,20 @@ for l in LANGS:
                              page=slug, root=root_of(l), globe=GLOBE, options=options, body=fill(body, l), source=html.escape(cfg["source"]),
                              publisher=html.escape(cfg["publisher"]["name"]),
                              sales_link=f'<a href="{root_of(l)}sales">{words["t_footer_sales"]}</a>' if PRO_VISIBLE else "",
-                             ads_head=ads_head(l), ads_settings=f'<a href="{root_of(l)}cookies" id="ccSettings">{html.escape(ADS_TEXT[l]["cookie_settings"])}</a>' if ADS_ON else "", **words)
+                             ads_head=ads_head(l), jsonld=jsonld(l, slug, meta, path), ogtype="article" if meta.get("type") == "article" else "website",
+                             guidesroot=local_root(l, "guides"), ads_settings=f'<a href="{root_of(l)}cookies" id="ccSettings">{html.escape(ADS_TEXT[l]["cookie_settings"])}</a>' if ADS_ON else "", **words)
         if ADS_ON and slug == "index":                    # the one ad: on the home page, between the toolbox and the developers section
             ad = (f'<aside class="ad-slot wrap" aria-label="{html.escape(ADS_TEXT[l]["ad_label"])}"><p class="ad-label">{html.escape(ADS_TEXT[l]["ad_label"])}</p>'
                   f'<ins class="adsbygoogle" style="display:block" data-ad-client="{ADS["client"]}" data-ad-slot="{html.escape(ADS.get("slot", ""))}" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>\n')
             i = page.find('<section class="wrap" id="developers"')
             if i < 0: i = page.find('id="developers"'); i = page.rfind("<section", 0, i)
             page = page[:i] + ad + page[i:]
+        page = re.sub(r'(<nav class="site-nav"[^>]*>.*?</nav>)', lambda m: m.group(1).replace(f'<a href="{path}">', f'<a href="{path}" aria-current="page">'), page, count=1, flags=re.S)
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
         page = page.replace('src="/assets/demo.gif"', f'src="/assets/demo.gif?v={ver}"')
+        page = re.sub(r'src="(/assets/guides/[a-z-]+\.webp)"', lambda m: f'src="{m.group(1)}?v={ver}"', page)
         (out / f"{slug}.html").write_text(page)
-        if slug != "404" and not meta.get("noindex"): sitemap.append(path)
+        if slug != "404" and not meta.get("noindex"): sitemap.append((path, meta.get("modified") or meta.get("published") or datetime.date.today().isoformat()))
 
 # ---------------------------------------------------------------- site files
 if ADS_VERIFY: (PUB / "ads.txt").write_text(f"google.com, {ADS['client'].replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n")   # AdSense requires it at the site's root
@@ -240,7 +285,7 @@ Sitemap: {cfg['url']}/sitemap.xml
 """)
 today = datetime.date.today().isoformat()
 (PUB / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    "".join(f"  <url><loc>{cfg['url']}{p}</loc><lastmod>{today}</lastmod></url>\n" for p in sitemap + ["/app/"]) + "</urlset>\n")
+    "".join(f"  <url><loc>{cfg['url']}{p}</loc><lastmod>{d}</lastmod></url>\n" for p, d in sitemap + [("/app/", today)]) + "</urlset>\n")
 (PUB / "manifest.webmanifest").write_text(json.dumps({
     "name": T[DEFAULT]["site_name"], "short_name": T[DEFAULT]["site_name"], "description": cfg["description"], "start_url": "/app/", "scope": "/",
     "display": "standalone", "background_color": "#ffffff", "theme_color": "#e5322d",

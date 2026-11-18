@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "PDF 保持打开。撤销记录将重新开始。",
   "headings, lists, bold and italic; the pictures as files": "标题、列表、粗体和斜体；图片另存为文件",
   "Ebook": "电子书",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "可在 Apple Books、Kobo 或 Calibre 中阅读；按标题分章"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "可在 Apple Books、Kobo 或 Calibre 中阅读；按标题分章",
+  "Rotate 90° clockwise": "顺时针旋转 90°",
+  "Duplicate page": "复制此页",
+  "Insert a blank page after": "在后面插入空白页",
+  "Delete page": "删除此页"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "还有 {n} 处"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "无法用可用的字体写出这个字符：{chars}。"
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "无法用可用的字体写出这些字符：{chars}。"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "无法用可用的字体写出这个字符：{chars}。无法下载编辑器的字体：请检查网络连接后重试。"
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "无法用可用的字体写出这些字符：{chars}。无法下载编辑器的字体：请检查网络连接后重试。"
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "已标记“{word}”1 处。请检查该页，然后应用。"
   ]
  ]
 }

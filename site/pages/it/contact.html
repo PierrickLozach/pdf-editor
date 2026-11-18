@@ -1,0 +1,29 @@
+<!--
+title: Contatti – {{name}}
+description: Come contattare lo sviluppatore di {{name}}: domande, commenti, segnalazioni di bug, problemi di sicurezza e richieste di licenza.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Contatti</h1>
+  <p class="lead">{{name}} è realizzato da una sola persona, {{publisher.name}}. Ogni messaggio viene letto.</p>
+
+  <h2>Email</h2>
+  <p>Per domande, commenti, richieste della stampa o di collaborazione, scrivi a <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. I messaggi in inglese o in francese sono i più semplici per me; la risposta può richiedere qualche giorno.</p>
+
+  <h2>Segnala un problema</h2>
+  <p>Se un PDF non si visualizza o non si modifica correttamente, apri una segnalazione su <a href="{{source}}/issues">GitHub</a> o invia un'email. È utile indicare:</p>
+  <ul>
+    <li>cosa hai fatto e cosa è successo invece;</li>
+    <li>il tuo browser e il tuo dispositivo, per esempio Chrome su Windows o Safari su un iPhone;</li>
+    <li>se possibile, un PDF che mostra il problema.</li>
+  </ul>
+  <p class="tip"><b>Non inviare mai un documento riservato.</b> L'editor funziona senza caricare i tuoi file, e deve restare così anche quando chiedi aiuto. Se il problema si verifica solo con un PDF privato, descrivilo, oppure prova a riprodurlo con un documento simile che non contenga nulla di personale.</p>
+
+  <h2>Sicurezza</h2>
+  <p>Per segnalare una vulnerabilità di sicurezza, usa la <a href="{{source}}/security/advisories/new">segnalazione privata di GitHub</a> anziché una segnalazione pubblica. Il file <a href="/.well-known/security.txt">security.txt</a> riporta le stesse informazioni.</p>
+
+  <h2>Sviluppatori e aziende</h2>
+  <p>La <a href="/developers">libreria JavaScript</a> su cui si basa l'editor è gratuita con licenza AGPL. Per una licenza commerciale, scrivi a <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>.</p>
+
+  <h2>Editore</h2>
+  <p>I dati legali dell'editore si trovano nelle <a href="{{root}}legal">note legali</a>. Il modo in cui vengono trattati i tuoi dati è spiegato nell'<a href="{{root}}privacy">informativa sulla privacy</a>.</p>
+</main>

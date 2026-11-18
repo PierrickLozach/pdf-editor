@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "Il PDF resta aperto. La cronologia di annullamento riparte da zero.",
   "headings, lists, bold and italic; the pictures as files": "titoli, elenchi, grassetto e corsivo; le immagini come file",
   "Ebook": "Ebook",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "da leggere in Apple Books, Kobo o Calibre; capitoli dai titoli"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "da leggere in Apple Books, Kobo o Calibre; capitoli dai titoli",
+  "Rotate 90° clockwise": "Ruota di 90° in senso orario",
+  "Duplicate page": "Duplica la pagina",
+  "Insert a blank page after": "Inserisci una pagina vuota dopo",
+  "Delete page": "Elimina la pagina"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "altre {n}"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Questo carattere non può essere scritto con i caratteri tipografici disponibili: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Questi caratteri non possono essere scritti con i caratteri tipografici disponibili: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Questo carattere non può essere scritto con i caratteri tipografici disponibili: {chars}. Non è stato possibile scaricare i caratteri tipografici dell'editor: controlla la connessione a Internet e riprova."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Questi caratteri non possono essere scritti con i caratteri tipografici disponibili: {chars}. Non è stato possibile scaricare i caratteri tipografici dell'editor: controlla la connessione a Internet e riprova."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "“{word}” segnato una volta. Controlla la pagina, poi applica."
   ]
  ]
 }

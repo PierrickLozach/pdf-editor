@@ -1,0 +1,29 @@
+<!--
+title: お問い合わせ – {{name}}
+description: {{name}} の開発者への連絡方法：ご質問、ご意見、不具合の報告、セキュリティの問題、ライセンスのご依頼。
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>お問い合わせ</h1>
+  <p class="lead">{{name}} は {{publisher.name}} が 1 人で作っています。いただいたメッセージにはすべて目を通しています。</p>
+
+  <h2>メール</h2>
+  <p>ご質問、ご意見、取材や提携のご依頼は、<a href="mailto:{{publisher.email}}">{{publisher.email}}</a> までお送りください。英語またはフランス語のメッセージだと助かります。返信まで数日かかることがあります。</p>
+
+  <h2>問題を報告する</h2>
+  <p>PDF が正しく表示されない、または正しく編集できない場合は、<a href="{{source}}/issues">GitHub</a> で issue を作成するか、メールでお知らせください。次の情報があると助かります。</p>
+  <ul>
+    <li>何をしたか、そして代わりに何が起きたか</li>
+    <li>お使いのブラウザとデバイス（例：Windows の Chrome、iPhone の Safari）</li>
+    <li>可能であれば、問題が起きる PDF</li>
+  </ul>
+  <p class="tip"><b>機密文書は絶対に送らないでください。</b>エディタはファイルをアップロードせずに動作します。サポートを求めるときも、それは変わらないようにすべきです。個人的な PDF でしか問題が起きない場合は、内容を説明していただくか、個人情報を含まない似た文書で再現してみてください。</p>
+
+  <h2>セキュリティ</h2>
+  <p>セキュリティの脆弱性を報告する場合は、公開の issue ではなく <a href="{{source}}/security/advisories/new">GitHub の非公開報告</a>をご利用ください。<a href="/.well-known/security.txt">security.txt</a> ファイルにも同じ情報があります。</p>
+
+  <h2>開発者・企業の方へ</h2>
+  <p>エディタを支える <a href="/developers">JavaScript ライブラリ</a>は、AGPL ライセンスのもとで無料です。商用ライセンスについては、<a href="mailto:{{publisher.email}}">{{publisher.email}}</a> までご連絡ください。</p>
+
+  <h2>運営者</h2>
+  <p>運営者の法的情報は<a href="{{root}}legal">法的表示</a>に記載しています。データの取り扱いについては<a href="{{root}}privacy">プライバシーポリシー</a>で説明しています。</p>
+</main>

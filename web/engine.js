@@ -955,9 +955,10 @@ export class Engine {
     const styled = bold !== b0 || italic !== i0;
     const lib = this.fonts, chain = [], seen = new Set();
     const push = (fr) => { if (fr && !seen.has(fr.id)) { seen.add(fr.id); chain.push(fr); } };
+    let unreachable = false;                        // a font file could not be downloaded (offline, network error)
     const add = async (e, kind) => {
       if (!e || seen.has(e.id)) return;
-      try { push({ id: e.id, font: await lib.font(e), label: e.label, kind, entry: e }); } catch (err) { /* unavailable (offline...) */ }
+      try { push({ id: e.id, font: await lib.font(e), label: e.label, kind, entry: e }); } catch (err) { unreachable = true; }
     };
     const missing = () => [...new Set([...text].filter((ch) => !isSpace(ch)))].filter((ch) => !chain.some((fr) => this._gid(fr, ch)));
     if (fontKey) {                                  // explicit user choice "b:key" / "l:key"
@@ -987,7 +988,19 @@ export class Engine {
     // 5. generic bundled fonts, for whatever is still missing
     const generic = sp && sp.serif ? "liberationserif" : sp && sp.mono ? "liberationmono" : "liberationsans";
     for (const k of [generic, "liberationsans", "dejavusans"]) if (!chain.length || missing().length) await add(lib.lookup(k, bold, italic, "bundled"), "fallback");
-    if (!chain.length) push({ id: "base:Helvetica", font: new mupdf.Font("Helvetica"), label: "Helvetica", kind: "fallback" });
+    // 6. the standard fonts built into the engine: no download, so editing works offline too
+    if (!chain.length || missing().length) {
+      const fam = sp && sp.serif ? "Times" : sp && sp.mono ? "Courier" : "Helvetica";
+      const style = bold && italic ? (fam === "Times" ? "-BoldItalic" : "-BoldOblique") : bold ? "-Bold" : italic ? (fam === "Times" ? "-Italic" : "-Oblique") : (fam === "Times" ? "-Roman" : "");
+      for (const nm of [...new Set([fam + style, fam === "Times" ? "Times-Roman" : fam, "Helvetica"])]) {
+        if (chain.length && !missing().length) break;
+        try { push({ id: "base:" + nm, font: new mupdf.Font(nm), label: nm.replace(/-(Roman|Oblique|BoldOblique)$/, ""), kind: "fallback" }); } catch (e) {}
+      }
+    }
+    // never write a text with letters silently left out (“2,450.00” must not become “2,40.00”)
+    const lost = missing();
+    if (lost.length) throw new EditError((lost.length === 1 ? "This character cannot be written with the fonts available: " : "These characters cannot be written with the fonts available: ") +
+      lost.slice(0, 8).join(" ") + "." + (unreachable ? " The editor's fonts could not be downloaded: check the internet connection and try again." : ""));
     // which font draws how many characters
     const counts = new Map();
     for (const ch of text) if (!isSpace(ch)) { const fr = this._pick(chain, ch); counts.set(fr, (counts.get(fr) || 0) + 1); }

@@ -20,5 +20,11 @@
   "language_auto": "Browser language",
   "footer_developers": "Developers",
   "github": "Source code on GitHub",
-  "footer_sales": "Terms of sale"
+  "footer_sales": "Terms of sale",
+  "nav_guides": "Guides",
+  "nav_about": "About",
+  "footer_about": "About",
+  "footer_contact": "Contact",
+  "footer_guides": "Guides",
+  "footer_whatsnew": "What's new"
 }

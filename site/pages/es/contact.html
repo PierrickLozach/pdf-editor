@@ -1,0 +1,29 @@
+<!--
+title: Contacto – {{name}}
+description: Cómo contactar con el desarrollador de {{name}}: preguntas, comentarios, avisos de errores, problemas de seguridad y solicitudes de licencia.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Contacto</h1>
+  <p class="lead">{{name}} lo hace una sola persona, {{publisher.name}}. Leo todos los mensajes.</p>
+
+  <h2>Correo electrónico</h2>
+  <p>Para preguntas, comentarios, prensa o propuestas de colaboración, escribe a <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Lo más fácil es escribir en inglés o en francés; la respuesta puede tardar unos días.</p>
+
+  <h2>Informar de un problema</h2>
+  <p>Si un PDF no se muestra o no se edita bien, abre una incidencia en <a href="{{source}}/issues">GitHub</a> o envía un correo. Ayuda mucho indicar:</p>
+  <ul>
+    <li>qué hiciste y qué pasó en su lugar;</li>
+    <li>tu navegador y tu dispositivo, por ejemplo Chrome en Windows o Safari en un iPhone;</li>
+    <li>si es posible, un PDF que muestre el problema.</li>
+  </ul>
+  <p class="tip"><b>Nunca envíes un documento confidencial.</b> El editor funciona sin subir tus archivos, y eso debe seguir siendo así cuando pides ayuda. Si el problema solo ocurre con un PDF privado, descríbelo o intenta reproducirlo con un documento parecido que no contenga nada personal.</p>
+
+  <h2>Seguridad</h2>
+  <p>Para informar de una vulnerabilidad de seguridad, usa el <a href="{{source}}/security/advisories/new">aviso privado de GitHub</a> en lugar de una incidencia pública. El archivo <a href="/.well-known/security.txt">security.txt</a> da la misma información.</p>
+
+  <h2>Desarrolladores y empresas</h2>
+  <p>La <a href="/developers">biblioteca JavaScript</a> en la que se basa el editor es gratuita con la licencia AGPL. Para una licencia comercial, escribe a <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>.</p>
+
+  <h2>Editor del sitio</h2>
+  <p>Los datos legales del editor del sitio están en el <a href="{{root}}legal">aviso legal</a>. Cómo se tratan tus datos se explica en la <a href="{{root}}privacy">política de privacidad</a>.</p>
+</main>

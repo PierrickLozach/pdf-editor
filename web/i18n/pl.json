@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "PDF pozostaje otwarty. Historia cofania zaczyna się od nowa.",
   "headings, lists, bold and italic; the pictures as files": "nagłówki, listy, pogrubienie i kursywa; obrazy jako pliki",
   "Ebook": "E-book",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "do czytania w Apple Books, Kobo lub Calibre; rozdziały z nagłówków"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "do czytania w Apple Books, Kobo lub Calibre; rozdziały z nagłówków",
+  "Rotate 90° clockwise": "Obróć o 90° w prawo",
+  "Duplicate page": "Duplikuj stronę",
+  "Insert a blank page after": "Wstaw pustą stronę za nią",
+  "Delete page": "Usuń stronę"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "Jeszcze: {n}"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Tego znaku nie można zapisać dostępnymi czcionkami: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Tych znaków nie można zapisać dostępnymi czcionkami: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Tego znaku nie można zapisać dostępnymi czcionkami: {chars}. Nie udało się pobrać czcionek edytora: sprawdź połączenie z internetem i spróbuj ponownie."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Tych znaków nie można zapisać dostępnymi czcionkami: {chars}. Nie udało się pobrać czcionek edytora: sprawdź połączenie z internetem i spróbuj ponownie."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "„{word}” oznaczono raz. Sprawdź stronę, a potem zastosuj."
   ]
  ]
 }

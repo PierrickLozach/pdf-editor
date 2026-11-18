@@ -34,5 +34,11 @@
   "language_auto": "Lingua del browser",
   "footer_developers": "Sviluppatori",
   "github": "Codice sorgente su GitHub",
-  "footer_sales": "Condizioni di vendita"
+  "footer_sales": "Condizioni di vendita",
+  "nav_guides": "Guide",
+  "nav_about": "Chi siamo",
+  "footer_about": "Chi siamo",
+  "footer_contact": "Contatti",
+  "footer_guides": "Guide",
+  "footer_whatsnew": "Novità"
 }

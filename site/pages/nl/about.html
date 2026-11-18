@@ -1,0 +1,39 @@
+<!--
+title: Over {{name}} – wie het maakt en waarom
+description: {{name}} is een gratis PDF-editor die volledig in je browser draait, gemaakt door een onafhankelijke ontwikkelaar in Frankrijk. Waarom hij bestaat, hoe hij werkt en hoe hij wordt gefinancierd.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Over {{name}}</h1>
+  <p class="lead">Een gratis PDF-editor die de bestaande tekst van een PDF wijzigt in het oorspronkelijke lettertype, volledig in je browser. Je documenten verlaten nooit je apparaat.</p>
+
+  <h2>Waarom hij bestaat</h2>
+  <p>Het begon met een factuur en één verkeerd bedrag. De gratis online editors die ik probeerde, wilden ofwel dat ik het document naar hun servers uploadde, ofwel plakten ze gewoon een wit vak over het oude getal en typten ze het nieuwe erbovenop, in een ander lettertype. Geen van beide is acceptabel voor een factuur, een contract, een certificaat of een medische brief.</p>
+  <p>{{name}} is gemaakt om die ene taak goed te doen: klik op een woord, typ, en je krijgt een PDF die eruitziet alsof hij altijd zo is geweest. Daarna groeide hij uit tot een complete gereedschapskist voor de dagelijkse dingen die mensen met PDF's moeten doen.</p>
+
+  <h2>Wie het maakt</h2>
+  <p>{{name}} is een onafhankelijk project van {{publisher.name}}, een softwareontwikkelaar in Frankrijk. Het is niet verbonden aan Adobe of aan een ander bedrijf dat PDF-software maakt. Vragen, foutmeldingen en ideeën zijn welkom: zie de <a href="{{root}}contact">contactpagina</a>.</p>
+
+  <h2>Waar het voor staat</h2>
+  <ul>
+    <li><b>Je documenten blijven van jou.</b> De hele editor draait in je browser, op je computer, tablet of telefoon. Er wordt geen enkel document geüpload, niet naar ons en niet naar iemand anders. Je kunt het zelf controleren: de <a href="{{guidesroot}}check-pdf-privacy">handleiding om een online PDF-tool te controleren</a> laat zien hoe.</li>
+    <li><b>Bewerkingen die je niet ziet.</b> De oude tekst wordt verwijderd, niet verstopt, en de nieuwe tekst gebruikt het lettertype, de grootte en de kleur van de PDF zelf, zolang het document dat toelaat.</li>
+    <li><b>Gratis voor dagelijks gebruik.</b> Geen account, geen watermerk, geen limiet op het aantal pagina's of documenten.</li>
+    <li><b>Open source.</b> De volledige code staat openbaar op <a href="{{source}}">GitHub</a> onder de AGPL-licentie, zodat iedereen precies kan lezen wat hij doet.</li>
+  </ul>
+
+  <h2>Hoe het werkt</h2>
+  <p>De editor is gebouwd op MuPDF, de PDF-engine van Artifex, gecompileerd naar WebAssembly zodat hij in de browser bijna net zo snel draait als een geïnstalleerd programma. Tekstherkenning voor gescande pagina's gebruikt Tesseract. De lettertypen komen uit de PDF zelf, van je computer als je dat toestaat, of uit gratis lettertypen met een open licentie. De site wordt gehost door Cloudflare. Elke wijziging wordt getest in Chrome, Firefox en Safari voordat hij online gaat.</p>
+
+  <h2>Hoe het wordt gefinancierd</h2>
+  <!-- ads:off -->
+  <p>De site kost heel weinig om te draaien: het bewerken gebeurt op je eigen apparaat, dus er zijn geen verwerkingsservers om te betalen. Er is vandaag geen reclame en geen betaald abonnement. Bezoeken worden anoniem geteld, zonder cookies, alleen om te weten welke tools worden gebruikt.</p>
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p>De site kost heel weinig om te draaien: het bewerken gebeurt op je eigen apparaat, dus er zijn geen verwerkingsservers om te betalen. Eén advertentie, alleen op de startpagina en alleen als je die accepteert, dekt de overige kosten. De editor zelf toont nooit advertenties. Bezoeken worden anoniem geteld, zonder cookies.</p>
+  <!-- /ads:on -->
+
+  <h2>Talen</h2>
+  <p>De site en de editor zijn beschikbaar in 12 talen, waaronder Arabisch en Hebreeuws, die van rechts naar links worden geschreven. Correcties van moedertaalsprekers zijn van harte welkom.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open de editor</a></p>
+</main>

@@ -1,0 +1,44 @@
+<!--
+title: Vérifier qu'un outil PDF en ligne n'envoie pas votre fichier – {{name}}
+description: Beaucoup d'outils PDF en ligne envoient votre document sur leurs serveurs. Trois tests simples pour savoir ce qu'un outil fait vraiment de votre fichier avant de lui confier un document confidentiel.
+type: article
+published: 2026-11-18
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Vérifier qu'un outil PDF en ligne n'envoie pas votre fichier</h1>
+  <p class="lead">« Vos fichiers sont en sécurité chez nous » et « vos fichiers ne quittent jamais votre appareil » sont deux promesses très différentes. Voici comment savoir laquelle un outil tient, en quelques minutes et sans être un expert.</p>
+
+  <h2>Deux sortes d'outils en ligne</h2>
+  <p>La plupart des outils PDF en ligne travaillent sur leurs serveurs : votre navigateur envoie le document, le serveur le traite et renvoie le résultat. Le fichier existe alors, au moins un temps, sur un ordinateur que vous ne contrôlez pas. Beaucoup de services suppriment les fichiers au bout d'une heure ou deux ; c'est acceptable pour un menu ou un prospectus, rarement pour une fiche de paie, la copie d'un passeport ou un compte rendu médical.</p>
+  <p>D'autres outils, comme cet éditeur, font le traitement dans votre navigateur. La page télécharge le programme une fois, puis travaille sur le document localement : il n'y a rien à supprimer ensuite, puisque le document n'a jamais été envoyé.</p>
+
+  <h2>Test 1 : observer le réseau</h2>
+  <ol>
+    <li>Ouvrez la page de l'outil dans Chrome, Edge ou Firefox.</li>
+    <li>Ouvrez les outils de développement : F12 sous Windows, ⌥⌘I sur Mac. Choisissez l'onglet <b>Réseau</b> et videz la liste.</li>
+    <li>Ouvrez ou déposez un PDF, modifiez-le et enregistrez-le.</li>
+    <li>Regardez les requêtes qui apparaissent. Une requête dont la taille est proche de celle de votre fichier, souvent de type <code>POST</code> ou <i>upload</i>, signifie que le document a été envoyé. Quelques petites requêtes (icônes, polices, statistiques) sont normales.</li>
+  </ol>
+
+  <h2>Test 2 : se mettre hors ligne</h2>
+  <ol>
+    <li>Ouvrez la page de l'outil et attendez qu'elle soit entièrement chargée.</li>
+    <li>Coupez la connexion à Internet : désactivez le Wi-Fi, ou débranchez le câble réseau.</li>
+    <li>Ouvrez un PDF et modifiez-le. Si cela fonctionne encore, le traitement se fait sur votre appareil. Si l'outil affiche une erreur ou tourne sans fin, il a besoin de son serveur.</li>
+  </ol>
+  <p class="tip">Ce test est le plus simple à faire, et le plus convaincant.</p>
+
+  <h2>Test 3 : lire la politique et le code</h2>
+  <ul>
+    <li>Lisez la politique de confidentialité : cherchez combien de temps les fichiers sont gardés et où sont les serveurs. Des réponses vagues sont un signal d'alerte.</li>
+    <li>Si l'outil est libre, son code peut être lu par tous, et ses promesses vérifiées. Le code de cet éditeur est sur <a href="{{source}}">GitHub</a>.</li>
+  </ul>
+
+  <h2>Ce que fait cet éditeur</h2>
+  <p>Vos documents sont ouverts, modifiés et enregistrés dans votre navigateur, sur votre appareil. Le site compte bien les visites, anonymement, en totaux par jour, et télécharge des polices libres par leur nom quand un document en a besoin, mais il ne reçoit jamais vos documents ni leur contenu. La <a href="{{root}}privacy">politique de confidentialité</a> indique exactement ce qui est envoyé.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}redact-pdf">Caviarder un PDF pour que le texte masqué disparaisse vraiment</a></li><li><a href="{{root}}ocr-pdf">Rendre un PDF numérisé cherchable</a></li></ul>
+</main>

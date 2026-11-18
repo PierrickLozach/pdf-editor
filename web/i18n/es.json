@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "Tu PDF sigue abierto. El historial de deshacer vuelve a empezar.",
   "headings, lists, bold and italic; the pictures as files": "títulos, listas, negrita y cursiva; las imágenes como archivos",
   "Ebook": "Libro electrónico",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "para leerlo en Apple Books, Kobo o Calibre; capítulos según los títulos"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "para leerlo en Apple Books, Kobo o Calibre; capítulos según los títulos",
+  "Rotate 90° clockwise": "Girar 90° a la derecha",
+  "Duplicate page": "Duplicar la página",
+  "Insert a blank page after": "Insertar una página en blanco después",
+  "Delete page": "Eliminar la página"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "{n} más"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Este carácter no se puede escribir con las fuentes disponibles: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Estos caracteres no se pueden escribir con las fuentes disponibles: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Este carácter no se puede escribir con las fuentes disponibles: {chars}. No se pudieron descargar las fuentes del editor: comprueba la conexión a internet y vuelve a intentarlo."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Estos caracteres no se pueden escribir con las fuentes disponibles: {chars}. No se pudieron descargar las fuentes del editor: comprueba la conexión a internet y vuelve a intentarlo."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "«{word}» marcado una vez. Revisa la página y luego aplica."
   ]
  ]
 }

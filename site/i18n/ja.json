@@ -20,5 +20,11 @@
   "language_auto": "ブラウザの言語",
   "footer_developers": "開発者向け",
   "github": "GitHub のソースコード",
-  "footer_sales": "販売条件"
+  "footer_sales": "販売条件",
+  "nav_guides": "ガイド",
+  "nav_about": "概要",
+  "footer_about": "このサイトについて",
+  "footer_contact": "お問い合わせ",
+  "footer_guides": "ガイド",
+  "footer_whatsnew": "新着情報"
 }

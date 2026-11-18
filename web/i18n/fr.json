@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "Votre PDF reste ouvert. L'historique d'annulation repart de zéro.",
   "headings, lists, bold and italic; the pictures as files": "titres, listes, gras et italique ; les images en fichiers",
   "Ebook": "Livre numérique",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "à lire dans Apple Books, Kobo ou Calibre ; chapitres d'après les titres"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "à lire dans Apple Books, Kobo ou Calibre ; chapitres d'après les titres",
+  "Rotate 90° clockwise": "Faire pivoter de 90° vers la droite",
+  "Duplicate page": "Dupliquer la page",
+  "Insert a blank page after": "Insérer une page blanche après",
+  "Delete page": "Supprimer la page"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "{n} de plus"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Ce caractère ne peut pas être écrit avec les polices disponibles : {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Ces caractères ne peuvent pas être écrits avec les polices disponibles : {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Ce caractère ne peut pas être écrit avec les polices disponibles : {chars}. Les polices de l'éditeur n'ont pas pu être téléchargées : vérifiez la connexion à Internet et réessayez."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Ces caractères ne peuvent pas être écrits avec les polices disponibles : {chars}. Les polices de l'éditeur n'ont pas pu être téléchargées : vérifiez la connexion à Internet et réessayez."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "« {word} » marqué une fois. Vérifiez la page, puis appliquez."
   ]
  ]
 }

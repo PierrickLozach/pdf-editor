@@ -1,0 +1,29 @@
+<!--
+title: Contact – {{name}}
+description: Comment joindre le développeur de {{name}} : questions, avis, signalements de bugs, failles de sécurité et demandes de licence.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Contact</h1>
+  <p class="lead">{{name}} est fait par une seule personne, {{publisher.name}}. Chaque message est lu.</p>
+
+  <h2>E-mail</h2>
+  <p>Pour une question, un avis, une demande de presse ou de partenariat, écrivez à <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>. Les messages en français ou en anglais sont les plus simples ; la réponse peut prendre quelques jours.</p>
+
+  <h2>Signaler un problème</h2>
+  <p>Si un PDF ne s'affiche pas ou ne se modifie pas correctement, ouvrez un ticket sur <a href="{{source}}/issues">GitHub</a> ou envoyez un e-mail. Il est utile de préciser :</p>
+  <ul>
+    <li>ce que vous avez fait et ce qui s'est passé à la place ;</li>
+    <li>votre navigateur et votre appareil, par exemple Chrome sous Windows ou Safari sur un iPhone ;</li>
+    <li>si possible, un PDF qui montre le problème.</li>
+  </ul>
+  <p class="tip"><b>N'envoyez jamais de document confidentiel.</b> L'éditeur fonctionne sans envoyer vos fichiers, et cela doit rester vrai quand vous demandez de l'aide. Si le problème n'apparaît qu'avec un PDF privé, décrivez-le, ou essayez de le reproduire avec un document semblable qui ne contient rien de personnel.</p>
+
+  <h2>Sécurité</h2>
+  <p>Pour signaler une faille de sécurité, utilisez le <a href="{{source}}/security/advisories/new">signalement privé de GitHub</a> plutôt qu'un ticket public. Le fichier <a href="/.well-known/security.txt">security.txt</a> donne les mêmes informations.</p>
+
+  <h2>Développeurs et entreprises</h2>
+  <p>La <a href="/developers">bibliothèque JavaScript</a> sur laquelle repose l'éditeur est gratuite sous licence AGPL. Pour une licence commerciale, écrivez à <a href="mailto:{{publisher.email}}">{{publisher.email}}</a>.</p>
+
+  <h2>Éditeur du site</h2>
+  <p>Les informations légales sur l'éditeur du site figurent dans les <a href="{{root}}legal">mentions légales</a>. La façon dont vos données sont traitées est expliquée dans la <a href="{{root}}privacy">politique de confidentialité</a>.</p>
+</main>

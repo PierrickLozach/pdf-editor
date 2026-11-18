@@ -74,7 +74,7 @@
       if (R.marks.some((m) => m.page === h.page && Math.abs(m.rect[0] - r[0]) < 0.5 && Math.abs(m.rect[1] - r[1]) < 0.5)) continue;
       R.add(h.page, r); added++;
     }
-    toast(t("“{word}” marked {n} times. Check the pages, then apply.").replace("{word}", word).replace("{n}", added), false, 6000);
+    toast((added === 1 ? t("“{word}” marked once. Check the page, then apply.") : t("“{word}” marked {n} times. Check the pages, then apply.")).replace("{word}", word).replace("{n}", added), false, 6000);
     const first = R.marks.find((m) => m.page === hits[0].page);
     if (first && first.el) first.el.scrollIntoView({ block: "center", behavior: "smooth" });
   };

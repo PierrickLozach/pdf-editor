@@ -1,0 +1,39 @@
+<!--
+title: Informazioni su {{name}} – chi lo realizza e perché
+description: {{name}} è un editor PDF gratuito che funziona interamente nel browser, realizzato da uno sviluppatore indipendente in Francia. Perché esiste, come funziona e come si finanzia.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Informazioni su {{name}}</h1>
+  <p class="lead">Un editor PDF gratuito che modifica il testo esistente di un PDF nel suo font originale, interamente nel browser. I tuoi documenti non lasciano mai il tuo dispositivo.</p>
+
+  <h2>Perché esiste</h2>
+  <p>Tutto è iniziato con una fattura e un importo sbagliato. Gli editor online gratuiti che ho provato mi chiedevano di caricare il documento sui loro server, oppure si limitavano a incollare un riquadro bianco sopra il vecchio numero e a scriverci sopra quello nuovo, con un altro font. Nessuna delle due cose va bene per una fattura, un contratto, un certificato o una lettera medica.</p>
+  <p>{{name}} è nato per fare bene proprio questo: fai clic su una parola, scrivi, e ottieni un PDF che sembra essere sempre stato così. Poi è cresciuto fino a diventare una cassetta degli attrezzi completa per le cose di tutti i giorni che si fanno con i PDF.</p>
+
+  <h2>Chi lo realizza</h2>
+  <p>{{name}} è un progetto indipendente di {{publisher.name}}, uno sviluppatore software che vive in Francia. Non è affiliato ad Adobe né ad altre aziende di software PDF. Domande, segnalazioni di bug e idee sono benvenute: vedi la <a href="{{root}}contact">pagina dei contatti</a>.</p>
+
+  <h2>I suoi principi</h2>
+  <ul>
+    <li><b>I tuoi documenti restano tuoi.</b> L'intero editor funziona nel browser, sul tuo computer, tablet o smartphone. Nessun documento viene caricato, né a noi né a nessun altro. Puoi verificarlo tu stesso: la <a href="{{guidesroot}}check-pdf-privacy">guida per controllare uno strumento PDF online</a> spiega come.</li>
+    <li><b>Modifiche che non si notano.</b> Il vecchio testo viene rimosso, non nascosto, e il nuovo usa il font, la dimensione e il colore del PDF ogni volta che il documento lo permette.</li>
+    <li><b>Gratis per l'uso di tutti i giorni.</b> Nessun account, nessuna filigrana, nessun limite al numero di pagine o di documenti.</li>
+    <li><b>Open source.</b> Tutto il codice è pubblico su <a href="{{source}}">GitHub</a> con licenza AGPL, così chiunque può leggere esattamente cosa fa.</li>
+  </ul>
+
+  <h2>Come funziona</h2>
+  <p>L'editor si basa su MuPDF, il motore PDF realizzato da Artifex, compilato in WebAssembly per funzionare nel browser a una velocità vicina a quella di un programma nativo. Il riconoscimento del testo nelle pagine scansionate usa Tesseract. I font provengono dal PDF stesso, dal tuo computer se lo consenti, oppure da font gratuiti con licenza libera. Il sito è ospitato da Cloudflare. Ogni modifica viene testata in Chrome, Firefox e Safari prima di andare online.</p>
+
+  <h2>Come si finanzia</h2>
+  <!-- ads:off -->
+  <p>Il sito costa pochissimo da mantenere: le modifiche avvengono sul tuo dispositivo, quindi non ci sono server di elaborazione da pagare. Oggi non ci sono pubblicità né piani a pagamento. Le visite vengono contate in modo anonimo, senza cookie, solo per sapere quali strumenti vengono usati.</p>
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p>Il sito costa pochissimo da mantenere: le modifiche avvengono sul tuo dispositivo, quindi non ci sono server di elaborazione da pagare. Un solo annuncio, solo nella home page e solo se lo accetti, copre i costi rimanenti. L'editor non mostra mai pubblicità. Le visite vengono contate in modo anonimo, senza cookie.</p>
+  <!-- /ads:on -->
+
+  <h2>Lingue</h2>
+  <p>Il sito e l'editor sono disponibili in 12 lingue, tra cui l'arabo e l'ebraico, che si scrivono da destra a sinistra. Le correzioni da parte di madrelingua sono benvenutissime.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Apri l'editor</a></p>
+</main>

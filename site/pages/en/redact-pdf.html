@@ -1,0 +1,43 @@
+<!--
+title: How to redact a PDF so the hidden text is really gone – {{name}}
+description: A black rectangle over text does not remove it. How redaction really works, the difference with whiteout, and how to check that confidential information is gone before you share a PDF.
+langs: en, fr
+type: article
+published: 2026-11-18
+image: /assets/guides/redact-en.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to redact a PDF so the hidden text is really gone</h1>
+  <p class="lead">Before sharing a contract, a payslip or a medical report, you may need to hide a name, an account number or an address. Covering it is not enough: it has to be removed from the file.</p>
+
+  <h2>Why a black box is not enough</h2>
+  <p>Drawing a black rectangle over text, in a PDF reader or after printing to PDF, only adds a shape on top. The text underneath is still in the file: anyone can select it, copy it, or find it with a search. Confidential information has leaked many times in exactly this way.</p>
+  <p>Real redaction removes the content itself, the letters, the parts of pictures and the drawings under the marked area, and then draws the black box where they were.</p>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><a href="/app/">Open the editor</a> and open the PDF.</li>
+    <li>Click <b>Tools</b>, then <b>Redact</b>. A bar appears at the top of the page.</li>
+    <li>Mark what must disappear: drag a box over an area, or type a word or a number in the bar to mark it everywhere in the document.</li>
+    <li>Check the marked areas. Click a mark to remove it if you marked too much.</li>
+    <li>Click <b>Apply redactions</b>. The text, pictures and drawings under the marks are removed for good, then save the PDF.</li>
+  </ol>
+  <figure><img src="/assets/guides/redact-en.webp" width="1440" height="900" loading="lazy" alt="Areas of an invoice marked for redaction, with the Redact bar at the top"><figcaption>Marked areas are only removed when you click Apply redactions.</figcaption></figure>
+  <p>You can still undo until you close the PDF. In the saved file the content is gone, for every reader and every program.</p>
+
+  <h2>Whiteout or redaction?</h2>
+  <p><b>Whiteout</b> removes the text under the white box but leaves pictures and drawings in the file, simply covered. It is meant for corrections, such as removing a line before writing a new one. <b>Redact</b> removes everything under the mark, pictures included, and leaves a visible black box. For anything confidential, use Redact.</p>
+
+  <h2>Check before you share</h2>
+  <ul>
+    <li>Open the saved PDF in another reader and search for the removed words. Nothing should be found.</li>
+    <li>Select the text around the black box and paste it somewhere: the removed part must not appear.</li>
+    <li>Look at the document's properties (title, author, subject) in your PDF reader. Redaction does not change them; if they contain a name, change it at the source.</li>
+    <li>Files attached to the PDF are not covered by the black boxes. If the PDF has attachments, the editor tells you when you open it and removes them when you save, unless you choose to keep them.</li>
+  </ul>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}check-pdf-privacy">How to check that an online PDF tool does not upload your file</a></li><li><a href="{{root}}edit-pdf-text">How to change the text of a PDF without changing its font</a></li></ul>
+</main>

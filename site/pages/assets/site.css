@@ -198,7 +198,11 @@ details.change .form { max-width: 420px; }
 .notfound .code { font-size: 90px; font-weight: 800; color: var(--accent); line-height: 1; }
 
 @media (max-width: 760px) {
-  .site-nav { display: none; }
+  /* the menu stays visible on phones: a second row under the logo, scrollable sideways if it is too wide */
+  .site-header .wrap { flex-wrap: wrap; height: auto; row-gap: 2px; padding-top: 10px; padding-bottom: 6px; }
+  .site-nav { order: 3; width: 100%; margin: 0; overflow-x: auto; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav a { font-size: 14px; padding: 5px 8px; white-space: nowrap; }
   .privacy-band { grid-template-columns: 1fr; padding: 26px; }
   .kv { grid-template-columns: 1fr; gap: 2px; }
   .kv dd { margin-bottom: 8px; }
@@ -279,3 +283,21 @@ html:not(.ads-on) .ad-slot { display: none; }          /* nothing to see (and no
 /* the consent banner, in the site's colours */
 #cc-main { --cc-btn-primary-bg: #e5322d; --cc-btn-primary-border-color: #e5322d; --cc-btn-primary-hover-bg: #c4231f; --cc-btn-primary-hover-border-color: #c4231f;
   --cc-font-family: inherit; --cc-modal-border-radius: 12px; }
+
+/* ---------- guides, about, contact, what's new ---------- */
+.crumbs { font-size: 14px; color: var(--muted); margin: 0 0 6px; }
+.crumbs a { color: var(--muted); }
+.prose .lead { font-size: 18px; color: var(--muted); }
+.prose figure { margin: 22px 0; }
+.prose figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+.prose figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.prose .tip { border-inline-start: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 18px 0; }
+.prose .cta-line { margin: 28px 0; }
+.guide-list { list-style: none; padding: 0; display: grid; gap: 12px; }
+.guide-list li a { display: block; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--fg); background: var(--card); }
+.guide-list li a:hover { border-color: var(--accent); }
+.guide-list li b { display: block; margin-bottom: 2px; }
+.guide-list li span { color: var(--muted); font-size: 15px; }
+.changes h2 { font-size: 19px; margin-top: 1.6em; }
+.changes time { color: var(--muted); font-weight: 400; font-size: 15px; margin-inline-start: 8px; }
+.guide-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 20px; }

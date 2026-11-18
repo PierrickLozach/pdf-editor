@@ -1,0 +1,45 @@
+<!--
+title: Modifier le texte d'un PDF sans changer sa police – {{name}}
+description: Corriger une date, un montant ou un nom dans un PDF sans que cela se voie : comment fonctionne le texte d'un PDF, comment garder la police d'origine, et que faire quand des lettres manquent.
+type: article
+published: 2026-11-18
+image: /assets/guides/edit-text-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Modifier le texte d'un PDF sans changer sa police</h1>
+  <p class="lead">Une date erronée sur une facture, une faute dans un nom, un montant à mettre à jour : voici comment corriger le texte d'un PDF sans que personne ne puisse voir qu'il a été modifié.</p>
+
+  <h2>Pourquoi modifier un PDF est plus difficile qu'un document</h2>
+  <p>Un PDF n'est pas un fichier de traitement de texte. Il ne contient pas des paragraphes, mais des instructions du type « dessine ces lettres, dans cette police, à cette position exacte ». Il n'y a pas de retours à la ligne à ajuster, ni de texte qui passe d'une ligne à l'autre.</p>
+  <p>La police n'est souvent pas enregistrée en entier non plus. Pour garder des fichiers légers, la plupart des PDF n'incluent que les lettres qu'ils utilisent, un <i>sous-ensemble</i> de la police. Si la facture d'origine n'a jamais utilisé de Q majuscule, le PDF n'a pas de Q majuscule à dessiner.</p>
+  <p>C'est pourquoi beaucoup d'outils prennent un raccourci : ils collent un rectangle blanc sur l'ancien texte et tapent le nouveau par-dessus, dans une police standard. Le résultat a l'air rafistolé, et l'ancien texte reste dans le fichier, dessous.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> et déposez votre PDF sur la page, ou cliquez sur <b>Choisir un PDF</b>. Le fichier est ouvert dans votre navigateur ; il n'est pas envoyé.</li>
+    <li>L'outil <b>Modifier le texte</b> est actif par défaut. Cliquez sur la ligne à changer : une zone de modification s'ouvre dessus et indique la police et la taille qui seront utilisées.</li>
+    <li>Tapez votre correction. Appuyez sur <b>Entrée</b> pour l'appliquer, ou sur <b>Échap</b> pour annuler.</li>
+    <li>Si la ligne doit rester alignée sur sa droite, comme souvent les montants et les totaux, utilisez le bouton <b>Aligner à droite</b> de la barre de modification : le texte s'allonge alors vers la gauche.</li>
+    <li>Enregistrez. Dans Chrome et Edge, <b>Enregistrer</b> écrit les modifications dans votre fichier ; dans les autres navigateurs, le PDF modifié est téléchargé.</li>
+  </ol>
+  <figure><img src="/assets/guides/edit-text-fr.webp" width="1440" height="900" loading="lazy" alt="L'éditeur avec une ligne d'une facture ouverte en modification, indiquant la police et la taille utilisées"><figcaption>Cliquez sur une ligne pour la modifier : la barre indique la police qui sera utilisée.</figcaption></figure>
+
+  <h2>D'où vient la police</h2>
+  <p>L'éditeur essaie, dans cet ordre : la police incluse dans le PDF ; la même police installée sur votre ordinateur, si vous l'autorisez avec le bouton <b>Polices</b> (Chrome et Edge) ; une police libre de la même famille ; et, seulement pour les lettres qui manquent encore, une police d'aspect proche. Dans la plupart des PDF, les deux premières suffisent.</p>
+  <p class="tip">Les documents Office utilisent souvent Calibri, Cambria ou Aptos. Les navigateurs ne voient pas ces polices d'eux-mêmes : dans la fenêtre <b>Polices</b>, <b>Ajouter les polices Office</b> les ajoute une fois, et votre navigateur les garde.</p>
+
+  <h2>Changer la même chose partout</h2>
+  <p>Pour remplacer un nom, une référence ou une année sur toutes les pages, utilisez <b>Rechercher et remplacer</b> (⌘F sur Mac, Ctrl+F ailleurs) au lieu de modifier chaque ligne.</p>
+
+  <h2>Les limites à connaître</h2>
+  <ul>
+    <li>Le texte se modifie ligne par ligne. Une phrase beaucoup plus longue ne passe pas à la ligne suivante : raccourcissez-la, ou modifiez aussi la ligne suivante.</li>
+    <li>Une page numérisée est une image, sans texte. Utilisez Masquer et Ajouter du texte, ou commencez par <a href="{{root}}ocr-pdf">la rendre cherchable</a>.</li>
+    <li>Le PDF enregistré garde les propriétés de l'original (titre, auteur, dates). Seule la date de modification du fichier sur votre ordinateur change.</li>
+  </ul>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}redact-pdf">Caviarder un PDF pour que le texte masqué disparaisse vraiment</a></li><li><a href="{{root}}sign-pdf">Signer un PDF sans l'imprimer</a></li></ul>
+</main>

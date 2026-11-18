@@ -501,7 +501,11 @@
   "Your PDF stays open. The undo history starts again.": "Ihr PDF bleibt geöffnet. Der Rückgängig-Verlauf beginnt neu.",
   "headings, lists, bold and italic; the pictures as files": "Überschriften, Listen, Fett und Kursiv; die Bilder als Dateien",
   "Ebook": "E-Book",
-  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "zum Lesen in Apple Books, Kobo oder Calibre; Kapitel aus den Überschriften"
+  "to read it in Apple Books, Kobo or Calibre; chapters from the headings": "zum Lesen in Apple Books, Kobo oder Calibre; Kapitel aus den Überschriften",
+  "Rotate 90° clockwise": "Um 90° im Uhrzeigersinn drehen",
+  "Duplicate page": "Seite duplizieren",
+  "Insert a blank page after": "Leere Seite danach einfügen",
+  "Delete page": "Seite löschen"
  },
  "patterns": [
   [
@@ -827,6 +831,26 @@
   [
    "{n} more",
    "{n} weitere"
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}.",
+   "Dieses Zeichen kann mit den verfügbaren Schriften nicht geschrieben werden: {chars}."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}.",
+   "Diese Zeichen können mit den verfügbaren Schriften nicht geschrieben werden: {chars}."
+  ],
+  [
+   "This character cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Dieses Zeichen kann mit den verfügbaren Schriften nicht geschrieben werden: {chars}. Die Schriften des Editors konnten nicht heruntergeladen werden: Prüfen Sie die Internetverbindung und versuchen Sie es erneut."
+  ],
+  [
+   "These characters cannot be written with the fonts available: {chars}. The editor's fonts could not be downloaded: check the internet connection and try again.",
+   "Diese Zeichen können mit den verfügbaren Schriften nicht geschrieben werden: {chars}. Die Schriften des Editors konnten nicht heruntergeladen werden: Prüfen Sie die Internetverbindung und versuchen Sie es erneut."
+  ],
+  [
+   "“{word}” marked once. Check the page, then apply.",
+   "„{word}“ einmal markiert. Prüfen Sie die Seite und wenden Sie dann an."
   ]
  ]
 }

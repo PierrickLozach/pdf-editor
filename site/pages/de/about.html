@@ -1,0 +1,39 @@
+<!--
+title: Über {{name}} – wer es macht und warum
+description: {{name}} ist ein kostenloser PDF-Editor, der vollständig in Ihrem Browser läuft, entwickelt von einem unabhängigen Entwickler in Frankreich. Warum es ihn gibt, wie er funktioniert und wie er finanziert wird.
+-->
+<main id="main" class="prose wrap narrow">
+  <h1>Über {{name}}</h1>
+  <p class="lead">Ein kostenloser PDF-Editor, der den vorhandenen Text eines PDFs in der Originalschrift ändert, vollständig in Ihrem Browser. Ihre Dokumente verlassen nie Ihr Gerät.</p>
+
+  <h2>Warum es ihn gibt</h2>
+  <p>Angefangen hat alles mit einer Rechnung und einem falschen Betrag. Die kostenlosen Online-Editoren, die ich ausprobiert habe, wollten entweder, dass ich das Dokument auf ihre Server hochlade, oder sie klebten einfach einen weißen Kasten über die alte Zahl und schrieben die neue darüber, in einer anderen Schrift. Beides ist für eine Rechnung, einen Vertrag, eine Bescheinigung oder einen Arztbrief nicht akzeptabel.</p>
+  <p>{{name}} wurde gebaut, um genau diese eine Aufgabe richtig zu erledigen: auf ein Wort klicken, tippen und ein PDF erhalten, das aussieht, als wäre es schon immer so gewesen. Daraus wurde dann ein kompletter Werkzeugkasten für alles, was man im Alltag mit PDFs erledigen muss.</p>
+
+  <h2>Wer ihn macht</h2>
+  <p>{{name}} ist ein unabhängiges Projekt von {{publisher.name}}, einem Softwareentwickler aus Frankreich. Es steht in keiner Verbindung zu Adobe oder einem anderen Hersteller von PDF-Software. Fragen, Fehlermeldungen und Ideen sind willkommen: siehe die <a href="{{root}}contact">Kontaktseite</a>.</p>
+
+  <h2>Wofür er steht</h2>
+  <ul>
+    <li><b>Ihre Dokumente bleiben Ihre.</b> Der ganze Editor läuft in Ihrem Browser, auf Ihrem Computer, Tablet oder Smartphone. Kein Dokument wird hochgeladen, weder zu uns noch zu jemand anderem. Sie können das selbst prüfen: Die <a href="{{guidesroot}}check-pdf-privacy">Anleitung zum Prüfen eines Online-PDF-Tools</a> zeigt, wie.</li>
+    <li><b>Änderungen, die man nicht sieht.</b> Der alte Text wird entfernt, nicht versteckt, und der neue Text verwendet die Schrift, Größe und Farbe des PDFs selbst, wann immer das Dokument es zulässt.</li>
+    <li><b>Kostenlos für den Alltag.</b> Kein Konto, kein Wasserzeichen, keine Begrenzung bei der Zahl der Seiten oder Dokumente.</li>
+    <li><b>Open Source.</b> Der gesamte Code ist öffentlich auf <a href="{{source}}">GitHub</a> unter der AGPL-Lizenz, sodass jeder genau nachlesen kann, was er tut.</li>
+  </ul>
+
+  <h2>Wie er funktioniert</h2>
+  <p>Der Editor basiert auf MuPDF, der PDF-Engine von Artifex, kompiliert zu WebAssembly, damit sie im Browser fast so schnell läuft wie ein installiertes Programm. Die Texterkennung für gescannte Seiten nutzt Tesseract. Die Schriften stammen aus dem PDF selbst, von Ihrem Computer, wenn Sie es erlauben, oder aus kostenlosen Schriften mit offener Lizenz. Die Website wird von Cloudflare gehostet. Jede Änderung wird in Chrome, Firefox und Safari getestet, bevor sie online geht.</p>
+
+  <h2>Wie er finanziert wird</h2>
+  <!-- ads:off -->
+  <p>Der Betrieb der Website kostet sehr wenig: Die Bearbeitung findet auf Ihrem Gerät statt, also gibt es keine Verarbeitungsserver zu bezahlen. Derzeit gibt es weder Werbung noch ein kostenpflichtiges Angebot. Besuche werden anonym und ohne Cookies gezählt, nur um zu wissen, welche Werkzeuge genutzt werden.</p>
+  <!-- /ads:off -->
+  <!-- ads:on -->
+  <p>Der Betrieb der Website kostet sehr wenig: Die Bearbeitung findet auf Ihrem Gerät statt, also gibt es keine Verarbeitungsserver zu bezahlen. Eine Anzeige, nur auf der Startseite und nur, wenn Sie zustimmen, deckt die übrigen Kosten. Der Editor selbst zeigt nie Werbung. Besuche werden anonym und ohne Cookies gezählt.</p>
+  <!-- /ads:on -->
+
+  <h2>Sprachen</h2>
+  <p>Die Website und der Editor sind in 12 Sprachen verfügbar, darunter Arabisch und Hebräisch, die von rechts nach links geschrieben werden. Korrekturen von Muttersprachlern sind sehr willkommen.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Editor öffnen</a></p>
+</main>
