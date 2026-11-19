@@ -9,6 +9,6 @@
     "test": "sh tests/run.sh"
   },
   "dependencies": {
-    "wrangler": "^4.159.0"
+    "wrangler": "^4.163.0"
   }
 }
