@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "時計回りに 90° 回転",
   "Duplicate page": "ページを複製",
   "Insert a blank page after": "後ろに白紙のページを挿入",
-  "Delete page": "ページを削除"
+  "Delete page": "ページを削除",
+  "Save (overwrites)": "保存（上書き）",
+  "Download copy": "コピーをダウンロード",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "開いたファイルに保存します。置き換えるかどうかを先に確認します (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "編集した PDF のコピーをダウンロード：開いたファイルは変更されません",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "入力した文字の一部がこの PDF に含まれるフォントにないため、似たフォントで表示しています。"
  },
  "patterns": [
   [

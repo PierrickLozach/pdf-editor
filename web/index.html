@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23e5322d'/><path d='M9 23V9h6.5a4.5 4.5 0 0 1 0 9H12v5z' fill='white'/></svg>">
-<script src="/assets/stats.js?v=85a3c2fa45" defer></script>
-<script src="i18n.js?v=85a3c2fa45"></script>
-<link rel="stylesheet" href="style.css?v=85a3c2fa45">
+<script src="/assets/stats.js?v=c8eaec39f1" defer></script>
+<script src="i18n.js?v=c8eaec39f1"></script>
+<link rel="stylesheet" href="style.css?v=c8eaec39f1">
 <meta name="description" content="Free PDF editor that runs entirely in your browser: edit text with the original font, find and replace, white-out, images, pages. Your files are never uploaded.">
 <meta name="theme-color" content="#e5322d">
 </head>
@@ -21,7 +21,7 @@
   <div class="group">
     <button id="btnOpen" title="Open a PDF (⌘O)"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Open</span></button>
     <button id="btnSave" class="needs-doc" title="Save the edited PDF (⌘S / Ctrl+S)"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg><span>Save</span></button>
-    <button id="btnDownload" class="needs-doc" title="Download the edited PDF"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg><span>Download</span></button>
+    <button id="btnDownload" class="needs-doc" title="Download a copy of the edited PDF: the file you opened is not changed"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg><span>Download copy</span></button>
   </div>
 
   <div class="group">
@@ -147,7 +147,7 @@
 <div id="fontIntro" class="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="fontIntroTitle">
   <div class="box">
     <h2 id="fontIntroTitle">Use your computer's fonts?</h2>
-    <p>Some letters you typed are not in this PDF's copy of <b id="fontIntroFams"></b>, so they were drawn with a look-alike font.</p>
+    <p><span id="fontIntroGeneric">Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.</span><span id="fontIntroNamed" hidden>Some letters you typed are not in this PDF's copy of <b id="fontIntroFams"></b>, so they were drawn with a look-alike font.</span></p>
     <p>Allow the editor to use the fonts installed on your computer, and it redraws them with the real font. The fonts are only used here, on this device: <b>nothing is uploaded</b>.</p>
     <div class="actions">
       <button id="fontIntroLater">Not now</button>
@@ -186,21 +186,21 @@
 <input id="fontFilesInput" type="file" accept=".ttf,.otf,.ttc,.otc,font/ttf,font/otf,font/collection,font/sfnt,application/x-font-ttf" multiple hidden>
 <input id="fontFolderInput" type="file" webkitdirectory multiple hidden>
 
-<script src="app.js?v=85a3c2fa45"></script>
-<script src="move.js?v=85a3c2fa45"></script>
-<script src="place.js?v=85a3c2fa45"></script>
-<script src="remove.js?v=85a3c2fa45"></script>
-<script src="pro.js?v=85a3c2fa45"></script>
-<script src="protools.js?v=85a3c2fa45"></script>
-<script src="start.js?v=85a3c2fa45"></script>
-<script src="reduce.js?v=85a3c2fa45"></script>
-<script src="files.js?v=85a3c2fa45"></script>
-<script src="active.js?v=85a3c2fa45"></script>
-<script src="tools.js?v=85a3c2fa45"></script>
-<script src="sign.js?v=85a3c2fa45"></script>
-<script src="redact.js?v=85a3c2fa45"></script>
-<script src="ocr.js?v=85a3c2fa45"></script>
-<script src="legacy.js?v=85a3c2fa45"></script>
-<script src="fit.js?v=85a3c2fa45"></script>
+<script src="app.js?v=c8eaec39f1"></script>
+<script src="move.js?v=c8eaec39f1"></script>
+<script src="place.js?v=c8eaec39f1"></script>
+<script src="remove.js?v=c8eaec39f1"></script>
+<script src="pro.js?v=c8eaec39f1"></script>
+<script src="protools.js?v=c8eaec39f1"></script>
+<script src="start.js?v=c8eaec39f1"></script>
+<script src="reduce.js?v=c8eaec39f1"></script>
+<script src="files.js?v=c8eaec39f1"></script>
+<script src="active.js?v=c8eaec39f1"></script>
+<script src="tools.js?v=c8eaec39f1"></script>
+<script src="sign.js?v=c8eaec39f1"></script>
+<script src="redact.js?v=c8eaec39f1"></script>
+<script src="ocr.js?v=c8eaec39f1"></script>
+<script src="legacy.js?v=c8eaec39f1"></script>
+<script src="fit.js?v=c8eaec39f1"></script>
 </body>
 </html>

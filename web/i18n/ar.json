@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "تدوير 90° باتجاه عقارب الساعة",
   "Duplicate page": "تكرار الصفحة",
   "Insert a blank page after": "إدراج صفحة فارغة بعدها",
-  "Delete page": "حذف الصفحة"
+  "Delete page": "حذف الصفحة",
+  "Save (overwrites)": "حفظ (استبدال)",
+  "Download copy": "تنزيل نسخة",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "الحفظ في الملف المفتوح بعد سؤالك عمّا إذا كنت تريد استبداله (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "تنزيل نسخة من ملف PDF المعدَّل: لا يتغيّر الملف المفتوح",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "بعض الأحرف التي كتبتها غير موجودة في الخطوط المضمّنة في ملف PDF هذا، لذا رُسمت بخط مشابه."
  },
  "patterns": [
   [

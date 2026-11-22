@@ -275,6 +275,17 @@
     s.hidden = !show;
     s.textContent = !show ? "" : S.dirty ? t("Not saved") : F.handle ? t("Saved") : "";
     s.classList.toggle("dirty", show && !!S.dirty);
+    // Save says when it writes into the opened file (Chrome, Edge); Download always makes a copy
+    const b = document.getElementById("btnSave");
+    if (b) {
+      const inPlace = show && !!F.handle;
+      const label = inPlace ? t("Save (overwrites)") : t("Save");
+      const tip = inPlace ? t("Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)") : t("Save the edited PDF (⌘S / Ctrl+S)");
+      const sp = b.querySelector("span");
+      if (sp && sp.textContent !== label) sp.textContent = label;
+      if (b.title !== tip) b.title = tip;
+      b.classList.toggle("in-place", inPlace);
+    }
   }
 
   /* ---------------------------------------------------------------- start */

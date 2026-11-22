@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=85a3c2fa45", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=c8eaec39f1", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -1358,7 +1358,11 @@ async function maybeFontIntro(family, retry) {
   const inst = hasInstalledFontsApi();
   if (!inst && !IS_MAC) return;              // nothing simple to offer here
   fontIntroRetry = retry || null;
-  $("#fontIntroFams").textContent = family || "this PDF's font";
+  // the font's name when the edit knows it; otherwise a sentence that names no font (never "copy of ,")
+  const named = typeof family === "string" && family.trim() !== "";
+  $("#fontIntroFams").textContent = named ? family.trim() : "";
+  $("#fontIntroNamed").hidden = !named;
+  $("#fontIntroGeneric").hidden = named;
   $("#fontIntroAllow").hidden = !inst;
   $("#fontIntroFiles").hidden = inst;
   $("#fontIntro").hidden = false;
@@ -1477,7 +1481,9 @@ function bindLangMenu() {
   const open = () => {
     note.hidden = !(S.doc && S.doc.canUndo);
     m.hidden = false;
-    const r = btn.getBoundingClientRect(), w = m.offsetWidth, rtl = document.documentElement.dir === "rtl";
+    // opened from the toolbar's "⋯" menu when the language button did not fit: shown under "⋯"
+    const anchor = btn.offsetParent ? btn : (document.getElementById("btnMore") || btn);
+    const r = anchor.getBoundingClientRect(), w = m.offsetWidth, rtl = document.documentElement.dir === "rtl";
     const x = rtl ? Math.max(8, r.left) : Math.min(r.right - w, innerWidth - w - 8);
     Object.assign(m.style, { top: r.bottom + 6 + "px", left: Math.max(8, x) + "px" });
     btn.setAttribute("aria-expanded", "true");

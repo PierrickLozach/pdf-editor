@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "顺时针旋转 90°",
   "Duplicate page": "复制此页",
   "Insert a blank page after": "在后面插入空白页",
-  "Delete page": "删除此页"
+  "Delete page": "删除此页",
+  "Save (overwrites)": "保存（覆盖）",
+  "Download copy": "下载副本",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "保存到打开的文件中，保存前会询问是否替换 (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "下载编辑后 PDF 的副本：打开的文件不会被更改",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "您输入的部分字符不在此 PDF 所含的字体中，因此改用了相似字体显示。"
  },
  "patterns": [
   [

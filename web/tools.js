@@ -295,7 +295,8 @@
     TOOLS.sortMenu = sortItems;
     const open = () => {
       sortItems();
-      const r = btn.getBoundingClientRect(), rtl = document.documentElement.dir === "rtl";
+      const anchor = btn.offsetParent ? btn : (document.getElementById("btnMore") || btn);   // the button may sit in the "⋯" menu
+      const r = anchor.getBoundingClientRect(), rtl = document.documentElement.dir === "rtl";
       m.hidden = false;
       const w = m.offsetWidth;
       const x = rtl ? Math.max(8, r.right - w) : Math.min(r.left, innerWidth - w - 8);

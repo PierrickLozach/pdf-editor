@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "Faire pivoter de 90° vers la droite",
   "Duplicate page": "Dupliquer la page",
   "Insert a blank page after": "Insérer une page blanche après",
-  "Delete page": "Supprimer la page"
+  "Delete page": "Supprimer la page",
+  "Save (overwrites)": "Enregistrer (remplace)",
+  "Download copy": "Télécharger une copie",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "Enregistrer dans le fichier ouvert, après vous avoir demandé s'il faut le remplacer (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "Télécharger une copie du PDF modifié : le fichier ouvert n'est pas modifié",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Certaines lettres que vous avez tapées ne sont pas dans les polices incluses dans ce PDF : elles ont été dessinées avec une police ressemblante."
  },
  "patterns": [
   [

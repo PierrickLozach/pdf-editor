@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "סיבוב ב-90° עם כיוון השעון",
   "Duplicate page": "שכפול העמוד",
   "Insert a blank page after": "הוספת עמוד ריק אחריו",
-  "Delete page": "מחיקת העמוד"
+  "Delete page": "מחיקת העמוד",
+  "Save (overwrites)": "שמירה (דריסה)",
+  "Download copy": "הורדת עותק",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "שמירה בקובץ שנפתח, אחרי שאלה אם להחליף אותו (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "הורדת עותק של ה-PDF הערוך: הקובץ שנפתח לא משתנה",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "חלק מהאותיות שהוקלדו לא נמצאות בגופנים שבקובץ PDF זה, ולכן הן צוירו בגופן דומה."
  },
  "patterns": [
   [

@@ -576,3 +576,28 @@ body.has-doc #toolbar.fit5 .brand { grid-template-columns: auto auto; }
 #btnClose.doc-close svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
 #btnClose.doc-close:hover { background: var(--hover); }
 body:not(.has-doc) #btnClose.doc-close { display: none; }
+
+/* toolbar "⋯" menu (fit.js): buttons that do not fit move into it; the button itself never scrolls away */
+#toolbar .ovf, #toolbar .group.ovf-empty, #toolbar .group.more.off { display: none !important; }
+#toolbar .group.more { flex: none; }
+#btnMore svg circle { fill: currentColor; stroke: none; }
+.more-menu { width: 300px; }
+.more-menu button:disabled { opacity: .45; cursor: default; }
+.more-menu button:disabled:hover { background: none; }
+.more-menu .mm-head { margin: 6px 10px 2px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.more-menu .mm-head:first-child { border-top: 0; padding-top: 0; }
+/* touch screens and phones: 44 px targets (Apple and WCAG 2.5.5 guidance) */
+@media (max-width: 760px), (pointer: coarse) {
+  #toolbar button { height: 44px; min-width: 44px; justify-content: center; }
+  #toolbar button.icon { padding: 0 10px; }
+  .more-menu button, .tools-menu button { min-height: 44px; align-items: center; }
+}
+/* phones: the file name is never shown there, so the logo keeps only its own width (room for one more button) */
+@media (max-width: 760px) { #toolbar .brand, #toolbar.fit4 .brand { flex: none; min-width: 0; } }
+@media (max-width: 760px) { #toolbar .group { padding: 0 1px; } }
+#toolbar.fit6 .group.more { margin-inline-start: auto; }      /* zoom hidden: "⋯" sits at the end of the toolbar */
+/* right-to-left phones: the page list slides in from the right; parked on the left it made the page scroll sideways */
+@media (max-width: 760px) {
+  html[dir="rtl"] #sidebar { left: auto; right: 0; transform: translateX(100%); }
+  html[dir="rtl"] body.show-sidebar #sidebar { transform: none; }
+}

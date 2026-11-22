@@ -505,7 +505,12 @@
   "Rotate 90° clockwise": "90° rechtsom draaien",
   "Duplicate page": "Pagina dupliceren",
   "Insert a blank page after": "Lege pagina erna invoegen",
-  "Delete page": "Pagina verwijderen"
+  "Delete page": "Pagina verwijderen",
+  "Save (overwrites)": "Opslaan (overschrijft)",
+  "Download copy": "Kopie downloaden",
+  "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "Opslaan in het geopende bestand, na de vraag of je het wilt vervangen (⌘S / Ctrl+S)",
+  "Download a copy of the edited PDF: the file you opened is not changed": "Een kopie van de bewerkte PDF downloaden: het geopende bestand blijft ongewijzigd",
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Sommige letters die je hebt getypt, staan niet in de lettertypen van deze PDF en zijn daarom met een vergelijkbaar lettertype weergegeven."
  },
  "patterns": [
   [
