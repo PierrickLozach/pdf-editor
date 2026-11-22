@@ -601,3 +601,5 @@ body:not(.has-doc) #btnClose.doc-close { display: none; }
   html[dir="rtl"] #sidebar { left: auto; right: 0; transform: translateX(100%); }
   html[dir="rtl"] body.show-sidebar #sidebar { transform: none; }
 }
+/* touch screens: two fingers zoom the pages (app.js), not the whole interface; one finger still scrolls */
+#viewer { touch-action: pan-x pan-y; }

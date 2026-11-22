@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=c8eaec39f1", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=ef12a9fc6f", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -164,7 +164,7 @@ function loadDoc(info, fresh) {
   $("#docName").textContent = info.name;
   $("#docName").title = info.name;
   document.title = info.name + " – PDF Editor";
-  if (fresh) S.zoom = fitZoom(1.6);
+  if (fresh) { S.zoom = fitZoom(FIT_MAX); S.autoFit = true; }
   buildPages();
   buildThumbs();
   updateButtons();
@@ -248,8 +248,9 @@ function applyInfo(info) {
 let pageObserver, thumbObserver;
 
 function fitZoom(max = 4) {
-  const v = $("#viewer");
-  const avail = v.clientWidth - 56;
+  const v = $("#viewer"), pg = getComputedStyle($("#pages"));
+  // the viewer's width less the page margins (24 px on a computer, 8 px on a phone) and a little air
+  const avail = v.clientWidth - (parseFloat(pg.paddingLeft) || 0) - (parseFloat(pg.paddingRight) || 0) - 8;
   const w = Math.max(...S.doc.pages.map(p => p.w));
   return Math.max(0.33, Math.min(max, avail / w));
 }
@@ -336,6 +337,11 @@ function refreshPage(i) {
   if (el._visible) loadPage(i);
 }
 
+/** "Fit": the pages follow the window's width (resizing, turning a phone) until the person zooms. */
+const FIT_MAX = 1.6;
+function fitToWidth() { if (!S.doc) return; setZoom(fitZoom(FIT_MAX)); S.autoFit = true; }
+function zoomBy(z, anchorY) { S.autoFit = false; setZoom(z, anchorY); }
+
 function setZoom(z, anchorY) {
   if (!S.doc) return;
   closeEditor(true);
@@ -364,7 +370,7 @@ function zoomStep(dir) {
   let n;
   if (dir > 0) n = ZOOMS.find(z => z > S.zoom + 0.001) ?? 4;
   else n = [...ZOOMS].reverse().find(z => z < S.zoom - 0.001) ?? ZOOMS[0];
-  setZoom(n);
+  zoomBy(n);
 }
 
 /* ---------------------------------------------------------------- editable text */
@@ -1103,7 +1109,7 @@ function init() {
   $("#btnRedo").onclick = () => undoRedo("redo");
   $("#btnZoomIn").onclick = () => zoomStep(1);
   $("#btnZoomOut").onclick = () => zoomStep(-1);
-  $("#btnZoomLabel").onclick = () => setZoom(fitZoom());
+  $("#btnZoomLabel").onclick = fitToWidth;
   $$(".tool").forEach(b => (b.onclick = () => {
     if (b.dataset.tool === "image" && S.tool === "image") { S.image = null; }   // pick another picture
     setTool(b.dataset.tool);
@@ -1135,8 +1141,45 @@ function init() {
     if (!S.doc || !(e.ctrlKey || e.metaKey)) return;
     e.preventDefault();
     const r = v.getBoundingClientRect();
-    setZoom(S.zoom * Math.exp(-e.deltaY * 0.01), e.clientY - r.top);
+    zoomBy(S.zoom * Math.exp(-e.deltaY * 0.01), e.clientY - r.top);
   }, { passive: false });
+  // the window's width changed (resized, phone turned, side panel): pages keep fitting, and a page
+  // zoomed wider than the new width is brought back to fit. The height alone (phone keyboard) changes nothing.
+  let lastW = 0;
+  new ResizeObserver(() => {
+    const w = v.clientWidth;
+    if (!S.doc || !w || Math.abs(w - lastW) < 2) { lastW = w || lastW; return; }
+    const narrower = w < lastW; lastW = w;
+    clearTimeout(v._fitT);
+    v._fitT = setTimeout(() => {
+      if (!S.doc) return;
+      const fit = fitZoom(FIT_MAX), widest = Math.max(...S.doc.pages.map((p) => p.w)) * S.zoom;
+      if (S.autoFit) { if (Math.abs(fit - S.zoom) > 0.005) { setZoom(fit); S.autoFit = true; } }
+      else if (narrower && widest > v.clientWidth) fitToWidth();
+    }, 80);
+  }).observe(v);
+  // two fingers on a touch screen: zoom the pages (not the whole interface)
+  const touches = new Map();
+  let pinch = null;
+  const dist = () => { const [a, b] = [...touches.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+  v.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "touch" || !S.doc) return;
+    touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (touches.size === 2) {
+      const r = v.getBoundingClientRect(), [a, b] = [...touches.values()];
+      pinch = { d: dist(), z: S.zoom, y: (a.y + b.y) / 2 - r.top };
+    }
+  });
+  v.addEventListener("pointermove", (e) => {
+    if (!touches.has(e.pointerId)) return;
+    touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (!pinch || touches.size !== 2) return;
+    pinch.want = pinch.z * dist() / Math.max(1, pinch.d);       // the latest spread, applied once per frame
+    if (pinch.raf) return;
+    pinch.raf = requestAnimationFrame(() => { if (pinch) { pinch.raf = 0; if (Math.abs(pinch.want - S.zoom) / S.zoom > 0.03) zoomBy(pinch.want, pinch.y); } });
+  });
+  const lift = (e) => { touches.delete(e.pointerId); if (touches.size < 2) pinch = null; };
+  v.addEventListener("pointerup", lift); v.addEventListener("pointercancel", lift);
 
   document.addEventListener("keydown", e => {
     const mod = e.metaKey || e.ctrlKey;
@@ -1146,7 +1189,7 @@ function init() {
     if (mod && keyOf(e) === "f") { e.preventDefault(); openFind(); return; }
     if (mod && (e.key === "=" || e.key === "+")) { e.preventDefault(); zoomStep(1); return; }
     if (mod && e.key === "-") { e.preventDefault(); zoomStep(-1); return; }
-    if (mod && e.key === "0") { e.preventDefault(); setZoom(fitZoom()); return; }
+    if (mod && e.key === "0") { e.preventDefault(); fitToWidth(); return; }
     if (isTyping(e)) return;
     if (mod && keyOf(e) === "z") { e.preventDefault(); if (window.PLACE && PLACE.active) { PLACE.cancel(); return; } undoRedo(e.shiftKey ? "redo" : "undo"); return; }
     if (mod && keyOf(e) === "y") { e.preventDefault(); undoRedo("redo"); return; }
@@ -1434,7 +1477,7 @@ async function changeLanguage(code) {
   if (S.doc) {
     await closeEditor(true);
     const ok = await call("keepForReload", !!S.dirty).catch(() => false);
-    if (ok) try { sessionStorage.setItem(REOPEN, JSON.stringify({ name: S.doc.name, zoom: S.zoom, top: $("#viewer").scrollTop, left: $("#viewer").scrollLeft, dirty: !!S.dirty })); } catch (e) {}
+    if (ok) try { sessionStorage.setItem(REOPEN, JSON.stringify({ name: S.doc.name, zoom: S.zoom, autoFit: !!S.autoFit, top: $("#viewer").scrollTop, left: $("#viewer").scrollLeft, dirty: !!S.dirty })); } catch (e) {}
   }
   I18N.set(code);
 }
@@ -1445,7 +1488,7 @@ async function reopenAfterLanguage() {
   try {
     const info = await call("restore");
     if (info.name !== r.name) return false;
-    S.zoom = r.zoom;
+    S.zoom = r.zoom; S.autoFit = !!r.autoFit;
     loadDoc(info, false);
     if (window.FILES && FILES.reattach) await FILES.reattach(r.dirty); else S.dirty = r.dirty;
     requestAnimationFrame(() => { $("#viewer").scrollTop = r.top; $("#viewer").scrollLeft = r.left; });
