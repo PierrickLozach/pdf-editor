@@ -142,17 +142,26 @@
   async function convert() {
     const v = await TOOLS.ask("convertDlg", t("Convert"), `
       <label class="opt"><input type="radio" name="to" value="docx" checked> <span><b>Word</b> (.docx) – ${esc(t("the text, to edit it in Word; the layout is not kept"))}</span></label>
+      <label class="opt"><input type="radio" name="to" value="docedit"> <span><b>${esc(t("Edit as a document"))}</b> – ${esc(t("the text opens in the document editor, to change it and save it as Word or LibreOffice"))}</span></label>
       <label class="opt"><input type="radio" name="to" value="png"> <span><b>${esc(t("Pictures"))}</b> (PNG) – ${esc(t("one picture per page"))}</span></label>
       <label class="opt"><input type="radio" name="to" value="jpg"> <span><b>${esc(t("Pictures"))}</b> (JPEG) – ${esc(t("smaller files"))}</span></label>
       <label class="opt"><input type="radio" name="to" value="md"> <span><b>Markdown</b> (.md) – ${esc(t("headings, lists, bold and italic; the pictures as files"))}</span></label>
       <label class="opt"><input type="radio" name="to" value="epub"> <span><b>${esc(t("Ebook"))}</b> (.epub) – ${esc(t("to read it in Apple Books, Kobo or Calibre; chapters from the headings"))}</span></label>
       <label class="opt"><input type="radio" name="to" value="txt"> <span><b>${esc(t("Text"))}</b> (.txt)</span></label>
       <label class="field">${esc(t("Picture quality"))} <select name="dpi"><option value="150">${esc(t("Screen (150 dpi)"))}</option><option value="300">${esc(t("Print (300 dpi)"))}</option></select></label>
-      <p class="small muted">${esc(t("To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program."))}</p>`, t("Convert"));
+      <p class="small muted">${esc(t("A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program."))}</p>`, t("Convert"));
     if (!v) return;
+    // the document editor opens in a new tab (opened now, while the click still counts), the PDF stays open here
+    const tab = v.to === "docedit" && window.DOCSTORE ? window.open("", "_blank") : null;
     await closeEditor(true);
     await busy(async () => {
       if (v.to === "docx") return TOOLS.saveOut(await call("toDocx"), base() + ".docx");
+      if (v.to === "docedit") {
+        const file = new File([await call("toDocx")], base() + ".docx", { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+        await DOCSTORE.put("keep", { id: "handoff", file, name: file.name, handle: null, time: Date.now() });
+        if (tab) { tab.location.href = "/write/#open"; return; }
+        return DOCSTORE.handOff(file, null);                 // pop-up refused: this tab (the browser asks about unsaved edits)
+      }
       if (v.to === "txt") return TOOLS.saveOut(new TextEncoder().encode(await call("toText")), base() + ".txt");
       if (v.to === "md") {
         const md = await call("toMarkdown");

@@ -1,5 +1,6 @@
 """Build the deployable website in site/public from:
   web/                 the editor                          -> public/app/
+  write/               the document editor's page          -> public/write/ (+ EdenText: tools/vendor_edentext.py)
   site/pages/<lang>/   one folder of pages per language    -> public/ (default language), public/<lang>/
   site/i18n/<lang>.json  the words of the header and footer
   site/site.json       name, publisher (name, contact email), host, languages
@@ -149,6 +150,18 @@ shutil.copy(WEB / "icon.png", PUB / "icon.png")
 subprocess.run(["sips", "-s", "format", "png", "-z", "48", "48", str(WEB / "icon.png"), "--out", str(PUB / "favicon.ico")], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 ver = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((PAGES / "assets").rglob("*")) if p.is_file())).hexdigest()[:10]
+# ---------------------------------------------------------------- document editor: /write/ (EdenText, unmodified, in /write/edentext/)
+sys.path.insert(0, str(ROOT / "tools"))
+import vendor_edentext
+WRITE = ROOT / "write"
+EDT_HASHES = vendor_edentext.install(PUB / "write" / "edentext")      # stops when the package does not match its checksum
+_appv = re.search(r"i18n\.js\?v=([0-9a-f]+)", (WEB / "index.html").read_text()).group(1)
+_wv = hashlib.sha256(b"".join(p.read_bytes() for p in sorted(WRITE.iterdir()) if p.is_file())).hexdigest()[:10]
+for f in sorted(WRITE.iterdir()):
+    if f.is_file() and f.name != ".DS_Store":
+        text = f.read_text()
+        if f.name == "index.html": text = text.replace("/assets/stats.js?v={{v}}", f"/assets/stats.js?v={ver}").replace("{{v}}", _wv).replace("{{appv}}", _appv).replace("{{url}}", cfg["url"])
+        (PUB / "write" / f.name).write_text(text)
 GLOBE = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>'
 
 LAYOUT = """<!doctype html>
@@ -183,7 +196,7 @@ LAYOUT = """<!doctype html>
 <header class="site-header"><div class="wrap">
   <a class="brand" href="{root}"><span class="logo">P</span>{name}</a>
   <nav class="site-nav" aria-label="{t_nav_editor}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}#features">{t_nav_features}</a><a href="{guidesroot}guides">{t_nav_guides}</a><a href="{root}about">{t_nav_about}</a><a href="{root}#faq">{t_nav_faq}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="/write/">{t_nav_documents}</a><a href="{root}#features">{t_nav_features}</a><a href="{guidesroot}guides">{t_nav_guides}</a><a href="{root}about">{t_nav_about}</a><a href="{root}#faq">{t_nav_faq}</a>
   </nav>
   <div id="userArea">
     <a class="gh-link" href="{source}" title="{t_github}" aria-label="{t_github}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
@@ -194,7 +207,7 @@ LAYOUT = """<!doctype html>
 {body}
 <footer class="site-footer"><div class="wrap">
   <nav aria-label="{t_footer_legal}">
-    <a href="/app/">{t_nav_editor}</a><a href="{root}about">{t_footer_about}</a><a href="{root}contact">{t_footer_contact}</a><a href="{guidesroot}guides">{t_footer_guides}</a><a href="{guidesroot}whats-new">{t_footer_whatsnew}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a>{ads_settings}<a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
+    <a href="/app/">{t_nav_editor}</a><a href="/write/">{t_footer_documents}</a><a href="{root}about">{t_footer_about}</a><a href="{root}contact">{t_footer_contact}</a><a href="{guidesroot}guides">{t_footer_guides}</a><a href="{guidesroot}whats-new">{t_footer_whatsnew}</a><a href="{root}privacy">{t_footer_privacy}</a><a href="{root}cookies">{t_footer_cookies}</a><a href="{root}terms">{t_footer_terms}</a>{sales_link}<a href="{root}legal">{t_footer_legal}</a>{ads_settings}<a href="/developers" lang="en">{t_footer_developers}</a><a href="{source}">{t_footer_source}</a>
   </nav>
   <span class="copy">© <span id="year"></span> {publisher} · {t_footer_free}</span>
 </div></footer>
@@ -266,6 +279,7 @@ Disallow: /app/fonts/
 Disallow: /app/*.js$
 Disallow: /app/*.json$
 Disallow: /app/*.wasm$
+Disallow: /write/edentext/
 Disallow: /api/
 Disallow: /lib/
 Content-signal: search=yes, ai-train=no, use=reference
@@ -285,7 +299,7 @@ Sitemap: {cfg['url']}/sitemap.xml
 """)
 today = datetime.date.today().isoformat()
 (PUB / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    "".join(f"  <url><loc>{cfg['url']}{p}</loc><lastmod>{d}</lastmod></url>\n" for p, d in sitemap + [("/app/", today)]) + "</urlset>\n")
+    "".join(f"  <url><loc>{cfg['url']}{p}</loc><lastmod>{d}</lastmod></url>\n" for p, d in sitemap + [("/app/", today), ("/write/", today)]) + "</urlset>\n")
 (PUB / "manifest.webmanifest").write_text(json.dumps({
     "name": T[DEFAULT]["site_name"], "short_name": T[DEFAULT]["site_name"], "description": cfg["description"], "start_url": "/app/", "scope": "/",
     "display": "standalone", "background_color": "#ffffff", "theme_color": "#e5322d",
@@ -308,6 +322,17 @@ if ADS_ON:   # Google's ads come from many changing hosts: scripts and frames ov
                 "connect-src 'self' https:; frame-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
 rules = [f"/*\n  Content-Security-Policy: {SITE_CSP}\n{common}"]
 rules.append(f"/app/*\n  ! Content-Security-Policy\n  Content-Security-Policy: {APP_CSP}\n")
+# the document editor: its page may show the word processor in a frame of the same site; the word processor
+# (EdenText) runs WebAssembly, its own inline script (by hash) and inline styles, and connects to no other site
+# (its AI assistant and dictation are off: edentext.config.json); only this site may frame it
+WRITE_CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; "
+             "frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+EDT_CSP = (f"default-src 'self'; script-src 'self' 'wasm-unsafe-eval' {' '.join(EDT_HASHES)}; style-src 'self' 'unsafe-inline'; "
+           "img-src 'self' data: blob:; font-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; "
+           "worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'")
+rules.append(f"/write/*\n  ! Content-Security-Policy\n  Content-Security-Policy: {WRITE_CSP}\n")
+rules.append(f"/write/edentext/*\n  ! Content-Security-Policy\n  ! X-Frame-Options\n  Content-Security-Policy: {EDT_CSP}\n  X-Frame-Options: SAMEORIGIN\n")
+rules.append("/write/edentext/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
 rules.append("/app/vendor/*\n  Cache-Control: public, max-age=31536000, immutable\n")
 rules.append("/app/fonts/*.ttf\n  Cache-Control: public, max-age=31536000, immutable\n")
 rules.append("/assets/*\n  Cache-Control: public, max-age=86400\n")

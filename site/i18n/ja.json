@@ -26,5 +26,7 @@
   "footer_about": "このサイトについて",
   "footer_contact": "お問い合わせ",
   "footer_guides": "ガイド",
-  "footer_whatsnew": "新着情報"
+  "footer_whatsnew": "新着情報",
+  "nav_documents": "文書",
+  "footer_documents": "文書エディタ"
 }

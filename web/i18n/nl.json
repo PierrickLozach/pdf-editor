@@ -344,7 +344,6 @@
   "The two passwords are different": "De twee wachtwoorden komen niet overeen",
   "This picture could not be read.": "Deze afbeelding kon niet worden gelezen.",
   "To Word, text or pictures": "Naar Word, tekst of afbeeldingen",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Om een Word-, Excel- of PowerPoint-bestand naar PDF om te zetten, gebruik je in dat programma Bestand › Opslaan als of Exporteren als PDF.",
   "Tools": "Tools",
   "Tools: sign, redact, OCR, split, convert…": "Tools: ondertekenen, zwartlakken, OCR, splitsen, converteren…",
   "Top right": "Rechtsboven",
@@ -510,7 +509,43 @@
   "Download copy": "Kopie downloaden",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "Opslaan in het geopende bestand, na de vraag of je het wilt vervangen (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "Een kopie van de bewerkte PDF downloaden: het geopende bestand blijft ongewijzigd",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Sommige letters die je hebt getypt, staan niet in de lettertypen van deze PDF en zijn daarom met een vergelijkbaar lettertype weergegeven."
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Sommige letters die je hebt getypt, staan niet in de lettertypen van deze PDF en zijn daarom met een vergelijkbaar lettertype weergegeven.",
+  "Document editor": "Documenteditor",
+  "Open a Word or LibreOffice document (⌘O)": "Een Word- of LibreOffice-document openen (⌘O)",
+  "Start a new document": "Een nieuw document beginnen",
+  "Save the document (⌘S / Ctrl+S)": "Het document opslaan (⌘S / Ctrl+S)",
+  "Download a copy: Word, LibreOffice or PDF": "Een kopie downloaden: Word, LibreOffice of PDF",
+  "Edit a PDF": "Een PDF bewerken",
+  "PDF editor": "PDF-editor",
+  "Close this document": "Dit document sluiten",
+  "Drop a Word or LibreOffice document here": "Zet hier een Word- of LibreOffice-document neer",
+  "Choose a document": "Kies een document",
+  "Word and LibreOffice": "Word en LibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– open en bewaar .docx- en .odt-bestanden, ook sjablonen; download een kopie als PDF.",
+  "Real pages": "Echte pagina's",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– stijlen, tabellen, afbeeldingen, kop- en voetteksten, voetnoten, inhoudsopgaven, wijzigingen bijhouden en opmerkingen.",
+  "Spell check": "Spellingcontrole",
+  "– in many languages, in your browser.": "– in veel talen, in je browser.",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "Alles gebeurt in je browser: je documenten worden op dit apparaat verwerkt en nooit geüpload.",
+  "Loading the document editor…": "Documenteditor laden…",
+  "Word processor:": "Tekstverwerker:",
+  "by Steffen Becker, free software (AGPL)": "van Steffen Becker, vrije software (AGPL)",
+  "third-party licences": "licenties van derden",
+  "Drop the document to open it": "Zet het document neer om het te openen",
+  "Some parts of this document could not be kept:": "Sommige delen van dit document konden niet behouden blijven:",
+  "Save your changes?": "Wijzigingen opslaan?",
+  "Don't save": "Niet opslaan",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "Oude Word-bestanden (.doc) kunnen niet worden geopend: sla ze eerst op als .docx in Word of LibreOffice.",
+  "This is a PDF: open it in the PDF editor.": "Dit is een PDF: open hem in de PDF-editor.",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "Kies een Word-document (.docx) of een LibreOffice-document (.odt).",
+  "Untitled": "Naamloos",
+  "Permission to write into the file was not given.": "Er is geen toestemming gegeven om in het bestand te schrijven.",
+  "LibreOffice document": "LibreOffice-document",
+  "Word or LibreOffice document": "Word- of LibreOffice-document",
+  "Word or LibreOffice document? Open the document editor": "Een Word- of LibreOffice-document? Open de documenteditor",
+  "Edit as a document": "Als document bewerken",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "de tekst opent in de documenteditor, om hem te wijzigen en als Word of LibreOffice op te slaan",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Een Word- of LibreOffice-document naar PDF: open het in de documenteditor en kies Kopie downloaden › PDF. Excel of PowerPoint: gebruik Bestand › Exporteren als PDF in dat programma."
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "‘{word}’ één keer gemarkeerd. Controleer de pagina en pas daarna toe."
+  ],
+  [
+   "Something went wrong: {m}",
+   "Er ging iets mis: {m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "Opslaan in ‘{name}’ (⌘S / Ctrl+S)"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "De documenteditor kon niet starten: {m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "‘{name}’ heeft wijzigingen die niet zijn opgeslagen."
+  ],
+  [
+   "in “{name}” · {when}",
+   "in ‘{name}’ · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "‘{name}’ openen"
   ]
  ]
 }

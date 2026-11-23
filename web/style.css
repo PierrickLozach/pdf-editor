@@ -603,3 +603,6 @@ body:not(.has-doc) #btnClose.doc-close { display: none; }
 }
 /* touch screens: two fingers zoom the pages (app.js), not the whole interface; one finger still scrolls */
 #viewer { touch-action: pan-x pan-y; }
+/* start screen: the way to the document editor (Word, LibreOffice) */
+.to-docs { margin: 8px 0 0; font-size: 13px; }
+.to-docs a { color: var(--blue); }

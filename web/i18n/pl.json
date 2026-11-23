@@ -344,7 +344,6 @@
   "The two passwords are different": "Hasła nie są takie same",
   "This picture could not be read.": "Nie udało się odczytać tego obrazu.",
   "To Word, text or pictures": "Do Worda, tekstu lub obrazów",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Aby zamienić plik Word, Excel lub PowerPoint na PDF, użyj w tym programie polecenia Plik › Zapisz jako lub Eksportuj do formatu PDF.",
   "Tools": "Narzędzia",
   "Tools: sign, redact, OCR, split, convert…": "Narzędzia: podpis, zaczernianie, OCR, podział, konwersja…",
   "Top right": "Na górze po prawej",
@@ -510,7 +509,43 @@
   "Download copy": "Pobierz kopię",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "Zapisz w otwartym pliku – najpierw pojawi się pytanie, czy go zastąpić (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "Pobierz kopię zmienionego pliku PDF: otwarty plik pozostaje bez zmian",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Niektórych wpisanych liter nie ma w czcionkach zawartych w tym pliku PDF, więc narysowano je podobną czcionką."
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Niektórych wpisanych liter nie ma w czcionkach zawartych w tym pliku PDF, więc narysowano je podobną czcionką.",
+  "Document editor": "Edytor dokumentów",
+  "Open a Word or LibreOffice document (⌘O)": "Otwórz dokument Word lub LibreOffice (⌘O)",
+  "Start a new document": "Utwórz nowy dokument",
+  "Save the document (⌘S / Ctrl+S)": "Zapisz dokument (⌘S / Ctrl+S)",
+  "Download a copy: Word, LibreOffice or PDF": "Pobierz kopię: Word, LibreOffice lub PDF",
+  "Edit a PDF": "Edytuj plik PDF",
+  "PDF editor": "Edytor PDF",
+  "Close this document": "Zamknij ten dokument",
+  "Drop a Word or LibreOffice document here": "Upuść tutaj dokument Word lub LibreOffice",
+  "Choose a document": "Wybierz dokument",
+  "Word and LibreOffice": "Word i LibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– otwieraj i zapisuj pliki .docx i .odt, także szablony; pobierz kopię jako PDF.",
+  "Real pages": "Prawdziwe strony",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– style, tabele, obrazy, nagłówki i stopki, przypisy, spisy treści, śledzenie zmian i komentarze.",
+  "Spell check": "Sprawdzanie pisowni",
+  "– in many languages, in your browser.": "– w wielu językach, w przeglądarce.",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "Wszystko dzieje się w przeglądarce: dokumenty są przetwarzane na tym urządzeniu i nigdy nie są wysyłane.",
+  "Loading the document editor…": "Ładowanie edytora dokumentów…",
+  "Word processor:": "Edytor tekstu:",
+  "by Steffen Becker, free software (AGPL)": "autor: Steffen Becker, wolne oprogramowanie (AGPL)",
+  "third-party licences": "licencje stron trzecich",
+  "Drop the document to open it": "Upuść dokument, aby go otworzyć",
+  "Some parts of this document could not be kept:": "Niektórych części tego dokumentu nie udało się zachować:",
+  "Save your changes?": "Zapisać zmiany?",
+  "Don't save": "Nie zapisuj",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "Starych plików Word (.doc) nie można otworzyć: najpierw zapisz je jako .docx w programie Word lub LibreOffice.",
+  "This is a PDF: open it in the PDF editor.": "To jest plik PDF: otwórz go w edytorze PDF.",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "Wybierz dokument Word (.docx) lub LibreOffice (.odt).",
+  "Untitled": "Bez tytułu",
+  "Permission to write into the file was not given.": "Nie udzielono zgody na zapis do pliku.",
+  "LibreOffice document": "Dokument LibreOffice",
+  "Word or LibreOffice document": "Dokument Word lub LibreOffice",
+  "Word or LibreOffice document? Open the document editor": "Dokument Word lub LibreOffice? Otwórz edytor dokumentów",
+  "Edit as a document": "Edytuj jako dokument",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "tekst otworzy się w edytorze dokumentów, gdzie można go zmienić i zapisać jako Word lub LibreOffice",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Dokument Word lub LibreOffice do PDF: otwórz go w edytorze dokumentów, a potem Pobierz kopię › PDF. Excel lub PowerPoint: użyj Plik › Eksportuj jako PDF w tym programie."
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "„{word}” oznaczono raz. Sprawdź stronę, a potem zastosuj."
+  ],
+  [
+   "Something went wrong: {m}",
+   "Coś poszło nie tak: {m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "Zapisz w „{name}” (⌘S / Ctrl+S)"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "Nie udało się uruchomić edytora dokumentów: {m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "„{name}” ma niezapisane zmiany."
+  ],
+  [
+   "in “{name}” · {when}",
+   "w „{name}” · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "Otwórz „{name}”"
   ]
  ]
 }

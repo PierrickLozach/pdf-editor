@@ -344,7 +344,6 @@
   "The two passwords are different": "كلمتا المرور غير متطابقتين",
   "This picture could not be read.": "تعذّرت قراءة هذه الصورة.",
   "To Word, text or pictures": "إلى Word أو نص أو صور",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "لتحويل ملف Word أو Excel أو PowerPoint إلى PDF، استخدم ملف › حفظ باسم أو تصدير كـ PDF في ذلك البرنامج.",
   "Tools": "الأدوات",
   "Tools: sign, redact, OCR, split, convert…": "الأدوات: توقيع، تنقيح، OCR، تقسيم، تحويل…",
   "Top right": "أعلى اليمين",
@@ -510,7 +509,43 @@
   "Download copy": "تنزيل نسخة",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "الحفظ في الملف المفتوح بعد سؤالك عمّا إذا كنت تريد استبداله (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "تنزيل نسخة من ملف PDF المعدَّل: لا يتغيّر الملف المفتوح",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "بعض الأحرف التي كتبتها غير موجودة في الخطوط المضمّنة في ملف PDF هذا، لذا رُسمت بخط مشابه."
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "بعض الأحرف التي كتبتها غير موجودة في الخطوط المضمّنة في ملف PDF هذا، لذا رُسمت بخط مشابه.",
+  "Document editor": "محرر المستندات",
+  "Open a Word or LibreOffice document (⌘O)": "فتح مستند Word أو LibreOffice (⌘O)",
+  "Start a new document": "بدء مستند جديد",
+  "Save the document (⌘S / Ctrl+S)": "حفظ المستند (⌘S / Ctrl+S)",
+  "Download a copy: Word, LibreOffice or PDF": "تنزيل نسخة: Word أو LibreOffice أو PDF",
+  "Edit a PDF": "تحرير ملف PDF",
+  "PDF editor": "محرر PDF",
+  "Close this document": "إغلاق هذا المستند",
+  "Drop a Word or LibreOffice document here": "أفلِت مستند Word أو LibreOffice هنا",
+  "Choose a document": "اختر مستندًا",
+  "Word and LibreOffice": "Word وLibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– افتح ملفات .docx و.odt واحفظها، والقوالب أيضًا؛ ونزّل نسخة بصيغة PDF.",
+  "Real pages": "صفحات حقيقية",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– أنماط وجداول وصور ورؤوس الصفحات وتذييلاتها وحواشٍ سفلية وجداول محتويات وتتبّع التغييرات والتعليقات.",
+  "Spell check": "التدقيق الإملائي",
+  "– in many languages, in your browser.": "– بلغات كثيرة، في متصفحك.",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "كل شيء يجري في متصفحك: تُعالَج مستنداتك على هذا الجهاز ولا تُرفع أبدًا.",
+  "Loading the document editor…": "جارٍ تحميل محرر المستندات…",
+  "Word processor:": "معالج النصوص:",
+  "by Steffen Becker, free software (AGPL)": "من تطوير Steffen Becker، برنامج حر (AGPL)",
+  "third-party licences": "تراخيص الجهات الخارجية",
+  "Drop the document to open it": "أفلِت المستند لفتحه",
+  "Some parts of this document could not be kept:": "تعذّر الاحتفاظ ببعض أجزاء هذا المستند:",
+  "Save your changes?": "هل تريد حفظ التغييرات؟",
+  "Don't save": "عدم الحفظ",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "لا يمكن فتح ملفات Word القديمة (.doc): احفظها أولًا بصيغة .docx في Word أو LibreOffice.",
+  "This is a PDF: open it in the PDF editor.": "هذا ملف PDF: افتحه في محرر PDF.",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "يُرجى اختيار مستند Word (.docx) أو LibreOffice (.odt).",
+  "Untitled": "بلا عنوان",
+  "Permission to write into the file was not given.": "لم يُمنح الإذن بالكتابة في الملف.",
+  "LibreOffice document": "مستند LibreOffice",
+  "Word or LibreOffice document": "مستند Word أو LibreOffice",
+  "Word or LibreOffice document? Open the document editor": "مستند Word أو LibreOffice؟ افتح محرر المستندات",
+  "Edit as a document": "تحرير كمستند",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "يُفتح النص في محرر المستندات لتعديله وحفظه بصيغة Word أو LibreOffice",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "لتحويل مستند Word أو LibreOffice إلى PDF: افتحه في محرر المستندات، ثم تنزيل نسخة › PDF. أما Excel أو PowerPoint فاستخدم ملف › تصدير بصيغة PDF في ذلك البرنامج."
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "تم تحديد «{word}» مرة واحدة. تحقّق من الصفحة ثم طبّق."
+  ],
+  [
+   "Something went wrong: {m}",
+   "حدث خطأ ما: {m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "حفظ في «{name}» (⌘S / Ctrl+S)"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "تعذّر تشغيل محرر المستندات: {m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "في «{name}» تغييرات غير محفوظة."
+  ],
+  [
+   "in “{name}” · {when}",
+   "في «{name}» · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "فتح «{name}»"
   ]
  ]
 }

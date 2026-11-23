@@ -26,5 +26,7 @@
   "footer_about": "关于我们",
   "footer_contact": "联系我们",
   "footer_guides": "使用指南",
-  "footer_whatsnew": "更新日志"
+  "footer_whatsnew": "更新日志",
+  "nav_documents": "文档",
+  "footer_documents": "文档编辑器"
 }

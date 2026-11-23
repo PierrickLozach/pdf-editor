@@ -344,7 +344,6 @@
   "The two passwords are different": "2 つのパスワードが一致しません",
   "This picture could not be read.": "この画像を読み込めませんでした。",
   "To Word, text or pictures": "Word、テキスト、画像に変換",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Word、Excel、PowerPoint のファイルを PDF にするには、そのアプリで「ファイル › 名前を付けて保存」または「PDF としてエクスポート」を使用してください。",
   "Tools": "ツール",
   "Tools: sign, redact, OCR, split, convert…": "ツール：署名、墨消し、OCR、分割、変換…",
   "Top right": "右上",
@@ -510,7 +509,43 @@
   "Download copy": "コピーをダウンロード",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "開いたファイルに保存します。置き換えるかどうかを先に確認します (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "編集した PDF のコピーをダウンロード：開いたファイルは変更されません",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "入力した文字の一部がこの PDF に含まれるフォントにないため、似たフォントで表示しています。"
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "入力した文字の一部がこの PDF に含まれるフォントにないため、似たフォントで表示しています。",
+  "Document editor": "文書エディタ",
+  "Open a Word or LibreOffice document (⌘O)": "Word または LibreOffice の文書を開く（⌘O）",
+  "Start a new document": "新しい文書を作成",
+  "Save the document (⌘S / Ctrl+S)": "文書を保存（⌘S / Ctrl+S）",
+  "Download a copy: Word, LibreOffice or PDF": "コピーをダウンロード：Word、LibreOffice、PDF",
+  "Edit a PDF": "PDF を編集",
+  "PDF editor": "PDF エディタ",
+  "Close this document": "この文書を閉じる",
+  "Drop a Word or LibreOffice document here": "Word または LibreOffice の文書をここにドロップ",
+  "Choose a document": "文書を選択",
+  "Word and LibreOffice": "Word と LibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– .docx と .odt ファイルを開いて保存（テンプレートも可）。PDF でコピーをダウンロードできます。",
+  "Real pages": "本物のページ",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– スタイル、表、画像、ヘッダーとフッター、脚注、目次、変更履歴、コメント。",
+  "Spell check": "スペルチェック",
+  "– in many languages, in your browser.": "– 多くの言語に対応、ブラウザ内で実行。",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "すべての処理はブラウザ内で行われます。文書はこのデバイス上で処理され、アップロードされることはありません。",
+  "Loading the document editor…": "文書エディタを読み込んでいます…",
+  "Word processor:": "ワープロ：",
+  "by Steffen Becker, free software (AGPL)": "作者 Steffen Becker、フリーソフトウェア（AGPL）",
+  "third-party licences": "サードパーティのライセンス",
+  "Drop the document to open it": "文書をドロップして開きます",
+  "Some parts of this document could not be kept:": "この文書の一部を保持できませんでした：",
+  "Save your changes?": "変更を保存しますか？",
+  "Don't save": "保存しない",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "古い Word ファイル（.doc）は開けません。先に Word または LibreOffice で .docx として保存してください。",
+  "This is a PDF: open it in the PDF editor.": "これは PDF です。PDF エディタで開いてください。",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "Word（.docx）または LibreOffice（.odt）の文書を選択してください。",
+  "Untitled": "無題",
+  "Permission to write into the file was not given.": "ファイルへの書き込みが許可されませんでした。",
+  "LibreOffice document": "LibreOffice 文書",
+  "Word or LibreOffice document": "Word または LibreOffice の文書",
+  "Word or LibreOffice document? Open the document editor": "Word または LibreOffice の文書ですか？文書エディタを開く",
+  "Edit as a document": "文書として編集",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "テキストが文書エディタで開き、編集して Word または LibreOffice 形式で保存できます",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word または LibreOffice の文書を PDF に：文書エディタで開き、「コピーをダウンロード › PDF」を選びます。Excel や PowerPoint：そのアプリで「ファイル › PDF として書き出す」を使います。"
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "「{word}」を 1 か所マークしました。ページを確認してから適用してください。"
+  ],
+  [
+   "Something went wrong: {m}",
+   "問題が発生しました：{m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "「{name}」に保存（⌘S / Ctrl+S）"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "文書エディタを起動できませんでした：{m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "「{name}」には保存されていない変更があります。"
+  ],
+  [
+   "in “{name}” · {when}",
+   "「{name}」 · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "「{name}」を開く"
   ]
  ]
 }

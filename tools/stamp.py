@@ -16,6 +16,7 @@ sub("index.html", r'href="style\.css(\?v=[0-9a-f]+)?"', f'href="style.css?v={v}"
 sub("index.html", r'src="app\.js(\?v=[0-9a-f]+)?"', f'src="app.js?v={v}"')
 sub("index.html", r'src="move\.js(\?v=[0-9a-f]+)?"', f'src="move.js?v={v}"')
 sub("index.html", r'src="files\.js(\?v=[0-9a-f]+)?"', f'src="files.js?v={v}"')
+sub("index.html", r'src="docstore\.js(\?v=[0-9a-f]+)?"', f'src="docstore.js?v={v}"')
 sub("index.html", r'src="place\.js(\?v=[0-9a-f]+)?"', f'src="place.js?v={v}"')
 sub("index.html", r'src="start\.js(\?v=[0-9a-f]+)?"', f'src="start.js?v={v}"')
 sub("index.html", r'src="remove\.js(\?v=[0-9a-f]+)?"', f'src="remove.js?v={v}"')

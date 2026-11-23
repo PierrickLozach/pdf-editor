@@ -344,7 +344,6 @@
   "The two passwords are different": "Die beiden Passwörter stimmen nicht überein",
   "This picture could not be read.": "Dieses Bild konnte nicht gelesen werden.",
   "To Word, text or pictures": "In Word, Text oder Bilder",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "Um eine Word-, Excel- oder PowerPoint-Datei in ein PDF umzuwandeln, verwenden Sie in diesem Programm Datei › Speichern unter oder Als PDF exportieren.",
   "Tools": "Werkzeuge",
   "Tools: sign, redact, OCR, split, convert…": "Werkzeuge: unterschreiben, schwärzen, OCR, teilen, konvertieren …",
   "Top right": "Oben rechts",
@@ -510,7 +509,43 @@
   "Download copy": "Kopie herunterladen",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "In die geöffnete Datei speichern – vorher wird gefragt, ob sie ersetzt werden soll (⌘S / Strg+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "Eine Kopie des bearbeiteten PDFs herunterladen: Die geöffnete Datei bleibt unverändert",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Einige der eingegebenen Buchstaben fehlen in den Schriften dieses PDFs und wurden daher mit einer ähnlichen Schrift dargestellt."
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Einige der eingegebenen Buchstaben fehlen in den Schriften dieses PDFs und wurden daher mit einer ähnlichen Schrift dargestellt.",
+  "Document editor": "Dokument-Editor",
+  "Open a Word or LibreOffice document (⌘O)": "Word- oder LibreOffice-Dokument öffnen (⌘O)",
+  "Start a new document": "Neues Dokument beginnen",
+  "Save the document (⌘S / Ctrl+S)": "Dokument speichern (⌘S / Strg+S)",
+  "Download a copy: Word, LibreOffice or PDF": "Kopie herunterladen: Word, LibreOffice oder PDF",
+  "Edit a PDF": "PDF bearbeiten",
+  "PDF editor": "PDF-Editor",
+  "Close this document": "Dieses Dokument schließen",
+  "Drop a Word or LibreOffice document here": "Word- oder LibreOffice-Dokument hier ablegen",
+  "Choose a document": "Dokument auswählen",
+  "Word and LibreOffice": "Word und LibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– .docx- und .odt-Dateien öffnen und speichern, auch Vorlagen; eine Kopie als PDF herunterladen.",
+  "Real pages": "Echte Seiten",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– Formatvorlagen, Tabellen, Bilder, Kopf- und Fußzeilen, Fußnoten, Inhaltsverzeichnisse, Änderungsverfolgung und Kommentare.",
+  "Spell check": "Rechtschreibprüfung",
+  "– in many languages, in your browser.": "– in vielen Sprachen, in Ihrem Browser.",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "Alles geschieht in Ihrem Browser: Ihre Dokumente werden auf diesem Gerät verarbeitet und nie hochgeladen.",
+  "Loading the document editor…": "Dokument-Editor wird geladen …",
+  "Word processor:": "Textverarbeitung:",
+  "by Steffen Becker, free software (AGPL)": "von Steffen Becker, freie Software (AGPL)",
+  "third-party licences": "Lizenzen von Drittanbietern",
+  "Drop the document to open it": "Dokument ablegen, um es zu öffnen",
+  "Some parts of this document could not be kept:": "Einige Teile dieses Dokuments konnten nicht übernommen werden:",
+  "Save your changes?": "Änderungen speichern?",
+  "Don't save": "Nicht speichern",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "Alte Word-Dateien (.doc) können nicht geöffnet werden: Speichern Sie sie zuerst in Word oder LibreOffice als .docx.",
+  "This is a PDF: open it in the PDF editor.": "Das ist ein PDF: Öffnen Sie es im PDF-Editor.",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "Bitte wählen Sie ein Word-Dokument (.docx) oder ein LibreOffice-Dokument (.odt).",
+  "Untitled": "Unbenannt",
+  "Permission to write into the file was not given.": "Die Erlaubnis, in die Datei zu schreiben, wurde nicht erteilt.",
+  "LibreOffice document": "LibreOffice-Dokument",
+  "Word or LibreOffice document": "Word- oder LibreOffice-Dokument",
+  "Word or LibreOffice document? Open the document editor": "Ein Word- oder LibreOffice-Dokument? Zum Dokument-Editor",
+  "Edit as a document": "Als Dokument bearbeiten",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "der Text öffnet sich im Dokument-Editor, um ihn zu ändern und als Word- oder LibreOffice-Datei zu speichern",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Ein Word- oder LibreOffice-Dokument als PDF: Öffnen Sie es im Dokument-Editor, dann Kopie herunterladen › PDF. Excel oder PowerPoint: Datei › Als PDF exportieren in diesem Programm."
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "„{word}“ einmal markiert. Prüfen Sie die Seite und wenden Sie dann an."
+  ],
+  [
+   "Something went wrong: {m}",
+   "Etwas ist schiefgelaufen: {m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "In „{name}“ speichern (⌘S / Strg+S)"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "Der Dokument-Editor konnte nicht starten: {m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "„{name}“ hat nicht gespeicherte Änderungen."
+  ],
+  [
+   "in “{name}” · {when}",
+   "in „{name}“ · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "„{name}“ öffnen"
   ]
  ]
 }

@@ -140,7 +140,8 @@
   F.pick = async () => {
     if (!F.supported) return $("#fileInput").click();
     let h;
-    try { [h] = await window.showOpenFilePicker({ types: [{ description: t("PDF document"), accept: { "application/pdf": [".pdf"] } }] }); }
+    try { [h] = await window.showOpenFilePicker({ types: [{ description: t("PDF document"), accept: { "application/pdf": [".pdf"] } },
+      { description: t("Word or LibreOffice document"), accept: { "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"], "application/vnd.oasis.opendocument.text": [".odt"] } }] }); }
     catch (e) { if (e.name !== "AbortError") $("#fileInput").click(); return; }
     const f = await h.getFile();
     f.__handle = h;

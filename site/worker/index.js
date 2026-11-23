@@ -19,7 +19,8 @@ import { same, hasSession, signIn, signOut } from "./session.js";
 const KINDS = {
   visit: 1, page: 1, source: 1, country: 1, lang: 1, device: 1, browser: 1, event: 1, tool: 1, size: 1,
 };
-const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded", "pro_shown", "pro_activated"]);
+const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded", "pro_shown", "pro_activated",
+  "doc_opened", "doc_saved", "doc_downloaded", "doc_created"]);
 const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete", "batch", "smartredact", "compare", "forms", "addfield"]);
 const SIZES = new Set(["<1MB", "1-10MB", "10-50MB", "50MB+"]);
 const MAX_VALUES_PER_KIND_AND_DAY = 400;
@@ -189,7 +190,7 @@ table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px sol
 ${table("Where visitors come from", f.sources, (v) => v === "direct" ? "Direct (typed, bookmark, app)" : v)}
 ${table("Countries", f.countries, (v) => (v === "unknown" ? "Unknown" : (COUNTRY && COUNTRY.of(v)) || v))}
 ${table("Pages", f.pages)}
-${table("What people do", f.events, (v) => ({ pdf_opened: "PDF opened", pdf_saved: "PDF saved into its file", pdf_downloaded: "PDF downloaded", pdf_created: "PDF created from pictures", text_edited: "Text edited", tool_used: "Tool used", lib_loaded: "Developer library loaded" }[v] || v))}
+${table("What people do", f.events, (v) => ({ pdf_opened: "PDF opened", pdf_saved: "PDF saved into its file", pdf_downloaded: "PDF downloaded", pdf_created: "PDF created from pictures", text_edited: "Text edited", tool_used: "Tool used", lib_loaded: "Developer library loaded", doc_opened: "Document opened (Word, LibreOffice)", doc_saved: "Document saved into its file", doc_downloaded: "Document downloaded", doc_created: "New document" }[v] || v))}
 ${table("Tools", f.tools)}
 ${table("Languages", f.languages)}
 ${table("Devices", f.devices)}
@@ -240,6 +241,10 @@ export default {
     } catch (e) {
       return new Response(null, { status: 204 });                 // counting must never get in the way
     }
+    // the word processor is shown inside the document editor's page; opened on its own it would be EdenText's
+    // full app (its own storage, no file handling of this site): back to the document editor
+    if ((url.pathname === "/write/edentext/" || url.pathname === "/write/edentext/index.html") && request.headers.get("Sec-Fetch-Dest") === "document")
+      return Response.redirect(new URL("/write/", url).href, 302);
     return env.ASSETS.fetch(request);
   },
 };

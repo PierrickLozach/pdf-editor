@@ -301,3 +301,7 @@ html:not(.ads-on) .ad-slot { display: none; }          /* nothing to see (and no
 .changes h2 { font-size: 19px; margin-top: 1.6em; }
 .changes time { color: var(--muted); font-weight: 400; font-size: 15px; margin-inline-start: 8px; }
 .guide-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 20px; }
+
+/* home page: the document editor section */
+#documents .ctas { text-align: center; margin: 22px 0 6px; }
+#documents .small-print { text-align: center; }

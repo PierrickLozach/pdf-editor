@@ -22,10 +22,11 @@ Live: https://quicktou.ch · Source: https://github.com/PierrickLozach/pdf-edito
 | Folder / file | What it is |
 |---|---|
 | `web/` | The editor: MuPDF compiled to WebAssembly and plain JavaScript, no build step. `app.js` is the interface, `engine.js` the PDF engine (runs in `worker.js`), `pro.js` / `protools.js` the Pro licence and features, `lib.js` the developer library. Translations: `web/i18n/<lang>.json`. |
+| `write/` | The document editor's page (`/write/`): Word (.docx) and LibreOffice (.odt) documents. The word processor is [EdenText](https://github.com/stffnb/edentext) (AGPL, by Steffen Becker), served unmodified from `/write/edentext/` and shown in a frame in its embed mode; `write.js` owns the file (Open, Save into the file, Recent files, the unsaved copy, the language). EdenText's AI assistant and dictation are switched off (`edentext.config.json`) and the site's headers allow it no connection to another site. `web/docstore.js` is the storage both editors share (a document dropped on the PDF editor, or Convert › Edit as a document, goes there). |
 | `site/` | The website around it, on Cloudflare Workers. `pages/<lang>/` landing and legal pages (12 languages), `i18n/<lang>.json` header and footer words, `site.json` name, publisher, business details, host. |
 | `site/worker/` | The only server code, for `/api/*`: anonymous visit statistics (`index.js`), Pro licences (`pro.js`), the admin page (`admin.js`). Database tables: `schema.sql` (Cloudflare D1). |
 | `site/wrangler.jsonc` | Cloudflare settings: static files, the Worker on `/api/*`, the D1 database. |
-| `tools/` | `build_site.py` assembles `site/public`; `stamp.py` versions the editor's files; `check_i18n.py` checks translations; `vendor_lock.py` checks third-party files; `new_licence_key.mjs` makes a licence signing key. |
+| `tools/` | `build_site.py` assembles `site/public`; `stamp.py` versions the editor's files; `check_i18n.py` checks translations; `vendor_lock.py` checks third-party files; `vendor_edentext.py` downloads EdenText (pinned version, SHA-512 checked on every build, cached in `vendor/`, not in git); `new_licence_key.mjs` makes a licence signing key. |
 | `tests/` | Engine tests (`*.test.mjs`, Node) and browser tests (`tests/pw/*.pw.mjs`, Playwright: Chromium, Firefox, WebKit). `tests/run-all.sh` runs everything. |
 | `site/DEPLOY.md` | Shorter reference for deployment, languages and the admin page. |
 
@@ -426,6 +427,8 @@ git add -A && git diff --cached --name-only | xargs grep -lIiE "your-name|your-s
 **Statistics:** `https://<site>/api/stats?key=…` — the link is in `PDF Editor - statistics link.txt`.
 Both answer "not found" without the key. To change a key: `npx wrangler secret put ADMIN_KEY` (or `STATS_KEY`).
 
+**Upgrade EdenText** (the document editor): in `tools/vendor_edentext.py` set `VERSION` and `INTEGRITY` (`npm view @edentext/app@<version> dist.integrity`), build, then `cd tests/pw && node write.pw.mjs` with the local site running. Read EdenText's changelog first: a new setting that sends data elsewhere must stay off. Arabic comes with the release after 0.15.0: then add `ar: "ar"` to `LOCALES` in `write/write.js`.
+
 **Every year:** renew the Lemon Squeezy API key (`LS_API_KEY`); `security.txt` is renewed by each build.
 
 ---
@@ -436,6 +439,8 @@ Dual-licensed: **GNU AGPL v3** (free, see `LICENSE`) **or a commercial licence**
 commercial use without the AGPL's obligations — see [`LICENSING.md`](LICENSING.md). The editor is built on
 MuPDF © Artifex Software (AGPL; commercial licences from Artifex). A Pro licence is a licence to use the Pro
 features on the official site, not a commercial licence of the code.
+
+The document editor (`/write/`) is EdenText © Steffen Becker, served unmodified under its own licence (GNU AGPL v3 with an attribution term: its “Powered by EdenText” notice and logo stay visible); it is not covered by this project's commercial licence. Source: https://github.com/stffnb/edentext (the version in `tools/vendor_edentext.py`).
 
 Third-party code shipped with the site: MuPDF.js (AGPL), tesseract.js and its language models (Apache-2.0),
 fonts under open licences (Liberation, Carlito, Caladea, DejaVu, Dancing Script — see `web/vendor/` and `web/fonts/`).

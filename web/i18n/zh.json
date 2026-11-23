@@ -344,7 +344,6 @@
   "The two passwords are different": "两次输入的密码不一致",
   "This picture could not be read.": "无法读取此图片。",
   "To Word, text or pictures": "转为 Word、文本或图片",
-  "To turn a Word, Excel or PowerPoint file into a PDF, use File › Save as or Export as PDF in that program.": "要将 Word、Excel 或 PowerPoint 文件转换为 PDF，请在该程序中使用“文件 › 另存为”或“导出为 PDF”。",
   "Tools": "工具",
   "Tools: sign, redact, OCR, split, convert…": "工具：签名、涂黑、OCR、拆分、转换…",
   "Top right": "右上",
@@ -510,7 +509,43 @@
   "Download copy": "下载副本",
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "保存到打开的文件中，保存前会询问是否替换 (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "下载编辑后 PDF 的副本：打开的文件不会被更改",
-  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "您输入的部分字符不在此 PDF 所含的字体中，因此改用了相似字体显示。"
+  "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "您输入的部分字符不在此 PDF 所含的字体中，因此改用了相似字体显示。",
+  "Document editor": "文档编辑器",
+  "Open a Word or LibreOffice document (⌘O)": "打开 Word 或 LibreOffice 文档（⌘O）",
+  "Start a new document": "新建文档",
+  "Save the document (⌘S / Ctrl+S)": "保存文档（⌘S / Ctrl+S）",
+  "Download a copy: Word, LibreOffice or PDF": "下载副本：Word、LibreOffice 或 PDF",
+  "Edit a PDF": "编辑 PDF",
+  "PDF editor": "PDF 编辑器",
+  "Close this document": "关闭此文档",
+  "Drop a Word or LibreOffice document here": "将 Word 或 LibreOffice 文档拖放到此处",
+  "Choose a document": "选择文档",
+  "Word and LibreOffice": "Word 和 LibreOffice",
+  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– 打开并保存 .docx 和 .odt 文件（模板也可以）；可下载 PDF 副本。",
+  "Real pages": "真实页面",
+  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– 样式、表格、图片、页眉和页脚、脚注、目录、修订和批注。",
+  "Spell check": "拼写检查",
+  "– in many languages, in your browser.": "– 支持多种语言，在浏览器中完成。",
+  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "一切都在浏览器中完成：文档只在本设备上处理，绝不会上传。",
+  "Loading the document editor…": "正在加载文档编辑器…",
+  "Word processor:": "文字处理器：",
+  "by Steffen Becker, free software (AGPL)": "作者 Steffen Becker，自由软件（AGPL）",
+  "third-party licences": "第三方许可证",
+  "Drop the document to open it": "拖放文档即可打开",
+  "Some parts of this document could not be kept:": "此文档的部分内容无法保留：",
+  "Save your changes?": "保存更改？",
+  "Don't save": "不保存",
+  "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "无法打开旧版 Word 文件（.doc）：请先在 Word 或 LibreOffice 中另存为 .docx。",
+  "This is a PDF: open it in the PDF editor.": "这是 PDF 文件：请在 PDF 编辑器中打开。",
+  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "请选择 Word（.docx）或 LibreOffice（.odt）文档。",
+  "Untitled": "未命名",
+  "Permission to write into the file was not given.": "未获得写入该文件的权限。",
+  "LibreOffice document": "LibreOffice 文档",
+  "Word or LibreOffice document": "Word 或 LibreOffice 文档",
+  "Word or LibreOffice document? Open the document editor": "Word 或 LibreOffice 文档？打开文档编辑器",
+  "Edit as a document": "作为文档编辑",
+  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "文本会在文档编辑器中打开，可修改后保存为 Word 或 LibreOffice 文件",
+  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在文档编辑器中打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。"
  },
  "patterns": [
   [
@@ -856,6 +891,30 @@
   [
    "“{word}” marked once. Check the page, then apply.",
    "已标记“{word}”1 处。请检查该页，然后应用。"
+  ],
+  [
+   "Something went wrong: {m}",
+   "出错了：{m}"
+  ],
+  [
+   "Save into “{name}” (⌘S / Ctrl+S)",
+   "保存到“{name}”（⌘S / Ctrl+S）"
+  ],
+  [
+   "The document editor could not start: {m}",
+   "文档编辑器无法启动：{m}"
+  ],
+  [
+   "“{name}” has changes that are not saved.",
+   "“{name}”有未保存的更改。"
+  ],
+  [
+   "in “{name}” · {when}",
+   "“{name}” · {when}"
+  ],
+  [
+   "Open “{name}”",
+   "打开“{name}”"
   ]
  ]
 }

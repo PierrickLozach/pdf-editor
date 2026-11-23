@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=ef12a9fc6f", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=5af5c5c440", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -130,6 +130,12 @@ function renderScale() {
 /* ---------------------------------------------------------------- open / save */
 async function openFile(file, password) {
   if (!file) return;
+  // a Word or LibreOffice document: the document editor (/write/) opens it
+  if (window.DOCSTORE && DOCSTORE.isDoc(file.name)) {
+    if (S.dirty && S.doc && !(await modal({ title: "Open another PDF?", text: `Your edits to “${S.doc.name}” have not been saved. They will be lost.`, ok: "Open anyway" }))) return;
+    S.dirty = false;
+    return DOCSTORE.handOff(file, file.__handle || null);
+  }
   if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF file", true);
   if (window.FILES && !password && !(await FILES.check(file))) return;
   closeEditor(false);
@@ -1220,7 +1226,7 @@ function init() {
     e.preventDefault();
     dragDepth = 0; document.body.classList.remove("dragging-file"); $("#dropOverlay").hidden = true;
     const hp = window.FILES ? FILES.handleFromDrop(e.dataTransfer) : null;     // only available during the drop
-    const f = [...e.dataTransfer.files].find(f => /\.pdf$/i.test(f.name) || f.type === "application/pdf");
+    const f = [...e.dataTransfer.files].find(f => /\.pdf$/i.test(f.name) || f.type === "application/pdf" || (window.DOCSTORE && DOCSTORE.isDoc(f.name)));
     if (f && hp) return hp.then((h) => { if (h && h.kind === "file") f.__handle = h; openFile(f); });
     if (f) return openFile(f);
     filesFromDrop(e.dataTransfer).then(({ files, folder }) => {

@@ -55,3 +55,6 @@ tools/finish_domain.sh
 !/tests/fixtures/stamp-text.pdf
 !/tests/pw/offline.pw.mjs
 !/tests/pw/guide-shots.mjs
+
+!/write/
+!/tests/pw/write.pw.mjs
