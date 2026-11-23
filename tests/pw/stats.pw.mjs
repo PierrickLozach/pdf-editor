@@ -42,6 +42,25 @@ ok(evs.some((x) => x.e === "pdf_opened" && x.x === "<1MB") && evs.some((x) => x.
 const all = JSON.stringify(sent);
 ok(!/demo-invoice|NORTHWIND|Harbour|invoice/i.test(all), "nothing about the document is sent (no file name, no text)");
 ok(sent.every((x) => Object.keys(x).every((k) => ["t", "p", "v", "r", "u", "l", "e", "x"].includes(k))), "only the documented fields are sent");
+// 1b. a Word document in the editor: its kind and the format of a download, never its name or text
+sent = await run({ locale: "en-US", acceptDownloads: true }, async (p) => {
+  await p.goto(B + "/app/");
+  await p.waitForFunction(() => document.body.classList.contains("engine-ready"), null, { timeout: 60000 });
+  await p.setInputFiles("#fileInput", new URL("../fixtures/bakery-hours.odt", import.meta.url).pathname);
+  await p.waitForFunction(() => window.DOCS && DOCS.isOpen(), null, { timeout: 30000 });
+  await p.click("#btnDownload");
+  await Promise.all([p.waitForEvent("download"), p.click('#docDownloadMenu [data-fmt="pdf"]')]);
+  await sleep(800);
+});
+const devs = sent.filter((x) => x.t === "event");
+ok(devs.some((x) => x.e === "doc_opened" && x.x === "odt") && devs.some((x) => x.e === "doc_downloaded" && x.x === "pdf"),
+   "documents: “document opened” with its kind (odt) and “downloaded” with its format (pdf): " + devs.map((x) => x.e + ":" + x.x).join(", "));
+ok(!/bakery|rye bread|Bakery opening/i.test(JSON.stringify(sent)), "nothing about the document is sent (no file name, no text)");
+// 1c. the server keeps only what it knows: real pages (guides too), known events and details
+const post = (body) => fetch(B + "/api/hit", { method: "POST", headers: { "Content-Type": "application/json", Origin: B }, body: JSON.stringify(body) });
+const okHit = async (body) => (await post(body)).status;
+ok(await okHit({ t: "page", p: "/fr/sign-pdf", v: 0 }) === 204 && await okHit({ t: "event", e: "doc_opened", x: "secret-name.docx" }) === 204,
+   "the counter answers without telling what it kept");
 // 2. automated browsers (tests, bots) are never counted
 sent = await run({}, async (p) => { await p.goto(B + "/"); await sleep(800); }, false);
 ok(sent.length === 0, "an automated browser (test, bot) sends nothing");
@@ -61,6 +80,10 @@ const r1 = await fetch(B + "/api/stats"), r2 = await fetch(B + "/api/stats?key="
 const cookie = (r3.headers.get("set-cookie") || "").split(";")[0];
 ok(r1.status === 404 && r2.status === 404 && r3.status === 303 && !/key=/.test(r3.headers.get("location") || "") && cookie, `stats page: 404 without the key or with a wrong one; with it, a sign-in redirect to the address without the key (${r1.status}/${r2.status}/${r3.status})`);
 const r4 = await fetch(B + "/api/stats", { headers: { Cookie: cookie } }), h = await r4.text();
+ok(r4.status === 200 && /PDFs opened/.test(h) && /Word or LibreOffice documents opened/.test(h) && /What people do with documents/.test(h) && /Pages \(all languages\)/.test(h), "the page shows PDFs and Word or LibreOffice documents side by side");
+const j = await (await fetch(B + "/api/stats.json?days=30", { headers: { Cookie: cookie } })).json();
+ok(Array.isArray(j.docTypes) && Array.isArray(j.docFormats) && Array.isArray(j.pages) && j.series.every((d) => "docs" in d && "pdfs" in d), "JSON: documents per day, their kinds and download formats, pages in all languages");
+ok(!JSON.stringify(j).includes("secret-name"), "a detail the counter does not know (a file name) is never kept");
 ok(r4.status === 200 && /visits/.test(h) && /noindex/.test(r4.headers.get("x-robots-tag") || "") && !h.includes(KEY), "signed in: the page shows the figures, is hidden from search engines and never contains the key");
 await b.close();
 console.log(fails ? `${fails} FAILED` : "ALL OK");

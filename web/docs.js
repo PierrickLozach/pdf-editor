@@ -32,7 +32,9 @@
     const e = m[1].toLowerCase();
     return { fmt: e === "docx" || e === "dotx" ? "docx" : "odt", template: e === "dotx" || e === "ott" };
   };
-  const stats = (e) => window.PDFE_STATS && PDFE_STATS.event(e);
+  // counts only that something happened, and for documents their kind (docx, odt…) or a download's format
+  const stats = (e, type) => window.PDFE_STATS && PDFE_STATS.event(e, type ? { type } : {});
+  const ext = (name) => ((/\.(docx|dotx|odt|ott)$/i.exec(name || "") || [])[1] || "").toLowerCase();
   const say = (m, err) => (typeof toast === "function" ? toast(m, err) : console.log(m));
 
   /* ---------------------------------------------------------------- the word processor (made when first needed) */
@@ -87,7 +89,9 @@
         if (!frameAsks()) break;                            // stuck: try again with a new one
       }
       resetFrame();
+      stats("doc_retry");
     }
+    stats("doc_failed");
     throw new Error(t("The document could not be opened. Reload the page and try again."));
   }
   async function run(fn) {
@@ -171,7 +175,7 @@
     if (window.FILES) { FILES.setDocResume(null); if (D.handle) FILES.remember(D.handle, D.name); }
     if (D.hostDirty) keepCopySoon();
     mark();
-    if (!o.quiet) stats("doc_opened");
+    if (!o.quiet) stats("doc_opened", ext(file.name));
     return true;
   }
   async function newDoc() {
@@ -248,7 +252,7 @@
     downloadFile(await ed.export(D.fmt), name);
     await saved();
     say(tf("Downloaded “{name}”", { name }));
-    stats("doc_downloaded");
+    stats("doc_downloaded", D.fmt);
     return true;
   }
   async function saveAs() {
@@ -274,7 +278,7 @@
     const name = base(D.name) + TYPES[fmt].ext;
     downloadFile(await ed.export(fmt), name);
     say(tf("Downloaded “{name}”", { name }));
-    stats("doc_downloaded");
+    stats("doc_downloaded", fmt);
   }
   /* the Download copy menu: Word, LibreOffice or PDF */
   let menu = null;

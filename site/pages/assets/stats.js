@@ -2,7 +2,8 @@
  * Sends to /api/hit: the page, and for the first page of a visit the site that sent the visitor
  * (domain only), the browser's language and whether this is a computer, tablet or phone. The server
  * adds the country and keeps only daily totals. Nothing is sent from the editor about documents
- * except that one was opened, saved or created (and its size range): never a name or content.
+ * except that one was opened, saved, downloaded or created, the size range of a PDF, whether a document is
+ * a Word or LibreOffice file and the format it was downloaded in: never a name or content.
  * Off when the browser asks not to be tracked, for local copies, and when the person opts out:
  * localStorage pdfe.noStats = "1" (the privacy page has the switch). */
 (function () {
@@ -31,13 +32,14 @@
 
   const sizeRange = (b) => (b < 1048576 ? "<1MB" : b < 10485760 ? "1-10MB" : b < 52428800 ? "10-50MB" : "50MB+");
   const seen = new Set();
-  /** count("pdf_opened", {size}) / count("tool_used", {tool: "redact"}) - at most once per tool and visit-page for tools */
+  /** event("pdf_opened", {size}) / event("tool_used", {tool: "redact"}) / event("doc_opened", {type: "odt"})
+   *  / event("doc_downloaded", {type: "pdf"}) - tools are counted at most once per tool and page */
   window.PDFE_STATS = {
     event(name, o = {}) {
       const key = name + ":" + (o.tool || "");
       if ((name === "text_edited" || name === "tool_used") && seen.has(key)) return;   // presence, not every click
       seen.add(key);
-      send({ t: "event", e: name, x: o.tool || (o.size != null ? sizeRange(o.size) : "") });
+      send({ t: "event", e: name, x: o.tool || o.type || (o.size != null ? sizeRange(o.size) : "") });
     },
     get enabled() { return !off(); },
     set enabled(on) { try { if (on) localStorage.removeItem("pdfe.noStats"); else localStorage.setItem("pdfe.noStats", "1"); } catch (e) {} },

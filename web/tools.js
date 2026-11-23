@@ -157,6 +157,7 @@
     await busy(async () => {
       if (v.to === "docx") return TOOLS.saveOut(await call("toDocx"), base() + ".docx");
       if (v.to === "docedit") {
+        window.PDFE_STATS && PDFE_STATS.event("tool_used", { tool: "docedit" });
         const file = new File([await call("toDocx")], base() + ".docx", { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
         await DOCSTORE.put("keep", { id: "handoff", file, name: file.name, handle: null, time: Date.now() });
         if (tab) { tab.location.href = location.pathname + "#doc"; return; }
