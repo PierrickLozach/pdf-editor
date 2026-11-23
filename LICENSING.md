@@ -25,7 +25,7 @@ The commercial licence covers the code of this project. It includes components t
 - **MuPDF** (the PDF engine, `web/vendor/mupdf/`) © Artifex Software, under the AGPL. Using MuPDF without the
   AGPL's obligations also requires a commercial licence from Artifex (https://artifex.com/licensing); this is
   part of the discussion.
-- **EdenText** (the document editor's word processor, served from `/write/edentext/`, downloaded by `tools/vendor_edentext.py`)
+- **EdenText** (the word processor for Word and LibreOffice documents, served from `/app/edentext/`, downloaded by `tools/vendor_edentext.py`)
   © Steffen Becker, under the AGPL with an attribution term (its NOTICE.md). It is **not** covered by the commercial licence
   of this project; its author offers his own (https://github.com/stffnb/edentext/blob/main/LICENSE.commercial.md).
 - **tesseract.js** and its language models (text recognition), Apache-2.0: no restriction.

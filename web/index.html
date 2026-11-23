@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23e5322d'/><path d='M9 23V9h6.5a4.5 4.5 0 0 1 0 9H12v5z' fill='white'/></svg>">
-<script src="/assets/stats.js?v=5af5c5c440" defer></script>
-<script src="i18n.js?v=5af5c5c440"></script>
-<link rel="stylesheet" href="style.css?v=5af5c5c440">
+<script src="/assets/stats.js?v=11bdd0f3f8" defer></script>
+<script src="i18n.js?v=11bdd0f3f8"></script>
+<link rel="stylesheet" href="style.css?v=11bdd0f3f8">
 <meta name="description" content="Free PDF editor that runs entirely in your browser: edit text with the original font, find and replace, white-out, images, pages. Your files are never uploaded.">
 <meta name="theme-color" content="#e5322d">
 </head>
@@ -19,9 +19,9 @@
   <div class="brand"><span class="logo">P</span><span id="docName">PDF Editor</span></div>
 
   <div class="group">
-    <button id="btnOpen" title="Open a PDF (⌘O)"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Open</span></button>
-    <button id="btnSave" class="needs-doc" title="Save the edited PDF (⌘S / Ctrl+S)"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg><span>Save</span></button>
-    <button id="btnDownload" class="needs-doc" title="Download a copy of the edited PDF: the file you opened is not changed"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg><span>Download copy</span></button>
+    <button id="btnOpen" title="Open a PDF, Word or LibreOffice file (⌘O)"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Open</span></button>
+    <button id="btnSave" class="needs-doc doc-ok" title="Save the edited PDF (⌘S / Ctrl+S)"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg><span>Save</span></button>
+    <button id="btnDownload" class="needs-doc doc-ok" title="Download a copy of the edited PDF: the file you opened is not changed"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg><span>Download copy</span></button>
   </div>
 
   <div class="group">
@@ -42,6 +42,10 @@
     <button id="btnFonts" title="Fonts from this computer: edit with the same fonts as the original"><svg viewBox="0 0 24 24"><path d="M3 19 8.5 5h1L15 19M5 14h7"/><path d="M15.5 12.5c.6-1 1.6-1.5 2.8-1.5 1.8 0 2.7 1 2.7 2.8V19m0-3.6c-.9-.4-1.9-.6-2.8-.6-1.6 0-2.7.8-2.7 2.1 0 1.2.9 2.1 2.3 2.1 1.4 0 2.6-.8 3.2-2"/></svg><span>Fonts</span></button>
   </div>
 
+  <div class="group doc-only">
+    <button id="btnDocClose" class="icon" title="Close this document" aria-label="Close this document"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+
   <div class="group zoom">
     <button id="btnZoomOut" class="needs-doc icon" title="Zoom out (⌘−)"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button>
     <button id="btnZoomLabel" class="needs-doc" title="Fit to width">100%</button>
@@ -56,6 +60,7 @@
     <button id="btnMerge" class="needs-doc wide" title="Append the pages of another PDF at the end">+ Add pages from a PDF…</button>
   </aside>
 
+  <div id="docFrame" aria-live="polite"><p class="doc-wait">Opening the document…</p></div>
   <section id="viewer" tabindex="-1">
     <div id="empty">
       <div class="drop">
@@ -64,9 +69,9 @@
           <div class="sa-doc"><span class="sa-fold"></span><i></i><i></i><i></i><b>PDF</b></div>
           <svg class="sa-arrow" viewBox="0 0 24 24"><path d="M12 4v14m0 0-5-5m5 5 5-5"/></svg>
         </div>
-        <h1>Drop a PDF here</h1>
-        <p class="start-actions"><button id="btnOpen2" class="primary big-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Choose a PDF</span></button></p>
-        <p class="to-docs"><a href="/write/">Word or LibreOffice document? Open the document editor</a></p>
+        <h1>Drop a PDF, Word or LibreOffice file here</h1>
+        <p class="start-actions"><button id="btnOpen2" class="primary big-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Choose a file</span></button></p>
+        <p class="new-doc"><button id="btnNewDoc" class="link">Start a new document</button></p>
         <div id="recentSlot"></div>
         <h2 class="howto-title">How it works</h2>
         <ol class="howto">
@@ -86,7 +91,7 @@
         <p class="muted">Everything happens in your browser: your files are processed on this device and are never uploaded.</p>
         <p id="engineStatus" class="muted small">Loading the PDF engine…</p>
         <div id="resume" hidden><p id="resumeText"></p><button id="btnResume" class="primary">Resume editing</button> <button id="btnDiscard">Discard</button></div>
-        <p class="muted small foot">Free software (AGPL) based on <a href="https://mupdf.com" target="_blank" rel="noopener">MuPDF</a> · fonts: Liberation, Carlito, Caladea, DejaVu (open licences) · <a href="LICENSE.txt" target="_blank">licence &amp; source</a></p>
+        <p class="muted small foot">Free software (AGPL) based on <a href="https://mupdf.com" target="_blank" rel="noopener">MuPDF</a> · fonts: Liberation, Carlito, Caladea, DejaVu (open licences) · <a href="LICENSE.txt" target="_blank">licence &amp; source</a><br><span>Word and LibreOffice documents:</span> <a href="https://github.com/stffnb/edentext" target="_blank" rel="noopener">EdenText</a> <span>by Steffen Becker, free software (AGPL)</span> · <a href="edentext/SOURCE.txt" target="_blank">licence &amp; source</a> · <a href="edentext/licenses.txt" target="_blank">third-party licences</a></p>
       </div>
     </div>
     <div id="pages"></div>
@@ -179,30 +184,31 @@
   </div>
 </div>
 
-<div id="dropOverlay" hidden><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0-5-5m5 5 5-5"/></svg><span>Drop the PDF to open it (or font files to add them)</span></div></div>
+<div id="dropOverlay" hidden><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0-5-5m5 5 5-5"/></svg><span>Drop the file to open it (or font files to add them)</span></div></div>
 
-<input id="fileInput" type="file" accept="application/pdf,.pdf,.docx,.odt" hidden>
+<input id="fileInput" type="file" accept="application/pdf,.pdf,.docx,.dotx,.odt,.ott" hidden>
 <input id="mergeInput" type="file" accept="application/pdf,.pdf" hidden>
 <input id="imageInput" type="file" accept="image/png,image/jpeg,image/gif,image/webp" hidden>
 <input id="fontFilesInput" type="file" accept=".ttf,.otf,.ttc,.otc,font/ttf,font/otf,font/collection,font/sfnt,application/x-font-ttf" multiple hidden>
 <input id="fontFolderInput" type="file" webkitdirectory multiple hidden>
 
-<script src="docstore.js?v=5af5c5c440"></script>
-<script src="app.js?v=5af5c5c440"></script>
-<script src="move.js?v=5af5c5c440"></script>
-<script src="place.js?v=5af5c5c440"></script>
-<script src="remove.js?v=5af5c5c440"></script>
-<script src="pro.js?v=5af5c5c440"></script>
-<script src="protools.js?v=5af5c5c440"></script>
-<script src="start.js?v=5af5c5c440"></script>
-<script src="reduce.js?v=5af5c5c440"></script>
-<script src="files.js?v=5af5c5c440"></script>
-<script src="active.js?v=5af5c5c440"></script>
-<script src="tools.js?v=5af5c5c440"></script>
-<script src="sign.js?v=5af5c5c440"></script>
-<script src="redact.js?v=5af5c5c440"></script>
-<script src="ocr.js?v=5af5c5c440"></script>
-<script src="legacy.js?v=5af5c5c440"></script>
-<script src="fit.js?v=5af5c5c440"></script>
+<script src="docstore.js?v=11bdd0f3f8"></script>
+<script src="docs.js?v=11bdd0f3f8"></script>
+<script src="app.js?v=11bdd0f3f8"></script>
+<script src="move.js?v=11bdd0f3f8"></script>
+<script src="place.js?v=11bdd0f3f8"></script>
+<script src="remove.js?v=11bdd0f3f8"></script>
+<script src="pro.js?v=11bdd0f3f8"></script>
+<script src="protools.js?v=11bdd0f3f8"></script>
+<script src="start.js?v=11bdd0f3f8"></script>
+<script src="reduce.js?v=11bdd0f3f8"></script>
+<script src="files.js?v=11bdd0f3f8"></script>
+<script src="active.js?v=11bdd0f3f8"></script>
+<script src="tools.js?v=11bdd0f3f8"></script>
+<script src="sign.js?v=11bdd0f3f8"></script>
+<script src="redact.js?v=11bdd0f3f8"></script>
+<script src="ocr.js?v=11bdd0f3f8"></script>
+<script src="legacy.js?v=11bdd0f3f8"></script>
+<script src="fit.js?v=11bdd0f3f8"></script>
 </body>
 </html>

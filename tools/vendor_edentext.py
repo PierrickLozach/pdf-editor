@@ -1,4 +1,5 @@
-"""EdenText, the word processor behind the document editor (/write/), served from this site.
+"""EdenText, the word processor the editor uses for Word and LibreOffice documents (web/docs.js), served
+from this site in /app/edentext/.
 
 The editor is EdenText's own build, unmodified: the npm package @edentext/app at the version
 below. Every site build checks the downloaded package against the SHA-512 the npm registry
@@ -8,7 +9,7 @@ Only two settings files are written next to it (EdenText's documented installati
   edentext.config.json  the AI assistant and dictation are switched off for everyone: they would
                         send the document's text or the voice to another service
 Upgrade: change VERSION and INTEGRITY (npm view @edentext/app@<v> dist.integrity), build, run
-tests/pw/write.pw.mjs. Licence: AGPL-3.0 with an attribution term (NOTICE.md in the folder);
+tests/pw/docs.pw.mjs. Licence: AGPL-3.0 with an attribution term (NOTICE.md in the folder);
 the source is EdenText's repository at the same version (SOURCE).
 
 Usage: python3 tools/vendor_edentext.py <target folder>   (build_site.py calls it)"""

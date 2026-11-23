@@ -12,7 +12,6 @@
   "Find & replace": "查找和替换",
   "Fonts": "字体",
   "+ Add pages from a PDF…": "+ 从 PDF 添加页面…",
-  "Drop a PDF here": "将 PDF 拖放到此处",
   "or": "或",
   "choose a file": "选择文件",
   "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "：点击任意文本即可输入；原文本会被真正删除，新文本沿用相同的字体、字号和颜色。",
@@ -55,9 +54,7 @@
   "Other files…": "其他文件…",
   "Remove all": "全部移除",
   "Remove": "移除",
-  "Drop the PDF to open it (or font files to add them)": "拖放 PDF 即可打开（拖放字体文件即可添加）",
   "Pages": "页面",
-  "Open a PDF (⌘O)": "打开 PDF (⌘O)",
   "Save the edited PDF (⌘S / Ctrl+S)": "保存编辑后的 PDF (⌘S / Ctrl+S)",
   "Download the edited PDF": "下载编辑后的 PDF",
   "Close this PDF": "关闭此 PDF",
@@ -91,7 +88,6 @@
   "Cancel (Esc)": "取消 (Esc)",
   "Apply (Enter · Shift+Enter for a new line)": "应用 (Enter · Shift+Enter 换行)",
   "This browser cannot run the editor (no module workers). Please update it.": "此浏览器无法运行编辑器（不支持模块 Worker）。请更新浏览器。",
-  "Please choose a PDF file": "请选择 PDF 文件",
   "Open another PDF?": "打开另一个 PDF？",
   "Open anyway": "仍然打开",
   "Password-protected PDF": "受密码保护的 PDF",
@@ -367,7 +363,6 @@
   "Unsaved changes": "有未保存的更改",
   "Discard the unsaved changes": "放弃未保存的更改",
   "Discard the unsaved changes?": "放弃未保存的更改？",
-  "Choose a PDF": "选择 PDF",
   "How it works": "使用方法",
   "Open your PDF": "打开 PDF",
   "Drop it on this page, or choose it.": "拖放到此页面，或选择文件。",
@@ -510,42 +505,31 @@
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "保存到打开的文件中，保存前会询问是否替换 (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "下载编辑后 PDF 的副本：打开的文件不会被更改",
   "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "您输入的部分字符不在此 PDF 所含的字体中，因此改用了相似字体显示。",
-  "Document editor": "文档编辑器",
-  "Open a Word or LibreOffice document (⌘O)": "打开 Word 或 LibreOffice 文档（⌘O）",
   "Start a new document": "新建文档",
   "Save the document (⌘S / Ctrl+S)": "保存文档（⌘S / Ctrl+S）",
   "Download a copy: Word, LibreOffice or PDF": "下载副本：Word、LibreOffice 或 PDF",
-  "Edit a PDF": "编辑 PDF",
-  "PDF editor": "PDF 编辑器",
   "Close this document": "关闭此文档",
-  "Drop a Word or LibreOffice document here": "将 Word 或 LibreOffice 文档拖放到此处",
-  "Choose a document": "选择文档",
-  "Word and LibreOffice": "Word 和 LibreOffice",
-  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– 打开并保存 .docx 和 .odt 文件（模板也可以）；可下载 PDF 副本。",
-  "Real pages": "真实页面",
-  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– 样式、表格、图片、页眉和页脚、脚注、目录、修订和批注。",
-  "Spell check": "拼写检查",
-  "– in many languages, in your browser.": "– 支持多种语言，在浏览器中完成。",
-  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "一切都在浏览器中完成：文档只在本设备上处理，绝不会上传。",
-  "Loading the document editor…": "正在加载文档编辑器…",
-  "Word processor:": "文字处理器：",
   "by Steffen Becker, free software (AGPL)": "作者 Steffen Becker，自由软件（AGPL）",
   "third-party licences": "第三方许可证",
-  "Drop the document to open it": "拖放文档即可打开",
   "Some parts of this document could not be kept:": "此文档的部分内容无法保留：",
   "Save your changes?": "保存更改？",
   "Don't save": "不保存",
   "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "无法打开旧版 Word 文件（.doc）：请先在 Word 或 LibreOffice 中另存为 .docx。",
-  "This is a PDF: open it in the PDF editor.": "这是 PDF 文件：请在 PDF 编辑器中打开。",
-  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "请选择 Word（.docx）或 LibreOffice（.odt）文档。",
   "Untitled": "未命名",
   "Permission to write into the file was not given.": "未获得写入该文件的权限。",
   "LibreOffice document": "LibreOffice 文档",
-  "Word or LibreOffice document": "Word 或 LibreOffice 文档",
-  "Word or LibreOffice document? Open the document editor": "Word 或 LibreOffice 文档？打开文档编辑器",
   "Edit as a document": "作为文档编辑",
-  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "文本会在文档编辑器中打开，可修改后保存为 Word 或 LibreOffice 文件",
-  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在文档编辑器中打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。"
+  "Drop a PDF, Word or LibreOffice file here": "将 PDF、Word 或 LibreOffice 文件拖放到此处",
+  "Choose a file": "选择文件",
+  "Open a PDF, Word or LibreOffice file (⌘O)": "打开 PDF、Word 或 LibreOffice 文件（⌘O）",
+  "PDF, Word or LibreOffice file": "PDF、Word 或 LibreOffice 文件",
+  "Please choose a PDF, Word (.docx) or LibreOffice (.odt) file.": "请选择 PDF、Word（.docx）或 LibreOffice（.odt）文件。",
+  "Open another file?": "打开其他文件？",
+  "Drop the file to open it (or font files to add them)": "拖放文件即可打开（或拖放字体文件以添加）",
+  "Opening the document…": "正在打开文档…",
+  "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "文本会作为 Word 文档在新标签页中打开，可修改后保存为 Word 或 LibreOffice 文件",
+  "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在这里打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。",
+  "Word and LibreOffice documents:": "Word 和 LibreOffice 文档："
  },
  "patterns": [
   [
@@ -901,20 +885,12 @@
    "保存到“{name}”（⌘S / Ctrl+S）"
   ],
   [
-   "The document editor could not start: {m}",
-   "文档编辑器无法启动：{m}"
-  ],
-  [
    "“{name}” has changes that are not saved.",
    "“{name}”有未保存的更改。"
   ],
   [
-   "in “{name}” · {when}",
-   "“{name}” · {when}"
-  ],
-  [
-   "Open “{name}”",
-   "打开“{name}”"
+   "Word and LibreOffice documents cannot be opened right now: {m}",
+   "暂时无法打开 Word 和 LibreOffice 文档：{m}"
   ]
  ]
 }

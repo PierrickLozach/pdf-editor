@@ -58,8 +58,11 @@
    * the browser (the tab was closed or the browser quit), it is shown on that file's line — "Unsaved
    * changes" with Resume — instead of in a box of its own; a PDF without a recent entry (Firefox,
    * Safari, a PDF made from pictures) gets one line for it. */
-  let resumeRec = null;
+  let resumeRec = null, docRec = null;
   F.setResume = (rec) => { resumeRec = rec && rec.unsaved ? rec : null; renderRecent(); };
+  /** The unsaved copy of a Word or LibreOffice document (docs.js): {name, time, resume(), discard()} or null. */
+  F.setDocResume = (rec) => { docRec = rec; renderRecent(); };
+  F.remember = (handle, name) => remember(handle, name);
   const short = (ms) => {
     const d = new Date(ms), now = new Date();
     if (d.toDateString() === now.toDateString()) return d.toLocaleTimeString(lang(), { hour: "numeric", minute: "2-digit" });
@@ -77,6 +80,7 @@
     let list = F.supported ? (await store("readonly", all).catch(() => [])).sort((a, b) => b.time - a.time) : [];
     let cur = null; try { cur = localStorage.getItem(CUR); } catch (e) {}
     const rec = resumeRec && !(window.S && S.doc) ? resumeRec : null;
+    const drec = docRec && !(window.DOCS && DOCS.isOpen()) ? docRec : null;
     // the unsaved copy belongs to the recent file that was open, if it is still in the list
     let host = rec ? list.find((x) => x.id === cur && x.name === rec.name) : null;
     const ul = box.querySelector("ul");
@@ -99,7 +103,19 @@
         await call("discard"); resumeRec = null; renderRecent();
       };
     }
-    for (const x of list.filter((x) => x !== host).slice(0, rec ? SHOW - 1 : SHOW)) {
+    let dhost = null;
+    if (drec) {
+      dhost = list.find((x) => x !== host && x.name === drec.name) || null;
+      const li = row(drec.name, Math.max(drec.time || 0, dhost ? dhost.time : 0), true);
+      li.querySelector(".rf-open").title = t("Resume editing");
+      li.querySelector(".rf-del").title = t("Discard the unsaved changes");
+      li.querySelector(".rf-open").onclick = () => drec.resume();
+      li.querySelector(".rf-del").onclick = async () => {
+        if (!(await modal({ title: t("Discard the unsaved changes?"), text: t("The changes to “{name}” that were not saved are deleted. The file itself is not changed.").replace("{name}", drec.name), ok: t("Discard"), danger: true }))) return;
+        await drec.discard();
+      };
+    }
+    for (const x of list.filter((x) => x !== host && x !== dhost).slice(0, SHOW - (rec ? 1 : 0) - (drec ? 1 : 0))) {
       const li = row(x.name, x.time, false);
       li.querySelector(".rf-del").title = t("Remove from this list");
       li.querySelector(".rf-open").onclick = () => openRecent(x);
@@ -140,8 +156,9 @@
   F.pick = async () => {
     if (!F.supported) return $("#fileInput").click();
     let h;
-    try { [h] = await window.showOpenFilePicker({ types: [{ description: t("PDF document"), accept: { "application/pdf": [".pdf"] } },
-      { description: t("Word or LibreOffice document"), accept: { "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"], "application/vnd.oasis.opendocument.text": [".odt"] } }] }); }
+    try { [h] = await window.showOpenFilePicker({ types: [{ description: t("PDF, Word or LibreOffice file"), accept: { "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"], "application/vnd.openxmlformats-officedocument.wordprocessingml.template": [".dotx"],
+      "application/vnd.oasis.opendocument.text": [".odt"], "application/vnd.oasis.opendocument.text-template": [".ott"] } }] }); }
     catch (e) { if (e.name !== "AbortError") $("#fileInput").click(); return; }
     const f = await h.getFile();
     f.__handle = h;
@@ -270,6 +287,7 @@
   F.adopt = (h) => { if (h && h.kind === "file") { F.handle = h; remember(h, h.name); mark(); } };
 
   function mark() {
+    if (window.DOCS && DOCS.isOpen()) return DOCS.mark();          // a Word or LibreOffice document is open
     const s = document.getElementById("saveState");
     if (!s) return;
     const show = typeof S !== "undefined" && !!S.doc;

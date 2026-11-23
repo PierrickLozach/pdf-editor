@@ -241,10 +241,12 @@ export default {
     } catch (e) {
       return new Response(null, { status: 204 });                 // counting must never get in the way
     }
-    // the word processor is shown inside the document editor's page; opened on its own it would be EdenText's
-    // full app (its own storage, no file handling of this site): back to the document editor
-    if ((url.pathname === "/write/edentext/" || url.pathname === "/write/edentext/index.html") && request.headers.get("Sec-Fetch-Dest") === "document")
-      return Response.redirect(new URL("/write/", url).href, 302);
+    // Word and LibreOffice documents open in the one editor (/app/); /write/ was their own page for a day
+    if (url.pathname === "/write" || url.pathname.startsWith("/write/")) return Response.redirect(new URL("/app/", url).href, 301);
+    // the word processor is shown inside the editor; opened on its own it would be EdenText's full app
+    // (its own storage, none of the editor's file handling): back to the editor
+    if ((url.pathname === "/app/edentext/" || url.pathname === "/app/edentext/index.html") && request.headers.get("Sec-Fetch-Dest") === "document")
+      return Response.redirect(new URL("/app/", url).href, 302);
     return env.ASSETS.fetch(request);
   },
 };

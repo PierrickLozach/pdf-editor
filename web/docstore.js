@@ -1,11 +1,9 @@
-/* PDF Editor - the document editor's storage in this browser (IndexedDB "pdf-editor-write"), shared by
- * the PDF editor (/app/) and the document editor (/write/). Nothing here ever leaves the browser.
- *   recent   the Word / LibreOffice files opened with Open or by dropping them (Chrome, Edge): the files
- *            themselves (handles), never copies, so Save writes into them again
- *   keep     "handoff"  a document dropped on the PDF editor, picked up by the document editor
- *            "recovery" the unsaved copy of the open document, kept while it has changes
+/* PDF Editor - what the editor keeps in this browser for Word and LibreOffice documents (docs.js), in
+ * IndexedDB "pdf-editor-write". Nothing here ever leaves the browser. (Recent files, PDFs and documents
+ * alike, are in files.js.)
+ *   keep     "recovery" the unsaved copy of the open document, kept while it has changes
  *            "reopen"   the open document while the page reloads in another language
- * DOCSTORE.isDoc(name) says whether a file name is a document the document editor opens. */
+ *            "handoff"  a PDF's text sent by Convert › Edit as a document to a new tab */
 (function () {
   "use strict";
   let dbp = null;
@@ -36,11 +34,5 @@
     del: (store, id) => tx(store, "readwrite", (st) => st.delete(id)).catch(() => {}),
     /** read and remove */
     take: async (store, id) => { const v = await S.get(store, id); if (v) await S.del(store, id); return v; },
-    isDoc: (name) => /\.(docx|dotx|odt|ott)$/i.test(name || ""),
-    /** Open a document in the document editor (from the PDF editor): it goes there through this browser's storage. */
-    async handOff(file, handle) {
-      await S.put("keep", { id: "handoff", file, name: file.name, handle: handle || null, time: Date.now() });
-      location.href = "/write/#open";
-    },
   });
 })();

@@ -12,7 +12,6 @@
   "Find & replace": "Buscar y reemplazar",
   "Fonts": "Fuentes",
   "+ Add pages from a PDF…": "+ Añadir páginas de un PDF…",
-  "Drop a PDF here": "Suelta un PDF aquí",
   "or": "o",
   "choose a file": "elige un archivo",
   "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– haz clic en cualquier texto y escribe; el original se elimina de verdad y el texto nuevo usa la misma fuente, tamaño y color.",
@@ -55,9 +54,7 @@
   "Other files…": "Otros archivos…",
   "Remove all": "Quitar todas",
   "Remove": "Quitar",
-  "Drop the PDF to open it (or font files to add them)": "Suelta el PDF para abrirlo (o archivos de fuentes para añadirlos)",
   "Pages": "Páginas",
-  "Open a PDF (⌘O)": "Abrir un PDF (⌘O)",
   "Save the edited PDF (⌘S / Ctrl+S)": "Guardar el PDF editado (⌘S / Ctrl+S)",
   "Download the edited PDF": "Descargar el PDF editado",
   "Close this PDF": "Cerrar este PDF",
@@ -91,7 +88,6 @@
   "Cancel (Esc)": "Cancelar (Esc)",
   "Apply (Enter · Shift+Enter for a new line)": "Aplicar (Intro · Mayús+Intro para una línea nueva)",
   "This browser cannot run the editor (no module workers). Please update it.": "Este navegador no puede ejecutar el editor (no admite module workers). Actualízalo.",
-  "Please choose a PDF file": "Elige un archivo PDF",
   "Open another PDF?": "¿Abrir otro PDF?",
   "Open anyway": "Abrir de todos modos",
   "Password-protected PDF": "PDF protegido con contraseña",
@@ -367,7 +363,6 @@
   "Unsaved changes": "Cambios sin guardar",
   "Discard the unsaved changes": "Descartar los cambios sin guardar",
   "Discard the unsaved changes?": "¿Descartar los cambios sin guardar?",
-  "Choose a PDF": "Elegir un PDF",
   "How it works": "Cómo funciona",
   "Open your PDF": "Abre tu PDF",
   "Drop it on this page, or choose it.": "Suéltalo en esta página o elígelo.",
@@ -510,42 +505,31 @@
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "Guardar en el archivo abierto, tras preguntar si quieres reemplazarlo (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "Descargar una copia del PDF editado: el archivo abierto no se modifica",
   "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "Algunas letras que has escrito no están en las fuentes incluidas en este PDF, así que se han dibujado con una fuente parecida.",
-  "Document editor": "Editor de documentos",
-  "Open a Word or LibreOffice document (⌘O)": "Abrir un documento de Word o LibreOffice (⌘O)",
   "Start a new document": "Crear un documento nuevo",
   "Save the document (⌘S / Ctrl+S)": "Guardar el documento (⌘S / Ctrl+S)",
   "Download a copy: Word, LibreOffice or PDF": "Descargar una copia: Word, LibreOffice o PDF",
-  "Edit a PDF": "Editar un PDF",
-  "PDF editor": "Editor de PDF",
   "Close this document": "Cerrar este documento",
-  "Drop a Word or LibreOffice document here": "Suelta aquí un documento de Word o LibreOffice",
-  "Choose a document": "Elegir un documento",
-  "Word and LibreOffice": "Word y LibreOffice",
-  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– abre y guarda archivos .docx y .odt, también plantillas; descarga una copia en PDF.",
-  "Real pages": "Páginas reales",
-  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– estilos, tablas, imágenes, encabezados y pies de página, notas al pie, índices, control de cambios y comentarios.",
-  "Spell check": "Corrector ortográfico",
-  "– in many languages, in your browser.": "– en muchos idiomas, en tu navegador.",
-  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "Todo ocurre en tu navegador: tus documentos se procesan en este dispositivo y nunca se suben.",
-  "Loading the document editor…": "Cargando el editor de documentos…",
-  "Word processor:": "Procesador de textos:",
   "by Steffen Becker, free software (AGPL)": "de Steffen Becker, software libre (AGPL)",
   "third-party licences": "licencias de terceros",
-  "Drop the document to open it": "Suelta el documento para abrirlo",
   "Some parts of this document could not be kept:": "Algunas partes de este documento no se han podido conservar:",
   "Save your changes?": "¿Guardar los cambios?",
   "Don't save": "No guardar",
   "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "Los archivos antiguos de Word (.doc) no se pueden abrir: guárdalos primero como .docx en Word o LibreOffice.",
-  "This is a PDF: open it in the PDF editor.": "Es un PDF: ábrelo en el editor de PDF.",
-  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "Elige un documento de Word (.docx) o LibreOffice (.odt).",
   "Untitled": "Sin título",
   "Permission to write into the file was not given.": "No se ha dado permiso para escribir en el archivo.",
   "LibreOffice document": "Documento de LibreOffice",
-  "Word or LibreOffice document": "Documento de Word o LibreOffice",
-  "Word or LibreOffice document? Open the document editor": "¿Un documento de Word o LibreOffice? Abre el editor de documentos",
   "Edit as a document": "Editar como documento",
-  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "el texto se abre en el editor de documentos, para cambiarlo y guardarlo como Word o LibreOffice",
-  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Un documento de Word o LibreOffice a PDF: ábrelo en el editor de documentos y luego Descargar copia › PDF. Excel o PowerPoint: usa Archivo › Exportar como PDF en ese programa."
+  "Drop a PDF, Word or LibreOffice file here": "Suelta aquí un PDF o un archivo de Word o LibreOffice",
+  "Choose a file": "Elegir un archivo",
+  "Open a PDF, Word or LibreOffice file (⌘O)": "Abrir un PDF o un archivo de Word o LibreOffice (⌘O)",
+  "PDF, Word or LibreOffice file": "PDF o archivo de Word o LibreOffice",
+  "Please choose a PDF, Word (.docx) or LibreOffice (.odt) file.": "Elige un PDF o un archivo de Word (.docx) o LibreOffice (.odt).",
+  "Open another file?": "¿Abrir otro archivo?",
+  "Drop the file to open it (or font files to add them)": "Suelta el archivo para abrirlo (o fuentes para añadirlas)",
+  "Opening the document…": "Abriendo el documento…",
+  "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "el texto se abre como documento de Word en una pestaña nueva, para cambiarlo y guardarlo como Word o LibreOffice",
+  "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Un documento de Word o LibreOffice a PDF: ábrelo aquí y luego Descargar copia › PDF. Excel o PowerPoint: usa Archivo › Exportar como PDF en ese programa.",
+  "Word and LibreOffice documents:": "Documentos de Word y LibreOffice:"
  },
  "patterns": [
   [
@@ -901,20 +885,12 @@
    "Guardar en «{name}» (⌘S / Ctrl+S)"
   ],
   [
-   "The document editor could not start: {m}",
-   "El editor de documentos no ha podido iniciarse: {m}"
-  ],
-  [
    "“{name}” has changes that are not saved.",
    "«{name}» tiene cambios sin guardar."
   ],
   [
-   "in “{name}” · {when}",
-   "en «{name}» · {when}"
-  ],
-  [
-   "Open “{name}”",
-   "Abrir «{name}»"
+   "Word and LibreOffice documents cannot be opened right now: {m}",
+   "Ahora mismo no se pueden abrir documentos de Word ni de LibreOffice: {m}"
   ]
  ]
 }

@@ -603,6 +603,19 @@ body:not(.has-doc) #btnClose.doc-close { display: none; }
 }
 /* touch screens: two fingers zoom the pages (app.js), not the whole interface; one finger still scrolls */
 #viewer { touch-action: pan-x pan-y; }
-/* start screen: the way to the document editor (Word, LibreOffice) */
-.to-docs { margin: 8px 0 0; font-size: 13px; }
-.to-docs a { color: var(--blue); }
+/* ---------- Word and LibreOffice documents (docs.js): the word processor in place of the PDF pages ---------- */
+.new-doc { margin: 2px 0 0; font-size: 13px; }
+#docFrame { position: absolute; inset: 0; z-index: 5; background: var(--bg); display: none; }
+#docFrame iframe { width: 100%; height: 100%; border: 0; display: block; }
+#docFrame .doc-wait { position: absolute; top: 40%; left: 0; right: 0; text-align: center; color: var(--muted); margin: 0; }
+body.doc-mode #docFrame { display: block; }
+body:not(.doc-loading) #docFrame .doc-wait { display: none; }
+body.doc-mode #empty, body.doc-mode #viewer, body.doc-mode #sidebar, body.doc-mode #findPanel, body.doc-mode #btnClose.doc-close, body.doc-mode #editorBar { display: none !important; }
+/* the toolbar keeps what applies to a document: Open, Save, Download copy, Language, Close */
+body.doc-mode #toolbar .needs-doc:not(.doc-ok), body.doc-mode #btnFonts, body.doc-mode #btnSidebar, body.doc-mode .group.tools, body.doc-mode .group.zoom { display: none !important; }
+.group.doc-only { display: none; }
+body.doc-mode .group.doc-only { display: flex; margin-inline-start: auto; }
+#docDownloadMenu { min-width: 230px; }
+#docDownloadMenu button { display: flex; align-items: center; gap: 8px; width: 100%; }
+#docDownloadMenu .dm-ext { margin-inline-start: auto; padding-inline-start: 14px; color: var(--muted); font-size: 12px; }
+.drop .foot span + a, .drop .foot br + span { white-space: normal; }

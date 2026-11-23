@@ -12,7 +12,6 @@
   "Find & replace": "חיפוש והחלפה",
   "Fonts": "גופנים",
   "+ Add pages from a PDF…": "+ הוספת עמודים מקובץ PDF…",
-  "Drop a PDF here": "אפשר לגרור קובץ PDF לכאן",
   "or": "או",
   "choose a file": "לבחור קובץ",
   "– click any text and type; the original is really removed and the new text uses the same font, size and colour.": "– לוחצים על טקסט כלשהו ומקלידים; הטקסט המקורי נמחק באמת והטקסט החדש מקבל את אותו גופן, גודל וצבע.",
@@ -55,9 +54,7 @@
   "Other files…": "קבצים אחרים…",
   "Remove all": "הסרת הכול",
   "Remove": "הסרה",
-  "Drop the PDF to open it (or font files to add them)": "אפשר לשחרר כאן את קובץ ה-PDF כדי לפתוח אותו (או קובצי גופנים כדי להוסיף אותם)",
   "Pages": "עמודים",
-  "Open a PDF (⌘O)": "פתיחת PDF (⌘O)",
   "Save the edited PDF (⌘S / Ctrl+S)": "שמירת ה-PDF הערוך (⌘S / Ctrl+S)",
   "Download the edited PDF": "הורדת ה-PDF הערוך",
   "Close this PDF": "סגירת ה-PDF הזה",
@@ -91,7 +88,6 @@
   "Cancel (Esc)": "ביטול (Esc)",
   "Apply (Enter · Shift+Enter for a new line)": "החלה (Enter · Shift+Enter לשורה חדשה)",
   "This browser cannot run the editor (no module workers). Please update it.": "הדפדפן הזה לא יכול להפעיל את העורך (אין תמיכה ב-module workers). יש לעדכן אותו.",
-  "Please choose a PDF file": "יש לבחור קובץ PDF",
   "Open another PDF?": "לפתוח PDF אחר?",
   "Open anyway": "לפתוח בכל זאת",
   "Password-protected PDF": "PDF מוגן בסיסמה",
@@ -367,7 +363,6 @@
   "Unsaved changes": "שינויים שלא נשמרו",
   "Discard the unsaved changes": "ביטול השינויים שלא נשמרו",
   "Discard the unsaved changes?": "לבטל את השינויים שלא נשמרו?",
-  "Choose a PDF": "בחירת PDF",
   "How it works": "איך זה עובד",
   "Open your PDF": "פותחים את ה-PDF",
   "Drop it on this page, or choose it.": "גוררים אותו לדף הזה או בוחרים אותו.",
@@ -510,42 +505,31 @@
   "Save into the file you opened, after asking whether to replace it (⌘S / Ctrl+S)": "שמירה בקובץ שנפתח, אחרי שאלה אם להחליף אותו (⌘S / Ctrl+S)",
   "Download a copy of the edited PDF: the file you opened is not changed": "הורדת עותק של ה-PDF הערוך: הקובץ שנפתח לא משתנה",
   "Some letters you typed are not in the fonts inside this PDF, so they were drawn with a look-alike font.": "חלק מהאותיות שהוקלדו לא נמצאות בגופנים שבקובץ PDF זה, ולכן הן צוירו בגופן דומה.",
-  "Document editor": "עורך מסמכים",
-  "Open a Word or LibreOffice document (⌘O)": "פתיחת מסמך Word או LibreOffice (⌘O)",
   "Start a new document": "יצירת מסמך חדש",
   "Save the document (⌘S / Ctrl+S)": "שמירת המסמך (⌘S / Ctrl+S)",
   "Download a copy: Word, LibreOffice or PDF": "הורדת עותק: Word, LibreOffice או PDF",
-  "Edit a PDF": "עריכת PDF",
-  "PDF editor": "עורך PDF",
   "Close this document": "סגירת המסמך הזה",
-  "Drop a Word or LibreOffice document here": "אפשר לגרור לכאן מסמך Word או LibreOffice",
-  "Choose a document": "בחירת מסמך",
-  "Word and LibreOffice": "Word ו-LibreOffice",
-  "– open and save .docx and .odt files, templates too; download a copy as PDF.": "– פתיחה ושמירה של קובצי ‎.docx ו-‎.odt, כולל תבניות; הורדת עותק כ-PDF.",
-  "Real pages": "עמודים אמיתיים",
-  "– styles, tables, pictures, headers and footers, footnotes, tables of contents, track changes and comments.": "– סגנונות, טבלאות, תמונות, כותרות עליונות ותחתונות, הערות שוליים, תוכן עניינים, מעקב שינויים והערות.",
-  "Spell check": "בדיקת איות",
-  "– in many languages, in your browser.": "– בשפות רבות, בדפדפן.",
-  "Everything happens in your browser: your documents are processed on this device and are never uploaded.": "הכול קורה בדפדפן: המסמכים מעובדים במכשיר הזה ולעולם לא מועלים.",
-  "Loading the document editor…": "עורך המסמכים נטען…",
-  "Word processor:": "מעבד תמלילים:",
   "by Steffen Becker, free software (AGPL)": "מאת Steffen Becker, תוכנה חופשית (AGPL)",
   "third-party licences": "רישיונות של צד שלישי",
-  "Drop the document to open it": "אפשר לשחרר את המסמך כדי לפתוח אותו",
   "Some parts of this document could not be kept:": "לא ניתן היה לשמור חלקים מסוימים של המסמך:",
   "Save your changes?": "לשמור את השינויים?",
   "Don't save": "לא לשמור",
   "Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.": "אי אפשר לפתוח קובצי Word ישנים (‎.doc): יש לשמור אותם קודם כ-‎.docx ב-Word או ב-LibreOffice.",
-  "This is a PDF: open it in the PDF editor.": "זהו קובץ PDF: יש לפתוח אותו בעורך ה-PDF.",
-  "Please choose a Word (.docx) or LibreOffice (.odt) document.": "יש לבחור מסמך Word (‎.docx) או LibreOffice (‎.odt).",
   "Untitled": "ללא שם",
   "Permission to write into the file was not given.": "לא ניתנה הרשאה לכתוב בקובץ.",
   "LibreOffice document": "מסמך LibreOffice",
-  "Word or LibreOffice document": "מסמך Word או LibreOffice",
-  "Word or LibreOffice document? Open the document editor": "מסמך Word או LibreOffice? לפתיחת עורך המסמכים",
   "Edit as a document": "עריכה כמסמך",
-  "the text opens in the document editor, to change it and save it as Word or LibreOffice": "הטקסט נפתח בעורך המסמכים, כדי לשנות אותו ולשמור אותו כ-Word או LibreOffice",
-  "A Word or LibreOffice document to PDF: open it in the document editor, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "מסמך Word או LibreOffice ל-PDF: יש לפתוח אותו בעורך המסמכים ואז הורדת עותק › PDF. ב-Excel או ב-PowerPoint: קובץ › ייצוא כ-PDF באותה תוכנה."
+  "Drop a PDF, Word or LibreOffice file here": "אפשר לגרור לכאן קובץ PDF, Word או LibreOffice",
+  "Choose a file": "בחירת קובץ",
+  "Open a PDF, Word or LibreOffice file (⌘O)": "פתיחת קובץ PDF, Word או LibreOffice (⌘O)",
+  "PDF, Word or LibreOffice file": "קובץ PDF, Word או LibreOffice",
+  "Please choose a PDF, Word (.docx) or LibreOffice (.odt) file.": "יש לבחור קובץ PDF, Word ‏(‎.docx) או LibreOffice ‏(‎.odt).",
+  "Open another file?": "לפתוח קובץ אחר?",
+  "Drop the file to open it (or font files to add them)": "אפשר לשחרר את הקובץ כדי לפתוח אותו (או קובצי גופנים כדי להוסיף אותם)",
+  "Opening the document…": "המסמך נפתח…",
+  "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "הטקסט נפתח כמסמך Word בכרטיסייה חדשה, כדי לשנות אותו ולשמור אותו כ-Word או LibreOffice",
+  "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "מסמך Word או LibreOffice ל-PDF: פותחים אותו כאן ואז הורדת עותק › PDF. ב-Excel או ב-PowerPoint: קובץ › ייצוא כ-PDF באותה תוכנה.",
+  "Word and LibreOffice documents:": "מסמכי Word ו-LibreOffice:"
  },
  "patterns": [
   [
@@ -901,20 +885,12 @@
    "שמירה ב-\"{name}\" (⌘S / Ctrl+S)"
   ],
   [
-   "The document editor could not start: {m}",
-   "לא ניתן היה להפעיל את עורך המסמכים: {m}"
-  ],
-  [
    "“{name}” has changes that are not saved.",
    "ב-\"{name}\" יש שינויים שלא נשמרו."
   ],
   [
-   "in “{name}” · {when}",
-   "ב-\"{name}\" · {when}"
-  ],
-  [
-   "Open “{name}”",
-   "פתיחת \"{name}\""
+   "Word and LibreOffice documents cannot be opened right now: {m}",
+   "לא ניתן לפתוח כרגע מסמכי Word ו-LibreOffice: {m}"
   ]
  ]
 }

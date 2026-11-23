@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=5af5c5c440", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=11bdd0f3f8", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -130,13 +130,11 @@ function renderScale() {
 /* ---------------------------------------------------------------- open / save */
 async function openFile(file, password) {
   if (!file) return;
-  // a Word or LibreOffice document: the document editor (/write/) opens it
-  if (window.DOCSTORE && DOCSTORE.isDoc(file.name)) {
-    if (S.dirty && S.doc && !(await modal({ title: "Open another PDF?", text: `Your edits to “${S.doc.name}” have not been saved. They will be lost.`, ok: "Open anyway" }))) return;
-    S.dirty = false;
-    return DOCSTORE.handOff(file, file.__handle || null);
-  }
-  if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF file", true);
+  // a Word or LibreOffice document: shown in place of the pages (docs.js); the PDF is closed first
+  if (window.DOCS && DOCS.isDoc(file.name)) return DOCS.open(file, file.__handle || null);
+  if (/\.doc$/i.test(file.name)) return toast("Old Word files (.doc) cannot be opened: save them as .docx in Word or LibreOffice first.", true);
+  if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") return toast("Please choose a PDF, Word (.docx) or LibreOffice (.odt) file.", true);
+  if (window.DOCS && DOCS.isOpen() && !(await DOCS.leave())) return;          // one file at a time
   if (window.FILES && !password && !(await FILES.check(file))) return;
   closeEditor(false);
   if (S.dirty && S.doc && !(await modal({ title: "Open another PDF?", text: `Your edits to “${S.doc.name}” have not been saved. They will be lost.`, ok: "Open anyway" }))) return;
@@ -147,6 +145,7 @@ async function openFile(file, password) {
     const info = await call("open", bytes, file.name, password);
     window.PDFE_STATS && PDFE_STATS.event("pdf_opened", { size: bytes.length || bytes.byteLength });
     $("#resume").hidden = true;
+    if (window.DOCS && DOCS.isOpen()) await DOCS.close(true);                 // its changes were saved or given up above
     loadDoc(info, true);
     if (window.FILES) FILES.opened(file);
     if (window.ACTIVE) ACTIVE.check();
@@ -180,6 +179,7 @@ function loadDoc(info, fresh) {
 }
 
 async function saveFile() {
+  if (window.DOCS && DOCS.isOpen()) return DOCS.save();
   if (!S.doc) return;
   if (window.ACTIVE) await ACTIVE.remove(false);                         // never pass on scripts, launch actions...
   if (window.FILES && await FILES.save()) return;                          // saved into the file that was opened
@@ -210,6 +210,7 @@ async function saveFile() {
 }
 
 async function download() {
+  if (window.DOCS && DOCS.isOpen()) return DOCS.download();
   if (!S.doc) return;
   if (window.ACTIVE) await ACTIVE.remove(false);
   closeEditor(true).then(() => busy(async () => {
@@ -224,6 +225,7 @@ async function download() {
 function updateButtons() {
   const has = !!S.doc;
   $$(".needs-doc").forEach(b => (b.disabled = !has));
+  if (window.DOCS && DOCS.isOpen()) $$(".doc-ok").forEach(b => (b.disabled = false));      // a Word or LibreOffice document is open
   $("#btnUndo").disabled = !has || !S.doc.canUndo;
   $("#btnRedo").disabled = !has || !S.doc.canRedo;
   $("#btnZoomLabel").textContent = Math.round(S.zoom * 100) + "%";
@@ -1480,6 +1482,7 @@ function showResume(rec) {
  * open is kept and reopened at the same place (zoom, scroll), with the link to its file. */
 const REOPEN = "pdfe.reopen";
 async function changeLanguage(code) {
+  if (window.DOCS && DOCS.isOpen()) await DOCS.keepForReload();
   if (S.doc) {
     await closeEditor(true);
     const ok = await call("keepForReload", !!S.dirty).catch(() => false);
@@ -1558,10 +1561,16 @@ function bindWebExtras() {
     lp.onchange = () => changeLanguage(lp.value);
   }
   bindFonts();
-  $("#btnClose").onclick = async () => {
-    if (!S.doc) return;
+  $("#btnSidebar").onclick = () => document.body.classList.toggle("show-sidebar");
+  // the PDF, for docs.js: a document replaces it, after asking about unsaved edits
+  window.PDFDOC = { isOpen: () => !!S.doc, close: () => closePdf(false) };
+  $("#btnClose").onclick = () => closePdf(true);
+}
+async function closePdf(closing) {
+    if (!S.doc) return true;
     await closeEditor(false);
-    if (S.dirty && !(await modal({ title: "Close this PDF?", text: "Your edits have not been saved and will be lost.", ok: "Close" }))) return;
+    if (S.dirty && !(await modal(closing ? { title: "Close this PDF?", text: "Your edits have not been saved and will be lost.", ok: "Close" }
+                                         : { title: "Open another file?", text: `Your edits to “${S.doc.name}” have not been saved. They will be lost.`, ok: "Open anyway" }))) return false;
     await call("discard");
     S.doc = null; S.dirty = false; S.hits = [];
     document.body.classList.remove("has-doc");
@@ -1571,8 +1580,7 @@ function bindWebExtras() {
     updateButtons();
     if (window.FILES) FILES.closed();
     if (window.ACTIVE) ACTIVE.closed();
-  };
-  $("#btnSidebar").onclick = () => document.body.classList.toggle("show-sidebar");
+    return true;
 }
 
 init();

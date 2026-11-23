@@ -56,5 +56,4 @@ tools/finish_domain.sh
 !/tests/pw/offline.pw.mjs
 !/tests/pw/guide-shots.mjs
 
-!/write/
-!/tests/pw/write.pw.mjs
+!/tests/pw/docs.pw.mjs
