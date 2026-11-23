@@ -1,14 +1,14 @@
 <!--
 title: About {{name}} – who makes it and why
-description: {{name}} is a free PDF editor that runs entirely in your browser, made by an independent developer in France. Why it exists, how it works and how it is funded.
+description: {{name}} is a free editor for PDFs and Word documents that runs entirely in your browser, made by an independent developer in France. Why it exists, how it works and how it is funded.
 -->
 <main id="main" class="prose wrap narrow">
   <h1>About {{name}}</h1>
-  <p class="lead">A free PDF editor that changes the existing text of a PDF in its original font, entirely in your browser. Your documents never leave your device.</p>
+  <p class="lead">A free editor that changes the existing text of a PDF in its original font, and opens Word and LibreOffice documents too, entirely in your browser. Your documents never leave your device.</p>
 
   <h2>Why it exists</h2>
   <p>It started with an invoice and one wrong amount. The free online editors I tried either wanted me to upload the document to their servers, or simply pasted a white box over the old number and typed the new one on top, in a different font. Neither is acceptable for an invoice, a contract, a certificate or a medical letter.</p>
-  <p>{{name}} was built to do that one job properly: click a word, type, and get a PDF that looks as if it had always been that way. It then grew into a complete toolbox for the everyday things people need to do with PDFs.</p>
+  <p>{{name}} was built to do that one job properly: click a word, type, and get a PDF that looks as if it had always been that way. It then grew into a complete toolbox for the everyday things people need to do with PDFs. Today it also opens Word and LibreOffice documents, so the same editor handles both kinds of files.</p>
 
   <h2>Who makes it</h2>
   <p>{{name}} is an independent project by {{publisher.name}}, a software developer based in France. It is not affiliated with Adobe or with any other PDF software company. Questions, bug reports and ideas are welcome: see the <a href="{{root}}contact">contact page</a>.</p>
@@ -22,7 +22,7 @@ description: {{name}} is a free PDF editor that runs entirely in your browser, m
   </ul>
 
   <h2>How it works</h2>
-  <p>The editor is built on MuPDF, the PDF engine made by Artifex, compiled to WebAssembly so that it runs at near-native speed inside the browser. Text recognition for scanned pages uses Tesseract. Fonts come from the PDF itself, from your computer if you allow it, or from free open-licence fonts. The site is hosted by Cloudflare. Every change is tested in Chrome, Firefox and Safari before it goes online.</p>
+  <p>The editor is built on MuPDF, the PDF engine made by Artifex, compiled to WebAssembly so that it runs at near-native speed inside the browser. Text recognition for scanned pages uses Tesseract. Fonts come from the PDF itself, from your computer if you allow it, or from free open-licence fonts. The site is hosted by Cloudflare. Every change is tested in Chrome, Firefox and Safari before it goes online. Word and LibreOffice documents are edited with EdenText, a free word processor by Steffen Becker that also runs in the browser.</p>
 
   <h2>How it is funded</h2>
   <!-- ads:off -->

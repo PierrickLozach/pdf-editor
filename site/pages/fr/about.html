@@ -1,14 +1,14 @@
 <!--
 title: À propos de {{name}} – qui le fait et pourquoi
-description: {{name}} est un éditeur PDF gratuit qui fonctionne entièrement dans votre navigateur, créé par un développeur indépendant en France. Pourquoi il existe, comment il fonctionne et comment il est financé.
+description: {{name}} est un éditeur gratuit de PDF et de documents Word qui fonctionne entièrement dans votre navigateur, créé par un développeur indépendant en France. Pourquoi il existe, comment il fonctionne et comment il est financé.
 -->
 <main id="main" class="prose wrap narrow">
   <h1>À propos de {{name}}</h1>
-  <p class="lead">Un éditeur PDF gratuit qui modifie le texte existant d'un PDF dans sa police d'origine, entièrement dans votre navigateur. Vos documents ne quittent jamais votre appareil.</p>
+  <p class="lead">Un éditeur gratuit qui modifie le texte existant d'un PDF dans sa police d'origine, et qui ouvre aussi les documents Word et LibreOffice, entièrement dans votre navigateur. Vos documents ne quittent jamais votre appareil.</p>
 
   <h2>Pourquoi il existe</h2>
   <p>Tout est parti d'une facture et d'un montant erroné. Les éditeurs en ligne gratuits que j'ai essayés voulaient soit que j'envoie le document sur leurs serveurs, soit collaient simplement un rectangle blanc sur l'ancien chiffre et tapaient le nouveau par-dessus, dans une autre police. Ni l'un ni l'autre n'est acceptable pour une facture, un contrat, une attestation ou un courrier médical.</p>
-  <p>{{name}} a été conçu pour faire ce travail correctement : cliquer sur un mot, taper, et obtenir un PDF qui semble avoir toujours été ainsi. Il est ensuite devenu une boîte à outils complète pour ce que l'on fait couramment avec des PDF.</p>
+  <p>{{name}} a été conçu pour faire ce travail correctement : cliquer sur un mot, taper, et obtenir un PDF qui semble avoir toujours été ainsi. Il est ensuite devenu une boîte à outils complète pour ce que l'on fait couramment avec des PDF. Aujourd'hui, il ouvre aussi les documents Word et LibreOffice : le même éditeur s'occupe des deux types de fichiers.</p>
 
   <h2>Qui le fait</h2>
   <p>{{name}} est un projet indépendant de {{publisher.name}}, développeur logiciel installé en France. Il n'est affilié ni à Adobe ni à aucun autre éditeur de logiciels PDF. Questions, signalements de bugs et idées sont les bienvenus : voir la <a href="{{root}}contact">page de contact</a>.</p>
@@ -22,7 +22,7 @@ description: {{name}} est un éditeur PDF gratuit qui fonctionne entièrement da
   </ul>
 
   <h2>Comment il fonctionne</h2>
-  <p>L'éditeur repose sur MuPDF, le moteur PDF d'Artifex, compilé en WebAssembly pour tourner presque aussi vite qu'un logiciel installé, à l'intérieur du navigateur. La reconnaissance du texte des pages numérisées utilise Tesseract. Les polices viennent du PDF lui-même, de votre ordinateur si vous l'autorisez, ou de polices libres. Le site est hébergé par Cloudflare. Chaque modification est testée dans Chrome, Firefox et Safari avant d'être mise en ligne.</p>
+  <p>L'éditeur repose sur MuPDF, le moteur PDF d'Artifex, compilé en WebAssembly pour tourner presque aussi vite qu'un logiciel installé, à l'intérieur du navigateur. La reconnaissance du texte des pages numérisées utilise Tesseract. Les polices viennent du PDF lui-même, de votre ordinateur si vous l'autorisez, ou de polices libres. Le site est hébergé par Cloudflare. Chaque modification est testée dans Chrome, Firefox et Safari avant d'être mise en ligne. Les documents Word et LibreOffice sont modifiés avec EdenText, un traitement de texte libre de Steffen Becker qui fonctionne lui aussi dans le navigateur.</p>
 
   <h2>Comment il est financé</h2>
   <!-- ads:off -->

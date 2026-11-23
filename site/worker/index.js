@@ -1,4 +1,4 @@
-// PDF Editor - visit statistics (our own, no third party). The site itself is static files; this
+// quicktou.ch - visit statistics (our own, no third party). The site itself is static files; this
 // Worker only answers /api/*:
 //   POST /api/hit    from the site's pages: counts one event in a daily total
 //   GET  /api/stats  the statistics page (needs the key set with `wrangler secret put STATS_KEY`)
@@ -146,12 +146,14 @@ async function figures(env, days) {
   for (const r of results) {
     if (r.kind === "visit") perDay[r.day] = { ...(perDay[r.day] || {}), visits: (perDay[r.day]?.visits || 0) + r.n };
     if (r.kind === "page") perDay[r.day] = { ...(perDay[r.day] || {}), pages: (perDay[r.day]?.pages || 0) + r.n };
+    // files opened in the editor: PDFs, and Word or LibreOffice documents
     if (r.kind === "event" && r.value === "pdf_opened") perDay[r.day] = { ...(perDay[r.day] || {}), pdfs: (perDay[r.day]?.pdfs || 0) + r.n };
+    if (r.kind === "event" && r.value === "doc_opened") perDay[r.day] = { ...(perDay[r.day] || {}), docs: (perDay[r.day]?.docs || 0) + r.n };
     totals[r.kind] = totals[r.kind] || {};
     totals[r.kind][r.value] = (totals[r.kind][r.value] || 0) + r.n;
   }
   const series = [];
-  for (let i = days - 1; i >= 0; i--) { const d = day(new Date(Date.now() - i * 86400000)); series.push({ day: d, visits: perDay[d]?.visits || 0, pages: perDay[d]?.pages || 0, pdfs: perDay[d]?.pdfs || 0 }); }
+  for (let i = days - 1; i >= 0; i--) { const d = day(new Date(Date.now() - i * 86400000)); series.push({ day: d, visits: perDay[d]?.visits || 0, pages: perDay[d]?.pages || 0, pdfs: perDay[d]?.pdfs || 0, docs: perDay[d]?.docs || 0 }); }
   const top = (k, n = 15) => Object.entries(totals[k] || {}).sort((a, b) => b[1] - a[1]).slice(0, n);
   return { days, since, series, visits: (totals.visit || {}).all || 0,
     pages: top("page", 20), sources: top("source", 20), countries: top("country", 30), languages: top("lang"), devices: top("device"),
@@ -163,14 +165,14 @@ function page(f, key) {
   const max = Math.max(1, ...f.series.map((s) => s.visits));
   const bars = f.series.map((s, i) => {
     const h = Math.round((s.visits / max) * 100), x = i * (100 / f.series.length);
-    return `<rect x="${x.toFixed(2)}%" y="${100 - h}%" width="${(100 / f.series.length * 0.8).toFixed(2)}%" height="${h}%"><title>${s.day}: ${s.visits} visits, ${s.pages} pages, ${s.pdfs} PDFs</title></rect>`;
+    return `<rect x="${x.toFixed(2)}%" y="${100 - h}%" width="${(100 / f.series.length * 0.8).toFixed(2)}%" height="${h}%"><title>${s.day}: ${s.visits} visits, ${s.pages} pages, ${s.pdfs + s.docs} files opened (${s.pdfs} PDFs, ${s.docs} documents)</title></rect>`;
   }).join("");
   const table = (title, rows, label = (v) => v) => `<section><h2>${esc(title)}</h2>${rows.length ? `<table>${rows.map(([v, n]) => `<tr><td>${esc(label(v))}</td><td>${n.toLocaleString("en")}</td></tr>`).join("")}</table>` : `<p class="none">Nothing yet.</p>`}</section>`;
   const sum = (k) => f.series.reduce((a, s) => a + s[k], 0);
   const today = f.series[f.series.length - 1];
   const opts = [7, 30, 90, 365].map((d) => `<a href="?days=${d}"${d === f.days ? ' aria-current="page"' : ""}>${d} days</a>`).join("");
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>Statistics – PDF Editor</title><style>
+<title>Statistics – quicktou.ch</title><style>
 :root{color-scheme:light dark;--bg:#fff;--fg:#1d2129;--muted:#6b7280;--line:#e3e6ea;--card:#f7f8fa;--accent:#e5322d}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8eaed;--muted:#9aa0a6;--line:#30343a;--card:#1c1f23}}
 body{margin:0;font:15px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}main{max-width:1100px;margin:0 auto;padding:24px}
@@ -181,10 +183,10 @@ svg{width:100%;height:160px;background:var(--card);border-radius:12px;display:bl
 table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .none{color:var(--muted)}nav a{margin-right:12px;color:var(--fg)}nav a[aria-current]{font-weight:700;color:var(--accent)}.small{color:var(--muted);font-size:13px}
 </style></head><body><main>
-<h1>PDF Editor – statistics</h1><p class="small">Totals per day, without cookies or personal data. Since ${esc(f.since)}. Times in UTC.</p>
+<h1>quicktou.ch – statistics</h1><p class="small">Totals per day, without cookies or personal data. Since ${esc(f.since)}. Times in UTC.</p>
 <nav>${opts}</nav>
 <div class="k"><div><b>${sum("visits").toLocaleString("en")}</b><span>visits</span></div><div><b>${sum("pages").toLocaleString("en")}</b><span>pages viewed</span></div>
-<div><b>${sum("pdfs").toLocaleString("en")}</b><span>PDFs opened</span></div><div><b>${today.visits.toLocaleString("en")}</b><span>visits today</span></div></div>
+<div><b>${(sum("pdfs") + sum("docs")).toLocaleString("en")}</b><span>files opened: ${sum("pdfs").toLocaleString("en")} PDFs, ${sum("docs").toLocaleString("en")} Word or LibreOffice documents</span></div><div><b>${today.visits.toLocaleString("en")}</b><span>visits today</span></div></div>
 <svg role="img" aria-label="Visits per day" viewBox="0 0 100 100" preserveAspectRatio="none">${bars}</svg>
 <div class="grid">
 ${table("Where visitors come from", f.sources, (v) => v === "direct" ? "Direct (typed, bookmark, app)" : v)}

@@ -1,4 +1,4 @@
-// PDF Editor - sign-in for the publisher's private pages (/api/admin, /api/stats) without leaving the key in URLs.
+// quicktou.ch - sign-in for the publisher's private pages (/api/admin, /api/stats) without leaving the key in URLs.
 // Opening the page once with ?key=… checks the key, sets a session cookie and redirects to the same page without
 // the key, so it is not kept in the browser's history, bookmarks, screenshots or the address bar.
 // The cookie holds an expiry and an HMAC-SHA-256 of it made with the key itself: changing the key (wrangler secret

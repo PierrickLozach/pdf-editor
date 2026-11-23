@@ -1,8 +1,9 @@
 # PDF Editor
 
-A PDF editor that runs entirely in the browser: change text in its original font, move it, find and replace,
-white-out, add images and signatures, redact, OCR, split, merge, convert, compress, protect, rearrange pages.
-PDFs never leave the device. It is free. **Pro** features (batch processing, smart redaction, unlimited OCR,
+An editor for PDFs and Word documents that runs entirely in the browser. PDFs: change text in its original font,
+move it, find and replace, white-out, add images and signatures, redact, OCR, split, merge, convert, compress,
+protect, rearrange pages. Word (.docx) and LibreOffice (.odt) documents: open, edit on real pages, save, download
+as PDF. Files never leave the device. It is free. **Pro** features (batch processing, smart redaction, unlimited OCR,
 comparing PDFs, forms) are built and tested but **hidden** for the free launch: see [Showing Pro](#showing-pro-later).
 
 Live: https://quicktou.ch · Source: https://github.com/PierrickLozach/pdf-editor

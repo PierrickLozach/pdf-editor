@@ -1,14 +1,14 @@
 <!--
 title: Acerca de {{name}}: quién lo hace y por qué
-description: {{name}} es un editor de PDF gratuito que funciona por completo en tu navegador, hecho por un desarrollador independiente en Francia. Por qué existe, cómo funciona y cómo se financia.
+description: {{name}} es un editor gratuito de PDF y documentos de Word que funciona por completo en tu navegador, hecho por un desarrollador independiente en Francia. Por qué existe, cómo funciona y cómo se financia.
 -->
 <main id="main" class="prose wrap narrow">
   <h1>Acerca de {{name}}</h1>
-  <p class="lead">Un editor de PDF gratuito que cambia el texto existente de un PDF con su fuente original, por completo en tu navegador. Tus documentos nunca salen de tu dispositivo.</p>
+  <p class="lead">Un editor gratuito que cambia el texto existente de un PDF con su fuente original, y que también abre documentos de Word y LibreOffice, por completo en tu navegador. Tus documentos nunca salen de tu dispositivo.</p>
 
   <h2>Por qué existe</h2>
   <p>Todo empezó con una factura y un importe equivocado. Los editores en línea gratuitos que probé o bien me pedían subir el documento a sus servidores, o bien pegaban un recuadro blanco sobre el número antiguo y escribían el nuevo encima, con otra fuente. Ninguna de las dos cosas es aceptable para una factura, un contrato, un certificado o un informe médico.</p>
-  <p>{{name}} nació para hacer bien ese trabajo concreto: haces clic en una palabra, escribes y obtienes un PDF que parece haber sido siempre así. Después creció hasta convertirse en una caja de herramientas completa para lo que la gente necesita hacer a diario con sus PDF.</p>
+  <p>{{name}} nació para hacer bien ese trabajo concreto: haces clic en una palabra, escribes y obtienes un PDF que parece haber sido siempre así. Después creció hasta convertirse en una caja de herramientas completa para lo que la gente necesita hacer a diario con sus PDF. Hoy también abre documentos de Word y LibreOffice, así que el mismo editor se ocupa de los dos tipos de archivo.</p>
 
   <h2>Quién lo hace</h2>
   <p>{{name}} es un proyecto independiente de {{publisher.name}}, desarrollador de software afincado en Francia. No tiene ninguna relación con Adobe ni con ninguna otra empresa de software de PDF. Las preguntas, los avisos de errores y las ideas son bienvenidos: consulta la <a href="{{root}}contact">página de contacto</a>.</p>
@@ -22,7 +22,7 @@ description: {{name}} es un editor de PDF gratuito que funciona por completo en 
   </ul>
 
   <h2>Cómo funciona</h2>
-  <p>El editor se basa en MuPDF, el motor de PDF de Artifex, compilado a WebAssembly para que funcione dentro del navegador casi a la velocidad de un programa instalado. El reconocimiento de texto de las páginas escaneadas usa Tesseract. Las fuentes vienen del propio PDF, de tu ordenador si lo permites, o de fuentes gratuitas con licencia abierta. El sitio está alojado en Cloudflare. Cada cambio se prueba en Chrome, Firefox y Safari antes de publicarse.</p>
+  <p>El editor se basa en MuPDF, el motor de PDF de Artifex, compilado a WebAssembly para que funcione dentro del navegador casi a la velocidad de un programa instalado. El reconocimiento de texto de las páginas escaneadas usa Tesseract. Las fuentes vienen del propio PDF, de tu ordenador si lo permites, o de fuentes gratuitas con licencia abierta. El sitio está alojado en Cloudflare. Cada cambio se prueba en Chrome, Firefox y Safari antes de publicarse. Los documentos de Word y LibreOffice se editan con EdenText, un procesador de textos libre de Steffen Becker que también funciona en el navegador.</p>
 
   <h2>Cómo se financia</h2>
   <!-- ads:off -->
