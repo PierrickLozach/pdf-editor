@@ -1,7 +1,6 @@
 {
  "language": "Deutsch",
  "strings": {
-  "PDF Editor": "PDF-Editor",
   "Open": "Öffnen",
   "Save": "Speichern",
   "Download": "Herunterladen",
@@ -381,7 +380,6 @@
   "Nothing to delete": "Nichts zu löschen",
   "Pro is switched off on this computer.": "Pro ist auf diesem Computer ausgeschaltet.",
   "Buy": "Kaufen",
-  "PDF Editor Pro": "PDF-Editor Pro",
   "Pro is active on this computer.": "Pro ist auf diesem Computer aktiv.",
   "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "Preise inkl. Steuern. Nach der Zahlung erhalten Sie Ihren Lizenzschlüssel per E-Mail: Geben Sie ihn unten ein. Eine Lizenz gilt jeweils für einen Computer.",
   "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro ist noch nicht im Verkauf. Wenn Sie einen Lizenzschlüssel erhalten haben, geben Sie ihn unten ein.",
@@ -530,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "der Text öffnet sich als Word-Dokument in einem neuen Tab, um ihn zu ändern und als Word- oder LibreOffice-Datei zu speichern",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Ein Word- oder LibreOffice-Dokument als PDF: Öffnen Sie es hier, dann Kopie herunterladen › PDF. Excel oder PowerPoint: Datei › Als PDF exportieren in diesem Programm.",
   "Word and LibreOffice documents:": "Word- und LibreOffice-Dokumente:",
-  "PDF Editor – edit PDF, Word and LibreOffice files": "PDF-Editor – PDF-, Word- und LibreOffice-Dateien bearbeiten"
+  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – PDF-, Word- und LibreOffice-Dateien bearbeiten"
  },
  "patterns": [
   [
@@ -540,10 +538,6 @@
   [
    "“{name}” needs a password to open:",
    "„{name}“ benötigt zum Öffnen ein Passwort:"
-  ],
-  [
-   "{name} – PDF Editor",
-   "{name} – PDF-Editor"
   ],
   [
    "Saved: {name}",

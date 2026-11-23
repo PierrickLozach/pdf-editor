@@ -60,3 +60,4 @@ tools/finish_domain.sh
 !/tests/pw/docs-shot.mjs
 !/tests/fixtures/newsletter.docx
 !/tests/pw/og.mjs
+!/tests/pw/pdf-shot.mjs

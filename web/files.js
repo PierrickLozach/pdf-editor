@@ -314,7 +314,7 @@
     const label = t("Home page");
     let logo = document.querySelector("#toolbar .brand .logo");
     if (logo && logo.tagName !== "A") {
-      const a = el(`<a class="logo" href="${home()}">P</a>`);
+      const a = el(`<a class="logo" href="${home()}">Q</a>`);
       logo.replaceWith(a); logo = a;
     }
     if (logo) { logo.title = label; logo.setAttribute("aria-label", label); logo.href = home(); }

@@ -1,7 +1,6 @@
 {
  "language": "עברית",
  "strings": {
-  "PDF Editor": "עורך PDF",
   "Open": "פתיחה",
   "Save": "שמירה",
   "Download": "הורדה",
@@ -381,7 +380,6 @@
   "Nothing to delete": "אין מה למחוק",
   "Pro is switched off on this computer.": "Pro כבוי במחשב הזה.",
   "Buy": "קנייה",
-  "PDF Editor Pro": "עורך PDF Pro",
   "Pro is active on this computer.": "Pro פעיל במחשב הזה.",
   "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "המחירים כוללים מסים. אחרי התשלום מפתח הרישיון יישלח אליך בדוא\"ל: יש להזין אותו למטה. רישיון אחד פועל במחשב אחד בכל פעם.",
   "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro עדיין לא נמכר. אם קיבלת מפתח רישיון, יש להזין אותו למטה.",
@@ -530,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "הטקסט נפתח כמסמך Word בכרטיסייה חדשה, כדי לשנות אותו ולשמור אותו כ-Word או LibreOffice",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "מסמך Word או LibreOffice ל-PDF: פותחים אותו כאן ואז הורדת עותק › PDF. ב-Excel או ב-PowerPoint: קובץ › ייצוא כ-PDF באותה תוכנה.",
   "Word and LibreOffice documents:": "מסמכי Word ו-LibreOffice:",
-  "PDF Editor – edit PDF, Word and LibreOffice files": "עורך PDF – עריכת קובצי PDF, Word ו-LibreOffice"
+  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – עריכת קובצי PDF, Word ו-LibreOffice"
  },
  "patterns": [
   [
@@ -540,10 +538,6 @@
   [
    "“{name}” needs a password to open:",
    "כדי לפתוח את \"{name}\" נדרשת סיסמה:"
-  ],
-  [
-   "{name} – PDF Editor",
-   "{name} – עורך PDF"
   ],
   [
    "Saved: {name}",

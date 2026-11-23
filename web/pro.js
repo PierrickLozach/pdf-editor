@@ -113,7 +113,7 @@
       ${p.checkout ? `<a class="btn primary" href="${esc(p.checkout)}" target="_blank" rel="noopener">${esc(t("Buy"))}</a>` : ""}</div>`).join("");
     const until = on && P.state.until ? new Date(P.state.until).toLocaleDateString((window.I18N && I18N.lang) || "en", { dateStyle: "long" }) : "";
     const d = el(`<div id="proDlg" class="dlg pro-dlg" role="dialog" aria-modal="true" aria-labelledby="proDlgT"><div class="box">
-      <div class="dlg-head"><h2 id="proDlgT"><span class="pro-badge">PRO</span> ${esc(t("PDF Editor Pro"))}</h2><button class="icon close" title="${esc(t("Close (Esc)"))}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="dlg-head"><h2 id="proDlgT"><span class="pro-badge">PRO</span> ${esc("Quicktou Pro")}</h2><button class="icon close" title="${esc(t("Close (Esc)"))}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       ${feature && !on ? `<p class="pro-why">${esc(t("“{f}” is part of Pro.").replace("{f}", t(FEATURE[feature][0])))}</p>` : ""}
       ${on ? `<p class="pro-on">✓ ${esc(t("Pro is active on this computer."))} ${esc(t(PLAN[P.state.plan] ? PLAN[P.state.plan][0] : P.state.plan))}${until ? " · " + esc(t("until {d}").replace("{d}", until)) : ""}</p>` : ""}
       <ul class="pro-feats">${feats}</ul>

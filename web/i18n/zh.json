@@ -1,7 +1,6 @@
 {
  "language": "简体中文",
  "strings": {
-  "PDF Editor": "PDF 编辑器",
   "Open": "打开",
   "Save": "保存",
   "Download": "下载",
@@ -381,7 +380,6 @@
   "Nothing to delete": "没有可删除的内容",
   "Pro is switched off on this computer.": "本机上的 Pro 已关闭。",
   "Buy": "购买",
-  "PDF Editor Pro": "PDF 编辑器 Pro",
   "Pro is active on this computer.": "Pro 已在本机激活。",
   "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "价格含税。付款后，您将通过电子邮件收到许可证密钥：请在下方输入。一个许可证同一时间只能在一台电脑上使用。",
   "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro 尚未开售。如果您已获得许可证密钥，请在下方输入。",
@@ -530,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "文本会作为 Word 文档在新标签页中打开，可修改后保存为 Word 或 LibreOffice 文件",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在这里打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。",
   "Word and LibreOffice documents:": "Word 和 LibreOffice 文档：",
-  "PDF Editor – edit PDF, Word and LibreOffice files": "PDF 编辑器 – 编辑 PDF、Word 和 LibreOffice 文件"
+  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – 编辑 PDF、Word 和 LibreOffice 文件"
  },
  "patterns": [
   [
@@ -540,10 +538,6 @@
   [
    "“{name}” needs a password to open:",
    "打开“{name}”需要密码："
-  ],
-  [
-   "{name} – PDF Editor",
-   "{name} – PDF 编辑器"
   ],
   [
    "Saved: {name}",

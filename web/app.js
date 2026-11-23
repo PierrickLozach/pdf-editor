@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=60787e91fb", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=2b77270b03", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -168,7 +168,7 @@ function loadDoc(info, fresh) {
   document.body.classList.add("has-doc");
   $("#docName").textContent = info.name;
   $("#docName").title = info.name;
-  document.title = info.name + " – PDF Editor";
+  document.title = info.name + " – Quicktou";
   if (fresh) { S.zoom = fitZoom(FIT_MAX); S.autoFit = true; }
   buildPages();
   buildThumbs();
@@ -1577,7 +1577,7 @@ async function closePdf(closing) {
     S.doc = null; S.dirty = false; S.hits = [];
     document.body.classList.remove("has-doc");
     $("#pages").innerHTML = ""; $("#thumbs").innerHTML = "";
-    $("#docName").textContent = "PDF Editor"; document.title = "PDF Editor – edit PDF, Word and LibreOffice files";
+    $("#docName").textContent = "Quicktou"; document.title = "Quicktou – edit PDF, Word and LibreOffice files";
     closeFind();
     updateButtons();
     if (window.FILES) FILES.closed();

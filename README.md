@@ -1,4 +1,4 @@
-# PDF Editor
+# Quicktou
 
 An editor for PDFs and Word documents that runs entirely in the browser. PDFs: change text in its original font,
 move it, find and replace, white-out, add images and signatures, redact, OCR, split, merge, convert, compress,

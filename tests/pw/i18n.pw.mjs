@@ -46,7 +46,7 @@ async function run(name) {
     p.on("console", (m) => { if (m.type() === "error" && !/downloadable font|Refused to apply a stylesheet/.test(m.text())) errs.push(m.text()); });
     await p.goto(URL0);
     await waitFn(p, `document.body.classList.contains('engine-ready') && !document.documentElement.classList.contains('i18n-wait')`, 60000);
-    ok((await p.getAttribute("html", "lang")) === "fr" && /Éditeur PDF/.test(await p.title()), "French from the browser's language (lang=fr, title)");
+    ok((await p.getAttribute("html", "lang")) === "fr" && /modifiez vos fichiers/.test(await p.title()), "French from the browser's language (lang=fr, title)");
     let left = await p.evaluate(english, FR_VALUES);
     ok(!left.length, "start screen fully in French " + left.slice(0, 4).join(" | "));
     await p.evaluate(() => { localStorage.setItem("pdfe.fontIntroSeen", "1"); return call("discard"); });

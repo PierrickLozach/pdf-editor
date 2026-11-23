@@ -1,7 +1,6 @@
 {
  "language": "Français",
  "strings": {
-  "PDF Editor": "Éditeur PDF",
   "Open": "Ouvrir",
   "Save": "Enregistrer",
   "Download": "Télécharger",
@@ -381,7 +380,6 @@
   "Nothing to delete": "Rien à supprimer",
   "Pro is switched off on this computer.": "Pro est désactivé sur cet ordinateur.",
   "Buy": "Acheter",
-  "PDF Editor Pro": "Éditeur PDF Pro",
   "Pro is active on this computer.": "Pro est actif sur cet ordinateur.",
   "Prices include taxes. After paying you receive your licence key by email: enter it below. One licence works on one computer at a time.": "Prix TTC. Après le paiement, vous recevez votre clé de licence par e-mail : saisissez-la ci-dessous. Une licence fonctionne sur un seul ordinateur à la fois.",
   "Pro is not on sale yet. If you were given a licence key, enter it below.": "Pro n'est pas encore en vente. Si l'on vous a donné une clé de licence, saisissez-la ci-dessous.",
@@ -530,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "le texte s'ouvre comme document Word dans un nouvel onglet, pour le modifier et l'enregistrer en Word ou LibreOffice",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Un document Word ou LibreOffice en PDF : ouvrez-le ici, puis Télécharger une copie › PDF. Excel ou PowerPoint : utilisez Fichier › Exporter en PDF dans ce programme.",
   "Word and LibreOffice documents:": "Documents Word et LibreOffice :",
-  "PDF Editor – edit PDF, Word and LibreOffice files": "Éditeur PDF – modifiez vos fichiers PDF, Word et LibreOffice"
+  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – modifiez vos fichiers PDF, Word et LibreOffice"
  },
  "patterns": [
   [
@@ -540,10 +538,6 @@
   [
    "“{name}” needs a password to open:",
    "« {name} » demande un mot de passe :"
-  ],
-  [
-   "{name} – PDF Editor",
-   "{name} – Éditeur PDF"
   ],
   [
    "Saved: {name}",
