@@ -148,6 +148,21 @@ async function chromiumRun() {
       ok(f.name === "bakery-hours." + ext && good, `Download copy › ${ext}: ${f.name}`);
     }
 
+    // a word processor that never answers (seen rarely in Firefox over the network): a new one opens the file
+    await page.evaluate(() => {
+      const w = document.querySelector("#docFrame iframe").contentWindow, real = w.postMessage.bind(w);
+      let dropped = false;
+      w.postMessage = (m, ...r) => { if (!dropped && m && m.type === "load") { dropped = true; return; } return real(m, ...r); };
+    });
+    const t0 = Date.now();
+    await page.setInputFiles("#fileInput", fx("garden-club.docx"));
+    await page.waitForFunction(() => DOCS.state.name === "garden-club.docx" && !document.body.classList.contains("busy"), null, { timeout: 40000 }).catch(() => {});
+    ok(/Garden club newsletter/.test(await frameText(page).catch(() => "")) && (Date.now() - t0) > 14000,
+       `a word processor that does not answer is replaced and the file opens (${Math.round((Date.now() - t0) / 1000)} s)`);
+    await typeAtEnd(page, " Recovered.");
+    ok((await page.textContent("#saveState")) === "Not saved", "…and its changes are followed by the editor");
+    await clean(page);
+
     // a PDF replaces the document, and a document the PDF: one file at a time, in the same editor
     await page.setInputFiles("#fileInput", fx("demo-invoice.pdf"));
     await page.waitForFunction(() => typeof S !== "undefined" && S.doc && S.doc.name === "demo-invoice.pdf" && !DOCS.isOpen(), null, { timeout: 30000 }).catch(() => {});

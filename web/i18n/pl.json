@@ -528,7 +528,8 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "tekst otworzy się jako dokument Word w nowej karcie, gdzie można go zmienić i zapisać jako Word lub LibreOffice",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Dokument Word lub LibreOffice do PDF: otwórz go tutaj, a potem Pobierz kopię › PDF. Excel lub PowerPoint: użyj Plik › Eksportuj jako PDF w tym programie.",
   "Word and LibreOffice documents:": "Dokumenty Word i LibreOffice:",
-  "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – edytuj pliki PDF, Word i LibreOffice"
+  "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – edytuj pliki PDF, Word i LibreOffice",
+  "The document could not be opened. Reload the page and try again.": "Nie udało się otworzyć dokumentu. Odśwież stronę i spróbuj ponownie."
  },
  "patterns": [
   [

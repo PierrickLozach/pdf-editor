@@ -36,22 +36,59 @@
   const say = (m, err) => (typeof toast === "function" ? toast(m, err) : console.log(m));
 
   /* ---------------------------------------------------------------- the word processor (made when first needed) */
-  let framePromise = null;
+  let framePromise = null, current = null;
+  const later = (ms, v) => new Promise((r) => setTimeout(() => r(v), ms));
   function frame() {
     if (framePromise) return framePromise;
     const wrap = $("#docFrame");
     framePromise = import(HELPER).then(({ EdenTextFrame }) => {
-      const ed = new EdenTextFrame(wrap, { locale: LOCALES[(window.I18N && I18N.lang) || "en"] || "en", theme: "auto", accent: "#e5322d", ai: false, dictation: false });
+      const ed = (current = new EdenTextFrame(wrap, { locale: LOCALES[(window.I18N && I18N.lang) || "en"] || "en", theme: "auto", accent: "#e5322d", ai: false, dictation: false }));
       ed.on("dirty", (m) => { D.edDirty = !!m.dirty; if (dirty()) keepCopySoon(); mark(); });
       ed.on("saveRequest", () => run(save));
       ed.on("warning", (m) => { if (m.warnings && m.warnings.length) say(t("Some parts of this document could not be kept:") + " " + m.warnings.join(" · "), true); });
-      return ed.ready;
+      // a word processor that does not start within 40 s is replaced once
+      return Promise.race([ed.ready, later(40000, "late")]).then((v) => {
+        if (v !== "late") return v;
+        resetFrame();
+        return frame();
+      });
     }).catch((e) => {
       framePromise = null;
       wrap.textContent = "";
       throw new Error(tf("Word and LibreOffice documents cannot be opened right now: {m}", { m: e.message }));
     });
     return framePromise;
+  }
+  /** Throw the word processor away; the next frame() starts a new one. */
+  function resetFrame() {
+    try { if (current) current.destroy(); } catch (e) {}
+    current = null; framePromise = null;
+    const w = $("#docFrame"); for (const f of w.querySelectorAll("iframe")) f.remove();
+  }
+  /** Is the word processor showing a dialog (a password prompt…)? Then it waits for the person, not stuck. */
+  function frameAsks() {
+    try {
+      const d = $("#docFrame iframe").contentDocument;
+      // only a dialog that is on screen counts (the word processor keeps many hidden ones in its page)
+      return [...d.querySelectorAll('dialog, [role="dialog"], [role="alertdialog"], [aria-modal="true"]')]
+        .some((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && e.ownerDocument.defaultView.getComputedStyle(e).visibility !== "hidden"; });
+    } catch (e) { return false; }
+  }
+  /** Open a file in the word processor. Rarely (seen in Firefox, over the network) it never answers the first
+   *  time: after 15 s without an answer and without a dialog on screen, a new word processor is started and the
+   *  file is sent again. Resolves like EdenTextFrame.load (false: the person gave up at a password). */
+  async function loadFile(file) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const ed = await frame();
+      const job = ed.load(file, file.name);
+      for (;;) {
+        const r = await Promise.race([job, later(attempt ? 45000 : 15000, "late")]);
+        if (r !== "late") return r;
+        if (!frameAsks()) break;                            // stuck: try again with a new one
+      }
+      resetFrame();
+    }
+    throw new Error(t("The document could not be opened. Reload the page and try again."));
   }
   async function run(fn) {
     document.body.classList.add("busy");
@@ -124,7 +161,8 @@
     try { ed = await frame(); }
     catch (e) { document.body.classList.remove("doc-loading"); if (!was) document.body.classList.remove("doc-mode"); throw e; }
     document.body.classList.remove("doc-loading");
-    const ok = await ed.load(file, file.name);
+    const ok = await loadFile(file);
+    ed = await frame();                                     // the word processor that opened it
     if (!ok) { if (!was) document.body.classList.remove("doc-mode"); return false; }     // gave up at a password
     Object.assign(D, { open: true, name: o.name || file.name, fmt: k.fmt, handle: k.template ? null : handle || null,
                        edDirty: false, hostDirty: !!o.dirty, copyHash: "" });
