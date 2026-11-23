@@ -100,7 +100,7 @@
     if (db) db.title = t("Download a copy: Word, LibreOffice or PDF");
     $("#docName").textContent = D.name;
     $("#docName").title = D.name;
-    document.title = (dirty() ? "• " : "") + D.name + " – " + "Quicktou";
+    document.title = (dirty() ? "• " : "") + D.name + " – " + "Quicktou.ch";
   }
 
   /* ---------------------------------------------------------------- open, new, close */
@@ -161,8 +161,8 @@
     clearTimeout(copyTimer);
     await STORE.del("keep", "recovery");
     document.body.classList.remove("doc-mode");
-    $("#docName").textContent = "Quicktou"; $("#docName").title = "";
-    document.title = t("Quicktou – edit PDF, Word and LibreOffice files");
+    $("#docName").textContent = "Quicktou.ch"; $("#docName").title = "";
+    document.title = t("Quicktou.ch – edit PDF, Word and LibreOffice files");
     if (window.FILES) FILES.closed();
     if (typeof updateButtons === "function") updateButtons();
     return true;

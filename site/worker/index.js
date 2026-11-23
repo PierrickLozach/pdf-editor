@@ -1,4 +1,4 @@
-// quicktou.ch - visit statistics (our own, no third party). The site itself is static files; this
+// Quicktou.ch - visit statistics (our own, no third party). The site itself is static files; this
 // Worker only answers /api/*:
 //   POST /api/hit    from the site's pages: counts one event in a daily total
 //   GET  /api/stats  the statistics page (needs the key set with `wrangler secret put STATS_KEY`)
@@ -172,7 +172,7 @@ function page(f, key) {
   const today = f.series[f.series.length - 1];
   const opts = [7, 30, 90, 365].map((d) => `<a href="?days=${d}"${d === f.days ? ' aria-current="page"' : ""}>${d} days</a>`).join("");
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>Statistics – quicktou.ch</title><style>
+<title>Statistics – Quicktou.ch</title><style>
 :root{color-scheme:light dark;--bg:#fff;--fg:#1d2129;--muted:#6b7280;--line:#e3e6ea;--card:#f7f8fa;--accent:#e5322d}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8eaed;--muted:#9aa0a6;--line:#30343a;--card:#1c1f23}}
 body{margin:0;font:15px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}main{max-width:1100px;margin:0 auto;padding:24px}
@@ -183,7 +183,7 @@ svg{width:100%;height:160px;background:var(--card);border-radius:12px;display:bl
 table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .none{color:var(--muted)}nav a{margin-right:12px;color:var(--fg)}nav a[aria-current]{font-weight:700;color:var(--accent)}.small{color:var(--muted);font-size:13px}
 </style></head><body><main>
-<h1>quicktou.ch – statistics</h1><p class="small">Totals per day, without cookies or personal data. Since ${esc(f.since)}. Times in UTC.</p>
+<h1>Quicktou.ch – statistics</h1><p class="small">Totals per day, without cookies or personal data. Since ${esc(f.since)}. Times in UTC.</p>
 <nav>${opts}</nav>
 <div class="k"><div><b>${sum("visits").toLocaleString("en")}</b><span>visits</span></div><div><b>${sum("pages").toLocaleString("en")}</b><span>pages viewed</span></div>
 <div><b>${(sum("pdfs") + sum("docs")).toLocaleString("en")}</b><span>files opened: ${sum("pdfs").toLocaleString("en")} PDFs, ${sum("docs").toLocaleString("en")} Word or LibreOffice documents</span></div><div><b>${today.visits.toLocaleString("en")}</b><span>visits today</span></div></div>

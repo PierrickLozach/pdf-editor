@@ -291,7 +291,7 @@
     }
     document.body.appendChild(m);
     const close = () => { m.hidden = true; btn.setAttribute("aria-expanded", "false"); };
-    // alphabetical order in the language shown (the Pro items join the list; "Quicktou Pro" stays last)
+    // alphabetical order in the language shown (the Pro items join the list; "Quicktou.ch Pro" stays last)
     const sortItems = () => {
       const lang = (window.I18N && I18N.lang) || document.documentElement.lang || "en";
       const coll = new Intl.Collator(lang, { sensitivity: "base", numeric: true });

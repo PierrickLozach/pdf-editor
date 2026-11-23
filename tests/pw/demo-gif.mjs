@@ -108,7 +108,7 @@ await caption("Download &mdash; no watermark, nothing uploaded");
 await moveTo(dl.x + dl.width / 2, dl.y + dl.height / 2, 900); await sleep(250);
 await Promise.all([p.waitForEvent("download"), p.mouse.click(mx, my)]);
 await sleep(1200);
-await caption("quicktou.ch &mdash; free, open source, 12 languages");
+await caption("Quicktou.ch &mdash; free, open source, 12 languages");
 await moveTo(mx + 120, my + 260, 700);
 await sleep(2600);
 

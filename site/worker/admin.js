@@ -1,4 +1,4 @@
-// quicktou.ch - the publisher's admin page. Open /api/admin?key=ADMIN_KEY once: the key is checked, a 12-hour session
+// Quicktou.ch - the publisher's admin page. Open /api/admin?key=ADMIN_KEY once: the key is checked, a 12-hour session
 // cookie is set and the address becomes /api/admin without the key. Without a valid key or session: the same
 // "Not found" as any missing page.
 // Prices, plans, the lifetime offer, opening the shop, free licences, discount codes. Plain HTML forms,
@@ -86,7 +86,7 @@ function page(s, biz, key, msg, grants) {
     <td>${g.n}/${g.max_devices}</td><td>${g.revoked ? "cancelled" : "active"}</td>
     <td><form method="post">${k}<input type="hidden" name="code" value="${esc(g.code)}"><button name="do" value="${g.revoked ? "restore" : "revoke"}">${g.revoked ? "Restore" : "Cancel"}</button> <button name="do" value="free"${g.n ? "" : " disabled"}>Release its computers</button></form></td></tr>`).join("");
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>Admin – quicktou.ch</title><style>
+<title>Admin – Quicktou.ch</title><style>
 :root{color-scheme:light dark;--bg:#fff;--fg:#1d2129;--muted:#6b7280;--line:#e3e6ea;--card:#f7f8fa;--accent:#e5322d}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8eaed;--muted:#9aa0a6;--line:#30343a;--card:#1c1f23}}
 body{margin:0;font:15px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}main{max-width:1150px;margin:0 auto;padding:24px}
@@ -96,7 +96,7 @@ input,select,button{font:inherit;padding:5px 8px;border-radius:7px;border:1px so
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff}.msg{padding:10px 14px;border-radius:10px;background:#fef3c7;color:#713f12;font-weight:600}
 .small{color:var(--muted);font-size:13px}.off td{opacity:.5}label{margin-right:16px}.warn{color:#b45309}
 </style></head><body><main>
-<h1>quicktou.ch – admin</h1><p class="small"><a href="?signout">Sign out</a> · the session ends by itself after 12 hours.</p><p class="small">Only you can open this page (keep its link private). Prices and switches take effect on the site within a minute.</p>
+<h1>Quicktou.ch – admin</h1><p class="small"><a href="?signout">Sign out</a> · the session ends by itself after 12 hours.</p><p class="small">Only you can open this page (keep its link private). Prices and switches take effect on the site within a minute.</p>
 ${msg ? `<p class="msg">${esc(msg)}</p>` : ""}
 <section><h2>Shop and prices</h2><form method="post">${k}<input type="hidden" name="do" value="shop">
 <p><label><input type="checkbox" name="sales"${s.sales ? " checked" : ""}${biz.registered ? "" : " disabled"}> <b>Shop open</b> (Buy buttons on the site)</label>

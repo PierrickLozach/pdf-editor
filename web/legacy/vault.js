@@ -261,7 +261,7 @@
       const userId = rand(16);
       const cred = await navigator.credentials.create({
         publicKey: {
-          rp: { name: "Quicktou" },
+          rp: { name: "Quicktou.ch" },
           user: { id: userId, name, displayName: name },
           challenge: rand(32),
           pubKeyCredParams: [{ type: "public-key", alg: -7 }, { type: "public-key", alg: -257 }, { type: "public-key", alg: -8 }],

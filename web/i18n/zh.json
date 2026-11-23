@@ -528,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "文本会作为 Word 文档在新标签页中打开，可修改后保存为 Word 或 LibreOffice 文件",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在这里打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。",
   "Word and LibreOffice documents:": "Word 和 LibreOffice 文档：",
-  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – 编辑 PDF、Word 和 LibreOffice 文件"
+  "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – 编辑 PDF、Word 和 LibreOffice 文件"
  },
  "patterns": [
   [

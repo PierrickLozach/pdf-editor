@@ -119,7 +119,7 @@ async function activate(env, b) {
   // a Lemon Squeezy key (UUID)
   const lsKey = key.toLowerCase();
   if (!/^[a-f0-9-]{36}$/.test(lsKey)) return json({ error: ERR.unknown }, 400);
-  const r = await ls(env, "activate", { license_key: lsKey, instance_name: (name || "Quicktou") + " · " + device.slice(0, 8) });
+  const r = await ls(env, "activate", { license_key: lsKey, instance_name: (name || "Quicktou.ch") + " · " + device.slice(0, 8) });
   if (!r || (!r.activated && !r.error)) return json({ error: ERR.busy }, 502);
   if (!r.activated) return json({ error: /activation limit/i.test(r.error) ? ERR.limit : /expired/i.test(r.error) ? ERR.expired : /disabled/i.test(r.error) ? ERR.revoked : ERR.unknown }, /activation limit/i.test(r.error) ? 409 : 403);
   if (!ourStore(s, r.meta)) {                                    // a key from another shop: give the activation back

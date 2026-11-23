@@ -8,7 +8,7 @@ const b = await chromium.launch();
 const og = await (await b.newContext({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 })).newPage();
 await og.setContent(`<html><body style="margin:0;width:1200px;height:630px;overflow:hidden;font-family:-apple-system,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#fff 0%,#fff 55%,#fde8e7 100%)">
   <div style="position:absolute;left:64px;top:64px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:30px;color:#1d2129">
-    <span style="width:52px;height:52px;border-radius:14px;background:#e5322d;color:#fff;display:grid;place-items:center;font-size:30px">Q</span>Quicktou</div>
+    <span style="width:52px;height:52px;border-radius:14px;background:#e5322d;color:#fff;display:grid;place-items:center;font-size:30px">Q</span>Quicktou.ch</div>
   <div style="position:absolute;left:64px;top:160px;width:560px;font-size:54px;line-height:1.08;font-weight:800;color:#1d2129;letter-spacing:-1px">Edit PDFs and Word documents in your browser. Free.</div>
   <div style="position:absolute;left:64px;top:452px;width:520px;font-size:25px;line-height:1.35;color:#5b6170">Real text editing in the original font. Your files never leave your computer.</div>
   <img src="${img("editor.webp")}" style="position:absolute;left:690px;top:60px;width:620px;border-radius:14px;box-shadow:0 20px 60px rgba(16,24,40,.25);border:1px solid #e3e6ea">

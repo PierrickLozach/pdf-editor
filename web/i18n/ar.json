@@ -528,7 +528,7 @@
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "يُفتح النص كمستند Word في علامة تبويب جديدة لتعديله وحفظه بصيغة Word أو LibreOffice",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "لتحويل مستند Word أو LibreOffice إلى PDF: افتحه هنا، ثم تنزيل نسخة › PDF. أما Excel أو PowerPoint فاستخدم ملف › تصدير بصيغة PDF في ذلك البرنامج.",
   "Word and LibreOffice documents:": "مستندات Word وLibreOffice:",
-  "Quicktou – edit PDF, Word and LibreOffice files": "Quicktou – عدّل ملفات PDF وWord وLibreOffice"
+  "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – عدّل ملفات PDF وWord وLibreOffice"
  },
  "patterns": [
   [

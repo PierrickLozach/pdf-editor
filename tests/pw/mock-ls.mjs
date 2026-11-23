@@ -17,7 +17,7 @@ export function startMock(port = 8798) {
   }]));
   const discounts = [];
   const view = (l) => ({ id: l.id, status: l.status, key: l.key, activation_limit: l.limit, activation_usage: l.instances.size, created_at: "2026-01-01T00:00:00Z", expires_at: l.expires });
-  const meta = (l) => ({ store_id: l.store, order_id: 1, product_id: 5, product_name: "Quicktou Pro", variant_id: l.variant, variant_name: l.plan, customer_id: 9, customer_name: "Test", customer_email: "test@example.com" });
+  const meta = (l) => ({ store_id: l.store, order_id: 1, product_id: 5, product_name: "Quicktou.ch Pro", variant_id: l.variant, variant_name: l.plan, customer_id: 9, customer_name: "Test", customer_email: "test@example.com" });
   const srv = http.createServer(async (req, res) => {
     let body = ""; for await (const c of req) body += c;
     const send = (o, code = 200) => { res.writeHead(code, { "Content-Type": "application/json" }); res.end(JSON.stringify(o)); };
