@@ -59,3 +59,4 @@ tools/finish_domain.sh
 !/tests/pw/docs.pw.mjs
 !/tests/pw/docs-shot.mjs
 !/tests/fixtures/newsletter.docx
+!/tests/pw/og.mjs
