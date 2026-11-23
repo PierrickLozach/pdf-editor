@@ -162,7 +162,7 @@
     await STORE.del("keep", "recovery");
     document.body.classList.remove("doc-mode");
     $("#docName").textContent = t("PDF Editor"); $("#docName").title = "";
-    document.title = t("PDF Editor");
+    document.title = t("PDF Editor – edit PDF, Word and LibreOffice files");
     if (window.FILES) FILES.closed();
     if (typeof updateButtons === "function") updateButtons();
     return true;

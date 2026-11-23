@@ -529,7 +529,8 @@
   "Opening the document…": "Dokument wird geöffnet …",
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "der Text öffnet sich als Word-Dokument in einem neuen Tab, um ihn zu ändern und als Word- oder LibreOffice-Datei zu speichern",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Ein Word- oder LibreOffice-Dokument als PDF: Öffnen Sie es hier, dann Kopie herunterladen › PDF. Excel oder PowerPoint: Datei › Als PDF exportieren in diesem Programm.",
-  "Word and LibreOffice documents:": "Word- und LibreOffice-Dokumente:"
+  "Word and LibreOffice documents:": "Word- und LibreOffice-Dokumente:",
+  "PDF Editor – edit PDF, Word and LibreOffice files": "PDF-Editor – PDF-, Word- und LibreOffice-Dateien bearbeiten"
  },
  "patterns": [
   [

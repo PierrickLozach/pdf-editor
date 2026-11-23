@@ -529,7 +529,8 @@
   "Opening the document…": "文書を開いています…",
   "the text opens as a Word document in a new tab, to change it and save it as Word or LibreOffice": "テキストが新しいタブで Word 文書として開き、編集して Word または LibreOffice 形式で保存できます",
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word または LibreOffice の文書を PDF に：ここで開き、「コピーをダウンロード › PDF」を選びます。Excel や PowerPoint：そのアプリで「ファイル › PDF として書き出す」を使います。",
-  "Word and LibreOffice documents:": "Word と LibreOffice の文書："
+  "Word and LibreOffice documents:": "Word と LibreOffice の文書：",
+  "PDF Editor – edit PDF, Word and LibreOffice files": "PDF エディタ – PDF、Word、LibreOffice のファイルを編集"
  },
  "patterns": [
   [

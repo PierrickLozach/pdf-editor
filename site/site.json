@@ -1,7 +1,7 @@
 {
   "name": "PDF Editor",
   "tagline": "Edit PDFs in your browser, for free",
-  "description": "Free PDF editor that runs in your browser: change text in its original font, move text, find and replace, white-out, add images and signatures, rearrange pages. Your PDFs never leave your device.",
+  "description": "Free PDF editor that runs in your browser: change text in its original font, move text, find and replace, white-out, add images and signatures, rearrange pages. Edits Word and LibreOffice documents too. Your files never leave your device.",
   "url": "https://quicktou.ch",
   "lang": "en",
   "publisher": {

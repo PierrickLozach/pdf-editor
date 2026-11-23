@@ -57,3 +57,5 @@ tools/finish_domain.sh
 !/tests/pw/guide-shots.mjs
 
 !/tests/pw/docs.pw.mjs
+!/tests/pw/docs-shot.mjs
+!/tests/fixtures/newsletter.docx

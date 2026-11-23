@@ -1,12 +1,12 @@
 <!--
-title: {{name}} – ブラウザで PDF を無料で編集
-description: ブラウザで動く無料の PDF エディタ：元のフォントのままテキストを変更、テキストの移動、検索と置換、白塗り、画像や署名の追加、ページの整理ができます。PDF がデバイスの外に出ることはありません。
+title: {{name}} – ブラウザで PDF と Word 文書を無料で編集
+description: ブラウザで動く無料の PDF エディタ：元のフォントのままテキストを変更、署名、黒塗り、文字認識（OCR）、PDF の分割、結合、変換、圧縮、パスワード保護ができます。Word や LibreOffice の文書も編集できます。ファイルがデバイスの外に出ることはありません。
 -->
 <main id="main">
   <section class="hero wrap">
-    <h1>どんな PDF もブラウザで編集。無料です。</h1>
-    <p class="lead">元のフォントのままテキストを変更・移動し、日付や金額を修正し、署名し、ページを並べ替えられます。インストール不要、透かしなし。ファイルがコンピュータの外に出ることもありません。</p>
-    <div class="ctas"><a class="btn primary big" href="/app/">エディタを開く</a></div>
+    <h1>PDF も Word 文書もブラウザで編集。無料です。</h1>
+    <p class="lead">PDF のテキストを元のフォントのまま変更・移動し、日付や金額を修正し、署名し、ページを並べ替えられます。Word や LibreOffice の文書も同じエディタで開き、本物のページで編集できます。インストール不要、透かしなし。ファイルがコンピュータの外に出ることもありません。</p>
+    <div class="ctas"><a class="btn primary big" href="/app/">エディタを開く</a><a class="btn big" href="#documents">Word と LibreOffice の文書</a></div>
     <p class="small-print">Chrome と Edge では、「保存」で変更内容が元のファイルに直接書き込まれます（置き換える前に確認します）。250 MB までの PDF に対応しています。</p>
     <p class="small-print">パソコン、タブレット、スマートフォンの Chrome、Edge、Firefox、Safari で使えます。</p>
     <div class="shot"><img src="/assets/demo.gif" width="960" height="600" alt="デモ：エディタで PDF の請求書を開き、金額をクリックして同じフォントで入力し直し、合計も同じように修正してから PDF をダウンロードします"></div>
@@ -52,7 +52,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
 
   <section class="section wrap" id="documents">
     <h2>Word や LibreOffice の文書も</h2>
-    <p class="intro">同じようにプライベートな本格ワープロ：.docx や .odt ファイルを開き、本物のページで編集して保存できます。何もアップロードされません。</p>
+    <p class="intro">同じエディタで Word と LibreOffice のファイルも開けます。同じようにプライベートな本格ワープロです。.docx や .odt を本物のページで編集して保存できます。何もアップロードされません。</p>
     <div class="grid">
       <div class="feature"><div class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div>
         <h3>あなたのファイル、あなたの形式</h3><p>Word（.docx）と LibreOffice（.odt）の文書やテンプレートを開いて保存。もう一方の形式や PDF でコピーをダウンロードできます。</p></div>
@@ -61,6 +61,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
       <div class="feature"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 18 8.5 6h1L14 18M5.8 14h6.4"/><path d="m14 15 2.5 2.5L21 12"/></svg></div>
         <h3>スペルチェックはデバイス上で</h3><p>多くの言語に対応し、テキストをどこにも送信しません。AI アシスタントも音声入力もなく、何もブラウザの外に出ません。</p></div>
     </div>
+    <div class="shot shot-still"><img src="/assets/documents.webp" width="1600" height="1000" loading="lazy" alt="Word 文書を開いたエディタ：見出し、会合の表、箇条書きのあるクラブ会報が本物のページに表示されています"></div>
     <p class="ctas"><a class="btn big" href="/app/">エディタを開く</a></p>
     <p class="small-print">ワープロは Steffen Becker によるフリーソフトウェア <a href="https://github.com/stffnb/edentext">EdenText</a> です。</p>
   </section>
@@ -114,7 +115,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
   <section class="section wrap">
     <h2>3 つのステップ</h2>
     <ol class="steps">
-      <li><h3>開く</h3><p>PDF をエディタにドロップします。パスワードで保護されたファイルも使えます。</p></li>
+      <li><h3>開く</h3><p>PDF、Word、LibreOffice のファイルをエディタにドロップします。パスワードで保護されたファイルも使えます。</p></li>
       <li><h3>編集</h3><p>クリックでテキストを変更、ドラッグで移動、それ以外はツールで。いつでも取り消せます。</p></li>
       <li><h3>保存</h3><p>Chrome と Edge では、「保存（上書き）」でファイルに書き込みますが、先に確認します。「コピーをダウンロード」なら、どのブラウザでも元のファイルはそのまま残ります。</p></li>
     </ol>
@@ -124,7 +125,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
     <div class="privacy-band" id="privacy">
       <div><h2>設計からプライバシーを重視</h2><p>多くのオンライン PDF エディタは、文書を自社のサーバーにアップロードします。このエディタにはそれができません。エディタ全体がブラウザの中で動いているからです。</p></div>
       <ul>
-        <li>PDF を開く、編集する、保存するのはすべてデバイス上だけ。アップロードされることはありません。</li>
+        <li>PDF も文書も、開く・編集する・保存するのはすべてデバイス上だけ。アップロードされることはありません。</li>
         <!-- ads:off -->
         <li>アカウント、Cookie、広告、トラッキングは一切ありません。集計するのは匿名の訪問数の合計だけで、それも私たち自身が行い、アクセス解析会社に任せることはありません。</li>
         <!-- /ads:off -->
@@ -161,7 +162,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
       <details><summary>本当に無料ですか？</summary><p>はい、日常の編集は無料です。試用期間も透かしもページ数の制限もアカウントもありません。エディタはお使いのコンピュータ上で動くため、提供にかかる費用はほとんどありません。任意の Pro 機能（一括処理、スマート黒塗り、OCR 無制限、PDF の比較、フォーム）は有料です。</p></details>
       <details><summary>Pro では何が使えますか？</summary><p>一括処理、個人データの自動黒塗り、ページ数の制限がない文字認識、2 つの PDF の比較、フォームです。無料のエディタと同じく、ファイルはお使いのコンピュータに残ります。ライセンスは同時に 1 台のコンピュータで使えます。Pro のウィンドウから別のコンピュータに移すこともできます。</p></details>
       <!-- /pro:on -->
-      <details><summary>アカウントは必要ですか？</summary><p>いいえ。エディタを開いて PDF をドロップするだけです。</p></details>
+      <details><summary>アカウントは必要ですか？</summary><p>いいえ。エディタを開いて PDF か文書をドロップするだけです。</p></details>
       <details><summary>「保存」すると元のファイルは変更されますか？</summary><p>Chrome と Edge では、変更できます。一般的なデスクトップアプリと同じように、「保存（上書き）」で開いた PDF に変更が書き込まれますが、先に確認するので、代わりに新しいファイルとして保存することもできます。「コピーをダウンロード」は元のファイルに一切触れません。Firefox と Safari では「保存」もコピーをダウンロードします。「最近使ったファイル」から保存した PDF をワンクリックで開き直せます。PDF を閉じるまでは取り消しができます。</p></details>
       <details><summary>PDF の大きさに上限はありますか？</summary><p>250 MB までです。それより大きい PDF のほとんどはスキャンや写真です。エディタの「ファイルサイズを縮小…」を使うか、Mac では「プレビュー › ファイル › 書き出す…」で Quartz フィルタに「ファイルサイズを減らす」を選んでください。</p></details>
       <details><summary>編集した部分は元と同じ見た目になりますか？</summary><p>ほとんどの PDF では、はい。エディタはまず PDF 内のフォントを使い、次にコンピュータのフォント、さらに同じファミリーの無料フォントを使います。どうしても使えない文字があるときは、同じ幅の類似フォントを使い、そのことをお知らせします。</p></details>
@@ -173,7 +174,7 @@ description: ブラウザで動く無料の PDF エディタ：元のフォン�
 
   <section class="final-cta wrap">
     <h2>いつでも始められます</h2>
-    <p class="intro">インストールは不要です。PDF を開いて編集を始めましょう。</p>
+    <p class="intro">インストールは不要です。PDF か Word 文書を開いて編集を始めましょう。</p>
     <a class="btn primary big" href="/app/">エディタを開く</a>
   </section>
 </main>

@@ -40,7 +40,7 @@ async function run(name) {
     const en = await browser.newContext({ locale: "en-US", viewport: { width: 1360, height: 900 } });
     let p = watch(await en.newPage());
     let r = await p.goto(BASE + "/");
-    ok(r.status() === 200 && /Edit any PDF/.test(await p.textContent("h1")) && (await p.getAttribute("html", "lang")) === "en", "English visitor: English landing page");
+    ok(r.status() === 200 && /Edit PDFs and Word documents/.test(await p.textContent("h1")) && (await p.getAttribute("html", "lang")) === "en", "English visitor: English landing page");
     ok(!(await p.$(".cookie-notice")) && (await en.cookies()).length === 0, "no cookie and no cookie banner");
     const csp = r.headers()["content-security-policy"] || "";
     ok(/script-src 'self'/.test(csp) && /frame-ancestors 'none'/.test(csp), "security headers on the pages");
@@ -67,7 +67,7 @@ async function run(name) {
     await Promise.all([p.waitForNavigation(), p.click('#langMenu button[data-code="en"]')]);
     await p.waitForFunction(() => document.body && document.body.classList.contains("engine-ready") && document.documentElement.lang === "en", null, { timeout: 60000 });
     await p.goto(BASE + "/");
-    ok(/Edit any PDF/.test(await p.textContent("h1")) && !/\/fr\//.test(p.url()), "switching back to English in the editor applies to the site too");
+    ok(/Edit PDFs and Word documents/.test(await p.textContent("h1")) && !/\/fr\//.test(p.url()), "switching back to English in the editor applies to the site too");
     await en.close();
 
     // ---------------------------------------------------------------- French visitor, first visit
@@ -75,7 +75,7 @@ async function run(name) {
     p = watch(await fr.newPage());
     await p.goto(BASE + "/");
     await p.waitForURL(/\/fr\/$/);
-    ok(/Modifiez n'importe quel PDF/.test(await p.textContent("h1")), "French visitor: sent to the French home page on the first visit");
+    ok(/Modifiez vos PDF et documents Word/.test(await p.textContent("h1")), "French visitor: sent to the French home page on the first visit");
     ok(/Ouvrir l'éditeur/.test(await p.textContent("#userArea")) && /Mentions légales/.test(await p.textContent("footer")), "French header and footer");
     ok(/novembre|décembre|janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre/.test(await (await p.goto(BASE + "/fr/privacy")).text()), "dates in French");
     await p.screenshot({ path: `${OUT}/${name}-fr.png` });
