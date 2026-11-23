@@ -28,7 +28,7 @@ const calls = new Map();
 let engineReady = null;
 function startEngine() {
   engineReady = new Promise((resolve, reject) => {
-    try { engineWorker = new Worker("worker.js?v=11bdd0f3f8", { type: "module" }); }
+    try { engineWorker = new Worker("worker.js?v=214db3d0fa", { type: "module" }); }
     catch (e) { reject(new Error("This browser cannot run the editor (no module workers). Please update it.")); return; }
     const failed = (msg) => reject(new Error("The PDF engine failed to start" + (msg ? ": " + msg : "") + ". Reload the page, or try an up-to-date Chrome, Edge, Firefox or Safari."));
     const timer = setTimeout(() => failed("it took too long"), 60000);
@@ -1469,6 +1469,8 @@ function bindFonts() {
 }
 
 function showResume(rec) {
+  // the engine can be ready before the page's later scripts have run (files.js, over a slow network): wait for them
+  if (!window.FILES && document.readyState === "loading") return document.addEventListener("DOMContentLoaded", () => showResume(rec), { once: true });
   if (window.FILES && FILES.setResume) return FILES.setResume(rec);      // shown in the Recent files list
   const box = $("#resume");
   const when = new Date(rec.time).toLocaleString();
