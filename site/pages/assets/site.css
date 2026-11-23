@@ -301,4 +301,10 @@ html:not(.ads-on) .ad-slot { display: none; }          /* nothing to see (and no
 .changes h2 { font-size: 19px; margin-top: 1.6em; }
 .changes time { color: var(--muted); font-weight: 400; font-size: 15px; margin-inline-start: 8px; }
 .guide-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 20px; }
+/* home page: every card the same height, the title centred in it, the "All guides" link centred under them */
+.guide-grid { grid-auto-rows: 1fr; }
+.guide-grid li { display: flex; }
+.guide-grid li a { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 72px; }
+.guide-grid li b { margin-bottom: 0; }
+#guides > p:last-child { text-align: center; margin-top: 18px; }
 
