@@ -89,31 +89,83 @@ def local_root(l, slug):
     """The root to link to a page from language l: its own when the page exists in l, else the default language's."""
     return root_of(l) if l in langs_of(slug) else root_of(DEFAULT)
 
-def jsonld(l, slug, meta, path):
+def _text(h):
+    """Plain text of an HTML fragment."""
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", h))).strip()
+
+# schema.org type of each page that is not an article (articles: "type: article" in the page's header)
+PAGE_TYPE = {"about": "AboutPage", "contact": "ContactPage", "guides": "CollectionPage", "whats-new": "WebPage",
+             "privacy": "WebPage", "cookies": "WebPage", "terms": "WebPage", "legal": "WebPage", "sales": "WebPage", "developers": "WebPage"}
+
+def jsonld(l, slug, meta, path, body=""):
+    """Structured data (schema.org JSON-LD) for every page: the site, its publisher and the editor on the home page
+    (with its questions as an FAQPage), an Article on guides, the right WebPage type elsewhere, and a breadcrumb."""
+    if slug == "404": return ""
     url, name, pub = cfg["url"], T[l]["site_name"], cfg["publisher"]["name"]
+    org_id, site_id, app_id = url + "/#organization", url + "/#website", url + "/#editor"
     author = {"@type": "Person", "name": pub, "url": url + url_of(DEFAULT if l not in langs_of("about") else l, "about")}
+    org = {"@type": "Organization", "@id": org_id, "name": name, "url": url + "/", "logo": {"@type": "ImageObject", "url": url + "/icon.png"},
+           "email": cfg["publisher"]["email"], "founder": author, "sameAs": [cfg["source"]],
+           "contactPoint": {"@type": "ContactPoint", "contactType": "customer support", "email": cfg["publisher"]["email"],
+                            "url": url + url_of(l, "contact"), "availableLanguage": ["en", "fr"]}}
+    title = re.sub(r"\s+–\s+[^–]*$", "", fill(meta.get("title", ""), l, raw=True)) if meta.get("title", "").rstrip().endswith("{{name}}") else fill(meta.get("title", ""), l, raw=True)
+    desc = fill(meta.get("description", ""), l, raw=True)
+    h1 = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S)
+    crumb = _text(h1.group(1)) if h1 else title
+    home = {"@type": "ListItem", "position": 1, "name": name, "item": url + root_of(l)}
     items = []
     if slug == "index":
-        items.append({"@context": "https://schema.org", "@type": "WebSite", "name": name, "url": url + root_of(l), "inLanguage": l})
-        items.append({"@context": "https://schema.org", "@type": "WebApplication", "name": name, "url": url + "/app/",
-                      "description": fill(meta.get("description", ""), l, raw=True), "applicationCategory": "UtilitiesApplication",
+        items.append({"@context": "https://schema.org", **org})
+        items.append({"@context": "https://schema.org", "@type": "WebSite", "@id": site_id, "name": name, "url": url + root_of(l),
+                      "description": desc, "inLanguage": l, "publisher": {"@id": org_id}})
+        items.append({"@context": "https://schema.org", "@type": "WebApplication", "@id": app_id, "name": name, "url": url + "/app/",
+                      "description": desc, "applicationCategory": "UtilitiesApplication",
                       "operatingSystem": "Any (web browser)", "browserRequirements": "Chrome, Edge, Firefox or Safari",
                       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "isAccessibleForFree": True,
-                      "inLanguage": LANGS, "author": author, "image": url + "/assets/og.png",
+                      "inLanguage": LANGS, "author": author, "publisher": {"@id": org_id}, "image": url + "/assets/og.png",
                       "screenshot": url + "/assets/editor.webp", "license": cfg["source"] + "/blob/main/LICENSE"})
+        qa = [{"@type": "Question", "name": _text(q), "acceptedAnswer": {"@type": "Answer", "text": _text(a)}}
+              for q, a in re.findall(r"<details>\s*<summary>(.*?)</summary>\s*(.*?)</details>", body, re.S)]
+        if qa: items.append({"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": l, "url": url + path + "#faq", "mainEntity": qa})
+        return "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>\n" for x in items)
+    site_ref = {"@type": "WebSite", "@id": site_id, "name": name, "url": url + root_of(l)}
     if meta.get("type") == "article":
-        title = re.sub(r"\s+–\s+[^–]*$", "", fill(meta.get("title", ""), l, raw=True))
         items.append({"@context": "https://schema.org", "@type": "Article", "headline": title,
-                      "description": fill(meta.get("description", ""), l, raw=True), "inLanguage": l, "author": author,
-                      "publisher": {"@type": "Organization", "name": name, "logo": {"@type": "ImageObject", "url": url + "/icon.png"}},
+                      "description": desc, "inLanguage": l, "author": author,
+                      "publisher": {"@type": "Organization", "@id": org_id, "name": name, "logo": {"@type": "ImageObject", "url": url + "/icon.png"}},
                       "datePublished": meta.get("published", ""), "dateModified": meta.get("modified", meta.get("published", "")),
-                      "image": url + meta.get("image", "/assets/og.png"), "mainEntityOfPage": url + path})
+                      "image": url + meta.get("image", "/assets/og.png"), "mainEntityOfPage": url + path, "isPartOf": site_ref})
         g = local_root(l, "guides")
-        items.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": name, "item": url + root_of(l)},
-            {"@type": "ListItem", "position": 2, "name": T[l].get("nav_guides", "Guides"), "item": url + g + "guides"},
-            {"@type": "ListItem", "position": 3, "name": title, "item": url + path}]})
+        crumbs = [home, {"@type": "ListItem", "position": 2, "name": T[l].get("nav_guides", "Guides"), "item": url + g + "guides"},
+                  {"@type": "ListItem", "position": 3, "name": title, "item": url + path}]
+    else:
+        page = {"@context": "https://schema.org", "@type": PAGE_TYPE.get(slug, "WebPage"), "@id": url + path, "url": url + path,
+                "name": title, "description": desc, "inLanguage": l, "isPartOf": site_ref, "publisher": {"@type": "Organization", "@id": org_id, "name": name}}
+        if meta.get("published"): page["datePublished"] = meta["published"]
+        if meta.get("modified") or meta.get("published"): page["dateModified"] = meta.get("modified", meta.get("published"))
+        if slug == "about": page["mainEntity"] = author
+        if slug == "contact": page["mainEntity"] = {k: v for k, v in org.items() if k != "founder"}
+        if slug == "guides":
+            arts = [x for x in sorted(p.stem for p in (PAGES / DEFAULT).glob("*.html")) if page_info(x).get("type") == "article" and l in langs_of(x)]
+            page["mainEntity"] = {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "url": url + url_of(l, x),
+                 "name": re.sub(r"\s+–\s+[^–]*$", "", fill(_meta_of(l, x).get("title", ""), l, raw=True))} for i, x in enumerate(arts)]}
+        items.append(page)
+        if slug == "developers":
+            items.append({"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": name + " library",
+                          "description": desc, "codeRepository": cfg["source"], "programmingLanguage": "JavaScript",
+                          "runtimePlatform": ["Web browser", "Node.js"], "license": cfg["source"] + "/blob/main/LICENSE",
+                          "url": url + path, "author": author, "isAccessibleForFree": True})
+        crumbs = [home, {"@type": "ListItem", "position": 2, "name": crumb, "item": url + path}]
+    items.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": crumbs})
     return "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>\n" for x in items)
+
+def _meta_of(l, slug):
+    """A page's header in language l (the default language's when it is not translated)."""
+    src = PAGES / l / f"{slug}.html"
+    if not src.exists(): src = PAGES / DEFAULT / f"{slug}.html"
+    m = re.match(r"\s*<!--(.*?)-->\s*", src.read_text(), re.S)
+    return dict(re.findall(r"^\s*([a-z]+):\s*(.*?)\s*$", m.group(1), re.M)) if m else {}
 
 def fill(text, l, raw=False):
     vals = {"name": T[l]["site_name"], "root": root_of(l), "updated": date_in(l), "url": cfg["url"], "source": cfg["source"], "host": cfg["host"],
@@ -217,6 +269,7 @@ _counted = sorted(set(x for x in slugs if x != "404") | {"app"})
 ONLY = {s: langs_of(s) for s in slugs}                # e.g. developers: English; guides: English and French
 if not PRO_VISIBLE: slugs.remove("sales")                    # Pro hidden: no terms of sale page
 sitemap = []
+TITLES = {}
 for l in LANGS:
     out = PUB if l == DEFAULT else PUB / l
     out.mkdir(parents=True, exist_ok=True)
@@ -235,13 +288,14 @@ for l in LANGS:
         options = f'<option value="auto">{html.escape(T[l].get("language_auto", "Browser language"))}</option>' + \
                   "".join(f'<option value="{x}" data-href="{url_of(x, slug if x in ONLY[slug] else "index")}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
         words = {f"t_{k}": html.escape(v) for k, v in T[l].items() if isinstance(v, str)}
+        filled = fill(body, l)
         page = LAYOUT.format(lang=l, dir=T[l].get("dir", "ltr"), title=fill(meta.get("title", T[l]["site_name"]), l),
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",
                              url=cfg["url"], path=path, alternates=alternates, ver=ver, name=html.escape(T[l]["site_name"]), locale=T[l].get("locale", l),
-                             page=slug, root=root_of(l), globe=GLOBE, options=options, body=fill(body, l), source=html.escape(cfg["source"]),
+                             page=slug, root=root_of(l), globe=GLOBE, options=options, body=filled, source=html.escape(cfg["source"]),
                              publisher=html.escape(cfg["publisher"]["name"]),
                              sales_link=f'<a href="{root_of(l)}sales">{words["t_footer_sales"]}</a>' if PRO_VISIBLE else "",
-                             ads_head=ads_head(l), jsonld=jsonld(l, slug, meta, path), ogtype="article" if meta.get("type") == "article" else "website",
+                             ads_head=ads_head(l), jsonld=jsonld(l, slug, meta, path, filled), ogtype="article" if meta.get("type") == "article" else "website",
                              guidesroot=local_root(l, "guides"), ads_settings=f'<a href="{root_of(l)}cookies" id="ccSettings">{html.escape(ADS_TEXT[l]["cookie_settings"])}</a>' if ADS_ON else "", **words)
         if ADS_ON and slug == "index":                    # the one ad: on the home page, between the toolbox and the developers section
             ad = (f'<aside class="ad-slot wrap" aria-label="{html.escape(ADS_TEXT[l]["ad_label"])}"><p class="ad-label">{html.escape(ADS_TEXT[l]["ad_label"])}</p>'
@@ -255,7 +309,24 @@ for l in LANGS:
         page = page.replace('src="/assets/documents.webp"', f'src="/assets/documents.webp?v={ver}"')
         page = re.sub(r'src="(/assets/guides/[a-z-]+\.webp)"', lambda m: f'src="{m.group(1)}?v={ver}"', page)
         (out / f"{slug}.html").write_text(page)
+        if slug != "404" and not meta.get("noindex"):        # SEO checks: one title per page, structured data everywhere
+            t = re.search(r"<title>(.*?)</title>", page, re.S).group(1)
+            if t in TITLES: sys.exit(f"duplicate title on {path} and {TITLES[t]}: {html.unescape(t)} (every indexable page needs its own)")
+            TITLES[t] = path
+            if "application/ld+json" not in page: sys.exit(f"{path}: no JSON-LD structured data")
         if slug != "404" and not meta.get("noindex"): sitemap.append((path, meta.get("modified") or meta.get("published") or datetime.date.today().isoformat()))
+
+# ---------------------------------------------------------------- the editor's structured data (/app/ is in the sitemap)
+_app = PUB / "app" / "index.html"
+_ld = {"@context": "https://schema.org", "@type": "WebApplication", "@id": cfg["url"] + "/#editor", "name": T[DEFAULT]["site_name"],
+       "url": cfg["url"] + "/app/", "description": cfg["description"], "applicationCategory": "UtilitiesApplication",
+       "operatingSystem": "Any (web browser)", "browserRequirements": "Chrome, Edge, Firefox or Safari",
+       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "isAccessibleForFree": True, "inLanguage": LANGS,
+       "publisher": {"@type": "Organization", "@id": cfg["url"] + "/#organization", "name": T[DEFAULT]["site_name"], "url": cfg["url"] + "/"},
+       "screenshot": cfg["url"] + "/assets/editor.webp", "license": cfg["source"] + "/blob/main/LICENSE"}
+_html = _app.read_text()
+assert "</head>" in _html and "application/ld+json" not in _html
+_app.write_text(_html.replace("</head>", '<script type="application/ld+json">' + json.dumps(_ld, ensure_ascii=False).replace("</", "<\\/") + "</script>\n</head>", 1))
 
 # ---------------------------------------------------------------- site files
 if ADS_VERIFY: (PUB / "ads.txt").write_text(f"google.com, {ADS['client'].replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n")   # AdSense requires it at the site's root
