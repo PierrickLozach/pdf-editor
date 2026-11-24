@@ -126,7 +126,9 @@ def jsonld(l, slug, meta, path, body=""):
                       "screenshot": url + "/assets/editor.webp", "license": cfg["source"] + "/blob/main/LICENSE"})
         qa = [{"@type": "Question", "name": _text(q), "acceptedAnswer": {"@type": "Answer", "text": _text(a)}}
               for q, a in re.findall(r"<details>\s*<summary>(.*?)</summary>\s*(.*?)</details>", body, re.S)]
-        if qa: items.append({"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": l, "url": url + path + "#faq", "mainEntity": qa})
+        faq_h = re.search(r'id="faq".*?<h2[^>]*>(.*?)</h2>', body, re.S)
+        if qa: items.append({"@context": "https://schema.org", "@type": "FAQPage", "name": _text(faq_h.group(1)) + " – " + name if faq_h else name,
+                             "inLanguage": l, "url": url + path + "#faq", "mainEntity": qa})
         return "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>\n" for x in items)
     site_ref = {"@type": "WebSite", "@id": site_id, "name": name, "url": url + root_of(l)}
     if meta.get("type") == "article":
