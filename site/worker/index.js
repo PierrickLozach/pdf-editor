@@ -145,13 +145,14 @@ function keyGiven(request, env) {
   return same(key, url.searchParams.get("key") || (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, ""));
 }
 /** The one public figure: files (PDFs and documents) opened in the last 30 days, from the same anonymous daily
- *  totals, rounded down. Below the threshold (vars PUBLIC_MIN, 500 by default) it says nothing: {show: false}. */
+ *  totals: exact below 100, then rounded down (to 10, 100, 1,000…). Below the threshold (vars PUBLIC_MIN, 1 by
+ *  default) it says nothing: {show: false}. */
 async function publicFigure(env) {
   const since = day(new Date(Date.now() - 29 * 86400000));
   const row = await env.DB.prepare(`SELECT COALESCE(SUM(n), 0) AS n FROM daily WHERE day >= ? AND kind = 'event' AND value IN ('pdf_opened', 'doc_opened')`).bind(since).first();
-  const n = Number(row && row.n) || 0, min = Math.max(1, Number(env.PUBLIC_MIN) || 500);
+  const n = Number(row && row.n) || 0, min = Math.max(1, Number(env.PUBLIC_MIN) || 1);
   if (n < min) return { show: false };
-  const step = n >= 100000 ? 10000 : n >= 10000 ? 1000 : 100;
+  const step = n < 100 ? 1 : 10 ** (String(n).length - 2);           // 87 -> 87, 123 -> 120, 1,234 -> 1,200, 56,789 -> 56,000
   return { show: true, files30: Math.floor(n / step) * step };
 }
 

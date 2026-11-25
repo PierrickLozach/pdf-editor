@@ -41,12 +41,14 @@ if (priceEl) fetch("/api/pro/config").then((r) => (r.ok ? r.json() : null)).then
   priceEl.innerHTML = parts.slice(0, 2).join(" · ") + (l && parts.length > 2 ? "<br><small>" + money(l.price) + " " + per.once + "</small>" : "");
 }).catch(() => {});
 // home page: "N files opened in the last 30 days" — one rounded total of the anonymous daily counts,
-// shown only once the site is used enough (the server says {show: false} below its threshold)
+// exact while small, rounded once large; hidden while no file was opened (the server then says {show: false})
 const usage = $("#usage");
 if (usage) fetch("/api/public.json").then((r) => (r.ok ? r.json() : null)).then((f) => {
   if (!f || !f.show || !(f.files30 > 0)) return;
-  let n = String(f.files30);
-  try { n = new Intl.NumberFormat(document.documentElement.lang || "en").format(f.files30); } catch (e) {}
-  usage.textContent = (usage.dataset.t || "{n}").replace("{n}", n);
+  const lang = document.documentElement.lang || "en";
+  let n = String(f.files30), form = "other";
+  try { n = new Intl.NumberFormat(lang).format(f.files30); form = new Intl.PluralRules(lang).select(f.files30); } catch (e) {}
+  const key = "t" + form[0].toUpperCase() + form.slice(1);          // data-t-one, data-t-few…; data-t is the general form
+  usage.textContent = (usage.dataset[key] || usage.dataset.t || "{n}").replace("{n}", n);
   usage.hidden = false;
 }).catch(() => {});
