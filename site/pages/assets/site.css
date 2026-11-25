@@ -325,7 +325,7 @@ html:not(.ads-on) .ad-slot { display: none; }          /* nothing to see (and no
 /* guides: author and date line */
 .prose .byline { font-size: 14px; color: var(--muted); margin: -4px 0 14px; }
 .prose .byline a { color: var(--muted); }
-.hero .usage { font-weight: 600; color: var(--fg); }
+.hero .use-count { font-weight: 600; color: var(--fg); }
 @media (max-width: 640px) {            /* phones: one card per row, each cell labelled with its column */
   .compare-wrap { overflow: visible; border: 0; background: none; box-shadow: none; }
   .compare { min-width: 0; }
