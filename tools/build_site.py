@@ -24,8 +24,8 @@ T = {l: json.loads((I18N / f"{l}.json").read_text()) for l in LANGS}
 root_of = lambda l: "/" if l == DEFAULT else f"/{l}/"
 url_of = lambda l, slug: root_of(l) + ("" if slug == "index" else slug)
 
-def date_in(l):
-    d, t = datetime.date.today(), T[l]
+def date_in(l, d=None):
+    d, t = d or datetime.date.today(), T[l]
     s = d.strftime(t.get("date_format", "%Y-%m-%d"))
     if t.get("months"): s = s.replace(d.strftime("%B"), t["months"][d.month - 1])
     return s
@@ -261,6 +261,7 @@ LAYOUT = """<!doctype html>
 </html>
 """
 
+BYLINE = {"en": "By {author} · Updated {date}", "fr": "Par {author} · Mis à jour le {date}"}
 slugs = sorted(p.stem for p in (PAGES / DEFAULT).glob("*.html"))
 # the visit counter (site/worker/index.js) only counts the pages the site really has: their list, kept in step here
 _counted = sorted(set(x for x in slugs if x != "404") | {"app"})
@@ -291,6 +292,11 @@ for l in LANGS:
                   "".join(f'<option value="{x}" data-href="{url_of(x, slug if x in ONLY[slug] else "index")}"{" selected" if x == l else ""}>{html.escape(T[x]["name"])}</option>' for x in LANGS)
         words = {f"t_{k}": html.escape(v) for k, v in T[l].items() if isinstance(v, str)}
         filled = fill(body, l)
+        if meta.get("type") == "article":                 # guides: who wrote it and when it was last checked, under the title
+            when = datetime.date.fromisoformat(meta.get("modified") or meta["published"])
+            by = BYLINE.get(l, BYLINE[DEFAULT]).format(author=f'<a href="{root_of(l if l in langs_of("about") else DEFAULT)}about">{html.escape(cfg["publisher"]["name"])}</a>',
+                                                       date=f'<time datetime="{when.isoformat()}">{html.escape(date_in(l, when))}</time>')
+            filled = re.sub(r"(</h1>)", lambda m: m.group(1) + f'\n  <p class="byline">{by}</p>', filled, count=1)
         page = LAYOUT.format(lang=l, dir=T[l].get("dir", "ltr"), title=fill(meta.get("title", T[l]["site_name"]), l),
                              description=fill(meta.get("description", ""), l), robots='<meta name="robots" content="noindex">\n' if meta.get("noindex") else "",
                              url=cfg["url"], path=path, alternates=alternates, ver=ver, name=html.escape(T[l]["site_name"]), locale=T[l].get("locale", l),

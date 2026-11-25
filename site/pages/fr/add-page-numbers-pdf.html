@@ -1,0 +1,54 @@
+<!--
+title: Ajouter des numéros de page à un PDF – {{name}}
+description: Numéroter les pages d'un PDF en quelques clics : où placer les numéros, les styles 1 / 10 et Page 1 sur 10, ne pas numéroter la couverture, commencer à un autre numéro, et l'ordre à suivre quand on fusionne aussi des fichiers.
+type: article
+published: 2026-11-24
+image: /assets/guides/numbers-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Ajouter des numéros de page à un PDF</h1>
+  <p class="lead">Un rapport assemblé à partir de plusieurs fichiers, un support imprimé, les annexes d'un dossier : avec des numéros de page, chacun peut dire « voir page 12 », et l'on voit tout de suite si une page manque.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> puis votre PDF. Il reste sur votre ordinateur.</li>
+    <li>Si le document est fait de plusieurs fichiers, assemblez-le d'abord : voir <a href="{{root}}organise-pdf-pages">comment fusionner et réorganiser les pages</a>. Les numéros s'ajoutent aux pages telles qu'elles sont : numérotez en dernier.</li>
+    <li>Cliquez sur <b>Outils</b>, puis <b>Numéros de page</b>.</li>
+    <li>Choisissez l'emplacement, le style et le premier numéro, puis cliquez sur <b>Numéroter</b>.</li>
+    <li>Regardez quelques pages, puis enregistrez.</li>
+  </ol>
+  <figure><img src="/assets/guides/numbers-fr.webp" width="1440" height="900" loading="lazy" alt="La fenêtre Numéros de page : emplacement, style, premier numéro et l'option pour ne pas numéroter la couverture"><figcaption>Les numéros sont ajoutés à toutes les pages d'un coup, et une seule annulation les retire tous.</figcaption></figure>
+
+  <h2>Les options</h2>
+  <ul>
+    <li><b>Emplacement</b> : en bas au centre, en bas à droite, en bas à gauche ou en haut à droite. Les numéros se placent à environ un centimètre du bord de la page.</li>
+    <li><b>Style</b> : <i>1, 2, 3…</i>, <i>1 / 10</i> ou <i>Page 1 sur 10</i> (dans la langue de l'éditeur). Le total compte les pages numérotées.</li>
+    <li><b>Premier numéro</b> : utile quand le PDF est la deuxième partie d'un document plus long, ou une annexe qui doit commencer à 25.</li>
+    <li><b>Pas sur la première page (couverture)</b> : la couverture ne reçoit pas de numéro.</li>
+  </ul>
+
+  <h2>La couverture : comptée ou non ?</h2>
+  <p>Les livres et les rapports font les deux, alors l'éditeur vous laisse choisir.</p>
+  <ul>
+    <li>La couverture ne compte pas : cochez <b>Pas sur la première page</b> et gardez 1 comme premier numéro. La page qui suit la couverture affiche 1.</li>
+    <li>La couverture compte mais n'affiche rien : cochez <b>Pas sur la première page</b> et mettez 2 comme premier numéro. La page qui suit la couverture affiche 2, comme dans la plupart des rapports imprimés.</li>
+  </ul>
+
+  <h2>Choisir le bon emplacement</h2>
+  <p>Avant de choisir, regardez le bas de quelques pages. Beaucoup de documents ont déjà un pied de page à moins d'un centimètre du bord : une adresse, une référence, une mention de confidentialité. Si le numéro tomberait dessus, choisissez <b>En haut à droite</b>. Pour un document imprimé en recto verso, le bas au centre est le choix le plus sûr : il est au même endroit sur les pages de gauche et de droite.</p>
+
+  <h2>Quand le PDF a déjà des numéros</h2>
+  <p>Un PDF fusionné garde souvent les anciens numéros de chaque partie : 1 à 4, puis 1 à 9. Ajouter de nouveaux numéros dans un autre coin garde les deux, ce qui prête à confusion. Retirez d'abord les anciens : avec l'outil <b>Modifier le texte</b>, cliquez sur un ancien numéro et supprimez-le, ou couvrez-le avec <b>Masquer</b>. Ajoutez ensuite les nouveaux.</p>
+
+  <h2>Erreurs et corrections</h2>
+  <ul>
+    <li><b>Mauvais emplacement ou mauvais style.</b> Annulez (⌘Z sur Mac, Ctrl+Z ailleurs) et recommencez. N'ajoutez pas une deuxième série par-dessus.</li>
+    <li><b>Des pages ajoutées après la numérotation.</b> Les nouvelles pages n'ont pas de numéro et le total est faux. Annulez la numérotation, ajoutez les pages, puis numérotez de nouveau.</li>
+    <li><b>Pages numérisées.</b> La numérotation fonctionne aussi sur les scans : les numéros sont dessinés par-dessus l'image.</li>
+  </ul>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}organise-pdf-pages">Fusionner, découper et réorganiser les pages d'un PDF</a></li><li><a href="{{root}}watermark-pdf">Ajouter un filigrane à un PDF</a></li></ul>
+</main>

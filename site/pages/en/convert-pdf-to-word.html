@@ -1,0 +1,53 @@
+<!--
+title: How to convert a PDF to Word, text, Markdown or an ebook – {{name}}
+description: Turn a PDF into an editable Word document, plain text, Markdown, an EPUB ebook or pictures: which format to choose for what, what survives the conversion, and what to do with scanned PDFs.
+langs: en, fr
+type: article
+published: 2026-11-24
+image: /assets/guides/convert-en.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>How to convert a PDF to Word, text, Markdown or an ebook</h1>
+  <p class="lead">Sometimes you do not want to correct a PDF, but to reuse what it says: rewrite a report, quote a few paragraphs, read a long document on an e-reader. Here is how to get the content out, and which format suits which job.</p>
+
+  <h2>First: do you really need to convert?</h2>
+  <p>Converting a PDF always loses some of its layout, because a PDF does not store paragraphs and columns, only letters drawn at exact positions. The converter has to guess where the paragraphs, headings and lists were.</p>
+  <p>To change a word, a date or a sentence, do not convert: <a href="{{root}}edit-pdf-text">edit the PDF directly</a>, and the layout stays exactly as it was. Convert when you want to rework the text itself.</p>
+
+  <h2>Step by step</h2>
+  <ol>
+    <li><a href="/app/">Open the editor</a> and open the PDF. Nothing is uploaded: the conversion runs in your browser.</li>
+    <li>Click <b>Tools</b>, then <b>Convert</b>.</li>
+    <li>Choose the format (see below) and click <b>Convert</b>.</li>
+    <li>Chrome and Edge ask where to save the new file; other browsers download it.</li>
+  </ol>
+  <figure><img src="/assets/guides/convert-en.webp" width="1440" height="900" loading="lazy" alt="The Convert window listing Word, Edit as a document, PNG and JPEG pictures, Markdown, Ebook and Text"><figcaption>Every format is made on your computer.</figcaption></figure>
+
+  <h2>Which format for which job</h2>
+  <ul>
+    <li><b>Word (.docx)</b>: the text, with its paragraphs, to open and rework in Microsoft Word, LibreOffice, Pages or Google Docs. The page layout is not kept: expect to redo columns and spacing.</li>
+    <li><b>Edit as a document</b>: the same conversion, but the result opens straight away in a new tab of this editor, as a Word document you can change and save as Word or LibreOffice. Handy when you do not have Word installed.</li>
+    <li><b>Pictures (PNG or JPEG)</b>: one picture per page, exactly as it looks, at screen (150 dpi) or print (300 dpi) quality. Use it for a slide in a presentation, a page on a website, or a message app that does not show PDFs. PNG is sharper for text; JPEG is smaller for photos. Several pages come in one ZIP file.</li>
+    <li><b>Markdown (.md)</b>: headings, lists, bold and italic, in the plain-text format used by note apps, wikis and developer documentation. Pictures are saved as separate files next to the text, in a ZIP.</li>
+    <li><b>Ebook (.epub)</b>: a book that adapts to the screen, to read in Apple Books, Kobo, Calibre or another e-reader app. Chapters are made from the headings. Much more comfortable than a PDF on a phone.</li>
+    <li><b>Text (.txt)</b>: just the words, to paste anywhere or search through.</li>
+  </ul>
+
+  <h2>What survives the conversion</h2>
+  <p>For Word, Markdown and the ebook, the editor rebuilds the structure from the way the text looks. Lines in larger letters become headings, lines that start with a bullet or a number become lists, and bold and italic are kept. Running headers, footers and page numbers that repeat on most pages are left out of the Markdown and ebook versions, so they do not interrupt the text every few paragraphs.</p>
+  <p>Tables, text in several columns and text over pictures are the hard cases. They usually come out as plain paragraphs in reading order. Check them after converting.</p>
+
+  <h2>Scanned PDFs</h2>
+  <p>A scanned page is a picture: there is no text in it to convert, and the Word file would be empty. First <a href="{{root}}ocr-pdf">make the PDF searchable</a> with text recognition, then convert. The quality of the result depends on the quality of the scan, so proofread names and numbers.</p>
+
+  <h2>The other way: Word to PDF</h2>
+  <p>Open the Word (.docx) or LibreOffice (.odt) document in the same editor, then choose <b>Download copy</b> › <b>PDF</b>. For Excel or PowerPoint files, use <i>File › Export as PDF</i> in that program. See <a href="{{root}}edit-word-document-online">how to edit a Word document in your browser</a>.</p>
+
+  <h2>Respect the author's rights</h2>
+  <p>Converting a PDF you own or are allowed to reuse is fine. Converting a book, an article or a course you bought does not give you the right to share or republish it: the copyright stays with its author.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Open the editor</a></p>
+  <h2>Related guides</h2>
+  <ul><li><a href="{{root}}ocr-pdf">How to make a scanned PDF searchable</a></li><li><a href="{{root}}edit-word-document-online">How to edit a Word or LibreOffice document in your browser</a></li><li><a href="{{root}}edit-pdf-text">How to change the text of a PDF without changing its font</a></li></ul>
+</main>

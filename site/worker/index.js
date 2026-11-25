@@ -144,6 +144,17 @@ function keyGiven(request, env) {
   const url = new URL(request.url);
   return same(key, url.searchParams.get("key") || (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, ""));
 }
+/** The one public figure: files (PDFs and documents) opened in the last 30 days, from the same anonymous daily
+ *  totals, rounded down. Below the threshold (vars PUBLIC_MIN, 500 by default) it says nothing: {show: false}. */
+async function publicFigure(env) {
+  const since = day(new Date(Date.now() - 29 * 86400000));
+  const row = await env.DB.prepare(`SELECT COALESCE(SUM(n), 0) AS n FROM daily WHERE day >= ? AND kind = 'event' AND value IN ('pdf_opened', 'doc_opened')`).bind(since).first();
+  const n = Number(row && row.n) || 0, min = Math.max(1, Number(env.PUBLIC_MIN) || 500);
+  if (n < min) return { show: false };
+  const step = n >= 100000 ? 10000 : n >= 10000 ? 1000 : 100;
+  return { show: true, files30: Math.floor(n / step) * step };
+}
+
 async function figures(env, days) {
   days = Math.max(1, Math.min(Number(days) || 30, 400));
   const since = day(new Date(Date.now() - (days - 1) * 86400000));
@@ -344,6 +355,12 @@ export default {
       if (url.pathname === "/api/hit") {
         if (request.method !== "POST") return new Response(null, { status: 405 });
         return await hit(request, env);
+      }
+      if (url.pathname === "/api/public.json") {                    // the home page's counter: one rounded total, cached
+        if (request.method !== "GET") return new Response(null, { status: 405 });
+        const r = json(await publicFigure(env));
+        r.headers.set("Cache-Control", "public, max-age=3600");
+        return r;
       }
       if (url.pathname === "/api/stats" || url.pathname === "/api/stats.json") {
         const notFound = () => env.ASSETS.fetch(new Request(new URL("/__not_found__", request.url)));   // the site's ordinary 404 page, as for any missing address   // looks absent

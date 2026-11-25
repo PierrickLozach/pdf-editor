@@ -1,0 +1,52 @@
+<!--
+title: Convertir un PDF en Word, texte, Markdown ou livre numérique – {{name}}
+description: Transformer un PDF en document Word modifiable, en texte brut, en Markdown, en livre numérique EPUB ou en images : quel format pour quel besoin, ce qui survit à la conversion, et que faire des PDF numérisés.
+type: article
+published: 2026-11-24
+image: /assets/guides/convert-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Convertir un PDF en Word, texte, Markdown ou livre numérique</h1>
+  <p class="lead">Parfois, on ne veut pas corriger un PDF mais réutiliser ce qu'il dit : réécrire un rapport, citer quelques paragraphes, lire un long document sur une liseuse. Voici comment en sortir le contenu, et quel format convient à quel usage.</p>
+
+  <h2>D'abord : faut-il vraiment convertir ?</h2>
+  <p>Convertir un PDF fait toujours perdre une partie de sa mise en page, car un PDF ne contient pas de paragraphes ni de colonnes, seulement des lettres dessinées à des positions précises. Le convertisseur doit deviner où étaient les paragraphes, les titres et les listes.</p>
+  <p>Pour changer un mot, une date ou une phrase, ne convertissez pas : <a href="{{root}}edit-pdf-text">modifiez le PDF directement</a>, et la mise en page reste exactement la même. Convertissez quand vous voulez retravailler le texte lui-même.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> puis le PDF. Rien n'est envoyé : la conversion se fait dans votre navigateur.</li>
+    <li>Cliquez sur <b>Outils</b>, puis <b>Convertir</b>.</li>
+    <li>Choisissez le format (voir ci-dessous) et cliquez sur <b>Convertir</b>.</li>
+    <li>Chrome et Edge demandent où enregistrer le nouveau fichier ; les autres navigateurs le téléchargent.</li>
+  </ol>
+  <figure><img src="/assets/guides/convert-fr.webp" width="1440" height="900" loading="lazy" alt="La fenêtre Convertir avec Word, Modifier comme un document, images PNG et JPEG, Markdown, Livre numérique et Texte"><figcaption>Chaque format est fabriqué sur votre ordinateur.</figcaption></figure>
+
+  <h2>Quel format pour quel usage</h2>
+  <ul>
+    <li><b>Word (.docx)</b> : le texte et ses paragraphes, à ouvrir et retravailler dans Microsoft Word, LibreOffice, Pages ou Google Docs. La mise en page n'est pas conservée : prévoyez de refaire colonnes et espacements.</li>
+    <li><b>Modifier comme un document</b> : la même conversion, mais le résultat s'ouvre aussitôt dans un nouvel onglet de cet éditeur, comme document Word à modifier et enregistrer en Word ou LibreOffice. Pratique quand Word n'est pas installé.</li>
+    <li><b>Images (PNG ou JPEG)</b> : une image par page, exactement telle qu'elle apparaît, en qualité écran (150 dpi) ou impression (300 dpi). Pour une diapositive, une page de site web ou une messagerie qui n'affiche pas les PDF. Le PNG est plus net pour le texte ; le JPEG est plus léger pour les photos. Plusieurs pages arrivent dans un seul fichier ZIP.</li>
+    <li><b>Markdown (.md)</b> : titres, listes, gras et italique, dans le format texte des applications de notes, des wikis et de la documentation technique. Les images sont enregistrées à part, à côté du texte, dans un ZIP.</li>
+    <li><b>Livre numérique (.epub)</b> : un livre qui s'adapte à l'écran, à lire dans Apple Books, Kobo, Calibre ou une autre application de lecture. Les chapitres viennent des titres. Bien plus confortable qu'un PDF sur un téléphone.</li>
+    <li><b>Texte (.txt)</b> : les mots seuls, à coller n'importe où ou à fouiller.</li>
+  </ul>
+
+  <h2>Ce qui survit à la conversion</h2>
+  <p>Pour Word, Markdown et le livre numérique, l'éditeur reconstruit la structure d'après l'apparence du texte. Les lignes en plus grandes lettres deviennent des titres, celles qui commencent par une puce ou un numéro deviennent des listes, et le gras et l'italique sont gardés. Les en-têtes, pieds de page et numéros de page répétés sur la plupart des pages sont laissés de côté en Markdown et en livre numérique, pour ne pas couper le texte tous les trois paragraphes.</p>
+  <p>Les tableaux, le texte sur plusieurs colonnes et le texte posé sur des images sont les cas difficiles. Ils sortent en général en paragraphes simples, dans l'ordre de lecture. Vérifiez-les après la conversion.</p>
+
+  <h2>PDF numérisés</h2>
+  <p>Une page numérisée est une image : elle ne contient aucun texte à convertir, et le fichier Word serait vide. <a href="{{root}}ocr-pdf">Rendez d'abord le PDF cherchable</a> par reconnaissance de texte, puis convertissez. La qualité du résultat dépend de celle du scan : relisez les noms et les chiffres.</p>
+
+  <h2>Dans l'autre sens : de Word à PDF</h2>
+  <p>Ouvrez le document Word (.docx) ou LibreOffice (.odt) dans le même éditeur, puis choisissez <b>Télécharger une copie</b> › <b>PDF</b>. Pour Excel ou PowerPoint, utilisez <i>Fichier › Exporter en PDF</i> dans ce logiciel. Voir <a href="{{root}}edit-word-document-online">comment modifier un document Word dans le navigateur</a>.</p>
+
+  <h2>Respecter les droits d'auteur</h2>
+  <p>Convertir un PDF qui vous appartient ou que vous avez le droit de réutiliser ne pose pas de problème. Convertir un livre, un article ou un cours acheté ne donne pas le droit de le partager ou de le republier : les droits restent à son auteur.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}ocr-pdf">Rendre un PDF numérisé cherchable</a></li><li><a href="{{root}}edit-word-document-online">Modifier un document Word ou LibreOffice dans le navigateur</a></li><li><a href="{{root}}edit-pdf-text">Modifier le texte d'un PDF sans changer sa police</a></li></ul>
+</main>

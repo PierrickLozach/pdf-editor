@@ -24,6 +24,6 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "pdf-editor-stats", "database_id": "8d17301c-9ffe-4701-906e-1ed4cac2159b", "migrations_dir": "worker" }
   ],
-  "vars": { "LANGS": "en,fr,es,pt,de,nl,it,pl,ar,he,zh,ja", "REDIRECT_OLD": "1" },
+  "vars": { "LANGS": "en,fr,es,pt,de,nl,it,pl,ar,he,zh,ja", "REDIRECT_OLD": "1", "PUBLIC_MIN": "500" },
   "observability": { "enabled": false }
 }

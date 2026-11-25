@@ -1,0 +1,55 @@
+<!--
+title: Ajouter un filigrane à un PDF – {{name}}
+description: Écrire BROUILLON, CONFIDENTIEL ou COPIE en travers de chaque page d'un PDF, et marquer les copies de vos pièces d'identité avant de les envoyer : les options, une bonne formulation, et ce qu'un filigrane peut ou non empêcher.
+type: article
+published: 2026-11-24
+image: /assets/guides/watermark-fr.webp
+-->
+<main id="main" class="prose wrap narrow">
+  <p class="crumbs"><a href="{{root}}guides">Guides</a></p>
+  <h1>Ajouter un filigrane à un PDF</h1>
+  <p class="lead">Un filigrane est un mot écrit en grandes lettres pâles en travers de la page. Il indique à chaque lecteur ce qu'est le document (un brouillon, une copie confidentielle) et, sur la copie de votre passeport, à quoi elle peut servir.</p>
+
+  <h2>Étape par étape</h2>
+  <ol>
+    <li><a href="/app/">Ouvrez l'éditeur</a> puis votre PDF. Il n'est pas envoyé.</li>
+    <li>Cliquez sur <b>Outils</b>, puis <b>Filigrane</b>.</li>
+    <li>Tapez le texte (60 caractères au plus), choisissez son intensité et sa couleur, puis cliquez sur <b>Ajouter le filigrane</b>.</li>
+    <li>Vérifiez une page, puis enregistrez. Chrome et Edge peuvent enregistrer dans le fichier lui-même ; pour garder l'original sans filigrane, utilisez plutôt <b>Télécharger une copie</b>.</li>
+  </ol>
+  <figure><img src="/assets/guides/watermark-fr.webp" width="1440" height="900" loading="lazy" alt="Une facture avec le mot BROUILLON écrit en diagonale sur la page en lettres rouges pâles"><figcaption>Le texte traverse chaque page en diagonale, à la taille de la page.</figcaption></figure>
+
+  <h2>Les options</h2>
+  <ul>
+    <li><b>Texte</b> : une ligne. L'éditeur l'ajuste pour qu'elle aille d'un coin à l'autre de chaque page, quel que soit le format.</li>
+    <li><b>Intensité</b> : <i>Légère</i>, <i>Moyenne</i> ou <i>Forte</i>. Les lettres sont transparentes, le texte dessous reste lisible. Légère convient aux documents texte ; Forte est préférable sur les photos et les scans, où un filigrane pâle se perd dans l'image.</li>
+    <li><b>Couleur</b> : rouge, gris ou bleu.</li>
+  </ul>
+
+  <h2>Marquer les copies de vos pièces d'identité</h2>
+  <p>Propriétaires, employeurs et certains services en ligne demandent une copie de carte d'identité, de passeport ou de bulletin de paie. Une copie qui circule peut être réutilisée par quelqu'un d'autre, par exemple pour ouvrir un compte à votre nom. La CNIL, comme d'autres autorités de protection des données, recommande d'ajouter un filigrane à chaque copie envoyée.</p>
+  <p>Un bon filigrane dit pour qui, pourquoi et quand. Par exemple :</p>
+  <ul>
+    <li><i>Copie pour Agence Dupont – dossier location – nov. 2026</i></li>
+    <li><i>Pour le service RH d'Acme uniquement – contrat 2026</i></li>
+  </ul>
+  <p>Une copie ainsi marquée est bien plus difficile à réutiliser pour autre chose. Choisissez une intensité qui laisse lisibles votre nom et le numéro du document : le destinataire doit encore pouvoir les vérifier.</p>
+
+  <h2>Autres bons usages</h2>
+  <ul>
+    <li><b>BROUILLON</b> sur un document en relecture, pour que personne ne signe ou ne transfère la mauvaise version.</li>
+    <li><b>CONFIDENTIEL</b> ou <b>INTERNE</b> sur un document qui ne doit pas sortir d'une équipe.</li>
+    <li><b>COPIE</b> ou <b>SPÉCIMEN</b> sur un exemple, pour qu'il ne soit pas pris pour l'original.</li>
+    <li>Le nom du destinataire sur chaque copie d'un document partagé avec plusieurs personnes : si une copie fuite, vous savez laquelle.</li>
+  </ul>
+
+  <h2>Ce qu'un filigrane ne fait pas</h2>
+  <p>Le filigrane est écrit dans la page elle-même, et non ajouté comme un commentaire amovible : il résiste à l'impression et à la copie. Mais c'est une étiquette, pas un verrou. Quelqu'un qui a du temps et un éditeur PDF peut le retirer, ou le recadrer hors d'un scan. Si un document doit rester secret, <a href="{{root}}protect-pdf-password">protégez-le par mot de passe</a> ; si certaines informations ne doivent pas être vues du tout, <a href="{{root}}redact-pdf">caviardez-les</a> avant d'ajouter le filigrane.</p>
+
+  <h2>Si vous changez d'avis</h2>
+  <p>L'annulation (⌘Z sur Mac, Ctrl+Z ailleurs) retire le filigrane de toutes les pages d'un coup, tant que le PDF est ouvert. Après l'enregistrement, rouvrez l'original, ou utilisez dès le départ <b>Télécharger une copie</b> pour garder les deux versions.</p>
+
+  <p class="cta-line"><a class="btn primary" href="/app/">Ouvrir l'éditeur</a></p>
+  <h2>Guides liés</h2>
+  <ul><li><a href="{{root}}protect-pdf-password">Protéger un PDF par mot de passe</a></li><li><a href="{{root}}redact-pdf">Caviarder un PDF pour que le texte masqué disparaisse vraiment</a></li><li><a href="{{root}}images-to-pdf">Créer un PDF à partir de photos ou de scans</a></li></ul>
+</main>

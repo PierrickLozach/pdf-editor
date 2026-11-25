@@ -308,3 +308,35 @@ html:not(.ads-on) .ad-slot { display: none; }          /* nothing to see (and no
 .guide-grid li b { margin-bottom: 0; }
 #guides > p:last-child { text-align: center; margin-top: 18px; }
 
+
+/* "Why Quicktou.ch?" comparison (home page) */
+.compare-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+.compare-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.compare { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px; line-height: 1.4; }
+.compare th, .compare td { padding: 11px 14px; text-align: start; vertical-align: top; border-bottom: 1px solid var(--border); }
+.compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
+.compare thead th { font-size: 14px; color: var(--muted); font-weight: 600; }
+.compare thead th.us { color: var(--accent); font-size: 15px; }
+.compare tbody th { font-weight: 600; width: 22%; }
+.compare .us { background: color-mix(in srgb, var(--accent) 7%, transparent); font-weight: 600; }
+.compare td:not(.us) { color: var(--muted); }
+.compare-note { font-size: 13px; color: var(--muted); text-align: center; max-width: 720px; margin: 14px auto 0; }
+@media (max-width: 640px) { .compare { font-size: 14px; } .compare th, .compare td { padding: 9px 10px; } }
+/* guides: author and date line */
+.prose .byline { font-size: 14px; color: var(--muted); margin: -4px 0 14px; }
+.prose .byline a { color: var(--muted); }
+.hero .usage { font-weight: 600; color: var(--fg); }
+@media (max-width: 640px) {            /* phones: one card per row, each cell labelled with its column */
+  .compare-wrap { overflow: visible; border: 0; background: none; box-shadow: none; }
+  .compare { min-width: 0; }
+  .compare thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .compare, .compare tbody, .compare tr, .compare th, .compare td { display: block; width: auto; }
+  .compare tbody tr { border: 1px solid var(--border); border-radius: 12px; background: var(--card); margin-bottom: 10px; overflow: hidden; }
+  .compare tbody th { border-bottom: 1px solid var(--border); width: auto; }
+  .compare td { border-bottom: 0; padding: 6px 12px; }
+  .compare td.us { padding-top: 9px; }
+  .compare td:last-child { padding-bottom: 11px; }
+  .compare td::before { content: attr(data-l); display: block; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .compare td.us::before { color: var(--accent); }
+  .compare tbody tr:last-child th { border-bottom: 1px solid var(--border); }
+}
