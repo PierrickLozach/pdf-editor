@@ -341,20 +341,27 @@ a.logo:hover, a.logo:focus-visible { filter: brightness(1.12); outline: none; bo
 .from-images { margin: 4px 0 0; font-size: 13px; }
 /* sign */
 .sig-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin: 6px 0 10px; }
-.sig-tabs button { border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600; padding: 8px 12px; cursor: pointer; border-bottom: 2px solid transparent; height: auto; }
-.sig-tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+/* the dialog's generic button look (.dlg button:not(.icon):not(.link)) must not reach the tabs */
+#signDlg .sig-tabs button { height: auto; border: 0; border-bottom: 2px solid transparent; border-radius: 0; margin-bottom: -1px; background: none; color: var(--muted); font: inherit; font-weight: 600; padding: 8px 12px; cursor: pointer; }
+#signDlg .sig-tabs button:hover { color: var(--fg); }
+#signDlg .sig-tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
 .sig-pad { width: 100%; height: 160px; border: 1px dashed var(--border); border-radius: 10px; background: #fff; touch-action: none; cursor: crosshair; display: block; }
 .sig-preview { min-height: 90px; display: grid; place-items: center; background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-top: 8px; padding: 6px; }
 .sig-preview canvas, .sig-canvas { max-width: 100%; max-height: 120px; }
 .sig-ink { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; align-items: center; }
 .sig-ink .sw { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
 .sig-remember { margin-inline-start: auto; }
-.sig-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+.sig-saved { margin-bottom: 4px; }
+.sig-saved > p { margin: 0 0 8px; }
+.sig-list { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 6px; padding: 7px 7px 0 0; }
 .sig-item { position: relative; display: inline-flex; }
-.sig-use { border: 1px solid var(--border); background: #fff; border-radius: 8px; padding: 4px 8px; cursor: pointer; height: 54px; }
-.sig-use:hover { border-color: var(--accent); }
+/* a saved signature: a white card (the ink is dark on transparent), whatever the theme */
+#signDlg .sig-use { display: flex; align-items: center; justify-content: center; height: 56px; min-width: 96px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 10px; background: #fff; color: #111827; cursor: pointer; }
+#signDlg .sig-use:hover, #signDlg .sig-use:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft, rgba(229,50,45,.25)); }
 .sig-use img { max-height: 44px; max-width: 160px; display: block; }
-.sig-del { position: absolute; top: -8px; inset-inline-end: -8px; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--border); background: var(--panel); color: var(--muted); font-size: 11px; cursor: pointer; padding: 0; }
+/* its "forget" cross: a small round badge on the card's top corner */
+#signDlg .sig-del { position: absolute; top: -8px; inset-inline-end: -8px; width: 20px; height: 20px; padding: 0; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border); background: var(--panel); color: var(--muted); font-size: 10px; line-height: 1; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+#signDlg .sig-del:hover, #signDlg .sig-del:focus-visible { background: var(--accent); border-color: var(--accent); color: #fff; }
 /* redact */
 .redact-bar { position: fixed; z-index: 40; top: 60px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100vw - 24px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 8px 14px; background: #1f2937; color: #f9fafb; font-size: 13px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
 .redact-bar[hidden] { display: none; }
