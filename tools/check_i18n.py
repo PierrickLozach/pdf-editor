@@ -22,7 +22,7 @@ class Shape(html.parser.HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.tags, self.hrefs, self.stack, self.errors = Counter(), Counter(), [], []
-    VOID = {"br", "img", "input", "meta", "link", "hr", "path", "circle", "rect", "source"}
+    VOID = {"br", "img", "input", "meta", "link", "hr", "path", "circle", "rect", "source", "track", "wbr"}
     def handle_starttag(self, tag, attrs):
         self.tags[tag] += 1
         for k, v in attrs:
