@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word または LibreOffice の文書を PDF に：ここで開き、「コピーをダウンロード › PDF」を選びます。Excel や PowerPoint：そのアプリで「ファイル › PDF として書き出す」を使います。",
   "Word and LibreOffice documents:": "Word と LibreOffice の文書：",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – PDF、Word、LibreOffice のファイルを編集",
-  "The document could not be opened. Reload the page and try again.": "文書を開けませんでした。ページを再読み込みして、もう一度お試しください。"
+  "The document could not be opened. Reload the page and try again.": "文書を開けませんでした。ページを再読み込みして、もう一度お試しください。",
+  "Click to tick or untick": "クリックでチェックを付ける/外す",
+  "Drag to resize": "ドラッグしてサイズを変更",
+  "Drag it to move it, or a corner to resize it": "ドラッグで移動、角をドラッグでサイズ変更",
+  "This picture lies over another one: moving it would move both.": "この画像は別の画像の上にあります。移動すると両方が動きます。",
+  "This picture could not be moved": "この画像を移動できませんでした",
+  "This is not a tick box": "これはチェックボックスではありません",
+  "This tick box cannot be unticked": "このチェックボックスのチェックは外せません",
+  "The page changed: click the picture again": "ページが変更されました。もう一度画像をクリックしてください"
  },
  "patterns": [
   [

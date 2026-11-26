@@ -208,6 +208,19 @@ async function mvCommit(dx, dy) {
   else cleanup();
 }
 
+/** A picture dragged from the page (REMOVE does the moving): move.js only forwards the pointer. */
+function mvPictureDrag(pg, pic, e0) {
+  mvClear();
+  const d = REMOVE.press(e0, pg, pic);
+  return { move: (ev) => d.move(ev), end: (ev) => d.end(ev) };
+}
+
+/* ---------------------------------------------------------------- tick boxes drawn as text */
+async function mvToggleBox(pg, sp) {
+  const r = await busy(async () => { const info = await call("toggleCheck", pg, sp.id); applyInfo(info); return info; });
+  if (r && window.PDFE_STATS) PDFE_STATS.event("tool_used", { tool: "checkbox" });
+}
+
 /* ---------------------------------------------------------------- press: click or drag */
 function mvPress(e, el, pg) {
   const p0 = ptFromEvent(el, e);
@@ -224,6 +237,9 @@ function mvPress(e, el, pg) {
     starting = true;
     ready.then((hit) => {
       if (!S.doc) return;
+      // a picture: the selected one wherever it is pressed (even over text), else one with no text over it
+      const pic = window.REMOVE && (REMOVE.inSelected(pg, p0) ? REMOVE.sel.im : !hit && REMOVE.imageAt(pg, p0.x, p0.y));
+      if (pic) { drag = mvPictureDrag(pg, pic, e); drag.move(last); return; }
       if (hit) {
         if (!(MV.page === pg && MV.sel.some((s) => s.id === hit.id))) mvSelect(pg, mvLine(pg, hit), additive);
         drag = mvDragSelection(el, pg, p0);
@@ -242,7 +258,9 @@ function mvPress(e, el, pg) {
     if (starting) { ready.then(() => drag && drag.end(ev)); return; }
     ready.then((hit) => {
       if (!S.doc) return;
+      if (window.REMOVE && REMOVE.inSelected(pg, p0)) return;       // a click on the selected picture: it stays selected
       if (additive && hit) mvSelect(pg, mvLine(pg, hit), true);
+      else if (hit && hit.box) { mvClear(); mvToggleBox(pg, hit); }      // a tick box: tick or untick it
       else if (hit) { mvClear(); startEdit(pg, hit); }
       else {
         mvClear();
@@ -405,7 +423,7 @@ function mvAfterSpans(pg) {
   $("#viewer").addEventListener("pointerdown", (e) => { if (MV.sel.length && !e.target.closest(".page")) mvClear(); });
   $("#pages").addEventListener("pointerdown", (e) => {
     if (S.tool !== "edit" || e.button !== 0 || !S.doc) return;
-    if (e.target.closest(".editbox, .edgrip, .notext, .ffield, .ff-input")) return;   // typing in the box, its handle, a form field
+    if (e.target.closest(".editbox, .edgrip, .notext, .ffield, .ff-input, .rm-handle")) return;   // typing in the box, its handle, a form field
     const el = e.target.closest(".page");
     if (!el) return;
     if (e.pointerType !== "touch") e.preventDefault();   // touch: let the finger scroll

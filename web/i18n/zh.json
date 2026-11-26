@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Word 或 LibreOffice 文档转 PDF：在这里打开，然后选择“下载副本 › PDF”。Excel 或 PowerPoint：在该程序中使用“文件 › 导出为 PDF”。",
   "Word and LibreOffice documents:": "Word 和 LibreOffice 文档：",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – 编辑 PDF、Word 和 LibreOffice 文件",
-  "The document could not be opened. Reload the page and try again.": "无法打开该文档。请重新加载页面后再试。"
+  "The document could not be opened. Reload the page and try again.": "无法打开该文档。请重新加载页面后再试。",
+  "Click to tick or untick": "点击勾选或取消勾选",
+  "Drag to resize": "拖动以调整大小",
+  "Drag it to move it, or a corner to resize it": "拖动可移动，拖动角可调整大小",
+  "This picture lies over another one: moving it would move both.": "这张图片叠在另一张图片上：移动它会同时移动两张。",
+  "This picture could not be moved": "无法移动这张图片",
+  "This is not a tick box": "这不是复选框",
+  "This tick box cannot be unticked": "无法取消勾选此复选框",
+  "The page changed: click the picture again": "页面已更改：请再次点击图片"
  },
  "patterns": [
   [

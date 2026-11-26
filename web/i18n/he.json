@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "מסמך Word או LibreOffice ל-PDF: פותחים אותו כאן ואז הורדת עותק › PDF. ב-Excel או ב-PowerPoint: קובץ › ייצוא כ-PDF באותה תוכנה.",
   "Word and LibreOffice documents:": "מסמכי Word ו-LibreOffice:",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – עריכת קובצי PDF, Word ו-LibreOffice",
-  "The document could not be opened. Reload the page and try again.": "לא ניתן היה לפתוח את המסמך. יש לטעון את הדף מחדש ולנסות שוב."
+  "The document could not be opened. Reload the page and try again.": "לא ניתן היה לפתוח את המסמך. יש לטעון את הדף מחדש ולנסות שוב.",
+  "Click to tick or untick": "לחצו כדי לסמן או לבטל את הסימון",
+  "Drag to resize": "גררו כדי לשנות את הגודל",
+  "Drag it to move it, or a corner to resize it": "גררו כדי להזיז, או פינה כדי לשנות גודל",
+  "This picture lies over another one: moving it would move both.": "התמונה הזו מונחת על תמונה אחרת: הזזתה תזיז את שתיהן.",
+  "This picture could not be moved": "לא ניתן היה להזיז את התמונה הזו",
+  "This is not a tick box": "זו אינה תיבת סימון",
+  "This tick box cannot be unticked": "לא ניתן לבטל את הסימון בתיבה הזו",
+  "The page changed: click the picture again": "הדף השתנה: לחצו שוב על התמונה"
  },
  "patterns": [
   [

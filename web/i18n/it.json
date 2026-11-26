@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Un documento Word o LibreOffice in PDF: aprilo qui, poi Scarica una copia › PDF. Excel o PowerPoint: usa File › Esporta come PDF in quel programma.",
   "Word and LibreOffice documents:": "Documenti Word e LibreOffice:",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – modifica file PDF, Word e LibreOffice",
-  "The document could not be opened. Reload the page and try again.": "Non è stato possibile aprire il documento. Ricarica la pagina e riprova."
+  "The document could not be opened. Reload the page and try again.": "Non è stato possibile aprire il documento. Ricarica la pagina e riprova.",
+  "Click to tick or untick": "Fai clic per spuntare o togliere la spunta",
+  "Drag to resize": "Trascina per ridimensionare",
+  "Drag it to move it, or a corner to resize it": "Trascinala per spostarla, o un angolo per ridimensionarla",
+  "This picture lies over another one: moving it would move both.": "Questa immagine è sopra un'altra: spostarla sposterebbe entrambe.",
+  "This picture could not be moved": "Impossibile spostare questa immagine",
+  "This is not a tick box": "Questa non è una casella da spuntare",
+  "This tick box cannot be unticked": "Non è possibile togliere la spunta da questa casella",
+  "The page changed: click the picture again": "La pagina è cambiata: fai di nuovo clic sull'immagine"
  },
  "patterns": [
   [

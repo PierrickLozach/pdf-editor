@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "Een Word- of LibreOffice-document naar PDF: open het hier en kies Kopie downloaden › PDF. Excel of PowerPoint: gebruik Bestand › Exporteren als PDF in dat programma.",
   "Word and LibreOffice documents:": "Word- en LibreOffice-documenten:",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – bewerk PDF-, Word- en LibreOffice-bestanden",
-  "The document could not be opened. Reload the page and try again.": "Het document kon niet worden geopend. Laad de pagina opnieuw en probeer het nog eens."
+  "The document could not be opened. Reload the page and try again.": "Het document kon niet worden geopend. Laad de pagina opnieuw en probeer het nog eens.",
+  "Click to tick or untick": "Klik om aan of uit te vinken",
+  "Drag to resize": "Sleep om het formaat te wijzigen",
+  "Drag it to move it, or a corner to resize it": "Sleep om te verplaatsen, of sleep een hoek om het formaat te wijzigen",
+  "This picture lies over another one: moving it would move both.": "Deze afbeelding ligt over een andere: verplaatsen zou ze allebei verplaatsen.",
+  "This picture could not be moved": "Deze afbeelding kon niet worden verplaatst",
+  "This is not a tick box": "Dit is geen selectievakje",
+  "This tick box cannot be unticked": "Dit vakje kan niet worden uitgevinkt",
+  "The page changed: click the picture again": "De pagina is gewijzigd: klik opnieuw op de afbeelding"
  },
  "patterns": [
   [

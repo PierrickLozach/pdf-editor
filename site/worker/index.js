@@ -22,7 +22,7 @@ const KINDS = {
 };
 const EVENTS = new Set(["pdf_opened", "pdf_saved", "pdf_downloaded", "pdf_created", "text_edited", "tool_used", "lib_loaded", "pro_shown", "pro_activated",
   "doc_opened", "doc_saved", "doc_downloaded", "doc_created", "doc_retry", "doc_failed"]);
-const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete", "batch", "smartredact", "compare", "forms", "addfield", "docedit"]);
+const TOOLS = new Set(["sign", "redact", "ocr", "split", "convert", "protect", "numbers", "watermark", "reduce", "image", "add", "erase", "find", "delete", "batch", "smartredact", "compare", "forms", "addfield", "docedit", "checkbox", "imagemove"]);
 const SIZES = new Set(["<1MB", "1-10MB", "10-50MB", "50MB+"]);
 const DOCTYPES = new Set(["docx", "dotx", "odt", "ott"]);          // the kind of Word or LibreOffice file opened
 const DOCFORMATS = new Set(["docx", "odt", "pdf"]);                 // what a document was downloaded as
@@ -212,7 +212,7 @@ const PAGE_NAMES = { "": "Home page", app: "Editor", about: "About", contact: "C
   "check-pdf-privacy": "Guide: check an online PDF tool" };
 const TOOL_NAMES = { sign: "Sign", redact: "Redact", ocr: "Make searchable (OCR)", split: "Split or extract pages", convert: "Convert",
   docedit: "Convert › Edit as a document", protect: "Protect with a password", numbers: "Page numbers", watermark: "Watermark",
-  reduce: "Reduce file size", image: "Add an image", add: "Add text", erase: "Whiteout", find: "Find & replace", delete: "Delete an item",
+  reduce: "Reduce file size", image: "Add an image", add: "Add text", erase: "Whiteout", find: "Find & replace", delete: "Delete an item", checkbox: "Tick a box", imagemove: "Move or resize a picture",
   batch: "Pro: batch", smartredact: "Pro: smart redaction", compare: "Pro: compare PDFs", forms: "Pro: forms", addfield: "Pro: add a form field" };
 const DOCTYPE_NAMES = { docx: "Word (.docx)", dotx: "Word template (.dotx)", odt: "LibreOffice (.odt)", ott: "LibreOffice template (.ott)" };
 const DOCFORMAT_NAMES = { docx: "Word (.docx)", odt: "LibreOffice (.odt)", pdf: "PDF" };

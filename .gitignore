@@ -64,3 +64,5 @@ tools/finish_domain.sh
 # Private notes (ad plan, admin/statistics links): never committed.
 /docs/
 !/tests/pw/leaders.pw.mjs
+!/tests/ticks.test.mjs
+!/tests/pw/ticks.pw.mjs

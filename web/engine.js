@@ -462,6 +462,40 @@ function scanActive(doc, fix) {
   return { total, kinds };
 }
 
+/* ------------------------------------------------------------------ tick boxes drawn as text */
+// The characters forms use for tick boxes, by font family. Symbol fonts give either their private-use
+// code (U+F0xx) or the plain code (Latin-1 / ASCII) depending on how the PDF maps them.
+const BOXES = {
+  wingdings: { empty: ["\uf0a8", "\uf06f", "\uf071", "\uf072", "\u00a8", "o", "q", "r"], checked: ["\uf0fe", "\uf0fd", "\uf078", "\u00fe", "\u00fd", "x"],
+               tick: { pua: "\uf0fe", plain: "\u00fe" }, untick: { pua: "\uf0a8", plain: "\u00a8" } },
+  wingdings2: { empty: ["\uf0a3", "\u00a3"], checked: ["\uf052", "\uf054", "\uf053", "\uf051", "R", "T", "S", "Q"],
+                tick: { pua: "\uf052", plain: "R" }, untick: { pua: "\uf0a3", plain: "\u00a3" } },
+  unicode: { empty: ["☐", "□", "◻", "⬜", "❏", "❐", "❑", "❒", "▢"], checked: ["☑", "☒", "⊠", "▣"],
+             tick: { pua: "☑", plain: "☑" }, untick: { pua: "☐", plain: "☐" } },
+};
+/** {family, state, ch} when this span is a lone tick box, else null. */
+function boxKind(font, text) {
+  const t = String(text || "").trim();
+  if ([...t].length !== 1) return null;
+  const f = String(font || "");
+  const fams = /wingdings.?2/i.test(f) ? ["wingdings2", "unicode"] : /wingdings.?3/i.test(f) ? ["unicode"] : /wingdings/i.test(f) ? ["wingdings", "unicode"] : ["unicode"];
+  for (const family of fams) {
+    const b = BOXES[family];
+    if (b.empty.includes(t)) return { family, state: "empty", ch: t };
+    if (b.checked.includes(t)) return { family, state: "checked", ch: t };
+  }
+  return null;
+}
+/** The character a box becomes when clicked; an empty box like the others of the page when unticked. */
+function boxTwin(k, others) {
+  const b = BOXES[k.family], form = /[\uf000-\uf0ff]/.test(k.ch) ? "pua" : "plain";
+  if (k.state === "empty") return b.tick[form];
+  const counts = new Map();
+  for (const o of others) if (o.state === "empty") counts.set(o.ch, (counts.get(o.ch) || 0) + 1);
+  const best = [...counts].sort((x, y) => y[1] - x[1])[0];
+  return best ? best[0] : b.untick[form];
+}
+
 /* ------------------------------------------------------------------ geometry helpers */
 
 const M = mupdf.Matrix;
@@ -1577,6 +1611,8 @@ export class Engine {
         });
       }
     }
+    // tick boxes drawn as text: a click ticks or unticks them (box: "empty" | "checked" | "mark")
+    try { for (const [id, v] of this.checkboxes(pno, out)) { const x = out.find((o) => o.id === id); if (x) x.box = v.kind === "mark" ? "mark" : v.state; } } catch (e) {}
     return out;
   }
 
@@ -2405,6 +2441,173 @@ export class Engine {
     s.textCache = new Map();
     await this._changed(changed);
     return { ...this.info(), changed, removed: work.length };
+  }
+
+  /** Move and/or resize a picture (a signature placed earlier, a logo): rect = its new box, in the
+   *  coordinates of pageImages. It is drawn the same way as before (rotation, flip, transparency
+   *  kept), just mapped from its old box to the new one, over the page. like = {w, h, bbox} as the
+   *  caller saw it, so a page that changed meanwhile is refused. One undo step. */
+  async moveImage(pno, id, rect, like) {
+    const s = this._need();
+    if (!(pno >= 0 && pno < s.doc.countPages())) throw new EditError("No such page");
+    const page = s.doc.loadPage(pno), [ox, oy] = this._offset(page);
+    const draws = [];
+    try {
+      const dev = new mupdf.Device({ fillImage(img, ctm) {
+        const pts = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, y]) => [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]]);
+        const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+        draws.push({ img, ctm, raw: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)] });
+      } });
+      page.run(dev, M.identity); dev.close();
+    } catch (e) {}
+    const d = draws[id];
+    const bbox = d && [d.raw[0] - ox, d.raw[1] - oy, d.raw[2] - ox, d.raw[3] - oy];
+    if (!d || (like && (d.img.getWidth() !== like.w || d.img.getHeight() !== like.h || bbox.some((v, k) => Math.abs(v - like.bbox[k]) > 0.5))))
+      throw new EditError("The page changed: click the picture again");
+    const r = [Math.min(rect[0], rect[2]) + ox, Math.min(rect[1], rect[3]) + oy, Math.max(rect[0], rect[2]) + ox, Math.max(rect[1], rect[3]) + oy];
+    if (r[2] - r[0] < 1 || r[3] - r[1] < 1 || r.some((v) => !Number.isFinite(v))) throw new EditError("Empty area");
+    const [a0, b0, a1, b1] = d.raw;
+    if (a1 - a0 < 0.01 || b1 - b0 < 0.01) throw new EditError("This picture could not be moved");
+    if (r.every((v, k) => Math.abs(v - d.raw[k]) < 0.01)) return { ...this.info(), changed: [] };
+    const w = d.img.getWidth(), h = d.img.getHeight();
+    // the picture's own object, when the page names it once: drawn again as is (its transparency
+    // mask, colours and compression kept, and no second copy in the file)
+    let own = null;
+    try {
+      const found = new Map();
+      const xo = s.doc.loadPage(pno).getObject().getInheritable("Resources").get("XObject");
+      if (xo && !xo.isNull()) xo.forEach((x) => {
+        try {
+          const o = x.resolve();
+          if (o.get("Subtype").asName() === "Image" && o.get("Width").asNumber() === w && o.get("Height").asNumber() === h && x.isIndirect()) found.set(x.asIndirect(), x);
+        } catch (e) {}
+      });
+      // a copy of it, made now: removing the old drawing below may rewrite its transparency mask
+      const clone = (ref) => {
+        const o = ref.resolve(), dict = s.doc.newDictionary();
+        o.forEach((v, k) => {
+          if (k === "Length") return;
+          if ((k === "SMask" || k === "Mask") && v.isIndirect() && v.resolve().isStream()) dict.put(k, clone(v));
+          else dict.put(k, v);
+        });
+        return s.doc.addRawStream(o.readRawStream(), dict);
+      };
+      if (found.size === 1) own = clone([...found.values()][0]);
+    } catch (e) { own = null; }
+    const keep = s.doc.saveToBuffer("regenerate-id=no").asUint8Array().slice();
+    this._checkpoint();
+    // 1. take it off the page (only this picture: the text and drawings around it stay)
+    const count = draws.length, cx = (a0 + a1) / 2, cy = (b0 + b1) / 2;
+    const a = page.createAnnotation("Redact");
+    a.setRect([cx - 0.05, cy - 0.05, cx + 0.05, cy + 0.05]);
+    page.applyRedactions(false, mupdf.PDFPage.REDACT_IMAGE_REMOVE, mupdf.PDFPage.REDACT_LINE_ART_NONE, mupdf.PDFPage.REDACT_TEXT_NONE);
+    const after = this.pageImages(pno);
+    const gone = after.length < count && !after.some((o) => o.w === w && o.h === h && o.raw.every((v, k) => Math.abs(v - d.raw[k]) < 0.5));
+    if (!gone || after.length !== count - 1) {
+      this._reload(keep); this._dropCheckpoint();
+      throw new EditError(gone ? "This picture lies over another one: moving it would move both." : "This picture could not be moved");
+    }
+    // 2. draw it again in its new box: unit square -> old box (as the PDF drew it) -> new box -> PDF space
+    const sx = (r[2] - r[0]) / (a1 - a0), sy = (r[3] - r[1]) / (b1 - b0);
+    const fit = [sx, 0, 0, sy, r[0] - a0 * sx, r[1] - b0 * sy];
+    const doc = s.doc;
+    let ref = own;
+    if (!ref) {
+      const mask = d.img.getMask();
+      ref = doc.addImage(mask ? new mupdf.Image(d.img.toPixmap(), mask) : d.img);
+    }
+    const p2 = doc.loadPage(pno);
+    const xo = subDict(doc, pageResources(doc, p2.getObject()), "XObject");
+    const name = "PDFEImg" + this._tok().slice(0, 5);
+    xo.put(name, ref);
+    const cm = M.concat(M.concat(d.ctm, fit), M.invert(p2.getTransform()));
+    appendContent(doc, p2, `q\n${cm.map(fmt).join(" ")} cm\n/${name} Do\nQ`);
+    s.textCache = new Map();
+    await this._changed([pno]);
+    const now = this.pageImages(pno).length - 1;            // drawn last: it is the page's last picture
+    return { ...this.info(), changed: [pno], id: now, bbox: [r[0] - ox, r[1] - oy, r[2] - ox, r[3] - oy].map(rd) };
+  }
+
+  /* -------------------------------------------------- tick boxes drawn as text (☐ ☑, Wingdings, Dingbats) */
+  /** pageText spans that are tick boxes, and the marks typed over them (a ✓ placed by a form filler).
+   *  -> Map id -> {kind: "box", state: "empty"|"checked", mark: id of the mark over it} | {kind: "mark", box: id} */
+  checkboxes(pno, spans) {
+    spans = spans || this.pageText(pno);
+    const out = new Map(), boxes = [];
+    for (const sp of spans) {
+      if (!sp.editable) continue;
+      const k = boxKind(sp.font, sp.text);
+      if (k) { boxes.push({ sp, k }); out.set(sp.id, { kind: "box", state: k.state, glyph: k.state }); }
+    }
+    if (!boxes.length) return out;
+    const area = (b) => (b[2] - b[0]) * (b[3] - b[1]);
+    for (const sp of spans) {
+      const t = sp.text.trim();
+      if (!t || [...t].length !== 1 || out.has(sp.id)) continue;
+      const c = [(sp.tbox[0] + sp.tbox[2]) / 2, (sp.tbox[1] + sp.tbox[3]) / 2];
+      const b = boxes.find(({ sp: x }) => c[0] >= x.tbox[0] - 0.5 && c[0] <= x.tbox[2] + 0.5 && c[1] >= x.tbox[1] - 0.5 && c[1] <= x.tbox[3] + 0.5 && area(sp.tbox) < 0.9 * area(x.tbox));
+      if (!b) continue;
+      out.set(sp.id, { kind: "mark", box: b.sp.id });
+      const o = out.get(b.sp.id);
+      o.state = "checked"; o.mark = sp.id;
+    }
+    return out;
+  }
+
+  /** Tick or untick a box drawn as text: spanId = the box, or the mark over it.
+   *  A mark over the box is removed; otherwise the box glyph is swapped for its ticked / empty twin in
+   *  the PDF's own font; when that font does not have it, a ✓ is written over the empty box. */
+  async toggleCheck(pno, spanId) {
+    this._need();
+    const spans = this.pageText(pno), cb = this.checkboxes(pno, spans);
+    let info = cb.get(spanId);
+    if (!info) throw new EditError("This is not a tick box");
+    const boxId = info.kind === "mark" ? info.box : spanId;
+    info = cb.get(boxId);
+    const box = spans.find((x) => x.id === boxId);
+    // an empty box with a mark typed over it: the mark goes
+    if (info.mark != null && info.glyph === "empty") {
+      let r = await this.removeText([{ page: pno, ids: [info.mark] }]);
+      // the box itself must stay: when it went with the mark (and could not be put back), write the
+      // box again in its own font instead, over a removal that takes both
+      const still = (list) => list.some((x) => x.text.trim() === box.text.trim() && x.font === box.font && x.tbox.every((v, i) => Math.abs(v - box.tbox[i]) < 0.6));
+      if (!still(this.pageText(pno))) {
+        this.undo(); this.s.redo.pop();
+        r = await this.editSpan(pno, boxId, box.text, box.text.trim(), { align: "left", size: box.size });
+        const left = this.pageText(pno).find((x) => x.box === "mark");
+        const was = spans.find((x) => x.id === info.mark);
+        if (left && was && left.text === was.text && left.tbox.every((v, i) => Math.abs(v - was.tbox[i]) < 0.2)) r = await this.removeText([{ page: pno, ids: [left.id] }]);
+      }
+      return { ...r, checked: false };
+    }
+    const k = boxKind(box.font, box.text);
+    const twin = boxTwin(k, spans.map((x) => boxKind(x.font, x.text)).filter((x) => x && x.family === k.family));
+    if (twin) {
+      const t = this._findSpan(pno, boxId);
+      const own = this._origEntries(pno, t.sp, twin).some((fr) => this._gid(fr, twin));
+      if (own || k.family === "unicode") {
+        try {
+          let r = await this.editSpan(pno, boxId, box.text, box.text.trim().replace(k.ch, twin), { align: "left" });
+          // a ticked box with a mark over it too: the mark usually went with the box, else it goes now
+          if (info.mark != null) {
+            const left = this.pageText(pno).find((x) => x.id === info.mark);
+            const was = spans.find((x) => x.id === info.mark);
+            if (left && was && left.text === was.text && left.tbox.every((v, i) => Math.abs(v - was.tbox[i]) < 0.2)) r = await this.removeText([{ page: pno, ids: [left.id] }]);
+          }
+          return { ...r, checked: k.state === "empty" };
+        } catch (e) { if (k.state !== "empty") throw e; }
+      }
+    }
+    if (k.state !== "empty") throw new EditError("This tick box cannot be unticked");
+    // a ✓ over the box, the box's colour, sized to fit inside it
+    const b = box.tbox, side = Math.min(b[2] - b[0], b[3] - b[1]);
+    const size = Math.max(3, side * 1.05);
+    const fontRes = await this.resolveFont(null, "✓", "b:dejavusans", false, false);
+    const g = this._gid(fontRes.fonts ? fontRes.fonts[0] : fontRes, "✓");
+    const adv = g ? this._adv(fontRes.fonts ? fontRes.fonts[0] : fontRes, g) : 0.84;
+    const x = (b[0] + b[2]) / 2 - (adv * size) / 2, y = (b[1] + b[3]) / 2 + 0.36 * size;
+    const r = await this.addText(pno, x, y, "✓", { fontKey: "b:dejavusans", size, color: box.color });
+    return { ...r, checked: true };
   }
 
   /* -------------------------------------------------- tools: redact, split, convert, protect, stamps, OCR */

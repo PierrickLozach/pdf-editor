@@ -529,7 +529,15 @@
   "A Word or LibreOffice document to PDF: open it here, then Download copy › PDF. Excel or PowerPoint: use File › Export as PDF in that program.": "لتحويل مستند Word أو LibreOffice إلى PDF: افتحه هنا، ثم تنزيل نسخة › PDF. أما Excel أو PowerPoint فاستخدم ملف › تصدير بصيغة PDF في ذلك البرنامج.",
   "Word and LibreOffice documents:": "مستندات Word وLibreOffice:",
   "Quicktou.ch – edit PDF, Word and LibreOffice files": "Quicktou.ch – عدّل ملفات PDF وWord وLibreOffice",
-  "The document could not be opened. Reload the page and try again.": "تعذّر فتح المستند. أعد تحميل الصفحة وحاول مرة أخرى."
+  "The document could not be opened. Reload the page and try again.": "تعذّر فتح المستند. أعد تحميل الصفحة وحاول مرة أخرى.",
+  "Click to tick or untick": "انقر للتأشير أو لإزالة التأشير",
+  "Drag to resize": "اسحب لتغيير الحجم",
+  "Drag it to move it, or a corner to resize it": "اسحبها لنقلها، أو اسحب زاوية لتغيير حجمها",
+  "This picture lies over another one: moving it would move both.": "هذه الصورة فوق صورة أخرى: نقلها سينقل الاثنتين.",
+  "This picture could not be moved": "تعذّر نقل هذه الصورة",
+  "This is not a tick box": "هذا ليس مربع اختيار",
+  "This tick box cannot be unticked": "لا يمكن إزالة التأشير من هذا المربع",
+  "The page changed: click the picture again": "تغيّرت الصفحة: انقر على الصورة مرة أخرى"
  },
  "patterns": [
   [

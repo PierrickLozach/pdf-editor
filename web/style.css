@@ -74,6 +74,8 @@ body.tool-add .page .layer, body.tool-erase .page .layer, body.tool-image .page 
 body:not(.tool-edit) .spans { pointer-events: none; }
 body:not(.tool-edit) .spans .span { display: none; }
 .span { position: absolute; border-radius: 2px; cursor: text; }
+body.tool-edit .span.cbox { cursor: pointer; }
+body.tool-edit .span.cbox:hover { outline: 1.5px solid rgba(37,99,235,.55); background: rgba(37,99,235,.08); }
 .span:hover { outline: 1.5px solid rgba(37,99,235,.75); background: rgba(37,99,235,.06); }
 body.show-boxes .span { outline: 1px dashed rgba(37,99,235,.35); }
 .span.locked { cursor: not-allowed; }
@@ -619,3 +621,16 @@ body.doc-mode .group.doc-only { display: flex; margin-inline-start: auto; }
 #docDownloadMenu button { display: flex; align-items: center; gap: 8px; width: 100%; }
 #docDownloadMenu .dm-ext { margin-inline-start: auto; padding-inline-start: 14px; color: var(--muted); font-size: 12px; }
 .drop .foot span + a, .drop .foot br + span { white-space: normal; }
+
+/* moving and resizing a picture (Edit text tool) */
+.rm-sel.rm-img { cursor: move; }
+.rm-handle { position: absolute; width: 12px; height: 12px; background: #fff; border: 2px solid var(--accent); border-radius: 3px; pointer-events: auto; z-index: 9; touch-action: none; }
+.rm-handle.nw { left: -7px; top: -7px; cursor: nwse-resize; }
+.rm-handle.se { right: -7px; bottom: -7px; cursor: nwse-resize; }
+.rm-handle.ne { right: -7px; top: -7px; cursor: nesw-resize; }
+.rm-handle.sw { left: -7px; bottom: -7px; cursor: nesw-resize; }
+@media (pointer: coarse) { .rm-handle { width: 22px; height: 22px; } .rm-handle.nw, .rm-handle.sw { left: -12px; } .rm-handle.ne, .rm-handle.se { right: -12px; } .rm-handle.nw, .rm-handle.ne { top: -12px; } .rm-handle.sw, .rm-handle.se { bottom: -12px; } }
+.rm-hole { position: absolute; pointer-events: none; z-index: 7; }
+.rm-ghost { position: absolute; pointer-events: none; z-index: 8; outline: 2px dashed var(--accent); outline-offset: 1px; }
+.remove-bar .rm-hint { color: var(--muted); font-size: 12px; margin-inline-end: 4px; white-space: nowrap; }
+@media (max-width: 760px) { .remove-bar .rm-hint { display: none; } }
