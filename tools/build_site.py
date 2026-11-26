@@ -181,6 +181,7 @@ subprocess.run([sys.executable, str(ROOT / "tools" / "vendor_lock.py")], check=T
 subprocess.run([sys.executable, str(ROOT / "tools" / "stamp.py")], check=True, stdout=subprocess.DEVNULL)
 if PUB.exists(): shutil.rmtree(PUB)
 shutil.copytree(WEB, PUB / "app", ignore=shutil.ignore_patterns("package.json", "_headers", ".nojekyll", "README.md", ".DS_Store"))
+subprocess.run([sys.executable, str(pathlib.Path(__file__).with_name("build_promo_subtitles.py"))], check=True)
 shutil.copytree(PAGES / "assets", PUB / "assets", ignore=shutil.ignore_patterns(".DS_Store"))
 # ---------------------------------------------------------------- developer library: /lib/v1/ (stable address for major version 1)
 LIB = PUB / "lib" / "v1"
@@ -315,6 +316,7 @@ for l in LANGS:
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
         page = page.replace('src="/assets/demo.gif"', f'src="/assets/demo.gif?v={ver}"')
         page = page.replace('src="/assets/promo.mp4" poster="/assets/promo-poster.webp"', f'src="/assets/promo.mp4?v={ver}" poster="/assets/promo-poster.webp?v={ver}"')
+        page = re.sub(r'src="(/assets/promo/[a-z]+\.vtt)"', lambda m: f'src="{m.group(1)}?v={ver}"', page)
         page = page.replace('src="/assets/documents.webp"', f'src="/assets/documents.webp?v={ver}"')
         page = re.sub(r'src="(/assets/guides/[a-z-]+\.webp)"', lambda m: f'src="{m.group(1)}?v={ver}"', page)
         (out / f"{slug}.html").write_text(page)

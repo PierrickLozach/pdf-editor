@@ -109,6 +109,7 @@ input:focus { outline: 2px solid color-mix(in srgb, var(--blue) 60%, transparent
 .shot { margin: 48px auto 0; max-width: 980px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; background: var(--bg2); }
 .shot img, .shot video { display: block; width: 100%; height: auto; }
 .shot video { background: #fff; }
+video.promo::cue { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-weight: 600; line-height: 1.35; color: #fff; background: rgba(0, 0, 0, .78); }
 .section .shot { margin-top: 28px; }
 .section { padding-top: 72px; }
 .section h2 { font-size: clamp(26px, 3.5vw, 36px); text-align: center; }
