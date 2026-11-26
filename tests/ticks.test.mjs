@@ -108,12 +108,25 @@ d.subset_fonts(); d.save(${JSON.stringify(out)},garbage=4,deflate=True)`]);
   const ink = (c) => c[0] < 120 && c[2] < 160;
   const inkIn = (bytes, b) => { let n = 0; for (let y = b[1]; y < b[3]; y++) for (let x = b[0]; x < b[2]; x++) if (ink(pix(bytes, x, y))) n++; return n; };
   ok(inkIn(out, [320, 320, 470, 373]) > 100, "the signature is drawn at its new place");
+  // upright, not mirrored: its highest peak (260,20 of 400x140) is near the top of the new box
+  const at = (b, px, py) => [b[0] + px / 400 * (b[2] - b[0]), b[1] + py / 140 * (b[3] - b[1])];
+  const near = (bytes, [x, y]) => inkIn(bytes, [Math.round(x) - 2, Math.round(y) - 2, Math.round(x) + 3, Math.round(y) + 3]);
+  ok(near(out, at(to, 260, 20)) > 0 && near(out, at(to, 260, 120)) === 0, "still upright after the move (not flipped)");
   e.undo(); const signed = e.export().slice(); e.redo();
   ok(inkIn(signed, [330, 400, 530, 470]) > 100 && inkIn(out, [330, 400, 530, 470]) === 0, "nothing left at its old place");
   ok(pix(out, 322, 322).every((v) => v > 240) && pix(signed, 332, 402).every((v) => v > 240), "still transparent (the page shows through its empty corner): " + pix(out, 322, 322) + " / before " + pix(signed, 332, 402));
   const saved = mupdf.Document.openDocument(out, "application/pdf");
   let n = 0; const dev = new mupdf.Device({ fillImage() { n++; } }); saved.loadPage(0).run(dev, mupdf.Matrix.identity); dev.close();
   ok(n === 1, "the saved PDF draws the picture once");
+  // moved again (and again): never flips
+  let cur = e.pageImages(0)[0];
+  for (const b of [[100, 600, 250, 652.5], [200, 650, 350, 702.5]]) {
+    const r2 = await e.moveImage(0, cur.id, b, { w: cur.w, h: cur.h, bbox: cur.bbox });
+    cur = { id: r2.id, bbox: r2.bbox, w: cur.w, h: cur.h };
+  }
+  const out2 = e.export().slice();
+  ok(near(out2, at([200, 650, 350, 702.5], 260, 20)) > 0 && near(out2, at([200, 650, 350, 702.5], 260, 120)) === 0, "still upright after three moves");
+  e.undo(); e.undo();
   let threw = false;
   try { await e.moveImage(0, now[0].id, [0, 0, 10, 10], { w: im.w, h: im.h, bbox: im.bbox }); } catch (err) { threw = /changed/.test(err.message); }
   ok(threw, "a stale picture box is refused (the page changed)");

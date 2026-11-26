@@ -2520,7 +2520,10 @@ export class Engine {
     const xo = subDict(doc, pageResources(doc, p2.getObject()), "XObject");
     const name = "PDFEImg" + this._tok().slice(0, 5);
     xo.put(name, ref);
-    const cm = M.concat(M.concat(d.ctm, fit), M.invert(p2.getTransform()));
+    // the device sees the image's unit square with its first row at the top (MuPDF flips it when it
+    // draws a PDF image): flip it back, or every move would turn the picture upside down
+    const unflip = [1, 0, 0, -1, 0, 1];
+    const cm = M.concat(M.concat(M.concat(unflip, d.ctm), fit), M.invert(p2.getTransform()));
     appendContent(doc, p2, `q\n${cm.map(fmt).join(" ")} cm\n/${name} Do\nQ`);
     s.textCache = new Map();
     await this._changed([pno]);
