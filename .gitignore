@@ -61,3 +61,6 @@ tools/finish_domain.sh
 !/tests/fixtures/newsletter.docx
 !/tests/pw/og.mjs
 !/tests/pw/pdf-shot.mjs
+# Private notes (ad plan, admin/statistics links): never committed.
+/docs/
+!/tests/pw/leaders.pw.mjs

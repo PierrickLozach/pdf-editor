@@ -30,9 +30,14 @@ function mvClear() { MV.sel = []; MV.page = -1; mvDraw(); }
 function mvHitAt(pg, p) {
   const tol = 1.5;
   const inside = mvSpans(pg).filter((s) => s.editable && s.text.trim() && p.x >= s.bbox[0] - tol && p.x <= s.bbox[2] + tol && p.y >= s.bbox[1] - tol && p.y <= s.bbox[3] + tol);
-  inside.sort((a, b) => (a.bbox[2] - a.bbox[0]) * (a.bbox[3] - a.bbox[1]) - (b.bbox[2] - b.bbox[0]) * (b.bbox[3] - b.bbox[1]));
+  // a form's dotted or underlined leader (".......", "____") often lies under the answer typed on it:
+  // the answer is what was clicked, the leader only when nothing else is there
+  const filler = (s) => MV_FILLER.test(s.text) ? 1 : 0;
+  const area = (s) => (s.bbox[2] - s.bbox[0]) * (s.bbox[3] - s.bbox[1]);
+  inside.sort((a, b) => filler(a) - filler(b) || area(a) - area(b));
   return inside[0] || null;
 }
+const MV_FILLER = /^[\s.\u2024\u2025\u2026\u00b7\u2022\u2219_\u2010-\u2015\u2212\-:;=~*]+$/;
 const mvLine = (pg, sp) => mvSpans(pg).filter((s) => s.editable && lineKey(s) === lineKey(sp));
 
 function mvSelect(pg, list, additive) {
