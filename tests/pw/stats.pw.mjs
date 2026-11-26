@@ -81,6 +81,13 @@ const cookie = (r3.headers.get("set-cookie") || "").split(";")[0];
 ok(r1.status === 404 && r2.status === 404 && r3.status === 303 && !/key=/.test(r3.headers.get("location") || "") && cookie, `stats page: 404 without the key or with a wrong one; with it, a sign-in redirect to the address without the key (${r1.status}/${r2.status}/${r3.status})`);
 const r4 = await fetch(B + "/api/stats", { headers: { Cookie: cookie } }), h = await r4.text();
 ok(r4.status === 200 && /PDFs opened/.test(h) && /Word or LibreOffice documents opened/.test(h) && /What people do with documents/.test(h) && /Pages \(all languages\)/.test(h), "the page shows PDFs and Word or LibreOffice documents side by side");
+{ // each day's number is written on its bar: every day with something has its total on top, the others nothing
+  const cols = [...h.matchAll(/<div class="col" title="[^:]*: ([^"]*)">(?:<b>([\d,]+)<\/b>)?/g)];
+  const bad = cols.filter(([, tip, label]) => { const t = [...tip.matchAll(/(\d+)/g)].reduce((a, m) => a + Number(m[1]), 0); return t ? Number((label || "").replace(/,/g, "")) !== t : !!label; });
+  ok(/class="bars across"/.test(h) && !/<svg/.test(h) && cols.length === 60 && cols.some(([, , l]) => l) && !bad.length, `charts: the number of each day is written on its bar (${cols.length} days, ${cols.filter(([, , l]) => l).length} numbered, ${bad.length} wrong)`);
+  const h365 = await (await fetch(B + "/api/stats?days=365", { headers: { Cookie: cookie } })).text();
+  ok(/class="bars top"/.test(h365) && /<b>\d/.test(h365), "charts over a year: the busiest days carry their number");
+}
 const j = await (await fetch(B + "/api/stats.json?days=30", { headers: { Cookie: cookie } })).json();
 ok(Array.isArray(j.docTypes) && Array.isArray(j.docFormats) && Array.isArray(j.pages) && j.series.every((d) => "docs" in d && "pdfs" in d), "JSON: documents per day, their kinds and download formats, pages in all languages");
 ok(!JSON.stringify(j).includes("secret-name"), "a detail the counter does not know (a file name) is never kept");

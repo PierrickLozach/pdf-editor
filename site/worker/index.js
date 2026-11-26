@@ -229,19 +229,35 @@ function page(f) {
     const d = Math.round(((now - was) / was) * 100);
     return `<span class="${d >= 0 ? "up" : "down"}">${d >= 0 ? "+" : ""}${d} %</span> vs the ${f.days} days before`;
   };
-  // one chart: visits as a line of bars; files opened per day, PDFs and documents stacked
+  // one chart: visits as a line of bars; files opened per day, PDFs and documents stacked.
+  // HTML bars (not a stretched SVG) so each day's number sits on its bar: up to 31 days written
+  // across, up to 100 days written upwards; for longer ranges only the busiest days carry a number
+  // (the exact figure of every day is in the bar's tooltip).
   const chart = (rows, title) => {
-    const max = Math.max(1, ...f.series.map((s) => rows.reduce((a, r) => a + s[r.k], 0)));
-    const w = 100 / f.series.length;
-    const bars = f.series.map((s, i) => {
-      let y = 100;
-      return rows.map((r) => {
-        const h = (s[r.k] / max) * 100; y -= h;
-        return h ? `<rect class="${r.c}" x="${(i * w).toFixed(2)}%" y="${y.toFixed(2)}%" width="${(w * 0.8).toFixed(2)}%" height="${h.toFixed(2)}%"><title>${s.day}: ${rows.map((q) => `${n(s[q.k])} ${q.label.toLowerCase()}`).join(", ")}</title></rect>` : "";
-      }).join("");
+    const tot = (s) => rows.reduce((a, r) => a + s[r.k], 0);
+    const max = Math.max(1, ...f.series.map(tot));
+    const many = f.series.length, H = 150, TOP = 22;          // px: chart height, room kept above the tallest bar
+    const mode = many <= 31 ? "across" : many <= 100 ? "up" : "top";
+    // long ranges: number the busiest days, busiest first, skipping a day too close to one already numbered
+    // (about 26 px apart on a 1100 px wide chart) so the numbers never overlap
+    const gap = Math.ceil((many * 26) / 1100), labelled = new Set();
+    if (mode === "top") for (const i of f.series.map((s, i) => i).filter((i) => tot(f.series[i]) > 0).sort((a, b) => tot(f.series[b]) - tot(f.series[a])))
+      if (![...labelled].some((j) => Math.abs(i - j) < gap)) labelled.add(i);
+    const cols = f.series.map((s, i) => {
+      const t = tot(s);
+      const tip = `${s.day}: ${rows.map((q) => `${n(s[q.k])} ${q.label.toLowerCase()}`).join(", ")}`;
+      const segs = rows.map((r) => {
+        if (!s[r.k]) return "";
+        const px = (s[r.k] / max) * (H - TOP);
+        // in a stacked bar, each part also shows its own number when it is tall enough to hold it
+        const inner = rows.length > 1 && rows.filter((q) => s[q.k]).length > 1 && px >= 16 && mode === "across" ? `<em>${n(s[r.k])}</em>` : "";
+        return `<span class="seg ${r.c}" style="height:${Math.max(px, 1).toFixed(1)}px">${inner}</span>`;
+      }).reverse().join("");
+      const label = t && (mode !== "top" || labelled.has(i)) ? `<b>${n(t)}</b>` : "";
+      return `<div class="col" title="${esc(tip)}">${label}${segs}</div>`;
     }).join("");
     return `<figure><figcaption>${esc(title)} <span class="legend">${rows.map((r) => `<i class="${r.c}"></i>${esc(r.label)}`).join(" ")}</span> <span class="small">· highest day: ${n(max)}</span></figcaption>
-<svg role="img" aria-label="${esc(title)}" viewBox="0 0 100 100" preserveAspectRatio="none">${bars}</svg>
+<div class="bars ${mode}" role="img" aria-label="${esc(title)}" style="grid-template-columns:repeat(${many},1fr)">${cols}</div>
 <div class="axis"><span>${esc(f.series[0].day)}</span><span>${esc(today.day)}</span></div></figure>`;
   };
   const table = (title, rows, label = (v) => v, total) => {
@@ -266,8 +282,14 @@ h3{font-size:16px;margin:30px 0 4px}
 .up{color:var(--ok)}.down{color:var(--bad)}
 figure{margin:0 0 16px}figcaption{font-weight:600;margin-bottom:6px}.legend{font-weight:400;font-size:13px;color:var(--muted);margin-left:8px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px;vertical-align:-1px}
-svg{width:100%;height:150px;background:var(--card);border-radius:12px;display:block}rect:hover{opacity:.7}
-.v,.legend i.v{fill:#8b93a1;background:#8b93a1}.p,.legend i.p{fill:var(--accent);background:var(--accent)}.d,.legend i.d{fill:var(--doc);background:var(--doc)}
+.bars{display:grid;align-items:end;height:150px;padding:0 4px;background:var(--card);border-radius:12px;box-sizing:border-box}
+.col{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;min-width:0}.col:hover .seg{opacity:.7}
+.seg{display:flex;align-items:center;justify-content:center;width:80%;flex:none}
+.col b{font-size:11px;font-weight:600;line-height:1;margin-bottom:3px;color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bars.up .col b{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;margin-bottom:3px}
+.bars.top .col{overflow:visible}.bars.top .col b{font-size:10px}
+.seg em{font-style:normal;font-size:10px;font-weight:600;color:#fff;line-height:1}
+.v,.legend i.v{background:#8b93a1}.p,.legend i.p{background:var(--accent)}.d,.legend i.d{background:var(--doc)}
 .axis{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:3px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:10px}section{background:var(--card);border-radius:12px;padding:14px}
 table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px solid var(--line)}td:nth-child(2){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
