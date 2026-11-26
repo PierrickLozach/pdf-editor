@@ -18,6 +18,10 @@
     }
   }
   window.PDFE_BROWSER_LANG = want;
+  // Search engines and ad reviewers (Googlebot, AdSense, Bing...) must see every language's own page:
+  // redirected, they would file /fr/, /de/... as "Page with redirect" and never index them.
+  var BOT = /bot|crawl|spider|slurp|mediapartners|inspectiontool|lighthouse|facebookexternalhit|embedly|preview/i;
+  if (BOT.test(navigator.userAgent || "")) return;
   if (want && want !== here && alts[want]) {
     var u = new URL(alts[want], location.href);
     if (u.pathname !== location.pathname) location.replace(u.pathname + location.search + location.hash);

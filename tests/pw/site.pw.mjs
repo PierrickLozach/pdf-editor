@@ -89,6 +89,20 @@ async function run(name) {
     ok((await p.evaluate(() => document.querySelector("#langSwitch").value)) === "auto", "the switcher shows “Browser language”");
     await fr.close();
 
+    // ---------------------------------------------------------------- search engines: every language's page stays itself
+    // (Google renders pages in an English browser: redirected, /fr/, /de/... were filed as "Page with redirect")
+    for (const ua of ["Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+                      "Mozilla/5.0 (compatible; Mediapartners-Google/2.1; +http://www.google.com/bot.html)",
+                      "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"]) {
+      const c = await browser.newContext({ locale: "en-US", userAgent: ua, viewport: { width: 1360, height: 900 } });
+      const g = watch(await c.newPage());
+      for (const path of ["/fr/", "/fr/guides", "/de/about", "/ja/privacy"]) {
+        await g.goto(BASE + path); await sleep(400);
+        ok(new URL(g.url()).pathname === path, `${ua.match(/Googlebot|Mediapartners-Google|bingbot/)[0]}: ${path} is not redirected`);
+      }
+      await c.close();
+    }
+
     // ---------------------------------------------------------------- Arabic and Japanese visitors
     for (const [loc, code, rx] of [["ar-SA", "ar", /[\u0600-\u06FF]/], ["he-IL", "he", /[\u0590-\u05FF]/], ["ja-JP", "ja", /[\u3040-\u30FF\u4E00-\u9FFF]/]]) {
       const c = await browser.newContext({ locale: loc, viewport: { width: 1360, height: 900 } });

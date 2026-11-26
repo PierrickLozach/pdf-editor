@@ -362,6 +362,13 @@ const OLD_HOSTS = new Set(["pdf-editor.pierrick35.workers.dev", "www." + CANONIC
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // plain http (http://quicktou.ch/...): one permanent redirect to the https page, on the domain itself,
+    // so Google files a single address per page. Off in local tests (.dev.vars FORCE_HTTPS=0).
+    if (env.FORCE_HTTPS === "1" && url.protocol === "http:" && (url.hostname === CANONICAL_HOST || OLD_HOSTS.has(url.hostname)) && !url.pathname.startsWith("/api/")) {
+      url.protocol = "https:";
+      if (env.REDIRECT_OLD === "1") url.hostname = CANONICAL_HOST;
+      return Response.redirect(url.href, 301);
+    }
     if (env.REDIRECT_OLD === "1" && OLD_HOSTS.has(url.hostname) && !url.pathname.startsWith("/api/")) {   // switched on once the domain is active
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.href, 301);
