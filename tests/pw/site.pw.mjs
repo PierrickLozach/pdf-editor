@@ -46,7 +46,9 @@ async function run(name) {
     ok(/script-src 'self'/.test(csp) && /frame-ancestors 'none'/.test(csp), "security headers on the pages");
     const hl = await p.evaluate(() => [...document.querySelectorAll('link[hreflang]')].map((l) => l.hreflang));
     ok(hl.length === 13 && hl.includes("ar") && hl.includes("ja") && hl.at(-1) === "x-default", "each page names its 12 language versions (search engines): " + hl.join(","));
-    ok(await p.evaluate(() => { const i = document.querySelector(".shot img"); return i.complete && i.naturalWidth > 0; }), "editor screenshot loads");
+    ok(await p.locator("section.hero video.promo").evaluate((v) => v.readyState >= 1 || new Promise((r) => { v.addEventListener("loadedmetadata", () => r(true)); setTimeout(() => r(v.readyState >= 1), 5000); })), "landing page video loads");
+    await p.locator("#features .shot img").scrollIntoViewIfNeeded();
+    ok(await p.locator("#features .shot img").evaluate((i) => (i.complete && i.naturalWidth > 0) || new Promise((r) => { i.addEventListener("load", () => r(i.naturalWidth > 0)); setTimeout(() => r(i.naturalWidth > 0), 5000); })), "editor screenshot loads (once scrolled to)");
     await p.screenshot({ path: `${OUT}/${name}-en.png` });
     for (const [path, rx] of [["/privacy", /Privacy/], ["/cookies", /Cookies/], ["/terms", /Terms of use/], ["/legal", /Legal notice/]]) {
       r = await p.goto(BASE + path);

@@ -314,6 +314,7 @@ for l in LANGS:
         page = re.sub(r'(<nav class="site-nav"[^>]*>.*?</nav>)', lambda m: m.group(1).replace(f'<a href="{path}">', f'<a href="{path}" aria-current="page">'), page, count=1, flags=re.S)
         page = page.replace('src="/assets/editor.webp"', f'src="/assets/editor.webp?v={ver}"')
         page = page.replace('src="/assets/demo.gif"', f'src="/assets/demo.gif?v={ver}"')
+        page = page.replace('src="/assets/promo.mp4" poster="/assets/promo-poster.webp"', f'src="/assets/promo.mp4?v={ver}" poster="/assets/promo-poster.webp?v={ver}"')
         page = page.replace('src="/assets/documents.webp"', f'src="/assets/documents.webp?v={ver}"')
         page = re.sub(r'src="(/assets/guides/[a-z-]+\.webp)"', lambda m: f'src="{m.group(1)}?v={ver}"', page)
         (out / f"{slug}.html").write_text(page)

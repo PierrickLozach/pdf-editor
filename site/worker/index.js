@@ -387,6 +387,25 @@ export default {
     // (its own storage, none of the editor's file handling): back to the editor
     if ((url.pathname === "/app/edentext/" || url.pathname === "/app/edentext/index.html") && request.headers.get("Sec-Fetch-Dest") === "document")
       return Response.redirect(new URL("/app/", url).href, 302);
+    if (url.pathname.endsWith(".mp4")) return ranged(request, await env.ASSETS.fetch(request));
     return env.ASSETS.fetch(request);
   },
 };
+
+// Static assets ignore Range requests, and Safari (Mac, iPhone, iPad) plays a video only when the server
+// answers them with 206 Partial Content: the landing page video gets its byte ranges here.
+async function ranged(request, res) {
+  if (res.status !== 200) return res;
+  const h = new Headers(res.headers);
+  h.set("Accept-Ranges", "bytes");
+  const m = /^bytes=(\d*)-(\d*)$/.exec((request.headers.get("Range") || "").trim());
+  if (!m || (m[1] === "" && m[2] === "")) return new Response(res.body, { status: 200, headers: h });   // no range (or several): the whole file
+  const buf = await res.arrayBuffer(), size = buf.byteLength;
+  let start, end;
+  if (m[1] === "") { start = Math.max(0, size - Number(m[2])); end = size - 1; }                       // bytes=-500: the last 500
+  else { start = Number(m[1]); end = m[2] === "" ? size - 1 : Math.min(Number(m[2]), size - 1); }
+  if (start >= size || start > end) { h.set("Content-Range", `bytes */${size}`); h.delete("Content-Length"); return new Response(null, { status: 416, headers: h }); }
+  h.set("Content-Range", `bytes ${start}-${end}/${size}`);
+  h.set("Content-Length", String(end - start + 1));
+  return new Response(request.method === "HEAD" ? null : buf.slice(start, end + 1), { status: 206, headers: h });
+}

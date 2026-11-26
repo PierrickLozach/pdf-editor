@@ -16,6 +16,9 @@ if (sel) {
     location.href = sel.selectedOptions[0].dataset.href + location.hash;
   });
 }
+// landing page video: plays by itself, muted (the controls turn the sound on); still for people who asked for less motion
+const promo = $("video.promo");
+if (promo && matchMedia("(prefers-reduced-motion: reduce)").matches) { promo.autoplay = false; promo.pause(); }
 const y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 // privacy page: "Do not count my visits in this browser"
 const opt = $("#statsOptOut");
